@@ -1,0 +1,73 @@
+(|aba| ((aba cat adv) (aba cat conj)))	
+(|acc| ((accA cat adj classe (4))))						; good
+(|AjAxI| ((AjAxI cat noun classe (13))))
+   (|Ama| ((Ama cat noun classe (0) gender m number sing case dir)))		; mango
+(|Al| ((AlU cat noun classe (11))))
+(|amIra| ((amIra cat adj classe (1))))
+(|anek| ((anekA cat adj classe (5))))						; many
+(|Apawwi| ((Apawwi cat noun classe (17))))						; hope
+(|ASA| ((ASA cat noun classe (16))))						; hope
+(|Axam| ((AxamI cat noun classe (10))))
+(|bAhU| ((bAhU cat noun classe (19))))
+(|bAlaka| ((bAlaka cat adj classe (0) gender m number sing case allval)))
+(|bAlIka| ((bAlaka cat adj classe (0) gender f number sing case allval)))
+(|bAlU| ((bAlU cat noun classe (13))))
+(|BARAvix| ((BARAvix cat noun classe (3))))
+   (|bhagatA| ((bhagatA cat verb classe (0) tense pres mood participle transitive no)))  ; run
+(|BIda| ((BIda cat noun classe (13))))
+(|C| ((CU cat verb classe (6))))
+(|din| ((din cat noun classe (3))))						; day
+   (|douDA| ((douDA cat verb classe (0) person 3 number sing tense pres mood ind transitive no)))  ; run
+   (|gayA| ((gayA cat verb classe (0) person 3 number sing tense past mood ind transitive yes)))  ; went
+(|Gar| ((Gara cat noun classe (7))))						; home
+(|geh| ((gehUz cat noun classe (12))))
+(|gudiy| ((gudiyA cat noun classe (15))))
+   (|hei| ((hei cat verb type aux classe (0) person 3 number sing tense pres mood ind transitive no))) ; is
+(|ho| ((ho cat verb classe (4))))
+   (|huA| ((huA cat verb type aux classe (0) tense pres mood gerund transitive no)))  ; being
+(|IrRyA| ((IrRyA cat noun classe (13))))
+   (|jotatA| ((jotatA cat verb classe (0) tense pres mood participle transitive yes)))  ; plough
+(|KA| ((KA cat verb classe (1))))						; to eat
+   (|kahA| ((kahA cat verb classe (0) person 3 number sing tense past mood ind transitive yes)))  ; said
+(|kal| ((kalA cat adj classe (3))))						; black
+(|kamr| ((kamrA cat noun classe (4))))
+(|kar| ((kara cat verb classe (2))))
+(|Karc| ((KarcA cat noun classe (6))))
+(|katu| ((katu cat noun classe (2))))
+(|kav| ((kavi cat noun classe (9))))
+   (|khAkara| ((khAkara cat verb classe (0) tense past mood gerund transitive yes)))  ; having-eaten
+   (|khAtA| ((khAkara cat verb classe (0) tense pres mood participle transitive yes)))  ; eaten
+   (|khate| ((khate cat noun classe (0) gender f number sing case dir)))	; farm
+   (|ki| ((ki cat conj type subord semtype neutral)))  				; that
+   (|kisAna| ((kisAna cat noun classe (0) gender m number sing case dir)))	; farmer
+   (|ko| ((ko cat prep type mono)))   ; dative
+(|kroXa| ((kroXa cat noun classe (2))))						; resentment
+(|ku| ((kuAz cat noun classe (8))))
+(|laDak| ((laDakA cat noun classe (1))))					; boy/girl
+   (|lagA| ((lagA cat verb classe (0) person 3 number sing tense past mood ind transitive yes)))  ; felt
+(|l| ((le cat verb classe (3))))
+(|lahu| ((lahu cat noun classe (2))))
+(|lO| ((lO cat noun classe (20))))
+(|loh| ((lohA cat noun classe (5))))						; iron
+(|mAz| ((mAz cat noun classe (21))))	
+   (|mohana| ((mohana cat noun classe (0) gender m number sing case obl)))	; Mohan
+   (|ne| ((ne cat prep type mono)))   ; ergative
+(|p| ((pI cat verb classe (5))))
+   (|pAnii| ((pAnii cat noun classe (0) gender m number sing case dir)))	; water
+   (|patanga| ((patanga cat noun classe (0) gender m number sing case dir)))	; kite
+   (|piyA| ((piyA cat verb classe (0) person 3 number sing tense past mood ind transitive yes)))  ; drank
+(|qwu| ((qwu cat noun classe (18))))
+(|rAw| ((rAwa cat noun classe (14))))
+(|rAjA| ((rAjA cat noun classe (3))))
+(|redio| ((redio cat noun classe (2))))
+(|sarala| ((sarala cat adj classe (1))))
+(|SAnwi| ((SAnwi cat noun classe (13))))
+(|sarasoM| ((sarasoM cat noun classe (13))))
+(|sawru| ((sawru cat noun classe (3))))
+(|so| ((so cat verb classe (8))))
+   (|uDAyI| ((uDAyI cat verb classe (0) person 3 number sing tense past mood ind transitive yes)))  ; flew
+(|usak| ((usakA cat pron type poss classe (2))))				; her/his
+   (|usane| ((usane cat pron classe (0) gender m number sing case dir)))        ; he
+(|uT| ((uTa cat verb classe (7))))
+(|vAyu| ((vAyu cat noun classe (13))))
+(|viXAwA| ((viXAwA cat noun classe (2))))

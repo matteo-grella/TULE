@@ -1,0 +1,24 @@
+; *** in this file noun-noun modifications admitted in Italian
+(setq *NOUN-NOUN*
+   '(
+     (banca dato)
+     (convenzione quadro)
+     (effetto serra)
+     (frequanza radio)
+     (impulso radio)
+     (onda radio)
+     (pallone sonda)
+     (parte ricambio)
+     (radar jamming)
+     (radar doppler)
+     (radio detection)
+     (razzo sonda)
+     (razzo vettore)
+     (schermo radar)
+     (sistema radar)
+     (squawk code)
+     (stato membro)
+     (transponder code)
+     (transponder sonar)
+    ))
+

@@ -1,0 +1,67 @@
+(in-package "USER")
+
+; **************************************************************************
+; *** the locutions in this file are of two types: fixed and flexible.
+;     - fixed: they are sequences of words that are not subject to morphological
+;              analysis, and that are strictly adjacent to each other
+;     - flexible: as above, but with the possibility of morphological variations.
+;              ex "conferenza stampa" --> "conferenze stampa"
+;                 "da solo" --> "da soli"
+;     They are stored as pairs <form infos>, but in a single sequence, so the
+;     actual internal structure is <form1 infos1 form2 infos2 .... formN infosN>
+; *** the sequences are linked via a double mechanism:
+;     1. The "normalized form" must be the same for all component forms (as
+;        "of_course" in the following example:
+;             ( ...
+;               of      <of_course ...>
+;               course  <of_course ...>
+;               ... )
+;     2. The "root", "next", "prev" features in the "infos", which implement
+;        a doubly-linked list structure
+;             ( ...
+;               of      <.. prev nil root of next course ...>
+;               course  <.. prev or root course next nil ...>
+;               ... )
+; *** In general, the organization of each info-i is as follows:
+;     ( info-locut-1 info-locut-2 ... info-locut-N )
+;     This is due to the fact that eac form can belong to more than one locution
+;     In its turn, each info-locut-i includes the following:
+;     ( normalized-form CAT category TYPE synt-type LOCUT YES LOCTYPE fixed/flex
+;          PREV prev-form ROOT this-form NEXT next-form other-syntinfo)
+
+; ----------------------- list of locutions ---------------------
+; a_partir_de
+; a_favor_de
+; esta_noche
+; fecha_tope
+; por_ejemplo
+; por_medio_de
+; settembre_musica
+; si_bien
+; ---------------------------------------------------------------
+
+(loadinvar 'locutdef
+'(
+  a ((a_partir_de cat prep type poli locut yes semtype time root a loctype fixed prev nil next partir)
+       (a_favor_de cat prep type poli locut yes root a loctype fixed prev nil next favor))
+  agenda ((agenda_cultural cat noun classe (0) gender f number sing locut yes loctype fixed root agenda prev nil next cultural))
+  bien ((si_bien cat conj type subord locut yes semtype concess root bien loctype fixed prev si next nil))
+  cultural ((agenda_cultural cat noun classe (0) gender f number sing locut yes loctype fixed root cultural prev agenda next nil))
+  de ((a_partir_de cat prep type poli locut yes semtype time root de loctype fixed prev partir next nil)
+        (por_medio_de cat prep type poli locut yes root de loctype fixed prev medio next nil)
+        (a_favor_de cat prep type poli locut yes root de loctype fixed prev favor next nil))
+  ejemplo ((por_ejemplo cat adv type manner locut yes loctype fixed root ejemplo prev por next nil))
+  esta ((esta_noche cat adv type time locut yes root esta loctype fixed prev nil next noche))
+  favor ((a_favor_de cat prep type poli locut yes root favor loctype fixed prev a next de))
+  fecha ((fecha_tope cat noun locut yes gender f number sing root fecha loctype fixed prev nil next tope))
+  medio ((por_medio_de cat prep type poli locut yes root medio loctype fixed prev por next de))
+  musica ((settembre_musica cat noun locut yes gender m number sing root musica loctype fixed prev settembre next nil))
+  noche ((esta_noche cat adv type time locut yes root noche loctype fixed prev esta next nil))
+  partir ((a_partir_de cat prep type poli locut yes semtype time root partir loctype fixed prev a next de))
+  por ((por_medio_de cat prep type poli locut yes root por loctype fixed prev nil next medio)
+         (por_ejemplo cat adv type manner locut yes loctype fixed root por prev nil next ejemplo))
+  |settembre| ((settembre_musica cat noun locut yes gender m number sing root settembre loctype fixed prev nil next musica))
+  |si| ((si_bien cat conj type subord locut yes semtype concess root si loctype fixed prev nil next bien))
+  |tope| ((fecha_tope cat noun locut yes gender f number sing root tope loctype fixed prev fecha next nil))
+				))
+

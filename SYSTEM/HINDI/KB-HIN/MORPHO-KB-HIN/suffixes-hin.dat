@@ -1,0 +1,199 @@
+(setq *SUFFIX-TABLE*
+  '(;adv
+    ;  (1 ()
+    ;  )	                          ; *** end of adverbs **********************
+    adj
+    ;       MS    FS     MPl    FPl 
+      (0 ((nil    nil    nil    nil)    
+          (nil    nil    nil    nil))
+       1 ((@empt  @empt  @empt  @empt)  ; *** sarala (simple), amIra ()
+          (@empt  @empt  @empt  @empt))
+       2 ((|A|    |I|    |e|    |I|)    ; *** usak-A (her/his)
+          (|e|    |I|    |e|    |I|))
+       3 ((|A|    |A|    |e|    |i|)    ; *** kAl-A (black)
+          (|e|    |I|    |e|    |i|))
+       4 ((|e|    |I|    |e|    |i|)    ; *** acc-A (good)
+          (|e|    |I|    |e|    |i|))
+       5 ((|a|    |a|    |a|    |a|)    ; *** anek-a (many)
+          (|oM|   |oM|   |oM|   |oM|))
+      )	                          ; *** end of adjectives *******************
+    noun
+      (
+       1  ((|A|   |I|    |e|    |iyAz|) 			; *** laDak-A (boy-girl) 
+           (|e|   |I|    |oM|   |iyoM|))  			;     both masculine and feminine
+       2  ((@empt   nil    @empt    nil)        		; direct; uninflected masculine
+           (@empt   nil    @empt    nil))               	; oblique
+                ; kroXa- (resentment), viXAwA- (), pAnI- (),
+                ; redio- (), katu- (), lahU- () 
+       3  ((@empt nil    @empt  nil)    ; *** rAjA- ()  	; direct case
+           (@empt nil    |oM|   nil))  	; *** BARAvix- () 	; oblique case
+                                        ; *** sawru-
+       4  ((|A|   nil    |e|    nil) 	; *** kamr-A (room) 	; direct case
+           (|e|   nil    |oM|   nil))  				; oblique case
+       5  ((|A|   nil    |e|    nil)    ; *** loh-A (iron)  	; direct case
+           (|e|   nil    |e|    nil))    		    	; oblique case
+       6  ((|a|   nil    |a|    nil)    ; *** Karc-a ()     	; direct case
+           (|e|   nil    |oM|   nil))  	         	    	; oblique case
+       7  ((|a|   nil    |a|    nil)    ; *** Gar-a (home)  	; direct case
+           (|a|   nil    |oM|   nil))  	         	    	; oblique case
+       8  ((|Az|  nil    |Ez|   nil)    ; *** ku-Az (well)  	; direct case
+           (|Az|  nil    |oM|   nil))  	         	    	; oblique case
+       9  ((|i|   nil    |i|    nil)    ; *** kav-i ()      	; direct case
+           (|i|   nil    |iYoM| nil))  	         	    	; oblique case
+       10 ((|I|   nil    |I|    nil)    ; *** Axam-I ()     	; direct case
+           (|I|   nil    |iYoM| nil))  	         	    	; oblique case
+       11 ((|U|   nil    |U|    nil)    ; *** Al-U ()       	; direct case
+           (|U|   nil    |uoM|  nil))  	         	    	; oblique case
+       12 ((|Uz|  nil    |Uz|   nil)    ; *** geh-Uz ()     	; direct case
+           (|Uz|  nil    |uzoM| nil))  	         	    	; oblique case
+       13 ((nil     @empt  nil      @empt)   			; uninflected feminine
+           (nil     @empt  nil      @empt))
+                ;  BIda- (), IrRyA- (), SAnwi- (), AjAxI- (),
+                ;  vAyu- (), bAlU- (), sarasoM- ()
+       14 ((nil   |a|    nil    |a|)    ; *** rAw-a ()          ; direct case
+           (nil   |eM|   nil    |oM|))           	        ; oblique case
+       15 ((nil   |A|    nil    |A|)    ; *** gudiy-A ()        ; direct case
+           (nil   |Az|   nil    |oM|))           	    	; oblique case
+       16 ((nil   @empt  nil    @empt)    ; *** ASA- ()       	; direct case
+           (nil   (|yeM| |ez|) nil |oM|))           	    	; oblique case 
+       17 ((nil   @empt  nil    @empt)   ; *** Apawwi- ()   	; direct case
+           (nil   |yAz|  nil    |yoM|))        	            	; oblique case
+       18 ((nil   @empt  nil    @empt)   ; *** qwu- ()      	; direct case
+           (nil   |ez|   nil    |oM|))  	       	    	; oblique case
+       19 ((nil   |U|    nil    |U|)    ; *** bah-U ()          ; direct case
+           (nil   (|uyeM| |uez|) nil |uoM|))           	    	; oblique case 
+       20 ((nil   @empt  nil    @empt)   ; *** lO- ()       	; direct case
+           (nil   |ez|   nil    |voM|))  	       	    	; oblique case
+       21 ((nil   @empt  nil    @empt)   ; *** mAz- ()      	; direct case
+           (nil   |yeM|  nil    |oM|))          	    	; oblique case
+       22 ((nil   @empt  nil    @empt)   ; *** pot-o ()      	; direct case
+           (nil   |ez|   nil    |oM|))          	    	; oblique case
+      )	                                ; *** end of nouns *******************
+    verb
+    ; *** note that each line refers to one mood-tense combination of a given paradigm
+    ;     It is included in double parentheses, to account for the possibility that it
+    ;     be case-inflected. If no case is involved, a single sub-parenthesis occcurs
+      (1  (					; *** KA- (eat)
+           ((|yA|             (|e| |ye|)      (|I| |yI|)       (|IM| |yIM|)))  	    ; (a) base past         (yA)
+           ((|UzgA|           (|egA| |yegA|)  (|iegA| |iyegA|) (|egA| |yegA|)	    ; (b) base future m sing
+             (|ezge| |yeMge|) |oge|           (|iegA| |iyegA|) (|ezge| |yeMge|)	    ;     base future m pl
+             |UzgI|           (|egI| |yegI|)  (|iegA| |iyegA|) (|egI| |yegI|)	    ;     base future f sing
+             (|ezgI| |yeMgI|) |ogI|           (|iegA| |iyegA|) (|ezgI| |yeMgI|)))   ;     base future f pl
+           ((|Uz|             (|e| |ye|)      (|ie| |iye|)     (|e| |ye|)	    ; (c) subj sing
+             (|ez| |yeM|)     |o|             (|ie| |iye|)     (|ez| |yeM|)))	    ;     subj pl
+           ((|kara|))						                    ; (h) participle pres
+           ((|wA|             |we|            |wI|             |wIM|))	    	    ; (i) participle past   (wA)
+           ((|nA|))		 						    ; (l) infinitive pres	
+           ((|nA|             |ne|            |nI|             |nIM|))		    ; (m) infinitive past   (nA)	
+          )
+       2  (					; *** k-ara ()
+           ((|iyA|            (|ie| |iye|)    |I|                  |IM|))	    ; (a) base past         (yA)
+           ((|arUzgA|         |aregA|         (|ariegA| |IjiyegA|) |aregA| 	    ; (b) base future m sing
+             |areMge|         |aroge|         (|ariegA| |IjiyegA|) |areMge|         ;     base future m pl
+             |arUzgI|         |aregI|         (|ariegA| |IjiyegA|) |aregI|	    ;     base future f sing
+             |areMgI|         |arogI|         (|ariegA| |IjiyegA|) |areMgI|))	    ;     base future f pl
+           ((|arUz|           |are|           (|arie| |Ijiye|)     |are|	    ; (c) subj sing
+             |areM|           |aro|           (|arie| |Ijiye|)     |areM|))    	    ;     subj pl
+           ((|arara|))								    ; (h) participle pres
+           ((|arawA|          |arawe|         |arawI|              |arawIM|))	    ; (i) participle past   (wA)
+           ((|aranA|))		 						    ; (l) infinitive pres	
+           ((|aranA|          |arane|         |aranI|              |aranIM|))	    ; (m) infinitive past   (nA)	
+          )
+       3  (					; *** l-e ()
+           ((|iyA|            (|ie| |iye|)    |I|                  |IM|))	    ; (a) base past         (yA)
+           ((|UzgA|           |egA|           (|IjiegA| |IjiyegA|) |egA|   	    ; (b) base future m sing
+             |eMge|           |oge|           (|IjiegA| |IjiyegA|) |eMge|	    ;     base future m pl
+             |UzgI|           |egI|           (|IjiegA| |IjiyegA|) |egI|  	    ;     base future f sing
+             |eMgI|           |ogI|           (|IjiegA| |IjiyegA|) |eMgI|))	    ;     base future f pl
+           ((|Uz|             |e|             (|Ijie| |Ijiye|)     |e|	            ; (c) subj sing
+             |eM|             |o|             (|Ijie| |Ijiye|)     |eM|))	    ;     subj pl
+           ((|ekara|))								    ; (h) participle pres	
+           ((|ewA|            |ewe|           |ewI|                |ewIM|))	    ; (i) participle past   (wA)
+           ((|enA|))								    ; (l) infinitive pres	
+           ((|enA|            |ene|           |enI|                |enIM|))	    ; (m) infinitive past   (nA)
+          )
+       4  (					; *** h-o ()
+           ((|uA|             (|ue| |uye|)    (|uI| |uyI|)         (|uIM| |uyIM|))) ; (a) base past         (yA)
+           ((|oUzgA|          |ogA|           (|oiegA| |oiyegA|)   |ogA|            ; (b) base future m sing
+             |oMge|           |oge|           (|oiegA| |oiyegA|)   |oMge|	    ;     base future m pl
+             |oUzgI|          |ogI|           (|oiegA| |oiyegA|)   |ogI|	    ;     base future f sing
+             |oMgI|           |oogI|          (|oiegA| |oiyegA|)   |oMgI|))	    ;     base future f pl
+           ((|oUz|            |o|             (|oie| |oiye|)       |o|	            ; (c) subj sing
+             (|oez| |oyeM|)   |oo|            (|oie| |oiye|)       (|oez| |oyeM|))) ;     subj pl
+           ((|okara|))								    ; (h) participle pres	
+           ((|owA|            |owe|           |owI|                |owIM|))	    ; (i) participle past   (wA)
+           ((|onA|))								    ; (l) infinitive pres	
+           ((|onA|            |one|           |onI|                |onIM|))	    ; (m) infinitive past   (nA)
+          )
+       5  (					; *** p-I ()
+           ((|iyA|            (|ie| |iye|)    |I|                  |IM|))	    ; (a) base past         (yA)
+           (((|iUzgA| |iyUzgA|) (|iegA| |iyegA|) (|IjiegA| |IjiyegA|) (|iega| |iyeMgA|); (b) base future m sing
+            (|iezge| |iyeMge|) |ioge|           (|IjiegA| |IjiyegA|) (|iezge| |iyeMge|);     base future m pl
+            (|iyUzgI| |iuzgI|) (|iegI| |iyegI|) (|IjiegA| |IjiyegA|) (|iegI| |iyegI|)  ;     base future f sing
+            (|iezgI| |iyeMgI|) |iogI|          (|IjiegA| |IjiyegA|) (|iezgI| |iyeMgI|)));   base future f pl
+           ((|iUz|             (|ie| |iye|)    (|Ijie| |Ijiye|)   (|ie| |iye|)      ; (c) subj sing
+            (|iez| |iyeM|)     |io|            (|Ijie| |Ijiye|)   (|iez| |iyeM|)))  ;     subj pl
+           ((|ikara|))								    ; (h) participle pres	
+           ((|iwA|            |iwe|           |iwI|                |iwIM|))	    ; (i) participle past   (wA)
+           ((|inA|))								    ; (l) infinitive pres	
+           ((|inA|            |ine|           |inI|                |inIM|))	    ; (m) infinitive past   (nA)
+          )
+       6  (					; *** C-U ()
+           ((|uA|             (|ue| |uye|)     (|uI| |uyI|)       (|uIM| |uyiM|)))    ; (a) base past         (yA)
+           ((|uUzgA|          (|uegA| |uyegA|) (|uiegA| |uiyegA|) (|uegA| |uyegA|)    ; (b) base future m sing
+             (|uezge| |uyeMge|) |uoge|         (|uiegA| |uiyegA|) (|uezge| |uyeMge|)  ;     base future m pl
+             |uUzgI|          (|uegI| |uyegI|) (|uiegA| |uiyegA|) (|uegI| |uyegI|)    ;     base future f sing
+             (|uezgI| |uyeMgI|) |uogI|         (|uiegA| |uiyegA|) (|uezgI| |uyeMgI|)));     base future f pl
+           ((|uUz|            (|ue| |uye|)     (|uie| |uiye|)     (|ue| |uye|)        ; (c) subj sing
+            (|uez| |uyeM|)    |uo|             (|uie| |uiye|)     (|uez| |uyeM|)))    ;     subj pl
+           ((|ukara|))								    ; (h) participle pres	
+           ((|uwA|            |uwe|           |uwI|                |uwIM|))	    ; (i) participle past   (wA)
+           ((|unA|))								    ; (l) infinitive pres	
+           ((|unA|            |une|           |unI|                |unIM|))	    ; (m) infinitive past   (nA)
+          )
+       7  (					; *** uT-a ()
+           ((|A|              |e|             |I|                  |IM|))	    ; (a) base past         (yA)
+           ((|UzgA|           |egA|           (|iegA| |iyegA|)     |egA|            ; (b) base future m sing
+             |eMge|           |oge|           (|iegA| |iyegA|)     |eMge|	    ;     base future m pl
+             |UzgI|           |egI|           (|iegA| |iyegA|)     |egI|	    ;     base future f sing
+             |eMgI|           |ogI|           (|iegA| |iyegA|)     |eMgI|))	    ;     base future f pl
+           ((|Uz|             |e|             (|ie| |iye|)         |e|	    	    ; (d) subj sing
+             |eM|             |o|             (|ie| |iye|)         |eM|))	    ;     subj pl
+           ((|kara|))								    ; (h) participle pres	
+           ((|wA|             |we|            |wI|                 |wIM|))	    ; (i) participle past   (wA)
+           ((|nA|))								    ; (l) infinitive pres	
+           ((|nA|             |ne|            |nI|                 |nIM|))	    ; (m) infinitive past   (nA)
+          )
+       8  (					; *** so- ()
+           ((|yA|             (|e| |ye|)      (|I| |yI|)           (|IM| |yIM|)))   ; (a) base past         (yA)
+           ((|UzgA|           (|egA| |yegA|)  (|iegA| |iyegA|)     (|ega| |yegA|)   ; (b) base future m sing
+             |yeMge|          |oge|           (|iegA| |iyegA|)     |yeMge|	    ;     base future m pl
+             |UzgI|           |yegI|          (|iegA| |iyegA|)     |yegI|	    ;     base future f sing
+             |yeMgI|          |ogI|           (|iegA| |iyegA|)     |yeMgI|))	    ;     base future f pl
+           ((|Uz|             @empt           (|ie| |iye|)         |e|              ; (c) subj sing
+             (|ez| |yeM|)     |o|             (|ie| |iye|)         (|ez| |yeM|)))   ;     subj pl
+           ((|kara|))								    ; (h) participle pres	
+           ((|wA|             |we|            |wI|                 |wIM|))	    ; (i) participle past   (wA)
+           ((|nA|))								    ; (l) infinitive pres	
+           ((|nA|             |ne|            |nI|                 |nIM|))	    ; (m) infinitive past   (nA)
+          )
+            
+       )                             ; *** end of verbs *******************
+ ))             ; ************** end of suffix infos ************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

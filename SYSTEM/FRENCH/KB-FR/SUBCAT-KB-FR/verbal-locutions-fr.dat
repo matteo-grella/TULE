@@ -1,0 +1,15 @@
+; ££££££££££££££££££££ 
+; This file includes the
+;	DEFINITION OF THE CLASSES (HIERARCHY NODES)
+; ££££££££££££££££££££ 
+
+(in-package "USER")
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			DEFINITION OF THE VERBAL LOCUTIONS (FRENCH)
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+(setq *VERBAL-LOCUTIONS*
+'(
+))
+

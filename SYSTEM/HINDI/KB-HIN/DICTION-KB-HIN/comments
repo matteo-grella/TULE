@@ -1,0 +1,125 @@
+The shabd.txt dictionary has been "reversed" in order to 
+obtain the first version of a morphological Hindi dictionary.
+
+The following questions and comments have come to my mind:
+
+1. The list of categories occurring in the Lex_Cat lines been converted into the
+   listed category of the TULE envirronment 
+   Adj		--> ADJ
+   Adv		--> ADV
+   Art		--> ART
+   Comp		--> CONJ TYPE SUBORD (complementizer?)
+   Interj	--> INTERJ
+   N		--> NOUN
+   Prep		--> PREP
+   Pron		--> PRON TYPE PERS (personal pronoun)
+   PossPron	--> PRON TYPE POSS (possessive pronoun)
+   Refl Pron	--> PRON TYPE REFL-IMPERS (reflexive/impersonal pronoun)
+                    (possibly the "impersonal" use is peculiar of Italian)
+   Rel Pron	--> PRON TYPE REL (relative pronoun)
+   V 		--> VERB
+   VT 		--> VERB
+   VI		--> VERB
+   VTI 		--> VERB
+   AuxV 	--> VERB TYPE AUX (auxiliaries)
+   MV 		--> VERB TYPE MOD (modals)
+
+     The following categories are more problematic
+   Det		--> UNKNOWN (this includes numbers [eight, fifteen, ...], ordinals
+                             [fourteenth, second, ...], indefinite adjectives
+                             [some, several, ...]. Since there are just 61
+                             occurrences, I will split by hand in the different
+                             TULE categories: NUM, ADJ TYPE ORDIN, ADJ TYPE INDEF)
+                             Possibly, indefinite pronouns should also be included
+                             "Some of them will come")
+        Note: It is not clear to me the difference of the four classes above. It could
+              seem that the T and I tag keeps apart Transitives from Intransitives; 
+              however, in the dictionary, we find:
+              - abort (VI) "Peace talks had to be aborted" (transitive)
+              - apply_3 (VI) "Apply the breaks wherever necessary (transitive)
+              - approximate (VTI) "These statistics approximate the figures we have"
+                     (I do not know an intransitive use of "approximate")
+              Moreover, if the interpretation is correct, it is not clear what is the role
+              of the V category.
+   Interro	--> UNKNOWN (there are just two occurrences, i.e. "whose" and "why", but
+                             not for "when", "where", etc.. I will cope with them by hand)
+   Comb form	--> I skipped them (7 occurrences, they seem to be prefixes 
+                    [aero, eco-, equi-, ...], but I do not handle them, and I do not
+                    know if this applies just to English, or also to Hindi)
+   Pref		--> Same as above. I didn't get the difference [ante, inter-, sub-, ...]
+                    (21 lines)
+   Suffix	--> Same as above for suffixes [-arian, ify, -wise, ...] (10 lines)
+   IDM		--> Idioms ["affaire de coeur", "at first hand"] (208 entries). I
+                    skipped them, since MultiWord expression are treated in a separate
+                    dictionary. Also, it depends on the Hindi version, not English.
+   Abbr		--> Abbreviations. The same as for idioms. (74 entries)
+   Part		--> I do not know! Just two instances: "around", "apart". Skipped.
+   PhrV		--> Phrasal verbs? These are compound verbs, including an adverb
+                    (blow_up, carry_away, ...). There are 337 entries. Again, they
+                    are represented in a different way in TULE, and the tag applies
+                    to English, not necessarily to Hindi, so I skipped them
+   PhrVT	--> Transitive Phrasal verbs? Applied just to compounds of "keep"
+                    [keep_at, keep_away, ...]. Skipped
+   PhrVI	--> Same as above (intransitive readings of keep_at, ...?). Skipped
+   PropN	--> 1 occurrence for Santa Claus. Skipped
+   VP		--> These seem again phrasal verbs [tuck_into, tumble_down]. 5 entries. Skipped
+
+   There is also an occurrence of category "Pron." [umpteen] that I changed to "Pron"
+
+2. QUESTION-1: What does the slash stand for? (e.g. "aBAgA/becArA" (poor), "aBAva/kamI" (scarcity))
+
+3. QUESTION-2: What does the curled brackets stand for? (e.g. "AhlAxa{ucca}", Akqwi{reKAciwra}, 
+               apoDZa{deposit}, ...)
+
+4. QUESTION-3: Same for standard brackets (e.g. "awisAmAnya[Sabxa]", "Awmika[BAvanA]", 
+               "baDZAnA[baDZanA]", ...)
+
+5. QUESTION-4: Same for colon (e.g. "aMwa:saMcAra", "anwa:sWApana", "xu:Kaxa", ...)
+
+6. QUESTION-5: There are just three entries including a mid-accent ("avEXa`vyApAra", "mannawa`kA",
+                "wucCa`karanA"). Is this correct? Since it may cause some problems to my
+                tokenizer (the procedure that splits the text into words).
+
+7. QUESTION-6: Is the question mark correct in "hameSA?", "pawanakAraka?"
+
+8. QUESTION-7: Is the tilde (?) correct in "viSeRa~vyavasWA"?
+
+9. QUESTION-8: Is the final "2" correct in "yojanA2"?
+
+10. QUESTION-9: Is the period correct in "parxA{ba.}", "Puta{ba.}", "sUara{pu.}", "usa{pu.}",
+               "vetara{swrI.}", "wAlukaxAra{swrI.}" (note that we also have "vaha{swrI}",
+               without period)
+
+11. For reasons similar to the ones in 6 above (tokenizer), I've moved "ki.gra", "ki.hartaj",
+   "ki.mI", "vI.sI.Ara" in a different dictionary
+
+12. I have removed from the dictionary all Hindi MultiWords that, I assume, are identified
+   by an underscore. Of course, this is a strong simplification, but, as I noted above
+   for the IDM, idioms are treated differently. They should be used to generate a
+   separate dictionary file. But this is another work.
+
+13. There are some (presumed) errors in the entries for "breech", "rule", "tick",
+   "freely", "solemnize", "Urdu", "urea", "yellow_card", "yellow_line", whose Hindi meaning
+   is given as "1", "3", "^" or "-". I removed them.
+   Also, two entries for "hip" are translated in Hindi with a numerical prefix, which I removed.
+
+14. I also removed the entry for "'V'Akqwi", which is rather strange, since it is stated that
+   it corresponds to the English verb "V"
+
+15. All numbers (including ordinals) have been removed from the dictionary. They will
+   be handled separately.
+
+16. There are 133 English words without translation. Not a problem.
+
+17. The Hindi translation for "cross" (AdZA/wiraCA/2.cidZacidZA/haTI/3.prawikUla) seems to
+   correspond to three different entries. I changed it into three separate meanings.
+
+18. Same as above for "KulA/2.prawyakRa/prakata" (overt)
+
+19. Same as above for "varcasva/praXAnawA/2.SAsana" (domination)
+
+20. Same as above for "XuMXalA/kAlA/2.uxAsa/malina" (dusky)
+
+21. I removed the final exclamation mark from "ahAz!", "hAya!"
+
+

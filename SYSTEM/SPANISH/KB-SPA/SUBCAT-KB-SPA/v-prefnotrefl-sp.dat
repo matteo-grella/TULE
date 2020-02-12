@@ -1,0 +1,6 @@
+; *** In this file verbs which, in presence of a reflexive pronoun
+; *** prefer an impersonal reading (ex. "se discutiran")
+
+(setq *PREF-IMPERSONAL* 
+  '(DISCUTIR)
+   )

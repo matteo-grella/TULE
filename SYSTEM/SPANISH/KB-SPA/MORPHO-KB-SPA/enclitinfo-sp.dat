@@ -1,0 +1,17 @@
+(in-package "USER")
+
+(setq *ENCLITINFO*
+  '(
+    la ((el cat pron type pers gender f number sing person 3 case (lobj))) 
+    las ((el cat pron type pers gender f number pl person 3 case (lobj))) 
+    le ((el cat pron type pers gender allval number sing person 3 case (liobj))) 
+    les ((el cat pron type pers gender allval number pl person 3 case (liobj))) 
+    lo ((el cat pron type pers gender m number sing person 3 case (lobj))) 
+    los ((el cat pron type pers gender m number pl person 3 case (lobj))) 
+    me ((yo cat pron type pers gender allval number sing person 1 case (liobj lobj))) 
+    nos ((yo cat pron type pers gender allval number pl person 1 case (liobj lobj))) 
+    os ((tu cat pron type pers gender allval number pl person 2 case (liobj lobj))) 
+    se ((el cat pron type refl-impers gender allval number allval person 3 case (lobj liobj)))
+    te ((tu cat pron type pers gender allval number sing person 2 case (liobj lobj))) 
+  )
+)

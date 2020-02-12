@@ -1,0 +1,9 @@
+(in-package "USER")
+
+(loadinvar 'invardef
+'(
+  |cannot| (((can cat verb type mod classe (0) mood ind tense pres number allval person allval)
+             (not cat adv type neg)))
+
+	  ))
+

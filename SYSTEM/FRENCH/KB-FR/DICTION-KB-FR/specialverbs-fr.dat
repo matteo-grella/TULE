@@ -1,0 +1,11 @@
+(in-package "USER")
+
+(defvar *PREDVERB* '())	
+
+(defvar *PREDICATIVE* '())
+
+(defvar *DECLVERB* '())
+
+(defvar *RIFLESSIVI* '())
+
+(defvar *ERGATIVI-RIFL* '())

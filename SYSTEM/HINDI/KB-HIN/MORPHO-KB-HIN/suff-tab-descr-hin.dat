@@ -1,0 +1,40 @@
+
+; *** this is the description of the table of suffixes for Hindi
+(setq *SUFF-TAB-DESCR*
+  '(
+    (ADJ (cases (direct oblique))
+         (genders (m f))
+         (numbers (sing pl))
+         (gender-number ((m sing) (f sing) (m pl) (f pl))))	; this lists the contents of each column of the table
+    (NOUN (cases (direct oblique))
+          (genders (m f))
+          (numbers (sing pl))
+          (gender-number ((m sing) (f sing) (m pl) (f pl))))
+    (VERB (cases ())
+          (genders (m f))
+          (numbers (sing pl))
+          (persons (1 4 2 3))		; 4: honorific
+          (moods (base subjunctive participle infinitive))
+          (tenses (pres past fut))
+          (moods-tenses-def
+            (a (base past) (gender number)
+               ((m sing) (f sing) (m pl) (f pl)))
+            (b (base future) (person gender number)			; future
+               ((1 m sing) (4 m sing) (2 m sing) (3 m sing) 
+                (1 m pl)   (4 m pl)   (2 m pl)   (3 m pl)
+                (1 f sing) (4 f sing) (2 f sing) (3 f sing) 
+                (1 f pl)   (4 f pl)   (2 f pl)   (3 f pl)))
+            (c (subjunctive pres) (person number)			; subjunctive
+               ((1 sing) (4 sing) (2 sing) (3 sing) (1 pl) (4 pl) (2 pl) (3 pl)))
+            (h (participle pres) ()					; kara
+               nil)
+            (i (participle past) (gender number)			; wA 
+               ((m sing) (f sing) (m pl) (f pl)))
+            (l (infinitive pres) nil					; na 1
+               nil)
+            (m (infinitive past) (gender number)			; yA	
+               ((m sing) (f sing) (m pl) (f pl)))	
+                    ; hE (???) ; actually is a kind of progressive or participle
+          )
+  )
+))

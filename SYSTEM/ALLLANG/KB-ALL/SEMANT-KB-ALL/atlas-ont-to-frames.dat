@@ -1,0 +1,118 @@
+; *******************************************************************************
+;    The goal of these data is to enable the construction of "semantic
+;    frames, having the form of an AVM
+; *** The main frame is SITUATION-DESCRIPTION, whose attributes are associated
+;     with the description of a weather situation. They are:
+;     TOPIC: [weather, sea, temperature, pressure, ...]
+;     TIME: [TIME-INTERVAL]
+;     LOCATION: [AREA-DESCRIPTION]
+;     CAUSE: [SITUATION-DESCRIPTION]
+;     STATUS: depends on the topic; it is the actual description
+; *** It must be observed that a SITUATION-DESCRIPTION can be split in 
+;     SUB-SITUATION-DESCRIPTIONS, since one or more of the three main attributes
+;     (TOPIC, TIME and LOCATION) can remain fixed, while the others vary.
+; *** TIME-INTERVAL is a frame describing when the described situation arises
+;     It can refer to a whole day or to a part of a day
+;     Usually, days are described anaphorically (today, tomorrow, ..) but also
+;     weekday are often used (friday, the weekend). Possibly, also absolute
+;     time description can occur (the first of May). Parts of days are described
+;     using forms as "morning" or "evening" (tonight, tomorrow morning).
+; *** AREA-DESCRIPTION is the most complex frame, since it describes, possibly with
+;     great degree of detail, the place where the described situation occurs.
+;     It can refer to whole Italy, or to an area that can be identified as a
+;     large portion of it (North, the southern regions), a single Region
+;     (Piemonte), or with various descriptions (la zona alpina, il versante
+;     adriatico)
+(load-concept-mapping
+   '(
+  ; ************* CONCEPTS ************
+    ; the definition of a concept is given as:
+    ;   concept-name --> (frame FRAMENAME) |
+    ;                --> (attribute ATTRIBUTENAME) |
+    ;                --> (attribute-value VALUE) |
+    ;                --> (attribute ATTRIBUTENAME) (attribute-value VALUE) 
+; ******************************* Weather concepts *******************
+     (££cardinal-origin (attr-value-modifier provenienza))
+     (££clouds (attribute status) (attribute-value cielo-coperto))
+     (££meteo-status-situation (frame situation-description))
+     (££geographic-area (attribute location))
+     (££greetings (frame saluto))
+     (£goodday (attribute greet-type) (attribute-value buongiorno))
+     (£goodevening (attribute greet-type) (attribute-value buonasera))
+     (£goodnight (attribute greet-type) (attribute-value buonanotte))
+     (££it-southern-region (attribute location) (attribute-value south-regions))
+     (££it-northern-region (attribute location) (attribute-value north-regions))
+     (££it-eastern-region (attribute location) (attribute-value east-regions))
+     (££it-western-region (attribute location) (attribute-value west-regions))
+     (£it-northern-area (attribute location) (attribute-value north-Italy))
+     (£it-southern-area (attribute location) (attribute-value south-Italy))
+     (£it-eastern-area (attribute location) (attribute-value east-Italy))
+     (£it-western-area (attribute location) (attribute-value west-Italy))
+     (£it-northeastern-area (attribute location) (attribute-value northeast-Italy))
+     (£it-northwestern-area (attribute location) (attribute-value nortwest-Italy))
+     (£it-southeastern-area (attribute location) (attribute-value southeast-Italy))
+     (£it-southwestern-area (attribute location) (attribute-value soutwest-Italy))
+     (£local-phenomenon (attr-value-modifier-val locale))
+     (£northern ((££cardinal-origin (attr-value-modifier-val nord))))
+     (£southern ((££cardinal-origin (attr-value-modifier-val sud))))
+     (£eastern ((££cardinal-origin (attr-value-modifier-val est))))
+     (£western ((££cardinal-origin (attr-value-modifier-val ovest))))
+     (££positive-evening (attribute greet-type) (attribute-value buonasera))
+     (££rain (attribute events) (attribute-value pioggia))
+     (££precipitation (attribute events) (attribute-value precipitazioni))
+     (££precipitation-strength (attr-value-modifier strength))
+     (££precipitation-width (attr-value-modifier ampiezza))
+     (££sea (attribute location))
+     (££sea-status-situation (attribute topic) (attribute-value sea))
+     (££sea-status-description (attribute status))
+     (££sea-current (attribute status) (attribute-value corrente))
+     (££time-interval (attribute time))
+     (£Mare_di_Sardegna (attribute-value Mare_di_Sardegna))
+     (£Ionio (attribute-value Ionio))
+     (£Italy (attribute-value Italia))
+     (£Abruzzo (attribute-value Abruzzo))
+     (£weak-precip (attr-value-modifier-val debole))
+     (££weather-event-width (attr-value-modifier ampiezza))
+     (££weather-status-description (attribute status))
+     (££weather-status-unstable (attribute status) (attribute-value instabilità))
+     (££weather-instability-degree (attr-value-modifier degree))
+     (£welcome (attribute greet-type) (attribute-value generic))
+     (--q-little (attr-value-modifier-val moderato))
+     (--time-anaphoric-continuation (procedural attribute-value get-anaphoric-time))
+     (--deictic-specif-other (procedural attribute-value get-other-items))
+     (£mare-agitato (attribute-value mare-agitato))
+     (£mare-molto-agitato (attribute-value mare-molto-agitato))
+     (£today (attribute-value today))
+     (£tomorrow (attribute-value tomorrow))
+))
+
+(setq *ATLAS-FRAMES*
+    '(
+      (SALUTO (GREET-TYPE))
+      (SITUATION-DESCRIPTION (TOPIC TIME LOCATION CAUSE STATUS EVENTS))
+    ))
+
+(setq *ATLAS-ATTRIBUTES*
+    '(
+      (GREET-TYPE (BUONGIORNO BUONASERA BUONANOTTE GENERIC))
+      (TOPIC (WEATHER SEA TEMPERATURE PRESSURE))
+      (TIME (TODAY TOMORROW))
+      (LOCATION (ABRUZZO MARE_DI_SARDEGNA IONIO ADRIATICO TIRRENO
+                 NORTH-REGIONS SOUTH-REGIONS EAST-REGIONS WEST-REGIONS 
+                 NORTHEAST-ITALY SOUTHEAST-ITALY NORTHWEST-ITALY SOUTHWEST-ITALY 
+                 NORTH-ITALY SOUTH-ITALY EAST-ITALY WEST-ITALY
+                 ITALIA))
+      (CAUSE ())
+      (EVENTS (PRECIPITAZIONI PIOGGIA))
+      (STATUS (MARE-AGITATO MARE-MOLTO-AGITATO INSTABILITà CIELO-COPERTO CORRENTE))
+    ))
+
+(setq *ATLAS-ATTRIBUTE-MODIFIERS*
+    '(
+      (INSTABILITà ((DEGREE (MODERATO))))
+      (PRECIPITAZIONI ((STRENGTH (DEBOLE)) (AMPIEZZA (LOCALE))))
+      (PIOGGIA ((STRENGTH (DEBOLE)) (AMPIEZZA (LOCALE))))
+      (CIELO-COPERTO ((AMPIEZZA (LOCALE))))
+      (CORRENTE ((PROVENIENZA (NORD SUD EST OVEST NORD-EST SUD-EST NORD-OVEST SUD-OVEST))))
+    ))
+

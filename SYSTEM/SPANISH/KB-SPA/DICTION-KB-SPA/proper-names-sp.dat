@@ -1,0 +1,16 @@
+; ***********************************************************************
+; *** This file includes Spanish names.
+;     In particular "person names" and translated place names
+;     Note that Spanish names of places (as "Madrid", "Sevilla") are in the
+;     file "proper-names-all.dat", since it includes all "local" names
+;     for geographic places, i.e. their names in the language spoken there
+
+; *** PERSON NAMES ******************************************************
+(José ((José cat noun proper yes gender m number sing semtype ££name)))
+(Miguel ((Miguel cat noun proper yes gender m number sing semtype ££name)))
+(Pablo ((Pablo cat noun proper yes gender m number sing semtype ££name)))
+(Pedro ((Pedro cat noun proper yes gender m number sing semtype ££name)))
+
+; *** TRANSLATED PLACE NAMES ********************************************
+(Turín ((Turín cat noun proper yes gender f number sing semtype ££city)))
+

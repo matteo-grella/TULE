@@ -1,0 +1,8 @@
+(setq *SUBJ-CONTROL-VERBS*
+  '(pensar preferir prometre))
+    
+(setq *OBJ-CONTROL-VERBS*
+  '(veure))
+    
+(setq *INDOBJ-CONTROL-VERBS*
+  '(permetre))

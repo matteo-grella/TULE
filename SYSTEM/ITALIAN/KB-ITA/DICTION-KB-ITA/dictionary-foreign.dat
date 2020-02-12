@@ -1,0 +1,16 @@
+(山手線 ((山手線 cat noun proper yes classe (0) gender allval number allval)))
+(豊島線 ((豊島線 cat noun proper yes classe (0) gender allval number allval)))
+(Chūō ((Chūō cat noun proper yes classe (0) gender allval number allval)))
+(Saikyō ((Saikyō cat noun proper yes classe (0) gender allval number allval)))
+(Shōnan ((Shōnan cat noun proper yes classe (0) gender allval number allval)))
+(Yamate-dōri ((Yamate-dōri cat noun classe (0) gender f number allval)))
+(の ((の cat noun classe (0) gender f number allval)))
+(ノ ((ノ cat noun classe (0) gender f number allval)))
+(山手 ((山手 cat noun proper yes classe (0) gender allval number allval)))
+
+(ανθρωπολογία ((ανθρωπολογία cat noun classe (0) gender f number sing)))                ; antropologia
+(άνθρωπος ((άνθρωπος cat noun classe (0) gender m number sing)))                        ; antropos
+(λόγος ((λόγος cat noun classe (0) gender m number sing)))                              ; logos
+(ànthropos ((ànthropos cat noun classe (0) gender m number sing)))
+(lògos ((lògos cat noun classe (0) gender m number sing)))
+

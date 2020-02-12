@@ -1,0 +1,436 @@
+(setq *SUFFIX-TABLE*
+  '(adj
+      (
+       02 (@empt   a       nil     s       es      nil)    ; *** últim, íntim, àton, tantissim
+       04 (@empt   @empt   nil     s       s       nil)    ; *** útil, àrab, zonal
+       07 (u       va      nil     us      ves     nil)    ; *** viu, vegetatiu     	  [u --> v]   P
+       01 (t       da      nil     ts      des     nil)    ; *** voltat, vinculat, vestit [t --> d]   P
+       68 (c       ca      nil     cs      qes     nil)    ; *** socioeconòmic		  [c --> q]   PF
+       08 (eri     èria    nil     eris    èries   nil)    ; *** aeri
+       10 (ari     ària    nil     aris    àries   nil)    ; *** voluntari, vari, utilitari
+       24 (ori     òria    nil     oris    òries   nil)    ; *** transitori, satisfactori, respirato
+       35 (inu     ínua    nil     inus    ínues   nil)    ; *** continu		  [i --> í]   F
+       52 (enu     ènua    nil     enus    ènues   nil)    ; *** ingenu			  [e --> è]   F
+       57 (utu     útua    nil     utus    útues   nil)    ; *** mutu			  [u --> ú]   F
+       34 (ani     ània    nil     anis    ànies   nil)    ; *** subterrani, simultani,   [a --> à]   P
+       49 (eni     ènia    nil     enis    ènies   nil)    ; *** homogeni, heterogeni	  [e --> è]   P
+       41 (oni     ònia    nil     onis    ònies   nil)    ; *** erroni			  [o --> ò]   P
+       48 (aci     àcia    nil     acis    àcies   nil)    ; *** herbaci		  [a --> à]   P
+       36 (ici     ícia    nil     icis    ícies   nil)    ; *** creditici		  [i --> í]   P
+       53 (edi     èdia    nil     edis    èdies   nil)    ; *** intermedi		  [e --> è]   P
+       19 (ampli   àmplia  nil     amplis  àmplies nil)    ; *** ampli			  [a --> à]   P
+       27 (oli     òlia    nil     olis    òlies   nil)    ; *** perennifoli, caducifoli  [o --> ò]   P
+       59 (obvi    òbvia   nil     obvis   òbvies  nil)    ; *** obvi  			  [o --> ò]   P
+       67 (avi     àvia    nil     avis    àvies   nil)    ; *** savi			  [a --> à]   P
+       61 (evi     èvia    nil     evis    èvies   nil)    ; *** previ		 	  [e --> è]   P
+       62 (opi     òpia    nil     opis    òpies   nil)    ; *** propi			  [o --> ò]   P
+       16 (ogen    ògena   nil     ògens   ògenes  nil)    ; *** al·lucinogen		  [o --> ò]   P
+       17 (@empt   a       nil     s       ues     nil)    ; *** llarg, amarg
+       06 (c       ca      nil     cs      ques    nil)    ; *** únic, ètnic, ètic	  [c --> q]   PF
+       21 (c       ga      nil     cs      gues    nil)    ; *** groc, grec, cec	  [c --> g]   P
+       22 (eg      oga     nil     egs     ogues   nil)    ; *** anàleg			  [eg --> og] P
+       23 (@empt   a       nil     os      es      nil)    ; *** vist, previst, pres
+       40 (ç       ça      nil     ços     ces     nil)    ; *** dolç			  [ç --> c]   PF
+       20 (ès      esa     nil     esos    eses    nil)    ; *** sotmès, sorprès, pretès  [è --> e]
+       60 (ís      isa     nil     isos    ises    nil)    ; *** precís			  [í --> i]
+       05 (ós      osa     nil     osos    oses    nil)    ; *** valuós, torbós, seriósa  [ó --> o]
+       51 (òs      osa     nil     osos    oses    nil)    ; *** inclòs			  [ò --> o]
+       33 (ús      usa     nil     usos    uses    nil)    ; *** difús, confús            [ú --> u]
+       42 (às      assa    nil     assos   asses   nil)    ; *** escàs		  [à --> a] double s
+       43 (ès      essa    nil     essos   esses   nil)    ; *** espès		  [è --> e] double s
+       14 (è       ena     nil     ens     enes    nil)    ; *** serè, aliè
+       15 (í       ina     nil     ins     ines    nil)    ; *** salí, marí, mallorquí
+       18 (à       ana     nil     ans     anes    nil)    ; *** valencià, urbà, tardà
+       32 (ú       una     nil     uns     unes    nil)    ; *** oportú, comú
+       71 (í       ïna     nil     ïns     ïnes    nil)    ; *** veí
+       66 (ó       ona     nil     ons     ones    nil)    ; *** rodó
+       47 (@empt   sa      nil     sos     ses     nil)    ; *** ros, gros
+       27 (@empt   na      nil     ns      nes     nil)    ; *** va, ple, pla
+       58 (@empt   ·la     nil     s       ·les    nil)    ; *** tranquil, nul
+       11 (a       a       nil     es      es      nil)    ; *** socialista, socialdemòcrata, realista
+       03 (e       a       nil     es      es      nil)    ; *** vostre, tendre, subjecte
+       37 (e       e       nil     es      es      nil)    ; *** òctuple, òctuple, triple
+       44 (u       a       nil     us      es      nil)    ; *** indoeuropeu, europeu
+       45 (o       a       nil     os      es      nil)    ; *** qui-sap-lo, maco, fondo
+       25 (ig      ja      nil     jos     ges     nil)    ; *** roig, boig
+       54 (ig      tja     nil     tjos    tges    nil)    ; *** lleig
+       55 (g       tja     nil     tjos    tges    nil)    ; *** mig, mig, mig
+       28 (ç       ç       nil     ços     ces     nil)    ; *** tenaç, precoç, incapaç
+       70 (ue      a       nil     ues     ues     nil)    ; *** vague
+       09 (í       í       nil     ins     ins     nil)    ; *** afí
+       12 (nil     nil     @empt   nil     nil     nil)    ; *** ço, açò, allò
+      )
+    noun
+      (0  (nil     nil     nil     nil     nil     nil)
+             ; ... masculine
+       4  (@empt   nil     nil     @empt   nil     nil)    ; *** tipus, temps, status
+                     ; .... null, +s .......
+       1  (@empt   nil     nil     s       nil     nil)    ; *** òrgan, índex, ésser
+       42 (èn      nil     nil     ens     nil     nil)    ; *** mossèn
+       46 (igen    nil     nil     ígens   nil     nil)    ; *** origen
+       38 (iquen   nil     nil     íquens  nil     nil)    ; *** liquen
+       44 (ón      nil     nil     ons     nil     nil)    ; *** món
+       13 (ogen    nil     nil     ògens   nil     nil)    ; *** nitrogen, al·lucinogen
+       35 (amen    nil     nil     àmens   nil     nil)    ; *** examen
+       36 (omen    nil     nil     òmens   nil     nil)    ; *** fenomen
+                     ; .... null, +ns .......
+       24 (@empt   nil     nil     ns      nil     nil)    ; *** vi, tro, to
+       12 (à       nil     nil     ans     nil     nil)    ; *** valencià, secà, romà
+       14 (è       nil     nil     ens     nil     nil)    ; *** alè
+       22 (í       nil     nil     ins     nil     nil)    ; *** violí, neutrí, molí
+       55 (í       nil     nil     ïns     nil     nil)    ; *** veí
+       2  (ó       nil     nil     ons     nil     nil)    ; *** taló, sermó, sabó
+       53 (ò       nil     nil     ons     nil     nil)    ; *** ressò
+                     ; .... null, +os .......
+       20 (@empt   nil     nil     os      nil     nil)    ; *** vers, vas, univers
+       16 (ès      nil     nil     esos    nil     nil)    ; *** pagès, imprès, francès
+       48 (ís      nil     nil     ïsos    nil     nil)    ; *** país
+       28 (ís      nil     nil     isos    nil     nil)    ; *** paradís, matís, compromís
+       52 (òs      nil     nil     osos    nil     nil)    ; *** repòs
+       34 (ós      nil     nil     osos    nil     nil)    ; *** estudiós
+       7  (ús      nil     nil     usos    nil     nil)    ; *** ús, abús
+                     ; .... null, +sos .......
+       26 (@empt   nil     nil     sos     nil     nil)    ; *** tros, pas, os
+       25 (às      nil     nil     assos   nil     nil)    ; *** fracàs, cabàs
+       8  (és      nil     nil     essos   nil     nil)    ; *** través, retrocés, progrés
+       37 (ès      nil     nil     essos   nil     nil)    ; *** interès
+       39 (ís      nil     nil     issos   nil     nil)    ; *** tapís, passadís, massís
+       18 (òs      nil     nil     ossos   nil     nil)    ; *** arròs
+       31 (ós      nil     nil     ossos   nil     nil)    ; *** esbós
+                     ; .... +a, +es ..........
+       27 (a       nil     nil     es      nil     nil)    ; *** tema, símptoma, sistema
+       47 (ua      nil     nil     ües     nil     nil)    ; *** paraigua
+                     ; .... +ig, +jos ........
+       21 (ig      nil     nil     jos     nil     nil)    ; *** tempteig, safareig, rebuig
+       29 (g       nil     nil     tjos    nil     nil)    ; *** desig
+       33 (ig      nil     nil     tjos    nil     nil)    ; *** estoig
+             ; ... feminine
+       41 (nil     @empt   nil     nil     @empt   nil)    ; *** miss
+       6  (nil     @empt   nil     nil     s       nil)    ; *** índole, élite, voluntat
+       3  (nil     a       nil     nil     es      nil)    ; *** òpera, ètnia, àvia
+       10 (nil     ua      nil     nil     ües     nil)    ; *** pasqua, llengua, aigua
+       11 (nil     ça      nil     nil     ces     nil)    ; *** semblança, renaixença, plaça
+       43 (nil     à       nil     nil     ans     nil)    ; *** mà
+       5  (nil     ó       nil     nil     ons     nil)    ; *** zonació, vocació, visió
+       15 (nil     a       nil     nil     ues     nil)    ; *** obaga, màniga, mantega
+       17 (nil     ca      nil     nil     ques    nil)    ; *** òptica, època, tècnica
+       23 (nil     ja      nil     nil     ges     nil)    ; *** tija, pluja, platja
+             ; ... both masculine and feminine
+       51 (@empt   @empt   nil     os      @empt   nil)    ; *** pols
+       9  (@empt   @empt   nil     s       s       nil)    ; *** àrab, vocal, vessant
+       50 (@empt   @empt   nil     ns      s       nil)    ; *** pi
+       19 (a       a       nil     es      es      nil)    ; *** vista, violeta, terra
+       30 (a       a       nil     ues     ues     nil)    ; *** droga
+       40 (g       g       nil     tjos    gs      nil)    ; *** mig
+       49 (ça      ça      nil     ces     ces     nil)    ; *** peça
+       54 (ja      ja      nil     ges     ges     nil)    ; *** taronja
+      )
+    verb
+      (
+     ; classe 1 (ex Classe 1): xuclar, xisclar, xifrar
+       1 (
+          (o        es       a        em       eu       en)          ; (a) ind.pres.
+          (ava      aves     ava      àvem     àveu     aven)        ; (b) ind.imperf.
+          (í        ares     à        àrem     àreu     aren)        ; (c) ind.past.
+          (aré      aràs     arà      arem     areu     aran)        ; (d) ind.fut.
+          (i        is       i        em       eu       in)          ; (e) subj.pres.
+          (és       essis    és       éssim    éssiu    essin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (aria     aries    aria     aríem    aríeu    arien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (at       ada      nil      ats      ades     nil)         ; (i) partic.past 
+          (ant)                                                      ; (l) gerund
+          (ar)                                                       ; (m) infinite
+          (nil      a        i        em       eu       in)          ; (n) imperative
+         )
+     ; classe 2 (ex classe 5): variar, triar, somiar
+       2 (
+          (o        es       a        em       eu       en)          ; (a) ind.pres.
+          (ava      aves     ava      àvem     àveu     aven)        ; (b) ind.imperf.
+          (í        ares     à        àrem     àreu     aren)        ; (c) ind.past.
+          (aré      aràs     arà      arem     areu     aran)        ; (d) ind.fut.
+          (ï        ïs       ï        em       eu       ïn)          ; (e) subj.pres.
+          (és       essis    és       éssim    éssiu    essin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (aria     aries    aria     aríem    aríeu    arien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (at       ada      nil      ats      ades     nil)         ; (i) partic.past
+          (ant)                                                      ; (l) gerund
+          (ar)                                                       ; (m) infinite
+          (nil      a        ï        em       eu       ïn)          ; (n) imperative
+         )
+     ; classe 3 (ex classe 72): témer
+       3  (  ;tem      3  --> a b c d e f g h l n
+             ;tém      3  --> m
+          (o        s        @empt    em       eu       en)        ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)       ; (b) ind.imperf.
+          (í        eres     é        érem     éreu     eren)      ; (c) ind.past.
+          (eré      eràs     erà      erem     ereu     eran)      ; (d) ind.fut.
+          (i        is       i        em       eu       in)        ; (e) subj.pres.
+          (és       essis    és       éssim    éssiu    essin)     ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)       ; (p) subj.fut.
+          (eria     eries    eria     eríem    eríeu    erien)     ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)       ; (h) partic.pres
+          (ut       uda      nil      uts      udes     nil)       ; (i) partic.past
+          (ent)                                                    ; (l) gerund
+          (er)                                                     ; (m) infinite
+          (nil      @empt    i        em       eu       in)        ; (n) imperative
+         )
+     ; classe 4 (ex classe 30): transcórrer, recórrer, ocórrer
+       4 (  ;corr     4 --> a b c d e f g h l n
+            ;córr     4 --> m
+          (o        es       e        em       eu       en)          ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (eguí     egueres  egué     eguérem  eguéreu egueren)      ; (c) ind.past.
+          (eré      eràs     erà      erem     ereu     eran)        ; (d) ind.fut.
+          (i        is       i        em       eu       in)          ; (e) subj.pres.
+          (egués    eguessis egués    eguéssim eguéssiu eguessin)    ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (eria     eries    eria     eríem    eríeu    erien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (egut     eguda    nil      eguts    egudes   nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      e        i        em       eu       in)          ; (n) imperative
+         )
+     ; classe 5 (ex classe 15): reconèixer, desconèixer, desaparèixer
+       5 (  ;recon    5 --> a (1) c e f h n (3 4 6)
+            ;reconeix 5 --> a (2 3 4 5 6) b d g l n (2 5)
+            ;reconèix 5 --> m
+          (ec       es       @empt    em       eu       en)          ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (eguí     egueres  egué     eguérem  eguéreu  egueren)     ; (c) ind.past.
+          (eré      eràs     erà      erem     ereu     eran)        ; (d) ind.fut.
+          (egui     eguis    egui     eguem    egueu    eguin)       ; (e) subj.pres.
+          (egués    eguessis egués    eguéssim eguéssiu eguessin)    ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (eria     eries    eria     eríem    eríeu    erien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (egut     eguda    nil      eguts    egudes   nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      @empt    egui     eguem    eu       eguin)       ; (n) imperative
+         )
+     ; classe 6 (ex classe 48): fer
+       6  (  ;fa       6 --> a (1 2 3 6) d g
+             ;f        6 --> a (4 5) b c e (4 5) f h l m n (2 4 5)
+             ;fac      6 --> e (1 2 3 6) n (3 6)
+          (ig       s        @empt    em       eu       n)           ; (a) ind.pres.
+          (eia      eies     eia      èiem     èieu     eien)        ; (b) ind.imperf.
+          (iu       eres     éu       érem     éreu     eren)        ; (c) ind.past.
+          (ré       ràs      rà       rem      reu      ran)         ; (d) ind.fut.
+          (i        is       i        em       eu       in)          ; (e) subj.pres.
+          (es       essis    es       éssim    éssiu    essin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (ria      ries     ria      ríem     ríeu     rien)        ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (et       eta      nil      ets      etes     nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      es       i        em       eu       in)          ; (n) imperative
+         )
+     ; classe 7 (ex classe 21): perdre, interrompre, debatre
+       7  (
+          (o        s        @empt    em       eu       en)          ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (í        eres     é        érem     éreu     eren)        ; (c) ind.past.
+          (ré       ràs      rà       rem      reu      ran)         ; (d) ind.fut.
+          (i        is       i        em       eu       in)          ; (e) subj.pres.
+          (és       essis    és       éssim    éssiu    essin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (ria      ries     ria      ríem     ríeu     rien)        ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (ut       uda      nil      uts      udes     nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (re)                                                       ; (m) infinite
+          (nil      @empt    i        em       eu       in)          ; (n) imperative
+         )
+     ; classe 8 (ex classe 64): resoldre
+       8 (
+          (c        s        @empt    em       eu       en)          ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (guí      gueres   gué      guérem   guéreu   gueren)      ; (c) ind.past.
+          (dré      dràs     drà      drem     dreu     dran)        ; (d) ind.fut.
+          (gui      guis     gui      guem     gueu     guin)        ; (e) subj.pres.
+          (gués     guessis  gués     guéssim  guéssiu  guessin)     ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (dria     dries    dria     dríem    dríeu    drien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (t        ta       nil      ts       tes      nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (dre)                                                      ; (m) infinite
+          (nil      @empt    gui      guem     eu       guin)        ; (n) imperative
+         )
+     ; classe 9 (ex classe 25): raure, cloure
+       9  (   ;ra       9 --> a c d e f g l m n
+              ;raï      9 --> b (1 2 3 6)
+              ;raí      9 --> b (4 5)
+              ;ras      9 --> h
+          (c        us       u        em       eu       uen)         ; (a) ind.pres.
+          (a        es       a        em       eu       en)         ; (b) ind.imperf.
+          (guí      gueres   gué      guérem   guéreu   gueren)      ; (c) ind.past.
+          (uré      uràs     urà      urem     ureu     uran)        ; (d) ind.fut.
+          (gui      guis     gui      guem     gueu     guin)        ; (e) subj.pres.
+          (gués     guessis  gués     guéssim  guéssiu  guessin)     ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (uria     uries    uria     uríem    uríeu    urien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (@empt    a        nil      os       es       nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (ure)                                                      ; (m) infinite
+          (nil      u        gui      guem     eu       guin)        ; (n) imperative
+         )
+     ; classe 10 (ex classe 38): transcriure, subscriure, inscriure
+       10 (   ;transcri  10 --> a (1 2 3 6) d e g m n (2 3 4 6)
+              ;transcriv 10 --> a (4 5) b c f l n (5)
+              ;transcrit 10 --> h
+          (c        us       u        im       iu       uen)         ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (í        ires     í        írem     íreu     iren)        ; (c) ind.past.
+          (uré      uràs     urà      urem     ureu     uran)        ; (d) ind.fut.
+          (gui      guis     gui      guem     gueu     guin)        ; (e) subj.pres.
+          (ís       issis    ís       íssim    íssiu    issin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (uria     uries    uria     uríem    uríeu    urien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (@empt    a        nil      s        es       nil)         ; (i) partic.past
+          (int)                                                      ; (l) gerund
+          (ure)                                                      ; (m) infinite
+          (nil      u        gui      guem     iu       guin)        ; (n) imperative
+         )
+     ; classe 11 (ex classe 11): sentir, dormir, ajupir
+       11 (
+          (o        s        @empt    im       iu       en)          ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (í        ires     í        írem     íreu     iren)        ; (c) ind.past.
+          (iré      iràs     irà      irem     ireu     iran)        ; (d) ind.fut.
+          (i        is       i        im       iu       in)          ; (e) subj.pres.
+          (ís       issis    ís       íssim    íssiu    issin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (iria     iries    iria     iríem    iríeu    irien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (it       ida      nil      its      ides     nil)         ; (i) partic.past
+          (int)                                                      ; (l) gerund
+          (ir)                                                       ; (m) infinite
+          (nil      @empt    i        im       iu       in)          ; (n) imperative
+         )
+     ; classe 12 (ex classe 71): tenir
+       12 (  ; t        12 --> a b c d e f g l m n
+             ; tin      12 --> h 
+             ;           7 --> m
+          (inc      ens      é        enim     eniu     enen)        ; (a) ind.pres.
+          (enia     enies    enia     eníem    eníeu    enien)       ; (b) ind.imperf.
+          (inguí    ingueres ingué    inguérem inguéreu ingueren)    ; (c) ind.past.
+          (indré    indràs   indrà    indrem   indreu   indran)      ; (d) ind.fut.
+          (ingui    inguis   ingui    inguem   ingueu   inguin)      ; (e) subj.pres.
+          (ingués   inguessis ingués  inguéssim inguéssiu inguessin) ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (indria   indries  indria   indríem  indríeu  indrien)     ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (gut      guda     nil      guts     gudes    nil)         ; (i) partic.past
+          (enint)                                                    ; (l) gerund
+          (enir)                                                     ; (m) infinite
+          (nil      é        ingui    inguem   ingueu   inguin)        ; (n) imperative
+         )
+     ; classe 13 (ex classe 7): establir, complir, acomplir
+      13 (   ;establ   13 --> a b c d e f g l m n
+             ;establer 13 --> h
+          (eixo     eixes    eix      im       iu       eixen)       ; (a) ind.pres.
+          (ia       ies      ia       íem      íeu      ien)         ; (b) ind.imperf.
+          (í        ires     í        írem     íreu     iren)        ; (c) ind.past.
+          (iré      iràs     irà      irem     ireu     iran)        ; (d) ind.fut.
+          (eixi     eixis    eixi     im       iu       eixin)       ; (e) subj.pres.
+          (ís       issis    ís       íssim    íssiu    issin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (iria     iries    iria     iríem    iríeu    irien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (t        ta       nil      ts       tes      nil)         ; (i) partic.past
+          (int)                                                      ; (l) gerund
+          (ir)                                                       ; (m) infinite
+          (nil      eix      eixi     im       iu       eixin)       ; (n) imperative
+         )
+     ; classe 14 (ex classe 9): traduir, succeir, substituir
+       14 (
+          (eixo     eixes    eix      ïm       ïu       eixen)       ; (a) ind.pres.
+          (ïa       ïes      ïa       íem      íeu      ïen)         ; (b) ind.imperf.
+          (í        ïres     í        írem     íreu     ïren)        ; (c) ind.past.
+          (iré      iràs     irà      irem     ireu     iran)        ; (d) ind.fut.
+          (eixi     eixis    eixi     ïm       ïu       eixin)       ; (e) subj.pres.
+          (ís       ïssis    ís       íssim    íssiu    ïssin)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (iria     iries    iria     iríem    iríeu    irien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (ït       ïda      nil      ïts      ïdes     nil)         ; (i) partic.past
+          (int)                                                      ; (l) gerund
+          (ir)                                                       ; (m) infinite
+          (nil      eix      eixi     ïm       ïu       eixin)       ; (n) imperative
+         )
+     ; classe 15 (ex classe 46): estar
+       15 (
+          (ic       às       à        em       eu       an)          ; (a) ind.pres.
+          (ava      aves     ava      àvem     àveu     aven)        ; (b) ind.imperf.
+          (iguí     igueres  igué     iguérem  iguéreu  igueren)     ; (c) ind.past.
+          (aré      aràs     arà      arem     areu     aran)        ; (d) ind.fut.
+          (igui     iguis    igui     iguem    igueu    iguin)       ; (e) subj.pres.
+          (igués    iguessis igués    iguéssim iguéssiu iguessin)    ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (aria     aries    aria     aríem    aríeu    arien)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (at       ada      nil      ats      ades     nil)         ; (i) partic.past
+          (ant)                                                      ; (l) gerund
+          (ar)                                                       ; (m) infinite
+          (nil      igues    igui     iguem    igueu    iguin)       ; (n) imperative
+         )
+     ; classe 16 (ex classe 67): saber
+       16 (
+          (é        aps      ap       abem     abeu     aben)        ; (a) ind.pres.
+          (abia     abies    abia     abíem    abíeu    abien)       ; (b) ind.imperf.
+          (abí      aberes   abé      abérem   abéreu   aberen)      ; (c) ind.past.
+          (abré     abràs    abrà     abrem    abreu    abran)       ; (d) ind.fut.
+          (àpiga    àpigues  àpiga    apiguem  apigueu  àpiguen)     ; (e) subj.pres.
+          (abés     abessis  abés     abéssim  abéssiu  abessin)     ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (abria    abries   abria    abríem   abríeu   abrien)      ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (abut     abuda    nil      abuts    abudes   nil)         ; (i) partic.past
+          (abent)                                                    ; (l) gerund
+          (aber)                                                     ; (m) infinite
+          (nil      àpigues  àpiga    apiguem  apigueu  àpiguen)     ; (n) imperative
+         )
+     ; classe 17 (ex classe 50): haver
+       17 (   ;h        17 --> a c d e f g h n (2 3 4 6)
+              ;hav      17 --> l n (5)
+              ;havi     17 --> b (1 2 3 6)  
+              ;haví     17 --> b (4 5)
+          (ec       eus      eu       em       eu       euen)        ; (a) ind.pres.
+          (a        es       a        em       eu       en)          ; (b) ind.imperf.
+          (aguí     agueres  agué     aguérem  aguéreu  agueren)     ; (c) ind.past.
+          (auré     auràs    aurà     aurem    aureu    auran)       ; (d) ind.fut.
+          (egui     eguis    egui     àgim     àgiu     eguin)       ; (e) subj.pres.
+          (agués    aguessis agués    aguéssim aguéssiu aguessin)    ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (auria    auries   auria    auríem   auríeu   aurien)      ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (agut     aguda    nil      aguts    agudes   nil)         ; (i) partic.past
+          (ent)                                                      ; (l) gerund
+          (eure)                                                     ; (m) infinite
+          (nil      eu       egui     aguem    eu       eguin)       ; (n) imperative
+         )
+     ; classe 18 (ex classe 68): ser
+       18 (
+          (sóc      ets      és       som      sou      són)         ; (a) ind.pres.
+          (era      eres     era      érem     éreu     eren)        ; (b) ind.imperf.
+          (fui      fores    fou      fórem    fóreu    foren)       ; (c) ind.past.
+          (seré     seràs    serà     serem    sereu    seran)       ; (d) ind.fut.
+          (sigui    siguis   sigui    siguem   sigueu   siguin)      ; (e) subj.pres.
+          (fos      fossis   fos      fóssim   fóssiu   fossin)      ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (seria    series   seria    seríem   seríeu   serien)      ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres
+          (estat    nil      nil      nil      nil      nil)         ; (i) partic.past
+          (sent)                                                     ; (l) gerund
+          (ésser)                                                    ; (m) infinite
+          (nil      sigues   sigui    siguem   sigueu   siguin)      ; (n) imperative
+         )
+       )
+   ))

@@ -1,0 +1,211 @@
+(put-semtype '(
+; ---- Times ---
+; ---- The time hierarchy ----------------------------
+;    time
+;     |--> time-ref
+;     |     |--> daytime
+;     |     |     |--> weekday
+;     |     |     |     | .... [lunedì martedì mercoledì giovedì venerdì sabato domenica]
+;     |     |     |--> day
+;     |     |     |     | .... [giorno]
+;     |     |--> time-period
+;     |           | .... [volta stasera vigilia giornata albori serata pausa]
+;     |           |--> daytime-period
+;     |                 | .... [mattina mattino pomeriggio sera notte]
+;     |--> timemeasure
+;     |     | .... [anno mese giorno minuto ora settimana attimo secolo periodo momento istante]
+;     |--> month
+;     |     | .... [gennaio febbraio marzo aprile maggio
+;     |              giugno luglio agosto settembre ottobre novembre dicembre]
+;     |--> season
+;     |     | .... [primavera estate autunno inverno]
+;     |--> time-adv
+;     |     | .... [oggi]
+;     |     |--> other-time-adv
+;     |           | .... [ieri domani dopodomani]
+;     |--> adv-conj-time
+;    
+;    time-limit
+;     | .... [albori inizio fine conclusione]
+;    
+;    time-loc
+;     |--> month
+;     |--> season
+;     |--> time-period
+;     |--> timemeasure
+;    
+;    time-ref2
+;     |--> time-ref
+;     |--> season
+
+   (£season (primavera estate autunno inverno))
+   (£daytime-period (mattina mattino pomeriggio sera notte))
+   (£time-period (volta stasera vigilia giornata albori serata pausa))
+   (£time-adv (oggi))
+   (£other-time-adv (ieri domani dopodomani))
+   (£timemeasure (anno mese giorno minuto ora settimana attimo secolo periodo
+		   momento istante |quarto_d'ora|))
+   (£time-limit (albori inizio fine conclusione))
+   (£adv-conj-time (dopo prima quando durante mentre))
+; ---- Places --
+   (£place1 (piazza via pendice parete strada aria paese città))
+   (£place2 (terreno selciato terreiro))
+   (£place3 (campagna sala spiaggia luogo teatro terrazzo pollaio maggese
+	     stallatico chiesa sede stanza bagno corridoio))
+   (£cardin-dir (nord sud est ovest nordest nordovest sudest sudovest))
+   (£body-place (braccio mano))
+   (£other-posit (piano letto pavimento tetto sostegno))
+   (£tv-channel (|Telemontecarlo| |Raiuno| |Raitre| |Raidue|))
+; ---- Events ----
+   (£event-situat (battesimo))
+; ---- Measures ----
+   (£money-measure (decina migliaio centinaio milione miliardo))
+   (£gen-measure (litro chilometro metà doppio giorno settimana quarantina
+		 ventina trentina cinquantina numero quantità))
+   (£approx-measure (grado livello))
+   (£measure-unit (grado metro litro centimetro chilometro chilo grammo etto))
+; --------------
+   (£agent (cantore autore))
+   (£attitude (benevolenza affetto gratitudine odio amore rispetto disprezzo
+	       interesse attenzione sospetto perplessità favore))
+   (£auth-work (giornale rivista libro servizio articolo rapporto relazione
+	   film sinfonia sonata romanzo racconto pellicola prosa poesia
+	   concerto))
+   (£body-part (faccia mano collo polso braccio gamba gomito spalla ginocchio
+		cadavere))
+   (£change (calo diminuzione ascesa crescita))
+   (£clothing (divisa giacca camicia pantaloni guanti maglia cappello berretto))
+   (£colour (bianco giallo rosa rosso verde nero blù))
+   (£competition (partita incontro campionato torneo match mondiale))
+   (£container (calice bicchiere bottiglia lattina))
+   (£employee (impiegato operaio docente professore ricercatore personale
+	       lavoratore))
+   ; *** !!!!!! N.B. the next is used in PROC-ALL/MORPHO-PROC-ALL/analizzatore
+   ;     !!!!!! to generate a nominal interpretation for all adjectives
+   ;     !!!!!! belonging to this class
+   (£geogr (europeo italiano francese torinese inglese americano neozelandese
+	    spagnolo australiano tedesco brasiliano parigino sovietico
+	    palestinese israeliano cinese giapponese sudamericano iracheno
+	    abruzzese siciliano piemontese berlinese albanese bosniaco
+            jugoslavo kosovaro serbo croato valonese curdo cinese tzotzil
+            singalese arabo russo barese polacco colombiano hutu tutsi
+            avignonese bengalese anglosassonei andino))
+   (£goal (bersaglio obiettivo scopo fine compito))
+   (£group (gruppo esercito massa squadra mucchio collezione corte sacca
+	    schiera comunità lista elenco banda serie unione catasta
+	    manipolo valanga))
+   (£house-annex (giardino piscina soffitta cantina garage box balcone parco
+		  finestra mansarda mansardato cucina soggiorno bagno terrazzo))
+   (£house-type (casa villa appartamento edificio palazzo palazzina))
+   (£institution (dipartimento azienda università ministero fabbrica comune))
+   (£luggage (bagaglio valigia baule))
+   (£material (vetro plastica ferro legno alluminio acciaio trave oro argento))
+   (£numbident (numero))
+   (£office (ministero ufficio procura esecutivo assemblea commissione))
+   (£pers (persona signore giornalista inviato uomo donna monsignore individuo
+	   ragazzo figlio amico demonio candidato cittadino studente))
+   (£pers-tract (coraggio forza volontà paura speranza ostinazione
+		 simpatia intelligenza stupidità))
+   (£perspective (prospettiva))
+		; ??? come si mette 'punto di vista'?
+   (£portion (parte porzione metà terzo quarto quinto sezione frammento
+	      percentuale fase))
+   (£section (sezione capitolo parte paragrafo capo tomo))
+   (£property (unicità capacità importanza possibilità struttura
+	       necessità misura pesantezza aggressività solidità
+		 armonia economicità ospitalità qualità
+		 produttività limitatezza raffinatezza popolarità
+		 significato nome))
+   (£relation (parentela rapporto contatto relazione))
+   (£role (segretario ministro leader capo amministratore manager coordinatore
+	   responsabile sindaco vicesindaco presidente custode comandante))
+   (£rule (decreto legge decreto_legge))
+   (£title (signore dottore avvocato))
+   (£situat (problema caso concetto patto idea concordanza pericolo rischio
+	     possibilità occasione punto dubbio ora ambito contesto volta
+	     fatto notizia condizione))
+   ; *** situation nouns governing verbs
+   (£sit-vgov (funzione facoltà diritto obbligo opportunità bisogno
+	       assunto abitudine obiettivo incarico scopo pretesto))
+   (£sport (calcio baseball basket tennis rugby atletica))
+   (£status (costruzione))
+   (£type (tipo genere specie sorta categoria))
+   (£vehicle (auto automobile macchina treno aereo barca nave piroscafo moto
+	      motocicletta bicicletta))
+   (£objectpart (prua faccia))
+   (£dress (smoking giacca pantaloni camicia cravatta))
+; ---- conj and prep ----------
+   (£reason (perché poiché per))
+; ---- ADJ -----
+   (£manner-adj (positivo negativo grande piccolo))  ; per 'in positivo'
+   (£ease-adj (facile semplice difficile complesso complicato))
+	  ; per 'facile da fare'
+; ---- VERB ----
+   (£communic (divagare insistere confrontare discutere richiamare commentare))
+; *** £predicative resulting from the merge of the special variables
+;     *PREDICATIVE* and *PREDVERB*, defined in GULL/specialverbs.l
+   (£predicative (essere risultare sembrare diventare ritenere 
+              affermare apprendere considerare constatare convincere credere
+              dimostrare dire diventare ecco escludere interessare notare
+              pensare risultare ritenere sembrare sperare spiegare vedere))
+    ; *** predic2 used in PARSER/chunk-parser
+   (£predic2 (affermare aggiungere ammettere apprendere commentare concludere
+              considerare constatare credere dichiarare dimostrare dire
+              escludere imprecare notare pensare promettere ridere rispondere
+              ritenere sembrare sibilare sperare spiegare urlare))
+    ; *** predic3 used in PARSER/chunk-parser; they are the verbs that
+    ;     prefer the INDOBJ case over OBJ for first and second person
+    ;     pronouns (dim-mi, spiega-mi ...)
+   (£predic3 (dichiarare dimostrare dire promettere rispondere spiegare
+              indicare mostrare))
+    ; *** interr-obj-verb used in postagger for disambiguating words as "dove"
+    ;     (where) which should be adv and not conj after these verbs
+   (£interr-obj-verb (individuare intuire sapere dire spiegare mostrare))
+				))
+
+(put-semsubcl '(
+   (£daytime £weekday)
+   (£daytime £day)
+   (£time-ref £daytime)
+   (£time-ref £time-period)
+   (£time-ref2 £time-ref)
+   (£time-ref2 £season)
+   (£time-period £daytime-period)
+   (£time-loc £month)
+   (£time-loc £season)
+   (£time-loc £time-period)
+   (£time-loc ££timemeasure)
+   (£time £month)
+   (£time £season)
+   (£time £time-ref)
+   (£time ££timemeasure)
+   (£time £adv-conj-time)
+   (£time £time-adv)
+   (£time-adv £other-time-adv)
+   (£gen-loc £geogr-loc)
+   (£gen-loc £container)
+   (£gen-loc £house-type)
+   (£gen-loc £house-annex)
+   (£gen-loc £place1)
+   (£gen-loc £place2)
+   (£gen-loc £place3)
+   (£gen-loc £other-posit)
+   (£gen-loc £event-situat)	; per loc metaph: si trovarono in un battesimo
+   (£geogr-loc £city)
+   (£geogr-loc £continent)
+   (£geogr-loc £state)
+   (£geogr-loc £region)
+   (£geogr-loc £cardin-dir)
+   (£attitude £pers-tract)
+   (£measure £money-measure)
+   (£measure £gen-measure)
+   (£position £place1)		; £position per la preposizione 'su'
+   (£position £place2)
+   (£position £container)
+   (£position £material)
+   (£position £house-type)
+   (£position £house-annex)
+   (£position £tv-channel)
+   (£position £other-posit)
+				))
+

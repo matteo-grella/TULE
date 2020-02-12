@@ -1,0 +1,13 @@
+; ££££££££££££££££££££ 
+;  This file lists, for each verb, its subcategorization classes
+
+(in-package "USER")
+
+; *** set-verbal-classes defined in PROC/subc-hier
+(set-verbal-classes
+		'(
+		  (ok (grempty))
+		  (oui (grempty))
+		  (no (grempty))
+		  ))
+

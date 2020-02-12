@@ -1,0 +1,1578 @@
+
+; *****************************************************************
+;    RULES FOR FINDING DEPENDENCIES
+; *****************************************************************
+;
+;   Format:
+;	(GOVERNING-CATEGORY  TYPE-OF-THE-GOVERNING-CATEGORY
+;	 		 POSITION-OF-DEPENDING-CATEGORY
+;	   		 (DEPENDING-CATEGORY-1
+;	   		   (Conditions-1)
+;			   LABEL-1)
+;	   		 (DEPENDING-CATEGORY-2
+;	   		   (Conditions-2)
+;			   LABEL-2)
+;			 ...)
+;   The main function for applying the rules (to a single word) is
+;      "apply-parserules"; it checks the TYPE-OF-THE-GOVERNING-CATEGORY,
+;      and loops on all possible POSITION-OF-DEPENDING-CATEGORY. For
+;      each of them, it loops on all pairs of words GOVERNING-DEPENDING
+;      that satisfy the constraints on the position. To each pair, it
+;      applies "apply-posparserules".
+;   "apply-posparserule" loops on all "DEPENDING-CATEGORY-i" rules, and
+;      applies to each of them "check-parsecond"
+;   "check-parsecond" simply evaluates all elementary conditions via
+;      "eval-parsecond"
+;   "eval-parsecond" actually evaluates the elementary conditions
+;      in case of "dep-precedes", it uses "test-next-words"
+;   "test-next-words" calls "test-singl-nw" on all subconditions of
+;      dep-precedes
+;   "test-singl-nw" checks the single subcondition, i.e. one of the following:
+;      type, same-head-type-and-agr, word, semtype, ok
+;
+;   Semantics:
+;	A word of GOVERNING-CATEGORY and of type TYPE-OF-THE-GOVERNING-CATEGORY
+;	can dominate a word of DEPENDING-CATEGORY-i, in case it is in position
+;	POSITION-OF-DEPENDING-CATEGORY with respect to the head, and the
+;       conditions in the list CONDITIONS-i hold; in such a case the label of
+;	the connecting arc is LABEL-i.
+;	The triple <GOVERNING-CATEGORY, TYPE-OF-THE-GOVERNING-CATEGORY, 
+;       POSITION-OF-DEPENDING-CATEGORY> is unique in the rule set, with the
+;	exception of POSITION-OF-DEPENDING-CATEGORY=chunk-follows. In this
+;       case, since chunks of different categories cannot be treated by a
+;       single 'chunk-follows' rule, then different rules must be introduced.
+;   POSITION-OF-DEPENDING-CATEGORY can assume one of the following values:
+;	after: the DEPENDENT must be adjacent to the head, after it
+;	before: the DEPENDENT must be adjacent to the head, before it
+;	follows: the DEPENDENT must occur after the head, not necessarily
+;		adjacent, but separated from it just by words of the
+;		category and type specified as a first argument of 'follows'.
+;		This argument has the form (category type repeat), where
+;		category and type are the ones of the possible intervening
+;		words, and repeat is T, in case 0 or more occurrences of
+;		those words can appear, NIL, in case exactly one occurrence is
+;		allowed.
+;	precedes: exactly as 'follows', but the dependent must occur before
+;		the head
+;	chunk-follows" the DEPENDENT is the head of a chunk which follows
+;		the HEAD. A chunk is defined as a sequence of words, all of
+;		which have a parent plus the first word without a parent.
+;		The word without parent is assumed to be the head of the chunk,
+;		and it must satisfy the conditions (category and further
+;		conditions) specified in the rule.
+;               The rule includes four parameters
+;                (skipcats searchcats conditions label)
+;		N.B. 'chunk-follows', contrarily to the other operators, do
+;		     NOT admit more than one 'category+conditions' declaration,
+;		     so, when needed, it must be repeated (see the rules for
+;		     PREP).
+;   Conditions:
+; ***	Are assumed to be and-ed; the primitives are:
+;	"agree": there is feature agreement between the two words; which
+;		 features must agree depend on the two CATEGORIES
+;	"char": the DEPENDING is the specified character
+;	"d-governable": the GOVERNING is an ADV that governs the DEPENDING PREP
+;	"dep-follows": the DEPENDING follows a word of a given category
+;	"dep-precedes": the DEPENDING precedes one or more words satisfying some conditions
+;            the possible conditions are:
+;            - type
+;            - semtype
+;            - word-typ
+;            - same-head-type-and-agr
+;            - ok
+;	"dep-semtype": the DEPENDING is of the given semantic type (defined
+;                in KB/ONTOL/semtypes)
+;	"extended-mood": as above, but in evaluating the mood, also auxiliaries
+;               are taken into account
+;	"gov-follows": the GOVERNING follows a word of a given category
+;	"gov-follows-agree": the GOVERNING follows a word of a given category
+;                with which it syntactically agrees
+;	"governable": the GOVERNING is explicitly specified as a possible
+;		governor of the DEPENDING. This is especially useful for
+;		prepositions ("utile per", "buono da")
+;	"head-gender": the syntactic gender of the GOVERNING is as specified
+;	"head-number": the syntactic number of the GOVERNING is as specified
+;	"head-onttype": the GOVERNING 
+;	"head-poss-day": the GOVERNING is a possible day-number (1-31)
+;	"head-poss-month": the GOVERNING is a possible month-number (1-12)
+;	"head-poss-year": the GOVERNING is a possible month-number (1-12)
+;	"head-semtype": the GOVERNING is of the given semantic type 
+;	"head-word-typ": the GOVERNING is a word of the specified grammatical type
+;	"inpword-typ": the input word associated with the DEPENDING is of the
+;                specified grammatical type. This is used for a particular
+;                abbreviation (|ss.|), for which it is the input form which
+;                is relevant, and not its normalized intepretation
+;	"mood": the syntactic mood of the DEPENDING verb is as specified
+;	"n-governable": the GOVERNING is a NOUN that governs the DEPENDING PREP
+;               according to the contents of the "GRAMM-KB-lang/noungovern.lang" file
+;	"next-poss-month": the word following the DEPENDING (which is the -
+;               separator) is a possible month-number (1-12)
+;	"next-poss-year": the word following the DEPENDING (which is the -
+;               separator) is a possible year-number (<5, between 50 and 99,
+;               and between 1900 and 2010)
+;	"nextcateg": the category of the word following the DEPENDING is as specified 
+;	"nextword-typ": the word following the DEPENDING is of the specified
+;                grammatical type
+;	"not": standard logical negation
+;	"number": the syntactic number of the DEPENDING is as specified
+;	"poss-hour": the DEPENDING is a possible hour number (1-24)
+;	"poss-month": the DEPENDING is a possible month number (1-12)
+;	"poss-year": the DEPENDING is a possible year number 
+;	"same-locution": the GOVERNING is part of the same locution as the
+;		DEPENDING
+;	"type": the syntactic subcategory of the DEPENDING must be the one
+;		specified
+;	"vderiv": the GOVERNING noun is derived from a verbal root
+;	"vtrans": the verb from which the GOVERNING noun is derived is transitive
+;	"word-typ": the DEPENDING is a word of the specified grammatical type
+;                  (the grammatical types are defined in KB/DICTIONARY)
+
+;-------------------- ADV -----------------------------------------
+
+(ADV	(not neg)
+	(after
+	 (PREP ((d-governable))    	; Anteriormente A
+		ADVB-ARG)
+	 (ADV ((same-locution))		; Di Fatto
+		CONTIN+LOCUT)
+	 (PUNCT ((inpword-typ &dots))	; avanti ...
+		SEPARATOR))
+	(before
+	 (ADV ((type compar))		; Più Precisamente
+		ADVB+COMPAR-RMOD)
+	 (ADV ((type superl))		; Most Often
+		ADVB+QUANTIF-RMOD)
+	 (ADV ((type neg))		; Non Solo
+		ADVB-RMOD-NEG)
+	 (ADV ((type quant))		; Molto di più
+		ADVB+QUANTIF-RMOD)
+	 (ADV ((type concess))		; Anche ieri
+		ADVB+CONCESS-RMOD)
+	 (ADV ((type streng))		; Perfino ieri
+		ADVB-RMOD-STRENG)
+	 (ADV ((type time)		; Subito dopo
+	       (head-word-typ &rel-time-prep))
+		ADVB-RMOD-TIME)
+	 (ADV ((type time)		; Sempre più
+	       (word-typ &adv-prep-head))
+		ADVB-RMOD-TIME)
+	 (ADV ((type limit))		; Solo Ieri
+		ADVB-RMOD-LIMIT)))
+
+;(ADV	compar
+;	(follows (seq ((adj qualif)))
+; 	 (PREP ((word-typ &superl-prep))        	; i Più simpatici Del mondo
+;		PREP+SUPERLREL-RMOD)))
+
+(ADV	time
+	(after
+	 (NOUN ((dep-semtype £daytime-period))	; Ieri Pomeriggio
+		NOUN-RMOD-TIME)))
+
+(ADV   interj 
+ 	(after
+ 	  (PREP ((head-word-typ &greetings)
+ 	         (word-typ &indobj-prep))
+ 	         PREP-RMOD))
+ 	(before
+ 	  (ADJ ((head-word-typ &greetings)
+ 	        (dep-follows art))
+ 	         ADJC-RMOD)))
+
+;-------------------- CONJ -----------------------------------------
+
+(CONJ	any
+	(after
+	 (CONJ ((same-locution))	; In Quanto
+		CONTIN+LOCUT)))
+
+(CONJ	coord
+	(after
+	 (ADJ ((gov-follows-agree))	; vero e proprio
+		COORD2ND))
+ 	(language english
+	 after
+	 (ADV ((gov-follows conj))	; whether Or Not 
+		COORD2ND)))
+
+(CONJ	subord
+	(before
+	 (ADV ((type concess))		; Anche Se
+		ADVB+CONCESS-RMOD)
+	 (ADV ((type limit))		; Solo Se
+		ADVB-RMOD-LIMIT)
+	 (ADV ((type streng)		; Even if
+               (not (word-typ &moreov)))	; * dice inoltre che
+		ADVB-RMOD-STRENG))
+	(after				; in_quanto applicabili
+	 (ADJ ((type qualif)
+               (head-word-typ &as-far-as))
+		ADJC-RMOD))
+ 	(language english
+	 after
+	 (CONJ ((word-typ &disj-conj)
+                (dep-precedes (adv (type neg))))	; whether Or Not 
+		COORD2ND)
+	 (VERB ((mood gerund))		; when trying
+		CONJ-ARG)))
+
+(CONJ	compar
+	(after
+	 (NOUN ((head-word-typ &compar-prep))	; più alto Di Marco
+		COORD2ND+COMPAR)
+	 (ADJ ((type (deitt compar demons indef poss)))	; piu' di questo prezzo
+		COORD2ND+COMPAR)
+	 (PRON ((head-word-typ &compar-prep))	; più alto Di Quello
+		COORD2ND+COMPAR)
+	 (NUM ((head-word-typ &compar-prep))	; più Di Dieci milioni
+		COORD2ND+COMPAR)
+	 (ART ((head-word-typ &compar-prep))	; più alto Di Un albero
+		COORD2ND+COMPAR)))
+
+;-------------------- ADJ -----------------------------------------
+
+(ADJ	any
+ 	(after
+	 (CONJ ((type coord)
+                (dep-precedes ((adj (same-head-type-and-agr) noun (ok)))))
+	        COORD)
+	 (PUNCT ((char #\-)
+                   (dep-precedes (adj)))     ; il finanziere americano-ungherese
+		SEPARATOR))
+ 	(follows (seq ((punct (char #\-))))	        ; 50-100 milioni
+	 (ADJ ()
+	        COORD2ND+BASE)))
+
+(ADJ	deitt
+ 	(after
+	 (NOUN ((agree) 			; Previa Separazione
+		(head-word-typ &adjectival-prep))
+	        PREP-ARG)
+	 (NOUN ((agree) 			; in Altri Paragrafi
+		(not (gov-follows (art adj))))
+                DET+INDEF-ARG)
+         (NUM ((agree)
+                (not (gov-follows (art adj)))
+                (not (dep-precedes (noun adj)))) ; Altri 8 sono arrivati
+                DET+INDEF-ARG))
+ 	(language english
+         follows (seq ((verb (mood participle))))   ; other suspended solids
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+		DET+DEF-ARG)))
+
+(ADJ	demons
+ 	(language english
+         follows (seq ((adv)))
+	 (VERB ((type (main mod))
+		(mood participle))
+		DET+DEF-ARG)
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence
+		DET+DEF-ARG))
+ 	(language english
+         follows (* ((noun)))
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+		DET+DEF-ARG))
+ 	(follows (* ((adj)) (#\' #\" ;#\«
+                                          ))	; "
+	 (NOUN ((agree)) 			; in Quei bei Giorni
+	        DET+DEF-ARG)			; in Quest'ultimo Caso
+	 (PRON ((type ordin)			; di Questi Ultimi
+		(agree)) 
+	        DET+DEF-ARG))
+ 	(follows (seq ((adj) (num)))
+	 (NOUN ((agree)) 			; Queste due rose
+	        DET+DEF-ARG))			; Questi ultimi due giorni
+	(before					; Tutti questi giorni
+	 (PREDET ((agree))
+		PDET-RMOD)))
+
+(ADJ 	indef
+ 	(before
+	 (ADV ((type concess))		 	; Anche Questa volta
+	 	ADVB+CONCESS-RMOD)
+	 (ADV ((type streng))		 	; to Quite some extent
+	 	ADVB-RMOD-STRENG))
+ 	(after
+	 (NUM ((head-word-typ &distrib-adj))	; every three months
+	 	DET+INDEF-ARG))
+ 	(language english
+         follows (seq ((adv)))
+	 (VERB ((type (main mod))
+		(mood participle))	
+		DET+QUANTIF-ARG)
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence
+		DET+QUANTIF-ARG))
+ 	(language english
+         follows (* ((noun)))
+	 (NOUN ((skip-nouns)			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+	        (not (gov-follows ART)))	; * certain way
+		DET+QUANTIF-ARG))
+ 	(language english
+         follows (* ((verb (mood participle))) (#\' #\" ;#\«
+                                            ))	; "
+	 (NOUN ((agree)				; other suspended solids
+	        (not (gov-follows ART)))	;
+	  	DET+QUANTIF-ARG))
+ 	(follows (* ((adj)) (#\' #\" ;#\«
+                                            ))	; "
+	 (NOUN ((agree)				; Qualche bella Carneficina
+	              				; Alcuni Provvedimenti
+	        (not (gov-follows ART)))	; *i Tanti Banchieri
+	  	DET+QUANTIF-ARG))
+ 	(follows (* ((num)) (#\' #\" ;#\«
+                                            ))	; " Ogni 18 Mesi
+	 (NOUN ((agree)				; Qualche bella Carneficina
+	              				; Alcuni Provvedimenti
+	        (not (gov-follows ART)))	; *i Tanti Banchieri
+	  	DET+QUANTIF-ARG)))
+
+(ADJ 	interr
+ 	(after
+	 (NOUN ((skip-nouns) (agree))		; fino a Che Punto
+	 	DET+INTERR-ARG))
+ 	(language english
+         follows (* ((noun)))
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+		DET+INTERR-ARG))
+ 	(chunk-follows
+	 (nil (NOUN) ((agree))
+	 	DET+INTERR-ARG)))
+
+(ADJ 	compar
+ 	(after
+	 (CONJ ((type compar))			; other than
+	 	COORD+COMPAR))
+ 	(follows (* ((adj)) (#\' #\" ;#\«
+                                         ))	; "
+	 (NOUN ((agree)				; In other words
+	        (not (gov-follows ART)))
+	  	DET+INDEF-ARG)))
+
+(ADJ 	poss
+ 	(follows (* ((adj)) (#\' #\" ;#\«
+                                         ))	; "
+	 (NOUN ((agree)
+	        (not (gov-follows ART)))	; Sua Zia
+	 	DET+DEF-ARG))
+ 	(language english
+         after
+	 (VERB ((type (main mod))		; his characterizing
+		(mood participle))
+		DET+DEF-ARG)))
+
+(ADJ 	qualif
+ 	(before
+	 (ADV ((type compar)
+               (not (gov-precedes (prep (word-typ &compar-prep))))) 	; il test Più Raffinato 
+	 	ADVB+COMPAR-RMOD)
+         (ADV ((type compar)			; *** difficult disambiguation wrt the previous one
+               (gov-precedes (prep (word-typ &superl-prep))))        	; i Più simpatici Del mondo
+		ADVB+COMPAR-RMOD)
+	 (ADV ((type compar)
+               (gov-precedes (prep (word-typ &compar-prep)))) 	; un test Più Raffinato di 
+	 	COORDANTEC+COMPAR)
+	 (ADV ((type quant)) 			; potrebbe essere Molto Esteso
+	 	ADVB+QUANTIF-RMOD)
+	 (ADV ((type NEG)) 			; Non Indispensabile
+	 	ADVB-RMOD-NEG)
+	 (ADV ((type LIMIT)) 			; non Soltanto Albanesi
+	 	ADVB-RMOD-LIMIT)
+	 (ADV ((type STRENG)) 			; e Persino Criminale
+	 	ADVB-RMOD-STRENG)
+	 (ADV ((type manner)) 			; la papa Particolarmente Care
+	 	ADVB-RMOD-MEANSMANNER)
+	 (ADV ((type time) 			; venti ancora occidentali
+	       (dep-follows noun))
+	 	ADVB-RMOD-TIME)
+	 (ADV ((type superl)) 			; the most likeley 
+	 	ADVB+QUANTIF-RMOD)
+	 (PUNCT ((char #\-) 			; mind-like
+	         (dep-follows (noun adv)))
+	 	 SEPARATOR))
+ 	(language english
+         before
+	 (ADV ((type (interr)))			; how long ...?
+		ADVB+INTERR-RMOD))
+ 	(precedes (ADV quant T)
+	 (ADV ((type manner)			; un cielo Generalmente poco Nuvoloso
+               (dep-follows noun))	
+		ADVB-RMOD-MEANSMANNER))
+ 	(after
+	 (CONJ ((type compar)) 			; un test più Raffinato
+						;	 Di quello solito
+	 	COORD+COMPAR)
+	 (PREP ((governable))                   ; operazione Utile Per permettere
+		ADJC-ARG)
+	 (ART ((agree) 				; Salve le disposizioni
+	       (head-word-typ &adjectival-prep)
+	       (not (gov-follows (noun)))
+	       (not (gov-follows (verb (word-typ &to-be)))))
+	        PREP-ARG)
+	 (PREP ((word-typ &compar-prep)
+		(head-word-typ &compar-adj))  	; maggiore di ...
+		COORD+COMPAR)
+	 (PREP ((word-typ &compar-prep)
+		(gov-follows (ADV (type COMPAR)))) ; più bello del mondo
+		PREP-RMOD)
+	 (ADJ ((same-locution))			; Inter Vivos
+		CONTIN+LOCUT))
+ 	(precedes (punct (char #\-) nil)	; Mind-like
+	 (NOUN () ADJC-ARG)
+	 (ADV ((type neg))			; non-discriminatory
+                ADVB-RMOD-NEG)))
+
+(ADJ	ordin
+ 	(language english
+         before
+	 (NOUN ((dep-semtype £month))           ; June fifteenth 
+	        NOUN-RMOD-MONTH))
+ 	(language english
+         after
+	 (NOUN ((dep-semtype £month))           ; fifteenth June
+	        NOUN-RMOD-MONTH)))
+
+;-------------------- NUM -----------------------------------------
+
+(NUM	any
+ 	(follows (* ((adj)) (#\' #\" ;#\«
+                                          ))	; "
+	 (NOUN ((agree)
+	        (not (gov-follows 
+                        (ART ADJ (not (word-typ &distrib-adj)))))	; *i Sette Saggi
+                                            ; *these two roses (not possible to check type)
+	        (not (dep-semtype £month)))		; 1 february
+	       DET+QUANTIF-ARG)
+	 (NOUN ((agree)
+	        (not (gov-follows (ART ADJ)))		; *i Sette Saggi
+                                            ; *these two roses (not possible to check type)
+	        (dep-semtype £month))			; 1 february
+	      NOUN-RMOD-MONTH))
+ 	(follows (seq ((punct (char #\-))))        ; 50-100 milioni
+	 (NUM ()
+	       NUM-ARG-RANGE))
+ 	(follows (seq ((special (char #\/))))	; legge 480/1992
+	 (NUM ((poss-year)
+               (not (head-poss-year)))		; to block Directive 2008/55/EC (to 55)
+	       NUM-RMOD-DMDATE)
+	 (NUM ((head-poss-year))               ; Directive 2000/35/EC (for 35)
+	       NUM-RMOD))
+        (follows (seq ((special (char #\/)) (num)))
+	 (SPECIAL ((char #\/)) 			; Directive 2000/35/EC (for the second slash)
+	        SEPARATOR))
+        (follows (seq ((special (char #\/)) (num) (special (char #\/))))
+	 (NOUN ((type proper)) 			; Directive 2000/35/EC (for EC)
+	        NOUN-RMOD))
+ 	(follows (seq ((special (char #\%))))	; il 42% del totale
+	 (PREP ((word-typ &partitive-prep))
+	       NUM-ARG-PARTITIVE))
+ 	(follows (seq ((punct (char #\-))))	; 2-bis
+	  (ADV ((type ordseq))  				
+	 	ADVB-APPOSITION-DENOM))
+	(after
+	 (PREP ((word-typ &noun-pref-prep) 	; di, of, de
+                (dep-precedes (noun (word-typ &time-ref-noun))))
+	        PREP-RMOD)
+	 (PREP ((word-typ &percent-1) 
+                (nextword-typ &percent-2)) 	; l'85 Per cento
+	        NUM-ARG-PERCENT)
+	 (NOUN ((dep-semtype £month))           ; il 29 Novembre
+	        NOUN-RMOD-MONTH)
+	 (SPECIAL ((char #\/)
+                   (head-poss-year)) 		; Directive 2000/35/EC (for the first slash)
+	        SEPARATOR)
+	 (SPECIAL ((char #\%)) 			; l'85 %
+	        NUM-ARG-PERCENT)
+	 (PUNCT ((char #\-) (head-poss-day) (next-poss-month)) ; il 18-7
+	        SEPARATOR)
+	 (PUNCT ((char #\-) (head-poss-month) (next-poss-year)) ; il 18-7-1975
+	        SEPARATOR)
+	 (PUNCT ((char #\-)) 			; sentenza n. 667 - 97
+	        SEPARATOR)
+	 (ADJ ((inpword-typ &and-foll))		; N.B. This applies to the code "ss.", not to the
+                                                ;      word "seguente"
+	        COORD2ND)
+	 (NUM ((word-typ &thousand))		; 8mila
+	        CONTIN+NUM)
+	 (NUM ((not (word-typ &thousand)))
+	        CONTIN+NUM))
+        (language english
+	 after
+	 (ADJ ((type ordinsuff))
+	        CONTIN))
+        (language english
+ 	 follows (seq ((adj ordinsuff)))
+	 (PREP ((dep-precedes ((noun (semtype £month)))) ; The 15th of june
+                (head-poss-day))		; 0 < num < 32
+	      PREP-RMOD))			; march 16
+        (language english
+ 	 follows (seq ((adj ordinsuff)))
+	 (NOUN ((dep-semtype £month)
+                (head-poss-day))		; 0 < num < 32
+	      NOUN-RMOD-MONTH))			; march 16
+        (language english
+         before
+	 (NOUN ((dep-semtype £month)
+                (head-poss-day))		; 0 < num < 32
+	      NOUN-RMOD-MONTH))			; march 16
+	(before
+;	 (ADJ ((type ordin))
+;                ADJC+ORDIN-RMOD)  		; i primi 2
+	 (ADV ((type quant))
+                ADVB+QUANTIF-RMOD)  		; Circa 3000 posti
+	 (ADV ((type compar))
+                ADVB+COMPAR-RMOD)))		; Oltre 3000 posti
+
+;-------------------- NOUN -----------------------------------------
+
+(NOUN 	any
+        (before
+         (ADV ((word-typ &noun-pref-adv))	; anche
+                ADVB-RMOD)
+         (ADJ ((word-typ &indef-adj-2)	 	; certo
+               (dep-follows (art (type indef))))
+                ADJC+QUALIF-RMOD)))
+
+(NOUN 	common
+ 	(follows (seq ((punct (char #\"))))	; "
+	 (NOUN ((head-word-typ &word-ref)
+                (dep-precedes (punct (char #\"))))	; the Word "Theism ..
+	 	NOUN-ARG))
+ 	(follows (seq ((punct (char #\:))))      ; " 
+	 (NOUN ((type proper)			; le parole: RIF37 (legal)
+	        (head-word-typ &word-ref))	
+	 	NOUN-APPOSITION-DENOM))
+  ; *** the next rule anticipates the analysis of noun-noun constructions for English
+	(language noun-engl				; noun-noun modification
+         precedes (PUNCT (char (#\" #\-)) T)
+	 (NOUN ((not (word-typ &word-ref))
+                (not (same-locution)))
+		NOUN-RMOD))
+ 	(language (italian spanish catalan french)
+         precedes (ADJ qualif T (#\- #\' #\"))      ; "
+	 (ADJ ((type ordin) 			; la Quinta Strada
+	       (agree))				; questa Seconda Ipotesi
+	 	ADJC+ORDIN-RMOD))			; di Primo Grado
+ 	(language english
+         precedes (ADJ qualif T (#\- #\' #\"))      ; "
+	 (ADJ ((not (head-semtype £month))
+	       (type ordin) 			; the fifth hypothesis
+	       (agree))		
+	 	ADJC+ORDIN-RMOD))	
+ 	(precedes (ADJ qualif T (#\- #\' #\" #\:))      ; "
+	 (ADJ ((type indef)			; i Tanti Banchieri
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+QUANTIF-RMOD)
+	 (ADJ ((type compar) 			; the other guys
+	       (agree)			
+	       (dep-follows art))
+	 	ADJC+COMPAR-RMOD)
+	 (ADJ ((type qualif)			; una Bella Casa
+	       (agree))
+	 	ADJC+QUALIF-RMOD)
+	 (ADJ ((type poss)			; la Sua bella Casa
+	       (agree)
+	       (not (vderiv))
+	       (dep-follows art))
+	 	ADJC+POSS-RMOD)
+	 (ADJ ((type poss)			; di Propria Iniziativa
+	       (agree)
+	       (vderiv)
+	       (dep-follows art))
+	 	NOUN-SUBJ)
+	 (ADJ ((type deitt)			; una Medesima Fonte di reddito
+	       (agree)				; ogni Altra Rendita
+	       (dep-follows (art adj)))
+	 	ADJC+DEITT-RMOD)
+	 (PRON ((word-typ &mid-relat)		; La cui Attuazione
+	        (dep-follows art))
+	 	PRON-RMOD)
+	 (NUM ((agree)				; i Sette Saggi
+	       (dep-follows (art adj))
+               (not (head-semtype £month)))     ; il 29 novembre
+	 	NUM+CARDIN-RMOD))
+ 	(precedes (ADJ ordin T)
+	 (ADJ ((type poss)			; le Sue prime Decisioni
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+POSS-RMOD))
+ 	(precedes (ADJ poss T)
+	 (ADJ ((type ordin)			; le Sue prime Decisioni
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+ORDIN-RMOD))
+ 	(precedes (ADJ deitt T)
+	 (ADJ ((type poss)			; i Suoi stessi Collaboratori
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+POSS-RMOD))
+ 	(precedes (PUNCT (char #\-) NIL)
+	 (ADJ ((word-typ &pre--adj))		; un Maxi-Emendamento
+	 	ADJC+QUALIF-RMOD))
+ 	(language (italian french)
+         precedes (NUM any T)
+	 (ADJ ((type ordin)			; questi Ultimi cinque Anni
+	       (agree))
+	 	ADJC+ORDIN-RMOD))
+ 	(language (italian french)			; EVALITA
+         precedes (NUM any T)
+	 (ADJ ((word-typ &ordin-adj)		; questi Ultimi cinque Anni
+	       (agree))
+	 	ADJC+ORDIN-RMOD))
+ 	(language english
+         precedes (ADJ any T)
+	 (PRON ((word-typ &mid-relat))		; Whose impact
+	 	PRON-RMOD))
+ 	(language english
+         precedes (NUM any T)
+	 (ADJ ((not (head-semtype £month))
+               (type ordin)			; these last five years
+	       (agree))
+	      ADJC+ORDIN-RMOD)
+	 (PRON ((word-typ &mid-relat))		; Whose impact
+	 	PRON-RMOD))
+ 	(precedes (NUM any T)
+	 (ADJ ((type deitt)			; le Altre tre Organizzazioni
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+DEITT-RMOD)
+	 (ADJ ((type ordin)
+	       (agree))
+                ADJC+ORDIN-RMOD)  		; i primi 2
+	 (ADJ ((type poss)			; le Tue tre Idee
+	       (agree)
+	       (dep-follows art))
+	 	ADJC+POSS-RMOD))
+ 	(follows (seq ((num)))
+	 (NOUN ((word-typ &artic-law-2)	    ; "legge" Art. 99 L. dir. autore
+	        (head-word-typ &artic-law-1))    ; "articolo" Art. 99 L. dir. autore
+		RMOD))
+ 	(follows (seq ((punct (char #\,))))
+	 (NUM ((head-onttype ££location))	
+		NUM-RMOD))
+ 	(language (italian french)
+         follows (seq ((adj qualif)))
+	 (NUM ((head-word-typ &code))		; Cod. civ. 854
+		NUM-APPOSITION-DENOM))
+ 	(language (italian french)
+ 	 follows (seq ((punct (char (#\' #\")))))	; "
+	 (NOUN ((type proper)			; il signor 'Rossi'
+		(not (head-semtype £time)))	; Sabato Mladic
+		NOUN-APPOSITION-DENOM))
+ 	(language (italian french)
+         follows (seq ((punct (char #\-))))		;
+	 (NOUN ()				; il Parco-Stranieri
+		NOUN-RMOD))
+ 	(language (italian catalan spanish french)
+         follows (* ((adj qualif)) (#\' #\"))	; "
+	 (ADJ ((type qualif)			; il Mercato Capitalistico
+               (not (word-typ &pre--adj))	; "ex"
+	       (agree))
+	 	ADJC+QUALIF-RMOD))
+       (follows (seq ((num)))
+	 (PREP ((n-governable))
+		PREP-RMOD)
+	 (PREP ((word-typ &noun-pref-prep))
+		PREP-RMOD)
+	 (PREP ((word-typ &noun-agt-compl))
+		NOUN-SUBJ))
+       (language (italian catalan spanish french)      ; la natura stessa della
+         follows (seq ((adj deitt)))
+           (PREP ((n-governable))
+                  PREP-RMOD)
+           (PREP ((word-typ &noun-pref-prep))
+                  PREP-RMOD)
+           (PREP ((word-typ &noun-agt-compl))
+                  NOUN-SUBJ))
+       (language (italian catalan spanish french)
+         follows (seq ((adv time))) 		; la tendenza poi a ...
+           (PREP ((n-governable))
+                  PREP-RMOD)
+           (PREP ((word-typ &noun-pref-prep))
+                  PREP-RMOD)
+           (PREP ((word-typ &noun-agt-compl))
+                  NOUN-SUBJ))
+      (language (italian catalan spanish french)	; il capitolo III del libro
+         follows (seq ((adj ordin)))
+	   (PREP ((n-governable))
+		  PREP-RMOD)
+	   (PREP ((word-typ &noun-pref-prep))
+		  PREP-RMOD)
+	   (PREP ((word-typ &noun-agt-compl))
+		  NOUN-SUBJ))
+      (follows (* ((adj qualif)) (#\' #\"))	; "
+	 (PREP ((n-governable))
+		PREP-RMOD)
+	 (NOUN ((dep-semtype £numbident))	; la Sentenza N.667
+	 	APPOSITION)
+	 (NOUN ((type proper)			; il quotidiano belgradese Telegraph
+		(not (head-semtype £time)))	; Sabato Mladic
+		NOUN-APPOSITION-DENOM)
+    ; *** the next works if the chunk for adjectives is applied before the
+    ;     one for nouns, so that in "aggeggio utile per", 'per' is linked
+    ;     to 'utile' before being linked to 'aggeggio'
+    ; *** this set of rules aims at managing prepositional attachment
+    ;     unfortunately it is rather language-specific
+    ;     It must keep apart the standard case where a proposition is
+    ;     preferentially attached to a preceding noun (as "di" in Italian)
+    ;     (labelled as PREP-RMOD), from cases of verbal government
+    ;     (VERB+INF-RMOD-SITDESCR)
+    ;     The problem is that (at least in Italian) "aver diritto" has 
+    ;     been considered as a locution, so that it must be handled
+    ;     differently from "avere il diritto". But the verbal rules are
+    ;     applied after these rules, so that the presence of that
+    ;     locution must be recognised here
+                                  ; il diritto Di andare
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(dep-precedes (verb))		; the preposition precedes a verb
+		(head-semtype £sit-vgov)	; the head noun can govern a
+						; subordinate
+		(not (gov-follows verb)		; "aver diritto" is a locution 
+		     (head-word-typ &obj-vlocut)) ; the two subconditions are and-ed
+		(not (dep-precedes 		; the rule does not apply to
+			((pron (type relat)) 	; "di cui", "del quale"
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	VERB+INF-RMOD-SITDESCR)
+	 (PREP ((word-typ &vgov-prep-2)		; una cosa Da fare
+		(dep-precedes (verb)))
+	 	VERB-RMOD))
+                                  ; la Strada Per casa
+    ; *** the next is the italian version of rules that are different from the
+    ;     english ones just because english admits that the depending prep governs
+    ;     a present participle or gerund verb
+        (language (italian catalan spanish french)
+         follows (* ((adj qualif)) (#\' #\"))	; "
+	 (PREP ((not (word-typ &noun-pref-prep))	; it is not a prep that prefers attachment
+                                                ; to a noun,
+		(not (verb-before))		; but there is no verb before
+		(not (dep-precedes 		;
+			(verb 			; 
+			 (pron (word-typ &mid-relat))
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; il Diritto Di un consumatore
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(not (vderiv))			; and the head noun is not derived from a verb
+		(head-word-typ &obj-vlocut)      ; the head noun is a possible verbal locution
+		(not (gov-follows verb))        ; but it is not preceded by a verb
+		(not (dep-precedes 		; 
+			(verb 			;
+			 (pron (word-typ &mid-relat))
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; la Casa Di un mio amico
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(not (vderiv))                  ; and the head noun is not derived from a verb
+	        (not (head-word-typ &obj-vlocut)) ; and is not a possible verbal locution
+		(not (dep-precedes 		; 
+			(verb 			;
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; l'Abbattimento Della casa
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(vderiv)                        ; and the head noun is derived from a verb
+		(vtrans)                        ; and the verb is transitive
+		(not (dep-precedes 		; 
+			(verb 			; 
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	NOUN-OBJ)
+                                  ; il Crollo Della casa
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(vderiv)                        ; and the head noun is derived from a verb
+		(not (vtrans))                  ; but the verb is not transitive
+		(not (dep-precedes 		; 
+			(verb 			;
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	NOUN-SUBJ)
+	 (PREP ((word-typ &stuff-made-prep)	; "banconota in euro"
+		(head-word-typ &money-item)     ; the head noun refers to a piece if money
+		(dep-precedes ((noun (word-typ &currency)))))
+	 	PREP-RMOD))
+        (language english
+         follows (* ((adj qualif)) (#\' #\"))	; "
+	 (PREP ((not (word-typ &noun-pref-prep))	; it is not a prep that prefers attachment
+                                                ; to a noun,
+		(not (verb-before))		; but there is no verb before
+		(not (dep-precedes 		;
+			((verb (not (mood (gerund participle))))
+			 (pron (word-typ &mid-relat))
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; il Diritto Di un consumatore
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(not (vderiv))			; and the head noun is not derived from a verb
+		(head-word-typ &obj-vlocut)      ; the head noun is a possible verbal locution
+		(not (gov-follows verb))        ; but it is not preceded by a verb
+		(not (dep-precedes 		; 
+			((verb (not (mood (gerund participle))))
+			 (pron (word-typ &mid-relat))
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; la Casa Di un mio amico
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(not (vderiv))                  ; and the head noun is not derived from a verb
+	        (not (head-word-typ &obj-vlocut)) ; and is not a possible verbal locution
+		(not (dep-precedes 		; 
+			((verb (not (mood (gerund participle))))
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	PREP-RMOD)
+                                  ; l'Abbattimento Della casa
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(vderiv)                        ; and the head noun is derived from a verb
+		(vtrans)                        ; and the verb is transitive
+		(not (dep-precedes 		; 
+			((verb (not (mood (gerund participle))))
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	NOUN-OBJ)
+                                  ; il Crollo Della casa
+	 (PREP ((word-typ &noun-pref-prep)	; it is a prep that prefers attachment to noun
+		(vderiv)                        ; and the head noun is derived from a verb
+		(not (vtrans))                  ; but the verb is not transitive
+		(not (dep-precedes 		; 
+			((verb (not (mood (gerund participle))))
+			 (pron (word-typ &mid-relat)) 
+			 (art (type def) pron (word-typ &art-relat))))))
+	 	NOUN-SUBJ))
+ 	(follows (* ((adj qualif)) (#\, #\" #\'))   ; il mercato capitalistico, visto (")
+	 (VERB ((mood participle)		; i prodotti provenienti
+		(agree))			; le Forme Stabilite
+		VERB-RMOD+RELCL+REDUC))
+ 	(follows (* ((adv)))		        ; terreni estensivamente coltivati
+	 (VERB ((mood participle)
+		(agree))	
+		VERB-RMOD+RELCL+REDUC))
+ ;	(language english	        ; This and the next are the English version, 
+ ;                                       ; restricted to present participle
+ ;	 follows (* ((adj qualif)) #\,)	     
+ ;	 (VERB ((mood participle)	
+ ;                (tense pres)
+ ;		(agree))	
+ ;		VERB-RMOD+RELCL+REDUC))
+ ; 	(language english
+ ; 	 follows (* ((adv)))		     ; terreni estensivamente coltivati
+ ;	 (VERB ((mood participle)
+ ;                (tense pres)
+ ;		(agree))	
+ ;		VERB-RMOD+RELCL+REDUC))
+ 	(follows (seq ((adv neg)))
+	 (ADJ ((type qualif)			; le Spese non Liquide
+               (not (word-typ &pre--adj))	; "ex"
+	       (agree))
+		ADJC+QUALIF-RMOD))
+ 	(follows (seq ((adv quant)))
+	 (ADJ ((type qualif)			; le Spese molto Alte
+               (not (word-typ &pre--adj))	; "ex"
+	       (agree))
+		ADJC+QUALIF-RMOD))
+ 	(language (italian catalan spanish french)
+         chunk-follows 
+	 ((ADJ) (ADJ) ((agree) 
+                       (not (word-typ &pre--adj))	; "ex"
+                       (type qualif))		; la Modifica più Radicale
+	 	ADJC+QUALIF-RMOD))			; l'evento teatrale piu' vicino
+ 	(chunk-precedes
+	 (((not PREP)) (ADJ) ((agree) (type qualif))		; a Breve e medio Termine
+	 	ADJC+QUALIF-RMOD))		; "not PREP" to avoid application to "useful for things"
+                                                ; since in this case "useful for" is a chunk, but must
+                                                ; not be attached to "things"
+ 	(before					; la NON conformità
+ 	 (ADV ((type neg)
+ 	       (dep-follows art))
+ 		ADVB-RMOD-NEG))
+ 	(language english
+         after 
+	 (PRON ((type refl))			; the idea itself
+		PRON-RMOD))
+ 	(language english
+ 	 precedes (ADJ qualif T (#\- #\' #\" #\:))      ; "
+	 (VERB ((dep-follows (art adv prep (verb (type main)) 
+                              (adj (type (poss deitt indef demons)))))
+                (mood participle)		; the contracting authorities
+		(agree))	
+		ADJC+QUALIF-RMOD))
+	(after
+	 (ADJ ((agree) (type deitt))		; l'Opera Stessa
+		ADJC+DEITT-RMOD)
+	 (ADJ ((agree) (type poss))		; l'Opera Altrui
+		ADJC+POSS-RMOD)
+	 (ADJ ((agree) (type compar))		; values Other than
+		ADJC+COMPAR-RMOD)
+	 (ADJ ((agree) (type ordin)
+               (head-semtype £section))		; Capitolo III
+		ADJC+ORDIN-RMOD)
+	 (ADJ ((agree) (type qualif)
+               (dep-precedes (prep)))           ; an idea useful for
+	        ADJC+QUALIF-RMOD)
+	 (ART ((type def)
+	       (head-word-typ &speed-noun)
+               (dep-precedes (noun (word-typ &speed-noun-2)))) ; chilometri L'ora
+	        NOUN-RMOD)
+	 (CONJ ((type subord)
+                (head-semtype £sit-vgov))	; the head noun can govern a subordinate
+	 	VERB+FIN-RMOD-SITDESCR)
+	 (NUM ((head-semtype £daytime))
+		NUM-RMOD)			; Martedì 27
+	 (NUM ((head-semtype £month)
+               (poss-year))			; 50 < num < 100 or 1900 < num < 2100
+		NUM-RMOD-YEAR)			; il 20 Gennaio 2003
+	 (NUM ((not (head-semtype £daytime))
+	       (not (head-semtype £month))
+               (not (dep-precedes (noun (semtype £month)))))  ; an idea useful for
+		NUM-APPOSITION-DENOM)		; Pagina 37
+	 (NUM ((head-onttype ££location))       ; Via Roma, 37
+		NUM-RMOD)
+	 (NOUN ((same-locution))		; Punto Di Vista
+		CONTIN+LOCUT)
+	 (NOUN ((type proper))			; la Società Credifarma
+		NOUN-APPOSITION-DENOM)
+	 (NOUN ((head-semtype £weekday)		; Giovedì Mattina
+                (dep-semtype £daytime-period))
+		NOUN-RMOD-TIME)
+	 (NOUN ((head-semtype £title)
+		(type proper))			; Dott. Rossi
+		NOUN-APPOSITION-DENOM)
+	 (NOUN ((head-semtype £title)
+		(type common))			; i Signori Magistrati
+		APPOSITION)
+	 (NOUN ((head-word-typ &noun-noun-head))	; l. brev. invenzioni
+		NOUN-RMOD)
+	 (NOUN ((word-typ &noun-noun-dep-2)     ; "procedura" in Cod. Proc. Civ.
+		(head-word-typ &noun-noun-head-2)) ; "codice" in Cod. Proc. Civ.
+		NOUN-RMOD)
+	 (NOUN ((word-typ &noun-noun-dep-3)         ; "autore" in l. dir. autore
+		(head-word-typ &noun-noun-head-3)) ; "diritto" in l. dir. autore
+		NOUN-RMOD)
+	 (NOUN ((head-dep-noun-noun)) 		; parti ricambio
+		NOUN-RMOD)
+	 (PUNCT ((head-onttype ££location)        ; Via Roma, 37
+	         (dep-precedes (num)))
+		SEPARATOR)
+	 (PUNCT ((char #\.)
+		 (dep-follows num))
+		SEPARATOR)
+	 (PUNCT ((char #\-)
+                   (dep-precedes (noun)))         ; il Parco-stranieri
+		SEPARATOR)
+         (SPECIAL ((dep-precedes (punct (char #\-))))
+                APPOSITION-DENOM)
+          ))
+
+(NOUN 	proper
+ 	(precedes (ADJ qualif T (#\- #\' #\" #\:))      ; "	EVALITA
+	 (NUM ((agree)				; i due Stranamore
+	       (dep-follows (art adj))
+               (not (head-semtype £month)))     ; il 29 novembre
+	 	NUM+CARDIN-RMOD))
+	(after
+	 (NOUN ((same-locution))		; New York
+		CONTIN+LOCUT)
+	 (NOUN ((type proper))			; Federico Garcia Lorca
+		CONTIN+DENOM)
+	 (ADJ ((type ordin)) 			; Giovanni Paolo II
+	 	ADJC+ORDIN-RMOD)
+	 (ADJ ((type qualif)			; la Germania Orientale
+               (agree)
+               (number sing))			; proper names have no explicit number, but
+		ADJC+QUALIF-RMOD)               ;  are usually singular
+	 (PREP ((word-typ &noun-pref-prep)			; la Germania Orientale
+                (dep-precedes (noun (type proper))))
+		PREP-RMOD)                      ;  For names: Piero di Cosimo
+	 (PREP ((word-typ &loc-from-prep)			; la Germania Orientale
+                (dep-precedes (noun (semtype ££city))))
+		PREP-RMOD)                      ;  For names: Federico da Montefeltro
+	 (PUNCT ((char #\,)
+                 (head-onttype ££location)          ; Via Roma, 37
+		 (dep-precedes (num)))
+		SEPARATOR)
+         (PUNCT ((char #\-)                     ; EVALITA: "MILANO - E' stato ..."
+                 (gov-follows (nil)))
+                SEPARATOR)
+	 (SPECIAL ((char #\/)
+                   (dep-precedes (num)))        ; il decreto C351/1
+		SEPARATOR)
+	 (NUM ((head-onttype ££location))       ; Via Roma 37
+		NUM-RMOD)
+	 (NUM ()       				; il San Marco 1
+		CONTIN+DENOM))
+ 	(follows (* ((adj qualif)) #\,)		; Shehu, sfuggito a
+	 (VERB ((mood participle)
+		(agree)	
+                (number sing))
+		VERB-RMOD+RELCL+REDUC))
+ 	(follows (seq ((punct (char #\,))))
+	 (NOUN ((type common))			; Ibrahim Rugova, presidente di
+		APPOSITION)
+	 (NUM ((head-onttype ££location))       ; Via Roma, 37
+		NUM-RMOD))
+ 	(follows (seq ((special (char #\/))))
+	 (NUM ((not (poss-year)))		; il decreto C351/1
+		NUM-RMOD))
+ 	(follows (seq ((punct (char #\-))))
+	 (NOUN ((type proper))			; la ferrovia Tirana-Durazzo
+		APPOSITION))
+ 	(precedes (ADJ qualif T (#\- #\' #\" #\:))      ; " 
+	 (ADJ ((type deitt)			; le seguenti: RIF37 (legal)
+	       (agree)	
+	       (dep-follows art))
+	 	ADJC+DEITT-RMOD))
+	(before
+	 (ADJ ((type ordin) 			; del Terzo Roc
+               (dep-follows art))
+	 	ADJC+ORDIN-RMOD)
+	 (ADJ ((type qualif))			; Santa Margherita
+		ADJC+QUALIF-RMOD)
+	 (ADV ((type concess))			; Anche Marco è partito
+		ADVB+CONCESS-RMOD)
+	 (PUNCT ((char #\:))    
+		SEPARATOR)))
+
+;-------------------- PREDET --------------------------------------
+
+(PREDET any
+	(before					; Quasi Tutti i cavalli
+	 (ADV ((type quant))
+		ADVB+QUANTIF-RMOD)))
+
+; -------------------- ART -----------------------------------------
+
+(ART 	any
+	(before
+	 (PREDET ((agree))
+		PDET-RMOD)))
+
+(ART 	genitive			; The young boy's idea that
+	(chunk-precedes
+	 (nil (NOUN ART PRON NUM) ()
+	 	DET+GENITIVE-RESTR))
+ 	(chunk-precedes
+	 (nil (ADJ) ((type (deitt demons indef interr poss)))
+	 	DET+GENITIVE-RESTR))
+ 	(chunk-follows
+	 (nil (NOUN ART PRON NUM) ()
+	 	DET+GENITIVE-ARG))
+ 	(chunk-follows
+	 (nil (ADJ) ((type (deitt demons indef interr poss)))
+	 	DET+GENITIVE-ARG))
+        (before
+	 (PUNCT ((char #\'))    ; the father's advice
+		SEPARATOR)))
+
+(ART 	def
+	(before
+	 (ADV ((type concess))			; Anche L'istituto
+		ADVB+CONCESS-RMOD)
+	 (ADV ((type streng))			; Proprio Il
+		ADVB-RMOD-STRENG))
+	(language english
+         after
+	 (ADJ ((type ordin)
+               (dep-precedes ((noun (semtype £month))))) ; The fifteenth june
+		DET+DEF-ARG)
+	 (VERB ((type (main mod))	; different from the one below, because of gerund
+		(mood (participle infinite gerund)))	; the Encountering of
+		DET+DEF-ARG))
+	(after
+	 (VERB ((type (main mod))
+		(mood (participle infinite)))	; Gli Aventi diritto ; neL Valutare
+		DET+DEF-ARG)
+	 (PRON ((word-typ &art-relat-or-base))		; per I Quali
+		DET+DEF-ARG)
+	 (PRON ((word-typ &art-pron) (number pl))	; Gli Uni e gli altri
+		DET+DEF-ARG)
+	 (PRON ((type (ordin deitt compar indef poss demons))) ; Il Primo, Il medesimo, L'Altro
+		DET+DEF-ARG)
+	 (PRON ((type relat) (head-gender m) (head-number sing)) ; Il che è importante
+		DET+DEF-ARG)
+	 (DATE ()				; Il 18/7/2002
+		DET+DEF-ARG)
+	 (ADJ ((nextcateg (verb art)))		; L'Indegno è obbligato
+		DET+DEF-ARG)
+	 (NOUN ((type proper))			; gli Stati uniti
+		DET+DEF-ARG)
+	 (NUM ((dep-precedes 			; Il 2.50 %
+		  ((special (char #\%)))))
+		DET+DEF-ARG)
+	 (NUM ((dep-precedes 			; Il 2.50 per cento
+		  ((prep (word-typ &percent-1)))))
+		DET+DEF-ARG)
+	 (NUM ((dep-precedes 			; Il 29 novembre
+		  ((noun (semtype £month)))))
+		DET+DEF-ARG)
+	 (NUM ((head-number sing) (head-gender m)) 	; Nel 1929
+		DET+DEF-ARG)
+	 (NUM ((dep-precedes 			; Il 4-11-97
+		  ((punct (char #\-)))))
+		DET+DEF-ARG)
+	 (HOUR ((head-number pl) (head-gender f)) 	; Alle 3:15:00
+		DET+DEF-ARG)
+         (NUM ((dep-precedes                    ; I cinque partono
+                  (verb)))
+                DET+DEF-ARG))
+        (follows (seq ((adj)))
+	  (PHRAS ((word-typ &greetings)
+	 	DET+DEF-ARG)))
+ 	(language italian
+         follows (seq ((adv neg)))
+	 (VERB ((type (main mod))
+		(mood participle))		; Un non Concepito
+		DET+DEF-ARG)
+	 (NOUN ()				; Il non Uso
+		DET+DEF-ARG))
+ 	(language english
+         follows (seq ((adv neg)))
+	 (VERB ((type (main mod))
+		(mood (participle gerund)))	
+		DET+DEF-ARG)
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+		DET+DEF-ARG))
+ 	(language english
+         follows (* ((noun)))
+	 (NOUN ((skip-nouns))			; the condition skip-nouns to avoid
+						; the attachment to the first noun of
+						; a noun sequence: if the next word is a noun,
+						; the rule is not applied
+		DET+DEF-ARG))
+	(language english
+         after
+	 (num ((dep-precedes ((adj (type ordinsuff)))))
+		DET+DEF-ARG))
+ 	(chunk-follows
+	 (nil (NOUN) ((agree))
+	 	DET+DEF-ARG))
+ 	(language english
+         chunk-follows
+	 (nil (PRON) ((word-typ &art-pron))
+	 	DET+DEF-ARG))
+ 	(chunk-follows
+	 (nil (NUM) ((head-number pl) (head-gender f) (poss-hour))
+	 	DET+DEF-ARG)))
+
+(ART 	indef
+	(after
+	 (PRON ((type (ordin deitt compar indef)))	; Un Terzo, Un Altro
+		DET+INDEF-ARG))
+	(before
+	 (ADV ((type limit))			; Solamente Una cosa
+		ADVB-RMOD-LIMIT)
+	 (ADV ((type quant))			; Almeno Un metro
+		ADVB+QUANTIF-RMOD))
+	(language english
+         before
+	 (ADV ((word-typ &such))		; Such A situation
+		ADVB-RMOD-ANAPH))
+ 	(follows (seq ((adv neg)))
+	 (VERB ((type (main mod))
+		(mood participle))		; Un non Concepito
+		DET+INDEF-ARG))
+ 	(follows (seq ((adj (word-typ &indef-adj-2))))
+	 (NOUN ()				; Un Certo individuo
+		DET+INDEF-ARG))
+        (follows (seq ((adj)))			; UN cordiale BUONASERA
+	 (PHRAS ((word-typ &greetings))
+	 	DET+INDEF-ARG))
+ 	(chunk-follows
+	 (nil (NOUN) ((agree))
+	 	DET+INDEF-ARG)))
+
+; -------------------- PRON -----------------------------------------
+
+(PRON 	any
+        (before
+         (ADV ((word-typ &noun-pref-adv))	; anche
+                ADVB-RMOD)))
+
+(PRON 	demons
+ 	(after
+	 (ADJ ((type qualif))		; Quella Relativa a
+	 	ADJC+QUALIF-RMOD)
+	 (PREP ((word-typ &neutral-prep)           ; fifteenth of June
+                (dep-precedes ((verb (mood infinite)))))
+	        VERB+INF-RMOD-SITDESCR)
+	 (PREP ((word-typ &noun-pref-prep)
+                (not (dep-precedes ((verb (mood infinite))))))
+	 	PREP-RMOD)
+	 (PREP ((head-word-typ &that))	; Quelle Per
+	 	PREP-RMOD))
+ 	(follows (* ((adj qualif)) #\,)	; Quelli Voluti
+	 (VERB ((mood participle)
+		(agree))
+		VERB-RMOD+RELCL+REDUC))
+ 	(follows (seq ((adv)))		; Quelli già Esistenti
+	 (VERB ((mood participle)
+		(agree))
+		VERB-RMOD+RELCL+REDUC))
+ 	(follows (seq ((adv compar)))	; Quello più Grande
+	 (ADJ ((type qualif)
+		(agree))
+		ADJC+QUALIF-RMOD))
+ 	(before
+	 (ADV ((type concess))			; Anch'essa
+		ADVB+CONCESS-RMOD)
+	 (PREDET ((agree))			; tutto ciò
+	 	PDET+QUANTIF-RMOD)))
+
+(PRON 	pers
+ 	(after
+	 (ADJ ((word-typ &pron-adj) (agree))	; "stessi" in "essi stessi"
+	 	ADJC+STRENG-RMOD)
+	 (ADJ ((dep-semtype £geogr) (agree))	; noi italiani
+	 	APPOSITION)
+	 (PREP ((word-typ &noun-pref-prep)
+                (head-word-typ &pron-with-prep))
+	 	PREP-RMOD)
+	 (NOUN ((dep-semtype £geogr) (agree))	; noi italiani
+	 	APPOSITION))
+ 	(before
+	 (PREDET ((agree))		; tutti noi
+	 	PDET+QUANTIF-RMOD))
+ 	(language english		; the first one
+         before
+	 (ADJ ((head-word-typ &art-pron)
+               (type ordin))
+	      ADJC+ORDIN-RMOD)
+	 (ADJ ((head-word-typ &art-pron)
+               (type deitt))
+	      ADJC+DEITT-RMOD))
+        (language english
+         precedes (ADJ ORDINSUFF NIL)
+	 (NUM ()
+	      ADJC+ORDIN-RMOD)))
+
+(PRON 	indef				; Uno Di carattere patrimoniale
+ 	(after
+	 (CONJ ((head-word-typ &compar-pron)
+                (word-typ &compar-prep))
+	 	COORD+COMPAR)
+	 (PREP ((not (head-word-typ &compar-pron))
+                (word-typ &compar-prep))
+	 	PREP-RMOD)
+	 (ADJ ((type qualif))		; something interesting
+	 	ADJC+QUALIF-RMOD))
+ 	(before
+	 (ADV ((type quant))		; Quasi Tutti
+	 	ADVB+QUANTIF-RMOD))
+ 	(follows (* ((adj qualif)))		; Uno solo Di essi
+	 (PREP ((word-typ &partitive-prep))
+	 	PREP-RMOD)))
+(PRON   interr
+        (after
+         (PRON ((same-locution))                ; Che cosa
+                CONTIN+LOCUT)
+         (PREP ((word-typ &partitive-prep))	; Quale Delle alternative
+	 	PREP-RMOD)))
+
+(PRON	ordin
+	(after
+         (PREP ((word-typ &neutral-prep)           ; two thirds of the participants
+                (gov-follows (art (type indef) num)))
+	 	PREP-RMOD)
+         (PREP ((word-typ &pred-prep)		; it is a prep that introduces a predication
+                                                ;     "il primo a parlare"
+		(dep-precedes (verb))) 
+	 	PREP-RMOD))
+ 	(language english
+         after
+	 (PREP ((word-typ &neutral-prep)           ; fifteenth of June
+                (dep-precedes (noun (semtype £month))))
+	        PREP-RMOD-MONTH)))
+
+;-------------------- PREP -----------------------------------------
+
+(PREP 	post					; Hindi post-positions
+        (before
+	 (NOUN () PREP-ARG)))
+          
+(PREP 	poli
+	(after
+	 (PREP ()				; A Parte
+		CONTIN+PREP)
+	 (CONJ ((word-typ &prep-subord-dep)	; Dopo Che era stato fermato
+		(head-word-typ &prep-subord-head)) ; Senza Che sia necessario
+		PREP-ARG))			; Salvo Che essa sia attribuita
+	(before
+	 (ADV ((type time)			; Subito dopo
+	       (head-word-typ &rel-time-prep))
+		ADVB-RMOD-TIME))
+ 	(follows (seq ((adv doubt)))			; Except Perhaps ..
+	 (NOUN () PREP-ARG)
+	 (ART () PREP-ARG)
+	 (ADJ ((type (deitt compar demons indef interr poss))) PREP-ARG)
+	 (PRON () PREP-ARG))
+ 	(follows (seq ((adv streng)))			; con proprio molti amici
+	 (ADJ ((type indef)) PREP-ARG))
+ 	(follows (seq ((adv concess)))		; to quite Some
+	 (ADJ ((type indef)) PREP-ARG)))
+
+(PREP 	(mono poli)			; excludes English Genitives\
+	(language english
+         after
+	 (PREP ()				; out Of
+		CONTIN+PREP))
+	(after
+	 (PREP ((same-locution))		; A Parte
+		CONTIN+LOCUT)
+	 (PREP ((head-word-typ &as))		; it happened AS IN ..
+		PREP-ARG)
+	 (PREP ((head-word-typ &prep-prep-head)	; Su Di loro
+	        (word-typ &prep-prep-dep))	; Tra Di noi
+		CONTIN+PREP)
+	 (NUM ((word-typ &percent-2)
+	       (head-word-typ &percent-1))	; 18 Per Cento
+		PREP-ARG)
+	 (ADV ((head-word-typ &advgov-prep2)
+	       (word-typ &spec-loc-adv))	; Di lì
+		PREP-ARG)
+	 (ADV ((head-word-typ &advgov-prep)
+	       (type loc))			; Da Lontano
+		PREP-ARG)
+	 (ADV ((head-word-typ &loc-prep-1)
+	       (word-typ &loc-adv))		; In Su
+		PREP-ARG)
+	 (ADV ((type (time interr)))		; fino A Ieri
+		PREP-ARG))			; Da Quando?
+	(language english
+         after
+          (CONJ ((type subord))
+                PREP-ARG)
+          (VERB ((mood gerund))			; from saying
+                PREP-ARG)
+          (VERB ((mood participle)		; from saying
+                 (tense pres))
+                PREP-ARG)
+          (ADJ ((type ordin)      		; On Fifteenth january. 
+	        (dep-precedes ((noun (semtype £month))))) ; The 15th of june
+		PREP-ARG))
+	(before
+	 (ADV ((type concess))			; Anche In casa
+		ADVB+CONCESS-RMOD)
+	 (ADV ((type quant))			; Almeno Nelle intenzioni
+		ADVB+QUANTIF-RMOD)
+	 (ADV ((type streng))			; Proprio Nel periodo
+		ADVB-RMOD-STRENG)
+	 (ADV ((type time)			; Ancora In vigore
+	       (dep-follows  ((punct (char #\,)) (conj (type coord)))))
+		ADVB-RMOD-TIME)
+	 (ADV ((word-typ &adv-prep-head)
+               (dep-follows (nil noun)))
+		ADVB-RMOD-TIME)
+	 (ADV ((type limit))			; Solo Per una parte
+		ADVB-RMOD-LIMIT))
+ 	(follows (* ((verb aux)) ;#\«
+                                      )
+	 (VERB ((not (type aux))
+		(extended-mood infinite))
+	 	PREP-ARG))
+ 	(follows (seq ((adv neg)) ;#\«
+                                      )
+	 (VERB ((not (type aux))
+		(extended-mood infinite))
+	 	PREP-ARG))
+ 	(follows (seq ((verb aux) (adv time)) ;#\«
+                                      )
+	 (VERB ((not (type aux))
+		(extended-mood infinite))
+	 	PREP-ARG))
+	(language english
+         follows (seq ((adv)) ;#\«
+                                      )
+          (VERB ((mood gerund))
+		PREP-ARG))
+	(language english
+         follows (seq ((noun)) ;#\«
+                                      )	; On january Fifteenth. The noun should be
+                                        ; of semtype £month
+          (ADJ ((type ordin))
+		PREP-ARG))
+ 	(language english
+         chunk-follows
+	 (nil (ART) ((type (genitive)))
+	 	PREP-ARG))
+ 	(chunk-follows
+	 (nil (NOUN ART PRON NUM) ()
+	 	PREP-ARG))
+ 	(chunk-follows
+	 (nil (ADJ) ((type (deitt demons indef interr poss)))
+	 	PREP-ARG))
+ 	(chunk-follows
+	 (nil (PREP) ((word-typ &range-prep))
+	 	PREP-ARG-RANGE)))
+
+; -------------------- PUNCT --------------------------------------
+
+(PUNCT ANY
+ 	(after
+;	  (NUM ((head-char #\-) 
+;		(gov-follows num)) 
+;	        RMOD)
+	  (NUM ((head-char #\-) 
+		(poss-month)) 
+	        RMOD)
+	  (NUM ((head-char #\-) 
+		(poss-year)) 
+	        RMOD)))
+
+; -------------------- PHRAS --------------------------------------
+
+(PHRAS ANY
+ 	(follows (seq ((punct (char #\,))))	        ; no, grazie
+          (PHRAS ((head-word-typ &yes-no))
+ 	         APPOSITION))
+ 	(before
+ 	  (ADJ ((head-word-typ &greetings))
+ 	         ADJC+QUALIF-RMOD))
+ 	(after
+ 	  (PHRAS ((head-word-typ &yes-no))
+ 	         APPOSITION)
+ 	  (PREP ((word-typ &indobj-prep)		; buonasera a tutti
+                 (not (head-word-typ &yes-no)))         ; it casually works also for
+ 	         PREP-RMOD)))                           ; "arrivederci a domani", though
+                                                        ; it is not an INDOBJ
+
+; -------------------- SPECIAL --------------------------------------
+
+(SPECIAL ANY
+ 	(after
+	  (NUM ((head-char #\L))  ; L200
+	 	CONTIN+DENOM)
+	  (NOUN ((head-char #\/)   	    ; Gerard Depardieu/Danton
+	         (not (gov-follows NUM)))  ; The second condition to block application 
+                                            ; to 2008/32/EC (for EC)
+	 	NOUN-RMOD)
+	  (SPECIAL ((char #\/))  ; *DIR*/filename
+	 	SEPARATOR)
+	  (PUNCT ((char #\-)
+                    (dep-precedes (adv (type ordseq))))  ; A-bis
+	 	SEPARATOR))
+ 	(follows (seq ((punct (char #\-))))	         ; A-bis
+	  (ADV ((type ordseq))  				
+	 	ADVB-APPOSITION-DENOM))
+ 	(follows (seq ((punct (char #\-)) (adv ordseq)))	         ; A-bis) ((
+	  (PUNCT ((char #\)))
+	 	SEPARATOR)))
+
+;-------------------- VERB -----------------------------------------
+
+(VERB 	(main mod)
+ 	(follows (* ((pron pers)))
+	 (PREP ((head-gov-particle))	; Pour in
+		PARTICLE)		
+	 (ADV ((head-gov-particle))	; Carry on
+		PARTICLE))		; N.B. This rule must come before the
+                                        ;      next ones for adverbs
+ 	(after
+	 (ADV ((type advers))
+	 	ADVB+ADVERS-RMOD)
+	 (ADV ((type concess))
+	 	ADVB+CONCESS-RMOD)
+	 (ADV ((type doubt))
+	 	ADVB-RMOD-DOUBT)
+	 (ADV ((type limit))
+	 	ADVB-RMOD-LIMIT)
+	 (ADV ((type loc))
+	 	ADVB-RMOD-LOC)
+	 (ADV ((type streng))
+	 	ADVB-RMOD-STRENG)
+	 (ADV ((type time))
+	 	ADVB-RMOD-TIME)
+	 (ADV ((type quant))
+	 	ADVB+QUANTIF-RMOD)
+	 (ADV ((type manner))
+	 	ADVB-RMOD-MEANSMANNER)
+	 (ADV ((type interj))
+	 	ADVB-RMOD-CONJTEXT)
+	 (ADV ((type reason))
+	 	ADVB-RMOD-CONJTEXT)
+	 (VERB ((same-locution))		; A Morte
+		CONTIN+LOCUT))
+ 	(before
+	 (ADV ((type advers))
+	 	ADVB+ADVERS-RMOD)
+	 (ADV ((type concess))
+	 	ADVB+CONCESS-RMOD)
+	 (ADV ((type doubt))
+	 	ADVB-RMOD-DOUBT)
+	 (ADV ((type limit))
+	 	ADVB-RMOD-LIMIT)
+	 (ADV ((type loc))
+	 	ADVB-RMOD-LOC)
+	 (ADV ((type streng))
+	 	ADVB-RMOD-STRENG)
+	 (ADV ((type time))
+	 	ADVB-RMOD-TIME)
+	 (ADV ((type quant))
+	 	ADVB+QUANTIF-RMOD)
+	 (ADV ((type manner))
+	 	ADVB-RMOD-MEANSMANNER)
+	 (ADV ((type interj))
+	 	ADVB-RMOD-CONJTEXT)
+	 (ADV ((type advers))
+	 	ADVB+ADVERS-RMOD))
+        (language (italian french)
+         before
+	 (ADV ((type neg))
+	 	ADVB-RMOD-NEG))
+        (language english
+         before
+	 (ADV ((type neg)
+               (dep-follows verb))	; were not considered !! should be AUX
+	 	ADVB-RMOD-NEG))
+  ; *** the next rule is used for examples as "subject-centered"
+	(language verb-engl				; verb-noun modification
+         precedes (PUNCT (char #\-) nil)	; nil --> exactly 1 occurrence
+	 (NOUN ((head-mood participle)
+                (gov-precedes (noun)))
+		NOUN-RMOD))
+        (language spanish
+         before
+	 (ADV ((type neg))
+	 	ADVB-RMOD-NEG))
+        (language (italian french)
+         precedes (PRON any T)
+	 (ADV ((word-typ &neg-adv))
+	 	ADVB-RMOD-NEG)))
+(VERB   mod
+        (language english
+         after
+         (ADV ((word-typ &neg-adv))
+	 	ADVB-RMOD-NEG)))
+(VERB 	any
+ 	(precedes (ADV any T)
+	 (VERB ((word-typ &tense-aux) (type aux))
+	 	AUX+TENSE)
+	 (VERB ((not (word-typ &tense-aux)) (type aux))
+	 	AUX))
+ 	(precedes (PRON any NIL)
+	 (VERB ((word-typ &tense-aux) (type aux))
+	 	AUX+TENSE)
+	 (VERB ((not (word-typ &tense-aux)) (type aux))
+	 	AUX))
+  	(precedes (PUNCT (char (#\" #\')) NIL)	; aveva "sviluppato" "
+	 (VERB ((word-typ &tense-aux) (type aux))
+	 	AUX+TENSE)
+	 (VERB ((not (word-typ &tense-aux)) (type aux))
+	 	AUX)))
+

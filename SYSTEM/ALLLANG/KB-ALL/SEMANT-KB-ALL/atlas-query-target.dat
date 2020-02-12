@@ -1,0 +1,137 @@
+(in-package "USER")
+
+; *** the default infos about a concept are split into two parts:
+;     - a default target, expressed as path leading to the required
+;       info
+;     - a restriction extension
+; *** in practice, if I ask something about a ticket-counter, what
+;     I want to know is its address description (default target)
+(setq *DEFAULT-CONCEPT-INFOS*
+  '(
+    (££action			; !!! this is not present in the ontology
+     (domain-of &action-plan
+               range ££plan-descr
+                  subclass-of $string))
+    (££address
+     (domain-of &address-description
+               range ££addr-descr
+                  subclass-of $string))
+    (££amount-descr
+       (subclass-of $string))
+    (££compl-e-descr
+       (range-of &complex-ev-description
+                  domain ££complex-event))
+    (££complex-event
+     (domain-of &has-office
+              range ££office
+                 has-subclass ££ticket-counter))
+    (££concert
+     (domain-of &concert-description
+               range ££conc-descr
+                  subclass-of $string))
+    (££cultural_ag
+     (subclass-of ££service
+          domain-of &has-serv-info
+              range ££service-info
+                  subclass-of $string))
+    (££meteo-status-situation
+     (subclass-of ££dialogue-topic
+          domain-of &has-dial-topic
+              range ££dialogue
+                  domain-of &has-dial-medium
+                      range ££speech
+                          subclass-of $sound))
+    (££person
+     (domain-of &has-name
+               range ££person-name
+                  subclass-of $string))
+    (££date
+       (subclass-of ££time-descr
+                subclass-of $string))
+    (££day
+       (domain-of ££day-descr
+           subclass-of ££time-descr
+                subclass-of $string))
+    (££description-list
+       (domain-of &has-descr-member
+            range ££simple-ev-descr
+                subclass-of $string))
+    (££event
+     (has-subclass ££simple-event))
+    (££exposition
+     (domain-of &exposition-description
+               range ££exposition-descr
+                  subclass-of $string))
+    (££genre
+     (range-of &has-genre
+               domain ££event))
+    (££in-day-time
+     (domain-of &in-day-time-descr
+           range ££in-day-t-descr
+               subclass-of $string))
+    (££information
+     (domain-of &information-expr
+           range ££info-descr
+               subclass-of $string))
+    (££cinema-loc
+     (subclass-of ££location))
+    (££theater-loc
+     (subclass-of ££location))
+    (££location
+     (domain-of &has-address
+              range ££address
+                    domain-of &address-description
+                           range ££addr-descr
+                               subclass-of $string))
+    (££movie
+     (domain-of &movie-description
+               range ££movie-descr
+                  subclass-of $string))
+    (££museum
+     (subclass-of ££location
+          domain-of &location-description
+                range ££loc-descr
+                   subclass-of $string))
+    (££opera
+     (subclass-of ££simple-event))
+    (££phone-number
+     (subclass-of $integer))
+    (££price
+     (domain-of &price-description
+               range ££price-descr
+                  subclass-of $string))
+    (££put
+     (subclass-of ££action
+        domain-of &plan-for-action
+               range ££plan
+                  domain-of &plan-description
+                      range ££plan-descr
+                          subclass-of $string))
+    (££simple-event
+     (domain-of &simple-ev-description
+               range ££simple-ev-descr
+                  subclass-of $string))
+    (££specific-event
+     (has-instance ££event))
+    (££ticket
+     (domain-of &ticket-avail-theme
+              range ££ticket-availability
+                    range-of &ticket-avail-value
+                             domain ££truth-value
+                                   domain-of &truth-val-description
+                                          range ££yes-no
+                                              subclass-of $string))
+    (££ticket-counter 
+     (domain-of &has-single-location
+              range ££location))
+    (££time-spec
+      (domain-of &time-description
+               range ££time-descr
+                      subclass-of $string))
+    (££title
+       (subclass-of ££event-descr
+                subclass-of $string))
+  ; *** this topic is used only in the meta-level context
+    (££dialogue
+     (domain-of $string))
+    ))

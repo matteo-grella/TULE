@@ -1,0 +1,34 @@
+(in-package "USER")
+
+; *** the preference data have the following structure:
+;     (PREP (NOUNUP NOUNDOWN)))
+;     this has to be read as follows:
+;     in case the linking preposition is PREP, then
+;     the attach of NOUNDOWN to NOUNUP is specially strong,
+;     (a pseudo-locution), so that any PREP originally linked to
+;     NOUNDOWN should rather be attached to NOUNUP
+; *** "decrizione di documento di item" (description of document
+;     of item): initial attachment: "documento di item"; final
+;     attachment: "description of item"
+(setq *PREFER-PP-ATTACH*
+ '((di (direttiva consiglio)
+       (decisione consiglio)
+       (descrizione item)		; "descrizione di item" is a strong connection
+       (giornata mese)
+       (giorno mese)
+       (locazione installazione)
+       (mese giugno)
+       (parte ricambio)
+       (richiesta acquisto)
+       (specifica obsolescenza)
+       (stato obsolescenza)
+       (sud penisola)			; "sud della penisola" is a strong connection
+       (tasso umidità)
+       (valore temperatura)
+    )
+   (in (acquisto deroga)
+       (specifica O_dB))
+   (lungo (schiarita versante))		; schiarite durante la giornata lungo il versante tirrenico
+  )
+ )
+

@@ -1,0 +1,31 @@
+; ££££££££££££££££££££ 
+; This file includes the
+;	DEFINITION OF THE CLASSES (HIERARCHY NODES)
+; ££££££££££££££££££££ 
+
+(in-package "USER")
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			DEFINITION OF THE VERBAL LOCUTIONS 
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+(setq *VERBAL-LOCUTIONS-ENG*
+'(
+  (have-regard () (intrans-obj)
+ 	    (((noun (word regard)))
+	     ((prep (word to) (not (down (cat verb))))))
+	    (verb-obj*locut verb-indcompl-theme))
+  (take-care () (intrans)
+ 	    (((noun (word care)))
+	     ((prep (word of))))
+	    (verb-obj*locut verb-indcompl-theme))
+  (make-fool-of () (intrans)
+ 	    (((noun (word fool)))
+	     ((prep (word of) (not (down (cat verb))))))
+	    (verb-predcompl*locut verb-indcompl-theme))
+  (take-into-account() (trans)
+ 	    (((prep (word into)
+                    (down (word account)))))
+	    (verb-indcompl-loc+metaph*locut))
+	))
+

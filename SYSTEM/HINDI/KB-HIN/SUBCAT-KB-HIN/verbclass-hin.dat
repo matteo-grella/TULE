@@ -1,0 +1,7 @@
+(in-package "USER")
+
+; *** set-verbal-classes defined in ALLLANG/PROC-ALL/SUBCAT-PROC-ALL/subc-hier
+(set-verbal-classes
+   '(
+     (KA (trans))
+   ))

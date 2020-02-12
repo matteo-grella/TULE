@@ -1,0 +1,1364 @@
+
+    Abba ((Franco_Abba cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root abba prev franco
+           next nil))
+    Acerbi ((Teatro_Degli_Acerbi cat noun proper yes gender f number
+             sing semtype ££artistic-group locut yes loctype fixed root
+             acerbi prev degli next nil))
+    Achille ((Achille_Campanile cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              achille prev nil next campanile))
+    Affetti ((Affetti_Collaterali cat noun proper yes gender f number
+              sing semtype ££artistic-group locut yes loctype fixed
+              root affetti prev nil next collaterali))
+    Agatha ((Agatha_Christie cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root agatha
+             prev nil next christie))
+    Agostino ((|D'Agostino| cat noun proper yes semtype £surname locut yes
+             loctype fixed root Agostino prev Di next nil))
+    Alamos ((Los_Alamos cat noun proper yes gender f number sing
+             semtype £city locut yes loctype fixed root Alamos prev Los next nil))
+    Albanese ((Antonio_Albanese cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               albanese prev antonio next nil))
+    Albee ((Edward_Albee cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root albee
+            prev edward next nil))
+    Aldo ((Aldo_Rendina cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root aldo prev
+           nil next rendina))
+    Alfa ((Alfa_Teatro cat noun proper yes gender m number sing semtype
+           ££theater-name locut yes loctype fixed root alfa prev nil
+           next teatro))
+    Alfieri ((Teatro_Alfieri cat noun proper yes gender m number sing
+              semtype ££theater-name locut yes loctype fixed root
+              alfieri prev teatro next nil))
+    Alessandro ((Alessandro_Fullin cat noun proper yes gender m number
+                 sing semtype ££player-name locut yes loctype fixed
+                 root alessandro prev nil next fullin)
+                (Alessandro_Ragona cat noun proper yes gender m number
+                 sing semtype ££movie-direct-name locut yes loctype
+                 fixed root alessandro prev nil next ragona))
+    Altan ((Francesco_Tullio_Altan cat noun proper yes gender m number
+            sing semtype ££player-name locut yes loctype fixed root
+            altan prev tullio next nil))
+    Amadeus ((Wolfang_Amadeus_Mozart cat noun proper yes gender m
+              number sing semtype ££author-name locut yes loctype fixed
+              root amadeus prev wolfang next mozart))
+    Amir ((Amir_Naderi cat noun proper yes gender m number sing semtype
+           ££movie-direct-name locut yes loctype fixed root amir prev
+           nil next naderi))
+    Angeles ((Los_Angeles cat noun proper yes gender f number sing 
+            semtype £city locut yes loctype fixed root Angeles prev Los next nil))
+    Annibale ((Annibale_Ruccello cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               annibale prev nil next ruccello))
+    Anton ((Anton_Cechov cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root anton
+            prev nil next cechov))
+    Antonelli ((Silvano_Antonelli cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                antonelli prev silvano next nil))
+    Antonio ((Antonio_Tarantino cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              antonio prev nil next tarantino)
+             (Antonio_Tabucchi cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              antonio prev nil next tabucchi)
+             (Antonio_Albanese cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              antonio prev nil next albanese))
+    Apuzzo ((Barbara_Apuzzo cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root apuzzo
+             prev barbara next nil))
+    Ariel ((Ariel_Dorfman cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root ariel
+            prev nil next dorfman))
+    Arnold ((Arnold_Wesker cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root arnold
+             prev nil next wesker))
+    Arsuaga ((Diego_Arsuaga cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              arsuaga prev diego next nil))
+    Arte ((Arte_Della_Commedia cat noun proper yes gender f number sing
+           semtype ££artistic-group locut yes loctype fixed root arte
+           prev nil next della))
+    Arthur ((Arthur_Schnitzler cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root arthur
+             prev nil next schnitzler)
+            (Arthur_Miller cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root arthur
+             prev nil next miller))
+    Ascanio ((Ascanio_Celestini cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              ascanio prev nil next celestini))
+    Atmosfera ((Atmosfera_Zero cat noun proper yes gender f number sing
+                semtype ££artistic-group locut yes loctype fixed root
+                atmosfera prev nil next zero))
+    Auber ((Daniel_Auber cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root auber
+            prev daniel next nil))
+    Baliani ((Marco_Baliani cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              baliani prev marco next nil))
+    Ballet ((Ballet_De_Camaguey cat noun proper yes gender f number
+             sing semtype ££artistic-group locut yes loctype fixed root
+             ballet prev nil next de))
+    Balletto ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat
+               noun proper yes gender f number sing semtype
+               ££artistic-group locut yes loctype fixed root balletto
+               prev nil next classico))
+    Banca ((|Banca_d'_Italia| cat noun proper yes gender f number sing
+            locut yes loctype fixed root Banca prev nil semtype £organization next di))
+    card ((torino_card cat noun classe (0) gender f number allval
+            locut yes loctype fixed root card prev Torino next nil))
+    Banda ((Banda_Del_Dus cat noun proper yes gender f number sing
+            semtype ££artistic-group locut yes loctype fixed root banda
+            prev nil next del))
+    Barbara ((Barbara_Apuzzo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              barbara prev nil next apuzzo))
+    barbiere ((Il_barbiere_di_Siviglia cat noun proper yes gender m number sing
+               semtype ££event-descr locut yes loctype fixed root barbiere prev il next
+               di))
+    Barcaioli ((I_Barcaioli cat noun proper yes gender f number sing
+                semtype ££artistic-group locut yes loctype fixed root
+                barcaioli prev i next nil))
+    Baretti ((Eraldo_Baretti cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              baretti prev eraldo next nil))
+    Beckett ((Samuel_Beckett cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              beckett prev samuel next nil))
+    Beethoven ((Van_Beethoven cat noun proper yes gender m number sing
+                semtype ££author-name locut yes loctype fixed root
+                beethoven prev van next nil)
+               (Ludwig_Van_Beethoven cat noun proper yes gender m
+                number sing semtype ££author-name locut yes loctype
+                fixed root beethoven prev van next nil))
+    Beppe ((Beppe_Rosso cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root beppe
+            prev nil next rosso))
+    Bernard ((George_Bernard_Shaw cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              bernard prev george next shaw))
+    Bertold ((Bertold_Brecht cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              bertold prev nil next brecht))
+    Bizzarria ((La_Bizzarria cat noun proper yes gender f number sing
+                semtype ££artistic-group locut yes loctype fixed root
+                bizzarria prev la next nil))
+    Bobo ((Bobo_Nigrone cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root bobo prev
+           nil next nigrone))
+    Boldrini ((Renzo_Boldrini cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               boldrini prev renzo next nil))
+    Bottega ((La_Bottega_Teatrale cat noun proper yes gender f number
+              sing semtype ££artistic-group locut yes loctype fixed
+              root bottega prev la next teatrale))
+    Brecht ((Bertold_Brecht cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root brecht
+             prev bertold next nil))
+    Bruno ((Giordano_Bruno cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root bruno
+            prev giordano next nil))
+    Brusati ((Franco_Brusati cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              brusati prev franco next nil))
+    Camaguey ((Ballet_De_Camaguey cat noun proper yes gender f number
+               sing semtype ££artistic-group locut yes loctype fixed
+               root camaguey prev de next nil))
+    Cameron ((Cameron_Crowe cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              cameron prev nil next crowe))
+    Campanile ((Achille_Campanile cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                campanile prev achille next nil))
+    Carignano ((Teatro_Carignano cat noun proper yes gender m number
+                sing semtype ££theater-name locut yes loctype fixed
+                root carignano prev teatro next nil))
+    Carlo ((Carlo_Terron cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root carlo
+            prev nil next terron)
+           (Carlo_Goldoni cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root carlo
+            prev nil next goldoni)
+           (Carlo_Gallo cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root carlo
+            prev nil next gallo)
+           (Carlo_Collodi cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root carlo
+            prev nil next collodi)
+           (Piazza_San_Carlo cat noun proper yes gender f number sing
+            semtype £location locut yes loctype fixed root Carlo prev San next nil))
+    Caruso ((Vincenzo_Caruso cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root caruso
+             prev vincenzo next nil))
+    Casey ((Warren_Casey cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root casey
+            prev warren next nil))
+    Castello ((Piazza_Castello cat noun proper yes gender f number sing
+             semtype £location locut yes loctype fixed root Castello prev Piazza next nil)
+              (Castello_di_Rivoli cat noun proper yes gender m number sing
+             semtype £location locut yes loctype fixed root Castello prev nil next di))
+    Cechov ((Anton_Cechov cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root cechov
+             prev anton next nil))
+    Cederna ((Giuseppe_Cederna cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              cederna prev giuseppe next nil))
+    Celestini ((Ascanio_Celestini cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                celestini prev ascanio next nil))
+    Cerami ((Vincenzo_Cerami cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root cerami
+             prev vincenzo next nil))
+    Cesare ((Cesare_Vodani cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root cesare
+             prev nil next vodani)
+            (Cesare_Lievi cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root cesare
+             prev nil next lievi))
+    Chadha ((Gurinder_Chadha cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             chadha prev gurinder next nil))
+    Chaikin ((Joseph_Chaikin cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              chaikin prev joseph next nil))
+    Chiavazza ((Gianni_Chiavazza cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                chiavazza prev gianni next nil))
+    Chiello ((Filippo_Chiello cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              chiello prev filippo next nil))
+    Chiesa ((Giancarlo_Chiesa cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root chiesa
+             prev giancarlo next nil))
+    Christie ((Agatha_Christie cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               christie prev agatha next nil))
+    ciliegi ((Il_giardino_dei_ciliegi cat noun proper yes gender m
+              number sing semtype ££event-descr locut yes loctype fixed
+              root ciliegi prev dei next nil))
+    Civico ((Palazzo_Civico cat noun proper yes gender f number sing 
+            semtype £place locut yes loctype fixed root Civico prev Palazzo next nil))
+    Classico ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat
+               noun proper yes gender f number sing semtype
+               ££artistic-group locut yes loctype fixed root classico
+               prev balletto next liliana))
+    Clelia ((Clelia_Sedda cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root clelia
+             prev nil next sedda))
+    Collaterali ((Affetti_Collaterali cat noun proper yes gender f
+                  number sing semtype ££artistic-group locut yes
+                  loctype fixed root collaterali prev affetti next nil))
+    Collodi ((Carlo_Collodi cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              collodi prev carlo next nil))
+    Colosseo ((Teatro_Colosseo cat noun proper yes gender m number sing
+               semtype ££theater-name locut yes loctype fixed root
+               colosseo prev teatro next nil))
+    Commedia ((Arte_Della_Commedia cat noun proper yes gender f number
+               sing semtype ££artistic-group locut yes loctype fixed
+               root commedia prev della next nil))
+    Contini ((Monica_Contini cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              contini prev monica next nil))
+    Corneille ((Pierre_Corneille cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                corneille prev pierre next nil))
+    Cortese ((Roberta_Cortese cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              cortese prev roberta next nil))
+    Corriere ((Domenica_del_Corriere cat noun proper yes gender f number sing
+             semtype £newspaper locut yes loctype fixed root Corriere prev del next nil))
+    Cosi ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat noun
+           proper yes gender f number sing semtype ££artistic-group
+           locut yes loctype fixed root cosi prev liliana next marinel))
+    Costa ((Costa_Rica cat noun proper yes gender f number sing semtype £state
+            locut yes loctype fixed root Costa prev nil next Rica)
+           (|Costa_d'Avorio| cat noun proper yes gender f number sing semtype £state
+            locut yes loctype fixed root Costa prev nil next di))
+    Costanzo ((Saverio_Costanzo cat noun proper yes gender m number
+               sing semtype ££movie-direct-name locut yes loctype fixed
+               root costanzo prev saverio next nil))
+    Coward ((Noel_Coward cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root coward
+             prev noel next nil))
+    Crouse ((Russel_Crouse cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root crouse
+             prev russel next nil))
+    Crowe ((Cameron_Crowe cat noun proper yes gender m number sing
+            semtype ££movie-direct-name locut yes loctype fixed root
+            crowe prev cameron next nil))
+    |d'| ((|D'Agostino| cat noun proper yes semtype £surname locut yes
+            loctype fixed root Di prev nil next Agostino)
+           (|Banca_d'_Italia| cat noun proper yes gender f number sing
+             locut yes loctype fixed semtype £organization root di prev Banca next Italia)
+           (|Costa_d'Avorio| cat noun proper yes gender f number sing 
+            semtype £state locut yes loctype fixed root di prev Costa next Avorio))
+    Dan ((Dan_Goggin cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root dan prev nil next
+          goggin))
+    Daniel ((Daniel_Auber cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root daniel
+             prev nil next auber))
+    Daniele ((Daniele_Luttazzi cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              daniele prev nil next luttazzi))
+    Dante ((Emma_Dante cat noun proper yes gender m number sing semtype
+            ££player-name locut yes loctype fixed root dante prev emma
+            next nil))
+    Dario ((Dario_Nicodemi cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root dario
+            prev nil next nicodemi))
+    Davide ((Davide_Enia cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root davide
+             prev nil next enia))
+    De ((Ballet_De_Camaguey cat noun proper yes gender f number sing
+         semtype ££artistic-group locut yes loctype fixed root de prev
+         ballet next camaguey)
+        (De_Vita cat noun proper yes gender m number sing semtype
+         ££player-name locut yes loctype fixed root de prev nil next
+         vita)
+        (Raffaella_De_Vita cat noun proper yes gender m number sing
+         semtype ££player-name locut yes loctype fixed root de prev
+         raffaella next vita)
+        (De_Luca cat noun proper yes gender m number sing semtype
+         ££player-name locut yes loctype fixed root de prev nil next
+         luca)
+        (Erri_De_Luca cat noun proper yes gender m number sing semtype
+         ££player-name locut yes loctype fixed root de prev erri next
+         luca)
+        (De_Filippo cat noun proper yes gender m number sing semtype
+         ££player-name locut yes loctype fixed root de prev nil next
+         filippo)
+        (Eduardo_De_Filippo cat noun proper yes gender m number sing
+         semtype ££player-name locut yes loctype fixed root de prev
+         eduardo next filippo))
+    Degli ((Teatro_Degli_Acerbi cat noun proper yes gender f number
+            sing semtype ££artistic-group locut yes loctype fixed root
+            degli prev teatro next acerbi))
+    dei ((Il_giardino_dei_ciliegi cat noun proper yes gender m
+          number sing semtype ££event-descr locut yes loctype fixed
+          root dei prev giardino next ciliegi))
+    Del ((Banda_Del_Dus cat noun proper yes gender f number sing
+          semtype ££artistic-group locut yes loctype fixed root del
+          prev banda next dus)
+         (Domenica_del_Corriere cat noun proper yes gender f number sing 
+          semtype £newspaper locut yes loctype fixed root del prev Domenica next Corriere))
+    Dell ((Jaen_Dell cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root dell prev jaen
+           next nil))
+    Della ((Arte_Della_Commedia cat noun proper yes gender f number
+            sing semtype ££artistic-group locut yes loctype fixed root
+            della prev arte next commedia))
+    Delle ((Il_Gioco_Delle_Parti cat noun proper yes gender f number
+            sing semtype ££artistic-group locut yes loctype fixed root
+            delle prev gioco next parti))
+    Devoto ((Devoto_Oli cat noun proper yes gender m number sing 
+            semtype £book locut yes loctype fixed root Devoto prev nil next Oli))
+    di ((Castello_di_Rivoli cat noun proper yes gender m number sing
+            semtype £location locut yes loctype fixed root di prev Castello next Rivoli)
+        (Il_barbiere_di_Siviglia cat noun proper yes gender m number sing
+            semtype ££event-descr locut yes loctype fixed root di prev barbiere next
+            Siviglia))
+    Diamanti ((Donatella_Diamanti cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               diamanti prev donatella next nil))
+    Diego ((Diego_Arsuaga cat noun proper yes gender m number sing
+            semtype ££movie-direct-name locut yes loctype fixed root
+            diego prev nil next arsuaga))
+    Doctor ((Doctor_J cat noun proper yes gender m number sing semtype £person 
+            locut yes loctype fixed root Doctor prev nil next J))
+    Domenica ((Domenica_del_Corriere cat noun proper yes gender f number sing 
+            semtype £newspaper locut yes loctype fixed root Domenica prev nil next del))
+    Donatella ((Donatella_Lessio cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                donatella prev nil next lessio)
+               (Donatella_Diamanti cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                donatella prev nil next diamanti))
+    Donizetti ((Gaetano_Donizetti cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                donizetti prev gaetano next nil))
+    Dorfman ((Ariel_Dorfman cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              dorfman prev ariel next nil))
+    Dostoevskij ((Fedor_Dostoevskij cat noun proper yes gender m number
+                  sing semtype ££player-name locut yes loctype fixed
+                  root dostoevskij prev fedor next nil))
+    Dus ((Banda_Del_Dus cat noun proper yes gender f number sing
+          semtype ££artistic-group locut yes loctype fixed root dus
+          prev del next nil))
+    Duvivier ((Julien_Duvivier cat noun proper yes gender m number sing
+               semtype ££movie-direct-name locut yes loctype fixed root
+               duvivier prev julien next nil))
+    E ((Nino_E_Pio cat noun proper yes gender m number sing semtype
+        ££player-name locut yes loctype fixed root e prev nino next
+        pio))
+    Eduardo ((Eduardo_Scarpetta cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              eduardo prev nil next scarpetta)
+             (Eduardo_De_Filippo cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              eduardo prev nil next de))
+    Edward ((Edward_Albee cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root edward
+             prev nil next albee))
+    Elena ((Elena_Pugliese cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root elena
+            prev nil next pugliese))
+    Eliot ((Thomas_Stearns_Eliot cat noun proper yes gender m number
+            sing semtype ££player-name locut yes loctype fixed root
+            eliot prev stearns next nil))
+    Emma ((Emma_Dante cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root emma prev nil
+           next dante))
+    Enda ((Enda_Walsh cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root enda prev nil
+           next walsh))
+    Enia ((Davide_Enia cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root enia prev davide
+           next nil))
+    Eraldo ((Eraldo_Baretti cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root eraldo
+             prev nil next baretti))
+    Erba ((Teatro_Erba cat noun proper yes gender m number sing semtype
+           ££theater-name locut yes loctype fixed root erba prev teatro
+           next nil))
+    Eric ((Eric_Rohmer cat noun proper yes gender m number sing semtype
+           ££movie-direct-name locut yes loctype fixed root eric prev
+           nil next rohmer))
+    Erri ((Erri_De_Luca cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root erri prev
+           nil next de))
+    Esther ((Esther_Ruggiero cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root esther
+             prev nil next ruggiero)
+            (Esther_Mollo cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             esther prev nil next mollo))
+    Falco ((Lucia_Falco cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root falco
+            prev lucia next nil))
+    Fante ((John_Fante cat noun proper yes gender m number sing semtype
+            ££player-name locut yes loctype fixed root fante prev john
+            next nil))
+    Federica ((Federica_Tardito cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               federica prev nil next tardito))
+    Federico ((Federico_Garelli cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               federico prev nil next garelli)
+              (Federico_Fellini cat noun proper yes gender m number
+               sing semtype ££movie-direct-name locut yes loctype fixed
+               root federico prev nil next fellini))
+    Fedor ((Fedor_Dostoevskij cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root fedor
+            prev nil next dostoevskij))
+    Fellini ((Federico_Fellini cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              fellini prev federico next nil))
+    Filippo ((Filippo_Taricco cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              filippo prev nil next taricco)
+             (Filippo_Chiello cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              filippo prev nil next chiello)
+             (De_Filippo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              filippo prev de next nil)
+             (Eduardo_De_Filippo cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              filippo prev de next nil))
+    Fiorello ((Rosario_Fiorello cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               fiorello prev rosario next nil))
+    Folengo ((Teofilo_Folengo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              folengo prev teofilo next nil))
+    Fracchia ((Ruggero_Fracchia cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               fracchia prev ruggero next nil))
+    Francesca ((Francesca_Rizzotti cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                francesca prev nil next rizzotti))
+    Francesco ((Francesco_Tullio_Altan cat noun proper yes gender m
+                number sing semtype ££player-name locut yes loctype
+                fixed root francesco prev nil next tullio)
+               (Francesco_Niccolini cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                francesco prev nil next niccolini))
+    Francisco ((San_Francisco cat noun proper yes gender f number sing 
+               semtype £city locut yes loctype fixed root Francisco prev San next nil))
+    Franco ((Franco_Brusati cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root franco
+             prev nil next brusati)
+            (Franco_Abba cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root franco
+             prev nil next abba))
+    Francois ((Francois_Nocher cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               francois prev nil next nocher))
+    Franz ((Franz_Lehar cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root franz
+            prev nil next lehar)
+           (Franz_Kafka cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root franz
+            prev nil next kafka))
+    Fratelli ((Fratelli_Marx cat noun proper yes gender m number sing 
+            semtype £cinema locut yes loctype fixed root Fratelli prev nil next Marx))
+    Frears ((Stephen_Frears cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             frears prev stephen next nil))
+    Fullin ((Alessandro_Fullin cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root fullin
+             prev alessandro next nil))
+    Funicolare ((La_Funicolare cat noun proper yes gender f number sing
+                 semtype ££artistic-group locut yes loctype fixed root
+                 funicolare prev la next nil))
+    Furattola ((La_Furattola cat noun proper yes gender f number sing
+                semtype ££artistic-group locut yes loctype fixed root
+                furattola prev la next nil))
+    Gaetano ((Gaetano_Donizetti cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              gaetano prev nil next donizetti))
+    Gallo ((Carlo_Gallo cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root gallo
+            prev carlo next nil))
+    Garelli ((Federico_Garelli cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              garelli prev federico next nil))
+    Garinei ((Pietro_Garinei cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              garinei prev pietro next nil))
+    Garpe ((Margareta_Garpe cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root garpe
+            prev margareta next nil))
+    Gatlif ((Tony_Gatlif cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             gatlif prev tony next nil))
+    George ((George_Bernard_Shaw cat noun proper yes gender m number
+             sing semtype ££player-name locut yes loctype fixed root
+             george prev nil next bernard))
+    Gerald ((Gerald_Sibleyras cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root gerald
+             prev nil next sibleyras))
+    Giacomo ((Giacomo_Puccini cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              giacomo prev nil next puccini))
+    Giancarlo ((Giancarlo_Chiesa cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                giancarlo prev nil next chiesa))
+    Gianni ((Gianni_Chiavazza cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root gianni
+             prev nil next chiavazza))
+    giardino ((Il_giardino_dei_ciliegi cat noun proper yes gender m
+              number sing semtype ££event-descr locut yes loctype fixed
+              root giardino prev il next dei))
+    Gioacchino ((Gioacchino_Rossini cat noun proper yes gender m number
+                 sing semtype ££player-name locut yes loctype fixed
+                 root gioacchino prev nil next rossini))
+    Gioco ((Il_Gioco_Delle_Parti cat noun proper yes gender f number
+            sing semtype ££artistic-group locut yes loctype fixed root
+            gioco prev il next delle))
+    Gioiello ((Teatro_Gioiello cat noun proper yes gender m number sing
+               semtype ££theater-name locut yes loctype fixed root
+               gioiello prev teatro next nil))
+    Giordano ((Giordano_Bruno cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               giordano prev nil next bruno))
+    Giorgio ((Giorgio_Molino cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              giorgio prev nil next molino)
+             (Giorgio_Ruffolo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              giorgio prev nil next ruffolo))
+    Giovara ((Massiomo_Giovara cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              giovara prev massiomo next nil))
+    Giuseppe ((Giuseppe_Verdi cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               giuseppe prev nil next verdi)
+              (Giuseppe_Cederna cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               giuseppe prev nil next cederna))
+    Gli ((Gli_Strilloni cat noun proper yes gender f number sing
+          semtype ££artistic-group locut yes loctype fixed root gli
+          prev nil next strilloni))
+    Goggin ((Dan_Goggin cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root goggin
+             prev dan next nil))
+    Goldoni ((Carlo_Goldoni cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              goldoni prev carlo next nil))
+    Goria ((Stefano_Goria cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root goria
+            prev stefano next nil))
+    Graziano ((Graziano_Melano cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               graziano prev nil next melano))
+    Grilli ((Marco_Grilli cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root grilli
+             prev marco next nil))
+    Guerrieri ((Osvaldo_Guerrieri cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                guerrieri prev osvaldo next nil))
+    Guida ((Lello_Guida cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root guida
+            prev lello next nil))
+    Gurinder ((Gurinder_Chadha cat noun proper yes gender m number sing
+               semtype ££movie-direct-name locut yes loctype fixed root
+               gurinder prev nil next chadha))
+    Harba ((Teatro_Harba cat noun proper yes gender f number sing
+            semtype ££artistic-group locut yes loctype fixed root harba
+            prev teatro next nil))
+    Hennequin ((Maurice_Hennequin cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                hennequin prev maurice next nil))
+    Hofmannsthal ((Von_Hofmannsthal cat noun proper yes gender m number
+                   sing semtype ££player-name locut yes loctype fixed
+                   root hofmannsthal prev von next nil)
+                  (Hugo_Von_Hofmannsthal cat noun proper yes gender m
+                   number sing semtype ££player-name locut yes loctype
+                   fixed root hofmannsthal prev von next nil))
+    Howard ((Howard_Lindsay cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root howard
+             prev nil next lindsay))
+    Hugo ((Hugo_Von_Hofmannsthal cat noun proper yes gender m number
+           sing semtype ££player-name locut yes loctype fixed root hugo
+           prev nil next von))
+    I ((I_Barcaioli cat noun proper yes gender f number sing semtype
+        ££artistic-group locut yes loctype fixed root i prev nil next
+        barcaioli)
+       (I_Lunatici cat noun proper yes gender f number sing semtype
+        ££artistic-group locut yes loctype fixed root i prev nil next
+        lunatici)
+       (I_Sempreverdi cat noun proper yes gender f number sing semtype
+        ££artistic-group locut yes loctype fixed root i prev nil next
+        sempreverdi))
+    Ian ((Ian_Mcewan cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root ian prev nil next
+          mcewan))
+    Ida ((Ida_Kuniaki cat noun proper yes gender m number sing semtype
+          ££movie-direct-name locut yes loctype fixed root ida prev nil
+          next kuniaki))
+    Il ((Il_Gioco_Delle_Parti cat noun proper yes gender m number sing
+         semtype ££artistic-group locut yes loctype fixed root il prev
+         nil next gioco)
+        (Il_giardino_dei_ciliegi cat noun proper yes gender m
+         number sing semtype ££event-descr locut yes loctype fixed
+         root il prev nil next giardino)
+        (Il_Piccolo_Teatro_Instabile cat noun proper yes gender f
+         number sing semtype ££artistic-group locut yes loctype fixed
+         root il prev nil next piccolo)
+        (Il_barbiere_di_Siviglia cat noun proper yes gender m number sing
+         semtype ££event-descr locut yes loctype fixed root il prev nil next
+         barbiere))
+    Instabile ((Il_Piccolo_Teatro_Instabile cat noun proper yes gender
+                f number sing semtype ££artistic-group locut yes
+                loctype fixed root instabile prev teatro next nil))
+    Italia ((|Banca_d'_Italia| cat noun proper yes gender f number sing 
+            locut yes loctype fixed semtype £organization root Italia prev di next nil))
+    J ((Doctor_J cat noun proper yes gender m number sing semtype £person 
+            locut yes loctype fixed root J prev Doctor next nil))
+    Jacobs ((Jim_Jacobs cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root jacobs
+             prev jim next nil))
+    Jacques ((Jacques_Offenbach cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              jacques prev nil next offenbach))
+    Jaen ((Jaen_Dell cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root jaen prev nil
+           next dell))
+    Janis ((Janis_Joplin cat noun proper yes gender m number sing
+            semtype ££author-name locut yes loctype fixed root janis
+            prev nil next joplin))
+    Jean ((Jean_Michel_Ribes cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root jean prev
+           nil next michel))
+    Jim ((Jim_Jacobs cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root jim prev nil next
+          jacobs))
+    Johann ((Johann_Strauss cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root johann
+             prev nil next strauss))
+    John ((John_Osborne cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root john prev
+           nil next osborne)
+          (John_Fante cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root john prev nil
+           next fante)
+          (John_Turteltaub cat noun proper yes gender m number sing
+           semtype ££movie-direct-name locut yes loctype fixed root
+           john prev nil next turteltaub))
+    Joplin ((Janis_Joplin cat noun proper yes gender m number sing
+             semtype ££author-name locut yes loctype fixed root joplin
+             prev janis next nil))
+    Joseph ((Joseph_Chaikin cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root joseph
+             prev nil next chaikin))
+    Julien ((Julien_Duvivier cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             julien prev nil next duvivier))
+    Kafka ((Franz_Kafka cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root kafka
+            prev franz next nil))
+    Katherine ((Katherine_Kressmann_Taylor cat noun proper yes gender m
+                number sing semtype ££player-name locut yes loctype
+                fixed root katherine prev nil next kressmann))
+    Kolitz ((Zvi_Kolitz cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root kolitz
+             prev zvi next nil))
+    Kressmann ((Katherine_Kressmann_Taylor cat noun proper yes gender m
+                number sing semtype ££player-name locut yes loctype
+                fixed root kressmann prev katherine next taylor))
+    Kuniaki ((Ida_Kuniaki cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              kuniaki prev ida next nil))
+    La ((La_Bizzarria cat noun proper yes gender f number sing semtype
+         ££artistic-group locut yes loctype fixed root la prev nil next
+         bizzarria)
+        (La_Funicolare cat noun proper yes gender f number sing semtype
+         ££artistic-group locut yes loctype fixed root la prev nil next
+         funicolare)
+        (La_Furattola cat noun proper yes gender f number sing semtype
+         ££artistic-group locut yes loctype fixed root la prev nil next
+         furattola)
+        (La_Locandiera cat noun proper yes gender f number sing semtype
+         ££event-descr locut yes loctype fixed root la prev nil next
+         locandiera)
+        (La_Bottega_Teatrale cat noun proper yes gender f number sing
+         semtype ££artistic-group locut yes loctype fixed root la prev
+         nil next bottega))
+    Lega ((Lega_Nord cat noun proper yes gender f number sing 
+           semtype £organization locut yes loctype fixed root Lega prev nil next Nord))
+    Lehar ((Franz_Lehar cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root lehar
+            prev franz next nil))
+    Lello ((Lello_Guida cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root lello
+            prev nil next guida))
+    Leonardo ((Leonardo_Sciascia cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               leonardo prev nil next sciascia))
+    Lermontov ((Michail_Lermontov cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                lermontov prev michail next nil))
+    Lessio ((Donatella_Lessio cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root lessio
+             prev donatella next nil))
+    Levi ((Primo_Levi cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root levi prev primo
+           next nil))
+    Lievi ((Cesare_Lievi cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root lievi
+            prev cesare next nil))
+    Liliana ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat
+              noun proper yes gender f number sing semtype
+              ££artistic-group locut yes loctype fixed root liliana
+              prev classico next cosi))
+    Lindsay ((Howard_Lindsay cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              lindsay prev howard next nil))
+    Locandiera ((La_Locandiera cat noun proper yes gender f number sing semtype
+             ££event-descr locut yes loctype fixed root locandiera prev la next
+             nil))
+    Los ((Los_Angeles cat noun proper yes gender f number sing 
+          locut yes semtype £city loctype fixed root Los prev nil next Angeles)
+         (Los_Alamos cat noun proper yes gender f number sing 
+          locut yes semtype £city loctype fixed root Los prev nil next Alamos))
+    Luca ((De_Luca cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root luca prev de next nil)
+          (Erri_De_Luca cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root luca prev
+           de next nil))
+    Lucia ((Lucia_Zotti cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root lucia
+            prev nil next zotti)
+           (Lucia_Falco cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root lucia
+            prev nil next falco))
+    Luciano ((Luciano_Oggero cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              luciano prev nil next oggero))
+    Ludwig ((Ludwig_Van_Beethoven cat noun proper yes gender m number
+             sing semtype ££author-name locut yes loctype fixed root
+             ludwig prev nil next van))
+    Luigi ((Luigi_Pirandello cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root luigi
+            prev nil next pirandello)
+           (Luigi_Oddoero cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root luigi
+            prev nil next oddoero))
+    Luis ((Luis_Sepulveda cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root luis prev
+           nil next sepulveda))
+    Lunatici ((I_Lunatici cat noun proper yes gender f number sing
+               semtype ££artistic-group locut yes loctype fixed root
+               lunatici prev i next nil))
+    Luttazzi ((Daniele_Luttazzi cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               luttazzi prev daniele next nil))
+    Luxuria ((Vladimir_Luxuria cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              luxuria prev vladimir next nil))
+    Machiavelli ((Niccolo_Machiavelli cat noun proper yes gender m
+                  number sing semtype ££player-name locut yes loctype
+                  fixed root machiavelli prev niccolo next nil))
+    Maggiani ((Maurizio_Maggiani cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               maggiani prev maurizio next nil))
+    Majakovskij ((Vladimir_Majakovskij cat noun proper yes gender m
+                  number sing semtype ££player-name locut yes loctype
+                  fixed root majakovskij prev vladimir next nil))
+    Manuel ((Manuel_Puig cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root manuel
+             prev nil next puig))
+    Manzani ((Nicola_Manzani cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              manzani prev nicola next nil))
+    Marcello ((Marcello_Serafino cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               marcello prev nil next serafino))
+    Marco ((Marco_Voerzio cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root marco
+            prev nil next voerzio)
+           (Marco_Grilli cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root marco
+            prev nil next grilli)
+           (Marco_Baliani cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root marco
+            prev nil next baliani))
+    Margareta ((Margareta_Garpe cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                margareta prev nil next garpe))
+    Marinel ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat
+              noun proper yes gender f number sing semtype
+              ££artistic-group locut yes loctype fixed root marinel
+              prev cosi next stefanescu))
+    Marx ((Fratelli_Marx cat noun proper yes gender m number sing 
+          semtype £cinema locut yes loctype fixed root Marx prev Fratelli next nil))
+    Mascagni ((Pietro_Mascagni cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               mascagni prev pietro next nil))
+    Massiomo ((Massiomo_Giovara cat noun proper yes gender m number
+               sing semtype ££movie-direct-name locut yes loctype fixed
+               root massiomo prev nil next giovara))
+    Matteotti ((Teatro_Matteotti cat noun proper yes gender m number sing 
+            semtype ££theater-name locut yes loctype fixed root Matteotti prev Teatro next nil))
+    Maurice ((Maurice_Hennequin cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              maurice prev nil next hennequin))
+    Maurizio ((Maurizio_Maggiani cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               maurizio prev nil next maggiani))
+    Max ((Oscar_Max_Wilde cat noun proper yes gender m number sing
+          semtype ££player-name locut yes loctype fixed root max prev
+          oscar next wilde))
+    Mazzucco ((Roberto_Mazzucco cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               mazzucco prev roberto next nil))
+    Mcewan ((Ian_Mcewan cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root mcewan
+             prev ian next nil))
+    Medio ((Medio_Oriente cat noun proper yes gender m number sing 
+          semtype £geogr-area locut yes loctype fixed root Medio prev nil next Oriente))
+    New ((New_York cat noun proper yes gender f number sing 
+          semtype £city locut yes loctype fixed root New prev nil next York))
+    Melano ((Graziano_Melano cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root melano
+             prev graziano next nil))
+    Michail ((Michail_Lermontov cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              michail prev nil next lermontov))
+    Michel ((Jean_Michel_Ribes cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root michel
+             prev jean next ribes))
+    Michele ((Michele_Serra cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              michele prev nil next serra))
+    Miller ((Arthur_Miller cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root miller
+             prev arthur next nil))
+    Molino ((Giorgio_Molino cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root molino
+             prev giorgio next nil))
+    Mollo ((Esther_Mollo cat noun proper yes gender m number sing
+            semtype ££movie-direct-name locut yes loctype fixed root
+            mollo prev esther next nil))
+    Monica ((Monica_Contini cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root monica
+             prev nil next contini))
+    Mozart ((Wolfang_Amadeus_Mozart cat noun proper yes gender m number
+             sing semtype ££author-name locut yes loctype fixed root
+             mozart prev amadeus next nil))
+    Naderi ((Amir_Naderi cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             naderi prev amir next nil))
+    Neil ((Neil_Simon cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root neil prev nil
+           next simon))
+    Neruda ((Pablo_Neruda cat noun proper yes gender m number sing
+             semtype ££author-name locut yes loctype fixed root neruda
+             prev pablo next nil))
+    Niccolini ((Francesco_Niccolini cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                niccolini prev francesco next nil))
+    Niccolo ((Niccolo_Machiavelli cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              niccolo prev nil next machiavelli))
+    Nicodemi ((Dario_Nicodemi cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               nicodemi prev dario next nil))
+    Nicola ((Nicola_Manzani cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root nicola
+             prev nil next manzani))
+    Nigrone ((Bobo_Nigrone cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              nigrone prev bobo next nil))
+    Nino ((Nino_E_Pio cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root nino prev nil
+           next e))
+    Nocher ((Francois_Nocher cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root nocher
+             prev francois next nil))
+    Noel ((Noel_Coward cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root noel prev nil
+           next coward))
+    Nord ((Lega_Nord cat noun proper yes gender f number sing 
+          semtype £organization locut yes loctype fixed root Nord prev Lega next nil))
+    Nuova ((Nuova_Zelanda cat noun proper yes gender f number sing 
+          semtype £state locut yes loctype fixed root Nuova prev nil next Zelanda))
+    Oddoero ((Luigi_Oddoero cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              oddoero prev luigi next nil))
+    Offenbach ((Jacques_Offenbach cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                offenbach prev jacques next nil))
+    Oggero ((Luciano_Oggero cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root oggero
+             prev luciano next nil))
+    Oli ((Devoto_Oli cat noun proper yes gender m number sing 
+          semtype £book locut yes loctype fixed root Oli prev Devoto next nil))
+    Operetta ((Teatro_Torino_Operetta cat noun proper yes gender f
+               number sing semtype ££artistic-group locut yes loctype
+               fixed root operetta prev torino next nil))
+    Oriente ((Medio_Oriente cat noun proper yes gender m number sing 
+          semtype £geogr-area locut yes loctype fixed root Oriente prev Medio next nil))
+    Osborne ((John_Osborne cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              osborne prev john next nil))
+    Oscar ((Oscar_Wilde cat noun proper yes gender m number sing
+            semtype ££author-name locut yes loctype fixed root oscar
+            prev nil next wilde)
+           (Oscar_Max_Wilde cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root oscar
+            prev nil next max))
+    Osvaldo ((Osvaldo_Guerrieri cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              osvaldo prev nil next guerrieri))
+    Pablo ((Pablo_Neruda cat noun proper yes gender m number sing
+            semtype ££author-name locut yes loctype fixed root pablo
+            prev nil next neruda))
+    Palazzo ((Palazzo_Civico cat noun proper yes gender f number sing 
+           semtype £place locut yes loctype fixed root Palazzo prev nil next Civico)
+              (Palazzo_Reale cat noun proper yes gender f number sing 
+           semtype £place locut yes loctype fixed root Palazzo prev nil next Reale))
+    Paolo ((Pier_Paolo_Pasolini cat noun proper yes gender m number
+            sing semtype ££movie-direct-name locut yes loctype fixed
+            root paolo prev pier next pasolini))
+    Parti ((Il_Gioco_Delle_Parti cat noun proper yes gender f number
+            sing semtype ££artistic-group locut yes loctype fixed root
+            parti prev delle next nil))
+    Pasolini ((Pier_Paolo_Pasolini cat noun proper yes gender m number
+               sing semtype ££movie-direct-name locut yes loctype fixed
+               root pasolini prev paolo next nil))
+    Paul ((Paul_Portner cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root paul prev
+           nil next portner))
+    Piazza ((Piazza_Castello cat noun proper yes gender f number sing 
+            semtype £location locut yes loctype fixed root Piazza prev nil next Castello)
+           (Piazza_San_Carlo cat noun proper yes gender f number sing 
+            semtype £location locut yes loctype fixed root Piazza prev nil next San))
+    Piccolo ((Il_Piccolo_Teatro_Instabile cat noun proper yes gender f
+              number sing semtype ££artistic-group locut yes loctype
+              fixed root piccolo prev il next teatro))
+    Pier ((Pier_Paolo_Pasolini cat noun proper yes gender m number sing
+           semtype ££movie-direct-name locut yes loctype fixed root
+           pier prev nil next paolo))
+    Pierre ((Pierre_Corneille cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root pierre
+             prev nil next corneille))
+    Pietro ((Pietro_Mascagni cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root pietro
+             prev nil next mascagni)
+            (Pietro_Garinei cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             pietro prev nil next garinei))
+    Pio ((Nino_E_Pio cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root pio prev e next
+          nil))
+    Pirandello ((Luigi_Pirandello cat noun proper yes gender m number
+                 sing semtype ££player-name locut yes loctype fixed
+                 root pirandello prev luigi next nil))
+    Plana ((Roberto_Plana cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root plana
+            prev roberto next nil))
+    Portner ((Paul_Portner cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              portner prev paul next nil))
+    Primo ((Primo_Levi cat noun proper yes gender m number sing semtype
+            ££player-name locut yes loctype fixed root primo prev nil
+            next levi))
+    Puccini ((Giacomo_Puccini cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              puccini prev giacomo next nil))
+    Pugliese ((Elena_Pugliese cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               pugliese prev elena next nil))
+    Puig ((Manuel_Puig cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root puig prev manuel
+           next nil))
+    Raffaella ((Raffaella_De_Vita cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                raffaella prev nil next de))
+    Ragona ((Alessandro_Ragona cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             ragona prev alessandro next nil))
+    Reale ((Palazzo_Reale cat noun proper yes gender f number sing 
+            semtype £place locut yes loctype fixed root Reale prev Palazzo next nil))
+    Regio ((Teatro_Regio cat noun proper yes gender m number sing 
+            semtype ££theater-name locut yes loctype fixed root Regio prev Teatro next nil))
+    Remo ((Remo_Rostagno cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root remo prev
+           nil next rostagno))
+    Rendina ((Aldo_Rendina cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              rendina prev aldo next nil))
+    Renzo ((Renzo_Boldrini cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root renzo
+            prev nil next boldrini))
+    Ribes ((Jean_Michel_Ribes cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root ribes
+            prev michel next nil))
+    Rica ((Costa_Rica cat noun proper yes gender f number sing 
+           semtype £state locut yes loctype fixed root Rica prev Costa next nil))
+    Rivoli ((Castello_di_Rivoli cat noun proper yes gender m number sing
+             semtype £location locut yes loctype fixed root Rivoli prev di next nil))
+    Rizzotti ((Francesca_Rizzotti cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               rizzotti prev francesca next nil))
+    Roberta ((Roberta_Cortese cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              roberta prev nil next cortese))
+    Roberto ((Roberto_Plana cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              roberto prev nil next plana)
+             (Roberto_Mazzucco cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              roberto prev nil next mazzucco)
+             (Roberto_Rossellini cat noun proper yes gender m number
+              sing semtype ££movie-direct-name locut yes loctype fixed
+              root roberto prev nil next rossellini))
+    Rohmer ((Eric_Rohmer cat noun proper yes gender m number sing
+             semtype ££movie-direct-name locut yes loctype fixed root
+             rohmer prev eric next nil))
+    Rosario ((Rosario_Fiorello cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              rosario prev nil next fiorello))
+    Rossellini ((Roberto_Rossellini cat noun proper yes gender m number
+                 sing semtype ££movie-direct-name locut yes loctype
+                 fixed root rossellini prev roberto next nil))
+    Rossini ((Gioacchino_Rossini cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              rossini prev gioacchino next nil))
+    Rosso ((Beppe_Rosso cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root rosso
+            prev beppe next nil))
+    Rostagno ((Remo_Rostagno cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               rostagno prev remo next nil))
+    Ruccello ((Annibale_Ruccello cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               ruccello prev annibale next nil))
+    Ruffolo ((Giorgio_Ruffolo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              ruffolo prev giorgio next nil))
+    Ruggero ((Ruggero_Fracchia cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              ruggero prev nil next fracchia))
+    Ruggiero ((Esther_Ruggiero cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               ruggiero prev esther next nil))
+    Russel ((Russel_Crouse cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root russel
+             prev nil next crouse))
+    Salve ((Salve_Valtingojer cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root salve
+            prev nil next valtingojer))
+    Sam ((Sam_Shepard cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root sam prev nil next
+          shepard))
+    Samuel ((Samuel_Beckett cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root samuel
+             prev nil next beckett))
+    San ((San_Francisco cat noun proper yes gender f number sing 
+          semtype £city locut yes loctype fixed root San prev nil next Francisco)
+          (Piazza_San_Carlo cat noun proper yes gender f number sing 
+          semtype £location locut yes loctype fixed root San prev Piazza next Carlo))
+    Saverio ((Saverio_Costanzo cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              saverio prev nil next costanzo))
+    Scarpetta ((Eduardo_Scarpetta cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                scarpetta prev eduardo next nil))
+    Schnitzler ((Arthur_Schnitzler cat noun proper yes gender m number
+                 sing semtype ££player-name locut yes loctype fixed
+                 root schnitzler prev arthur next nil))
+    Sciascia ((Leonardo_Sciascia cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               sciascia prev leonardo next nil))
+    Secondino ((Secondino_Trivero cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                secondino prev nil next trivero))
+    Sedda ((Clelia_Sedda cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root sedda
+            prev clelia next nil))
+    Sempreverdi ((I_Sempreverdi cat noun proper yes gender f number
+                  sing semtype ££artistic-group locut yes loctype fixed
+                  root sempreverdi prev i next nil))
+    Sepulveda ((Luis_Sepulveda cat noun proper yes gender m number sing
+                semtype ££player-name locut yes loctype fixed root
+                sepulveda prev luis next nil))
+    Serafino ((Marcello_Serafino cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               serafino prev marcello next nil))
+    Serra ((Michele_Serra cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root serra
+            prev michele next nil))
+    Shakespeare ((William_Shakespeare cat noun proper yes gender m
+                  number sing semtype ££author-name locut yes loctype
+                  fixed root shakespeare prev william next nil))
+    Shaw ((George_Bernard_Shaw cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root shaw prev
+           bernard next nil))
+    Shepard ((Sam_Shepard cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              shepard prev sam next nil))
+    Sibleyras ((Gerald_Sibleyras cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                sibleyras prev gerald next nil))
+    Silvano ((Silvano_Antonelli cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              silvano prev nil next antonelli))
+    Simon ((Neil_Simon cat noun proper yes gender m number sing semtype
+            ££player-name locut yes loctype fixed root simon prev neil
+            next nil))
+    Siviglia ((Il_barbiere_di_Siviglia cat noun proper yes gender m number sing
+               semtype ££event-descr locut yes loctype fixed root Siviglia prev di next
+               nil))
+    Sovietica ((Unione_Sovietica cat noun proper yes gender f number sing 
+          semtype £state locut yes loctype fixed root Sovietica prev Unione next nil))
+    Stabile ((Teatro_Stabile cat noun proper yes gender m number sing
+              semtype ££theater-name locut yes loctype fixed root
+              stabile prev teatro next nil))
+    Stati ((Stati_Uniti cat noun proper yes gender m number pl 
+            semtype £state locut yes loctype fixed root Stati prev nil next Uniti))
+    Stearns ((Thomas_Stearns_Eliot cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              stearns prev thomas next eliot))
+    Stefanescu ((Balletto_Classico_Liliana_Cosi_Marinel_Stefanescu cat
+                 noun proper yes gender f number sing semtype
+                 ££artistic-group locut yes loctype fixed root
+                 stefanescu prev marinel next nil))
+    Stefano ((Stefano_Goria cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              stefano prev nil next goria))
+    Stephen ((Stephen_Frears cat noun proper yes gender m number sing
+              semtype ££movie-direct-name locut yes loctype fixed root
+              stephen prev nil next frears))
+    Strauss ((Johann_Strauss cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              strauss prev johann next nil))
+    Strilloni ((Gli_Strilloni cat noun proper yes gender f number sing
+                semtype ££artistic-group locut yes loctype fixed root
+                strilloni prev gli next nil))
+    Tabucchi ((Antonio_Tabucchi cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               tabucchi prev antonio next nil))
+    Tarantino ((Antonio_Tarantino cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                tarantino prev antonio next nil))
+    Tardito ((Federica_Tardito cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              tardito prev federica next nil))
+    Taricco ((Filippo_Taricco cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              taricco prev filippo next nil))
+    Taylor ((Katherine_Kressmann_Taylor cat noun proper yes gender m
+             number sing semtype ££player-name locut yes loctype fixed
+             root taylor prev kressmann next nil))
+    Teatrale ((La_Bottega_Teatrale cat noun proper yes gender f number
+               sing semtype ££artistic-group locut yes loctype fixed
+               root teatrale prev bottega next nil))
+    Teatro ((Teatro_Alfieri cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next alfieri)
+            (Alfa_Teatro cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev alfa next nil)
+            (Teatro_Carignano cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next carignano)
+            (Teatro_Erba cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next erba)
+            (Teatro_Colosseo cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next colosseo)
+            (Teatro_Matteotti cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next Matteotti)
+            (Teatro_Stabile cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next stabile)
+            (Teatro_Gioiello cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next gioiello)
+            (Teatro_Regio cat noun proper yes gender m number sing
+             semtype ££theater-name locut yes loctype fixed root teatro
+             prev nil next regio)
+            (Teatro_Degli_Acerbi cat noun proper yes gender f number
+             sing semtype ££artistic-group locut yes loctype fixed root
+             teatro prev nil next degli)
+            (Il_Piccolo_Teatro_Instabile cat noun proper yes gender f
+             number sing semtype ££artistic-group locut yes loctype
+             fixed root teatro prev piccolo next instabile)
+            (Teatro_Harba cat noun proper yes gender f number sing
+             semtype ££artistic-group locut yes loctype fixed root
+             teatro prev nil next harba)
+            (Teatro_Torino_Operetta cat noun proper yes gender f number
+             sing semtype ££artistic-group locut yes loctype fixed root
+             teatro prev nil next torino))
+    Teofilo ((Teofilo_Folengo cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              teofilo prev nil next folengo))
+    Terron ((Carlo_Terron cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root terron
+             prev carlo next nil))
+    Thomas ((Thomas_Stearns_Eliot cat noun proper yes gender m number
+             sing semtype ££player-name locut yes loctype fixed root
+             thomas prev nil next stearns))
+    Tony ((Tony_Gatlif cat noun proper yes gender m number sing semtype
+           ££movie-direct-name locut yes loctype fixed root tony prev
+           nil next gatlif))
+    Torino ((Teatro_Torino_Operetta cat noun proper yes gender f number
+             sing semtype ££artistic-group locut yes loctype fixed root
+             torino prev teatro next operetta)
+            (torino_card cat noun classe (0) gender f number allval 
+            locut yes loctype fixed root Torino prev nil next card))
+    Trevisan ((Vitaliano_Trevisan cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               trevisan prev vitaliano next nil))
+    Trivero ((Secondino_Trivero cat noun proper yes gender m number
+              sing semtype ££player-name locut yes loctype fixed root
+              trivero prev secondino next nil))
+    Tullio ((Francesco_Tullio_Altan cat noun proper yes gender m number
+             sing semtype ££player-name locut yes loctype fixed root
+             tullio prev francesco next altan))
+    Turteltaub ((John_Turteltaub cat noun proper yes gender m number
+                 sing semtype ££movie-direct-name locut yes loctype
+                 fixed root turteltaub prev john next nil))
+    Unione ((Unione_Sovietica cat noun proper yes gender f number sing 
+            semtype £state locut yes loctype fixed root Unione prev nil next Sovietica))
+    Uniti ((Stati_Uniti cat noun proper yes gender m number pl semtype £state 
+            locut yes loctype fixed root Uniti prev Stati next nil))
+    Valtingojer ((Salve_Valtingojer cat noun proper yes gender m number
+                  sing semtype ££player-name locut yes loctype fixed
+                  root valtingojer prev salve next nil))
+    Van ((Van_Beethoven cat noun proper yes gender m number sing
+          semtype ££author-name locut yes loctype fixed root van prev
+          nil next beethoven)
+         (Ludwig_Van_Beethoven cat noun proper yes gender m number sing
+          semtype ££author-name locut yes loctype fixed root van prev
+          ludwig next beethoven))
+    Verdi ((Giuseppe_Verdi cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root verdi
+            prev giuseppe next nil))
+    Vincenzo ((Vincenzo_Cerami cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               vincenzo prev nil next cerami)
+              (Vincenzo_Caruso cat noun proper yes gender m number sing
+               semtype ££player-name locut yes loctype fixed root
+               vincenzo prev nil next caruso))
+    Vita ((De_Vita cat noun proper yes gender m number sing semtype
+           ££player-name locut yes loctype fixed root vita prev de next
+           nil)
+          (Raffaella_De_Vita cat noun proper yes gender m number sing
+           semtype ££player-name locut yes loctype fixed root vita prev
+           de next nil))
+    Vitaliano ((Vitaliano_Trevisan cat noun proper yes gender m number
+                sing semtype ££player-name locut yes loctype fixed root
+                vitaliano prev nil next trevisan))
+    Vladimir ((Vladimir_Majakovskij cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               vladimir prev nil next majakovskij)
+              (Vladimir_Luxuria cat noun proper yes gender m number
+               sing semtype ££player-name locut yes loctype fixed root
+               vladimir prev nil next luxuria))
+    Vodani ((Cesare_Vodani cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root vodani
+             prev cesare next nil))
+    Voerzio ((Marco_Voerzio cat noun proper yes gender m number sing
+              semtype ££player-name locut yes loctype fixed root
+              voerzio prev marco next nil))
+    Von ((Von_Hofmannsthal cat noun proper yes gender m number sing
+          semtype ££player-name locut yes loctype fixed root von prev
+          nil next hofmannsthal)
+         (Hugo_Von_Hofmannsthal cat noun proper yes gender m number
+          sing semtype ££player-name locut yes loctype fixed root von
+          prev hugo next hofmannsthal))
+    Walsh ((Enda_Walsh cat noun proper yes gender m number sing semtype
+            ££player-name locut yes loctype fixed root walsh prev enda
+            next nil))
+    Warren ((Warren_Casey cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root warren
+             prev nil next casey))
+    Wesker ((Arnold_Wesker cat noun proper yes gender m number sing
+             semtype ££player-name locut yes loctype fixed root wesker
+             prev arnold next nil))
+    Wilde ((Oscar_Wilde cat noun proper yes gender m number sing
+            semtype ££author-name locut yes loctype fixed root wilde
+            prev oscar next nil)
+           (Oscar_Max_Wilde cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root wilde
+            prev max next nil))
+    William ((William_Shakespeare cat noun proper yes gender m number
+              sing semtype ££author-name locut yes loctype fixed root
+              william prev nil next shakespeare))
+    Wolfang ((Wolfang_Amadeus_Mozart cat noun proper yes gender m
+              number sing semtype ££author-name locut yes loctype fixed
+              root wolfang prev nil next amadeus))
+    Yimou ((Zhang_Yimou cat noun proper yes gender m number sing
+            semtype ££movie-direct-name locut yes loctype fixed root
+            yimou prev zhang next nil))
+    York ((New_York cat noun proper yes gender f number sing 
+            locut yes semtype £city loctype fixed root York prev New next nil))
+    Zelanda ((Nuova_Zelanda cat noun proper yes gender f number sing 
+            semtype £state locut yes loctype fixed root Zelanda prev Nuova next nil))
+    Zero ((Atmosfera_Zero cat noun proper yes gender f number sing
+           semtype ££artistic-group locut yes loctype fixed root zero
+           prev atmosfera next nil))
+    Zhang ((Zhang_Yimou cat noun proper yes gender m number sing
+            semtype ££movie-direct-name locut yes loctype fixed root
+            zhang prev nil next yimou))
+    Zotti ((Lucia_Zotti cat noun proper yes gender m number sing
+            semtype ££player-name locut yes loctype fixed root zotti
+            prev lucia next nil))
+    Zvi ((Zvi_Kolitz cat noun proper yes gender m number sing semtype
+          ££player-name locut yes loctype fixed root zvi prev nil next
+          kolitz))
+    

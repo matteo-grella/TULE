@@ -1,0 +1,1416 @@
+PUT
+(Parser dell'Universita' di Torino)
+
+User Manual and General Information
+
+TABLE OF CONTENTS
+
+0. Foreword
+1. User manual
+   1.1 Preliminary operations
+   1.2 Basic operations
+   1.3 Other functionalities
+2. The result of the parser
+   2.1 Lexical information
+       2.1.1 Lexical categories
+	     2.1.1.1 List of defined categories
+	     2.1.1.2 Comments and examples
+       2.1.2 The syntactic types (subcategories)
+       2.1.3 Further information (features)
+       2.1.4 Locutions
+   2.2 Structural information
+       2.2.1 The arc labels
+       2.2.2 Traces and coindexing
+3. The parser architecture
+   3.1 Tokenizer
+   3.2 Analyser
+   3.3 Tagger
+   3.4 Parser
+       3.4.1 Non-verbal chunking
+       3.4.2 Coordination
+       3.4.3 The verbal dependents
+	     3.4.3.1 Subcategorization
+	     3.4.3.2 Transformations
+	     3.4.3.3 Identifying the dependents in the sentence
+	     3.4.3.4 The match
+       3.4.4 Elements remained unlinked in the tree
+4. Evaluation: comparisons between automatic and manual data
+   4.1 Evaluation of the PoS tagger
+   4.2 Evaluation of the parser
+
+0. Foreword
+
+This report includes four sections. The first one says how one can use the
+parser to work on the input data (user manual). The second one describes the
+format of the result of the analysis. It includes a list of the syntactic
+categories (POS) and of the other pieces of information that the parser
+includes in the result file. The third one presents a general description
+of the approach we adopted for parsing and the overall organization of the
+system. The last section describes two more functionalities, enabling the user,
+after a manual correction of the output, to carry out some checks and some
+automatic counting of the errors.
+
+N.B. In this manual, *HOME-DIR* refers to the directory where the system has
+     been installed, followed by "/JAN-08-TULE". So, if it was installed in
+        /home/nlresources/turinparser
+     a file name as 
+        *HOME-DIR*/SYSTEM/ALLLANG/KB-ALL/SUBCAT-KB-ALL/lab-hierarchy.dat
+     refers to the file:
+        /home/nlresources/turinparser/JAN-08-TULE/SYSTEM/ALLLANG/KB-ALL/
+                                                   SUBCAT-KB-ALL/lab-hierarchy.dat
+
+1. User manual
+
+1.1 Preliminary operations
+
+** First of all, for installing the system, it is necessary to modify the files
+        "*HOME-DIR*/SYSTEM/compile-all"
+   and 
+        "*HOME-DIR*/SYSTEM/nlpp",
+   changing in the second line, the value 
+        "/home/lesmo/TULE/DOWNL/JAN-08-TULE/SYSTEM/"
+   with 
+        "*HOME-DIR*/SYSTEM/"
+   Note that the new path must end with SYSTEM followed by a slash!
+
+** If one wants to use the Lisp debugging facilities, it is possible to
+   install the source version of the files. In this case, the same change as
+   the one described above must be made to the file 
+        "*HOME-DIR*/SYSTEM/nlpp-debug",
+
+** Finally, some off-line facilities for generating morphological and
+   subcategorization information are carried out by loading the files
+        "*HOME-DIR*/SYSTEM/lohier"
+   and
+        "*HOME-DIR*/SYSTEM/loadsuff". 
+   These facilities should not be used by the standard user. Anyway, they require
+   analogous changes for the *HOME-DIR* in the files just mentioned.
+
+** Now, it is possible to compile the parser, launching the Lisp interpreter
+   from the directory *HOME-DIR*/SYSTEM and evaluating 
+        (load "compile-all")
+
+1.2 Basic operations
+
+The operations to carry out the parsing process are very simple. Some
+care is required just for the placement of the data file on which the work
+must be done and for the way to tell the system which is (are) this file
+(these files).
+
+The operations are as follows:
+1 - Insert the file (any file in a standard text format) in the directory
+        *HOME-DIR*/DATI
+    (but see point 5 below).
+    Insert, as the two first lines of the file:
+        FILE-LABEL xxx
+        INITIAL-SENT-NUMBER n
+    Where "xxx" is any character sequence, and "n" is an integer.
+2 - Start up the LISP interpreter ('cl', 'lisp', or similar) from the
+    directory *HOME-DIR*/SYSTEM
+3 - Load the parser files (command '(load "nlpp")'); if one wants to use the
+    source version - non-compiled -, the command '(load "nlpp-debug")' must
+    be executed.
+4 - Answer '1' to the question "Which of the options do you want to follow?"
+5 - Specify what is the file to be parsed. This can be done in two ways:
+    - Answering 'n' to the next question:
+         "Do you want to carry out the work on a whole corpus? (y/n)"
+      and providing the tagger with the name of the file, after the request:
+         "Name of the input file containing the raw text (between quotation marks)?
+          Home directory: *HOME-DIR*/DATI" 
+      Note that the name must be a path starting from the directory *HOME-DIR*/DATI.
+      This means that if the data have been put in the 'test' file in the subdirectory
+      '*HOME-DIR*/DATI/MYFILES', the answer must be 'MYFILES/test'
+    - Answering 'y' to the question, but after having inserted in the file
+      "*HOME-DIR*/DATI/tagcorpus.dat" (with any text editor) the name of the files
+      (one or more) to be tagged. The names must be included in a LISP list.
+      An example is reported in the file *HOME-DIR*/DATI/tagcorpus.exm.
+
+1.3 Other functionalities
+
+The operations executed in case one answers with value other than 1 to the initial
+request of the system will be described afterward. They include: semantic
+interpretation, simple morphological analysis, PoS Tagging (without parsing),
+and evaluation. The latter is based on the availability of files containing the correct
+results (just PoS tagging or also parsing); they have to be built manually in order to
+carry out the comparisons.
+
+2. The parser output
+
+     The result of the parser appears in the file (files) having the same
+name of the input file (and in the same directory), but the extension .prs
+(ex. input in *HOME-DIR*/DATI/MYFILES/test; output in *HOME-DIR*/DATI/MYFILES/test.prs)
+
+      It consists in a set of 'sentences' (as identified by the parser). They are
+kept apart by an empty line, and by a line of the form ******* xxx-n *********
+where "xxx" is the label (identifier of the file group, see point 1 in section 1
+above), and "n" is the number of the sentence; the first sentence of the file
+will get the number "n" (as specified as INITIAL-SENT-NUMBER in the input file)
+the next "n+1"), and so on.
+
+      Each sentence is described by a sequence of lines (records), one for 
+each input 'word' (or punctuation mark, or special symbol) appearing in the
+input file. Some extra lines appear in case of compound words and traces.
+
+Example 1:
+5 prova (PROVA NOUN COMMON F SING PROVARE TRANS) [3;DET+DEF-ARG]
+
+ Each line includes four elements:
+- The position of the word (or symbol) in the sentence (5, in the example)
+  In the case of compound words (ex. "della": "of+the"), the first component
+  ("di": "of") will get "K" as its position, while the second one ("la": "the")
+  will get "K.1" (in the following line). Analogously, for words that include 
+  more than two components (ex.  "prendiglielo": "take+it+from_him"), we will
+  have more lines in the file, with positions: "K", "K.1", "K.2", ...
+- The form of the input word (this element is case-sensitive, since
+  upper-case and lower-case distinction mirrors the input element):
+  "prova", in example 1.
+- A list containing the data obtained by the morphological analyser and the
+  tagger. These data are given in LISP-readable format (for instance 
+  special symbols are stored in LISP character format: #\;). The rest
+  of this section aims to describe the format of these data. In the example:
+       (PROVA NOUN COMMON F SING PROVARE TRANS)
+- The information about the parsing tree (ex. [3;DET+DEF-ARG]); this stuff is
+  described in the section 2.2.
+
+2.1 Lexical Information
+
+Note: Since the parser output is homogenous with the Turin University Treebank
+(TUT) format, more information about the topics of this section can be found
+in the TUT documentation, especially in the "Linguistic Notes". 
+
+The information is given as a list:
+		(info1 info2 ... infon)
+The data 'info1' and 'info2' refer to the same pieces of information in all
+lines:
+- info1: the normalized (quotation) form of the word. For instance, for nouns
+  the masculine singular, for the verbs the infinite.
+- info2: the syntactic category (POS). The list of syntactic categories is
+  reported in section 2.1.1.
+
+'info3' appears for almost all the input elements and specifies the 'type'
+(or 'subcategory') of the element. Some exceptions are elements of the
+categories 'punct', 'special', 'phras', 'interj' and 'marker' (see par.2.1.1).
+'info3' can be absent also for some adverbs; in this case, it is a limit
+of the current development of the lexicon, and not a principled choice.
+The complete description of the types is reported in section 2.1.2.
+
+The further 'infoi' are strictly dependent on the syntactic category (ex.
+gender and number for adjectives, tense and mood for verbs) and will be
+described in section 2.1.2.
+
+2.1.1. The syntactic categories (POS)
+
+2.1.1.1 List of defined categories
+
+	1.  ADJ (adjectives)
+	2.  ADV (adverbs)
+	3.  ART (articles)
+	4.  CONJ (conjunctions)
+	5.  DATE (dates)
+	6.  INTERJ (interjections)
+	7.  MARKER (markers)
+	8.  NOUN (nouns)
+	9.  NUM (numbers)
+	10. PHRAS (phrasal)
+	11. PREDET (predeterminers)
+	12. PREP (prepositions)
+	13. PRON (pronouns)
+	14. PUNCT (punctuation)
+	15. SPECIAL (special symbols)
+	16. VERB (verbs)
+
+2.1.1.2 Comments, subtypes and examples
+
+This paragraph provides the user with general information about the elements
+included in the various categories. We include some comments about the
+category, with few (Italian) examples in context, with English (literal) translation.
+We also list the various subtypes of each category, with examples (out of
+context) taken from the dictionaries of the various languages.
+
+  1.  ADJ (adjectives)
+     It includes various types of adjectives: standard (qualificativi) (bello
+     -nice-, buono -good), interrogative ('quali' fiori vuoi comprare -'which'
+     flowers do you want to buy-), demonstrative ('questi' fiori sono belli -
+     'these' flowers are nice-), deictic (il 'prossimo' mese - [the] 'next' month),
+     exclamative ('che' bei fiori! -'what' nice flowers!-), indefinite ('alcuni'
+     ragazzi -'some' boys), possessive (la 'mia' auto - [the] 'my' car),
+     ordinative (il 'terzo' successo - the 'third' success).
+	- COMPAR (comparative)
+		I: così
+	- DEITT (deictic)
+		I: altro, fa, prossimo, scorso
+ 		E: next
+	- DEMONS (demonstrative)
+		I: questo, quello
+		E: such, this, that
+	- EXCLAM (exclamative)
+		I: che
+	- INDEF (indefinite)
+		I: nessun, alcuni, molti, qualsiasi
+		E: numerous, certain, few
+	- INTERR (interrogative)
+		I: che, quale, quanto
+		E: what, which
+	- ORDIN (ordinal)
+		I: primo, ventesimo, ultimo
+		E: first, twentieth, last
+	- ORDINSUFF (ordinal suffixes)
+		[they are not autonomous words, but appear in the
+                 dictionary, in order to cope with forms as 23rd,
+		 45th, which are split in two parts by the tokenizer]
+		E: nd, rd, th, st
+	- POSS (possessive)
+		I: altrui, mio, nostri
+		E: my, your, their
+	- QUALIF (qualificative)
+		I: bello, grande, italiano
+		E: nice, big, English
+
+2.  ADV (adverbs)
+   It includes standard adverbs (spesso -often-, bene -well-), question adverbs
+   (quando -when-, perchè -why-), and many other types. Probably, this is the
+   most complex category, because the types (subcategories) partially include 
+   semantic information.
+	- ADFIRM (adfirmative)
+		I: certo
+	- ADVERS (adversative)
+		I: anzi, invece, pero'
+		E: although, though
+	- COMPAR (comparative)
+		I: piu', meglio, peggio, cosi'
+		E: less, more
+	- CONCESS (concessive)
+		I: anche, pure
+		E: also
+	- DOUBT (doubt)
+		I: forse
+		E: perhaps
+        - EXPLIC (explicative)
+		I: dunque
+		E: that_is
+	- INTERJ (interjections)
+		I: comunque, tuttavia
+		E: at_any_rate
+	- INTERR (interrogative)
+		I: come, dove, perché, quando
+		E: how, where, when, why
+	- LIMIT (limit)
+		I: solo, soltanto
+		E: just, only
+	- LOC (locative)
+		I: sopra, intorno, lassù, sottoterra
+		E: there, within, below, here 
+	- MANNER (manner)
+		I: così, volentieri
+		E: aloud, alright, well
+		   [this type includes also all the adverbs derived from
+                    adjectives by means of the -mente suffix [I]
+		    (forte --> fortemente) or -ly suffix [E] (strong --> strongly)] 
+	- NEG (negation)
+		I: non, senza, neanche, nemmeno
+		E: not
+	- QUANT (quantification)
+		I: meno, circa, assai, troppo
+		E: little, rather, too
+	- REASON (motivation)
+		I: infatti, pertanto, quindi
+	- STRENG (strengthening)
+		I: inoltre, perfino, persino, anche
+		E: even, moreover
+	- SUPERL (superlative)
+		I: benissimo
+		E: least
+	- SUPERLREL (superlative, relative)
+		E: most
+	- TIME (time)
+		I: poi, prima, ormai, spesso
+		E: sometime, afterward, already
+
+3.  ART (articles)
+	- DEF (definite)
+		I: il, la, gli
+		E: the
+	- INDEF (indefinite)
+		I: un, una, un', uno, degli
+		E: a, another, 
+	- GENITIVE (genitive):
+		E: 's
+		
+	4.  CONJ (conjunctions)
+	         Conjunctions, both coordinating (e -and-, o -or-) and
+		 subordinating ('mentre' mangiava, leggeva il giornale -
+		 'while' she was eating, she was reading the newspaper-;
+		 lo ha baciato 'perchè' lo amava - she kissed him 'because'
+		 she loved him-)
+		- COORD (coordinative)
+			I: e, o, ma, eppure, inoltre
+			E: and, but, or, neither, nor
+		- SUBORD (subordinative)
+			I: che, nonostante, poiché, quando
+			E: since, that, to, unless
+		- COMPAR (comparative)
+			I: a, che, di, come
+			E: than
+	
+	5.  DATE (dates)
+	         The dates, but just when they have been recognized on the
+		 basis of their structure (i.e. by the tokenizer). For
+		 instance, '10/5/07' will be recognized as a single element
+		 (a single output line), and it will get the category DATE.
+		 On the contrary, '10 maggio 2007' -10 May 2007- will be
+		 taken as three separate elements (a NUM, a NOUN, and
+		 another NUM). For this reason, they do not appear in the
+                 dictionaries, but only in the output.
+		no type
+
+	6.  INTERJ (interjections)
+		no type
+		     I: ah, bah, oh
+		     E: alas
+
+	7.  MARKER (markers)
+	         This category has been created in order to handle
+		 typographic and formatting markers. Currently, it is used
+		 just for some markers which appear in the text of the
+		 used corpus, which are of the form <P Prose>, <N Smith
+		 John>. In principle, this POS can be associated with any
+		 kind of extra-text markers (ex. LaTex or HTML commands).
+		 However, this facility is currently very limited and there is
+		 no interface enabling a user to define easily a set of markers.
+		no type
+
+	8.  NOUN (nouns)
+		- COMMON
+			I: casa, ragazzo, sedia
+			E: house, boy, chair
+		- PROPER
+			I: Marco, Italia, Inghilterra, England
+			E: Mary, Italia, Italy, England
+
+	9.  NUM (numbers)
+	         numbers, both in numeric form (123.451) and in character
+		 form (centotrentasette -onehundredthirtyseven-).
+                 Most numbers are not present in the dictionaries, since
+		 they are recognized by suitable automata:
+                 *HOME-DIR*/SYSTEM/ITALIAN/KB-ITA/MORPHO-KB-ITA/numbautom-ita.lisp"
+                 *HOME-DIR*/SYSTEM/ENGLISH/KB-ENG/MORPHO-KB-ENG/numbautom-eng.lisp"
+                 *HOME-DIR*/SYSTEM/CATALAN/KB-CAT/MORPHO-KB-CAT/numbautom-ca.lisp"
+		 This is not available for Spanish
+		- CARDIN
+		     I: zero, venti
+		     E: zero, twenty 
+		- MULT
+		     I: mila 
+	 	       [for forms as 20mila - 20 thousand]
+
+	10. PHRAS (phrasals)
+	         phrasals, i.e. words playing the role of entire sentences
+		 (as 'sì' -yes- and 'no').
+		No type
+
+	11. PREDET (predeterminers)
+	        Predeterminers (i.e. 'tutto' -all-, 'ambedue' -both-)
+		No type
+
+	12. PREP (prepositions)
+	        Both the normal prepositions ('di' -of-, 'a' -to-, 'da' 
+		 -from-, ...) and the so-called 'polysyllabic' prepositions
+		 ('durante' -during-, 'sopra' -above-, 'davanti' -before-, ...)
+		- MONO (monosyllabic: di, a, da, in, ...)
+		- POLI (polysyllabic: attorno, accanto, prima, sopra, ...)
+
+	13. PRON (pronouns)
+	         Beyond the personal pronouns ('io' -I-, 'tu' -you-, ...),
+		 also clitics (mangiando'lo' -eating+it-), the relative
+		 pronouns (la ragazza 'che' hai visto -the girl 'whom' you saw-,
+		 la casa 'dove' sono nato -the house 'where' I was born-, ...),
+		 the interrogative pronouns ('chi' hai incontrato? -'who' did
+		 you meet?-), the indefinite ones ('molti' credono in lui -'many'
+		 believe in him-) and the exclamative ones ('che' hai fatto!
+		 -'what' have you done!-)
+		- DEMONS (demonstrative: cio', medesimo, questo, coloro, ...)
+		- EXCLAM (exclamative: che, chi)
+		- INDEF (indefinite: chiunque, nessuno, qualcosa, ...)
+		- INTERR (interrogative: chi, che, cosa, dove, quale, quanto)
+		- LOC (locative: ne, ci, vi)
+                - ORDIN (ordinals: primo, secondo, cinquantesimo, ...)
+		- PERS (personal: io, tu, noi, lei)
+		- POSS (possessive: mio, tuo, nostro, proprio, ...)
+		- REFL-IMPERS (reflexive-impersonal: ci, vi, si, se)
+		- RELAT (relative: che, quale, cui, come, dove, ...)
+
+	14. PUNCT (punctuation)
+	         Various punctuation marks, as periods, commas, parentheses,
+		 and so on.
+		No type
+
+	15. SPECIAL (special symbols)
+	             special symbols, i.e. all characters which are not 
+		 standard punctuation marks (ex. $, #, & ...).
+		No type
+
+	16. VERB (verbs)
+	          main verbs, but also auxiliars and modals. It must be noted
+		 that in all cases where the corrsponding lemma is not 
+		 explicitly present in the dictionary with another category,
+		 the past and present participles will be tagged as VERB. For
+		 instance, if 'interesting' appears as an ADJ in the
+		 dictionary, it is up to the tagger to choose between the
+		 ADJ and VERB (gerund) reading. Otherwise, it will appear in
+		 the input as a VERB.
+		- MAIN (all standard verbs, but also copulas)
+		- AUX (auxiliaries: essere, avere, venire, stare)
+		- MOD (modals: dovere, potere, volere)
+
+2.1.2. Features
+
+	1. ADJ
+		- Gender (M, F)
+		- Number (SING, PL)
+                (just for possessives:
+                  - Gender of the possessor (P-F, P-M)
+                  - Number of the possessor (P-SING, P-PL)
+                  - Person of the possessor (P-1, P-2, P-3))
+
+	2. ADV
+		No features
+
+	3. ART
+		- Gender (M, F)
+		- Number (SING, PL)
+
+	4. CONJ
+                - Semtype (advers [ma, pero', anzichè], caus [poiche', siccome],
+                  compar [come], concess [nonostante, sebbene], concl [quindi,
+                  cosicchè], cond [se, purchè], coord [e, sia], disj [o, oppure],
+                  explic [cioè, infatti], final [perciò, sicchè], loc [dove],
+                  manner [come, quasi], neg [nè], neutral [che], reason [perche',
+                  affinchè], time [dopo, mentre, quando], excluding [a_meno_che]
+
+	5. DATE
+		No features
+
+	6. INTERJ
+		No features
+
+	7. MARKER
+		No features
+
+	8. NOUN:
+		- Gender (M, F)
+		- Number (SING, PL)
+	   There are two more features which can appear with nouns in case the
+	   noun derives from a verb. They specify what is the verb from which
+	   the noun derives and if that verb is transitive or not (their name
+	   is v-deriv, and v-trans).
+	   N.B. These features are very important for the module which assigns
+		automatically the grammatical relations (see section 3). For
+		instance, with 'la caduta di Marco' -the fall of Marco-, 
+		since 'caduta' -fall- derives from 'cadere' -to fall-, which is
+		intransitive, to the arc connecting the noun 'caduta' to the
+		preposition 'di' is assigned the relation N-SUBJ (nominal
+		subject). On the contrary, with transitive verbs, the label
+		assigned is N-OBJ ('la distruzione della città' -the
+		destruction of the city-); of course, in this case, it is just
+		a preference, since counterexamples do exist.
+	   N.B.2 The derivation verb can assume the value 'dummy', in case one
+		just wants to force the label assignment (N-SUBJ or N-OBJ)
+		described in the previous note.
+
+	9. NUM:
+		- Value, i.e. the numeric value (ex. trentatre' --> 33)
+
+	10. PHRAS:
+		No features
+
+	11. PREDET:
+		- Gender (M, F)
+		- Number (SING, PL)
+
+	12. PREP:
+		No features
+
+	13. PRON:
+		- Gender (M, F)
+		- Number (SING, PL)
+		- Person (1, 2, 3)
+		- Case (LSUBJ, LOBJ, LIOBJ, and various combinations of them
+		  concatenated with the separator '+'; ex. LOBJ+LIOBJ (this
+		  expresses ambiguity); LIOBJ stands for 'indirect object')
+                (just for possessives:
+                  - Gender of the possessor (P-F, P-M)
+                  - Number of the possessor (P-SING, P-PL)
+                  - Person of the possessor (P-1, P-2, P-3))
+
+	14. PUNCT
+		No features
+
+	15. SPECIAL
+		No features
+
+	16. VERB:
+		- Mood (IND, INFINITE, CONG, PARTICIPLE, CONDIZ, GERUND, IMPER)
+		- Tense (PRES, PAST, IMPERF, REMPAST, FUT)
+		- Transitivity (TRANS, INTRANS, REFL)
+		- Person (1, 2, 3)
+		- Number (SING, PL)
+		- Gender (M, F)
+	   Note that among the listed features, only mood, tense, and
+	   transitivity ar always present. For instance, for infinites and
+	   gerunds all other features are absent, and the gender appears only
+	   with past participles.
+
+2.1.4 Locutions
+
+	Currently, the parser recognizes a limited number of locutions (about
+160; the list is in the files *HOME-DIR*/KB/DICTIONARY/locutions.lisp and
+*HOME-DIR*/KB/DICTIONARY/locutions.lisp). The term 'locution' is
+intended to mean a lemma composed of more than one word, as for instance,
+"più o meno" -more or less-, "per esempio" -for instance-. In the output,
+locutions are identical to all other entries, except for the presence of the
+marker LOCUTIION at the end of the syntactic information described above.
+
+2.2 Structural information (the parse tree)
+
+        As stated above, the structure of the dependency tree is encoded via
+arcs from the daughters to the mother. Their are expressed in the form:
+		[parent;label]
+where 'parent' is the position (see 2. above) of the word that governs the
+one under consideration, and 'label' is the label of the arc connecting the
+daughter (dependent) to the parent (head). Of course, the root of the tree
+has a special 'parent' pointer, encoded as '0' (zero).
+
+2.2.1 The arc labels
+
+        The arc labels (dependency relations) are organized according to a
+hierarchical scheme. The whole hierachy currently used is stored in the 
+file "*HOME-DIR*/KB/SUBCAT/lab-hierarchy.dat". We only report here some
+short comments on the top levels of the hierarchy. We remind that the labels
+carry both syntactic and semantic information, that a new, more general,
+scheme has been developed, and that the parser assigns the labels by
+adopting a strategy of least-commitment, thus omitting, except in special
+cases, the semantic component.
+
+        This last point requires some words of explanation. The label
+hierarchy is such that every label has to be seen as a 'specialization' of 
+its parent. For instance, the RMOD label (associated with any restrictive
+modifier is specialized in eight different types, according to the syntactic
+category of the dependent (ADVB-RMOD, ADJC-RMOD, ...). In their turn, these
+labels are specialized further in terms of semantic valency of the dependent.
+For instance, ADVB-RMOD (restrictive modifiers of aadverbial type) dominates
+14 different labels (ADVB+ADVERS-RMOD, ADVB+COMPAR-RMOD, ADVB-RMOD-LOC, etc.),
+that may be specialized further (e.g. ADVB-RMOD-LOC+FROM). The parser, at
+the current level of development, limits itself to the assignment of the
+ADVB-RMOD (or ADJC-RMOD, NOUN-RMOD, ...), without taking more detailed
+decisions (apart from some cases, as, for instance, the negations -
+ADV-RMOD-NEG - which are reasonably certain). So, if the choice of
+the parent is correct (i.e. if the word X actually is an adjunct of the verb
+Y), the link is considered as correct, avoiding the risk of errors (which 
+could raise the total number by another 5%, with respect to the figures
+reported in the last section).
+
+        With this foreword, we report below a small portion of the label
+hierarchy, just to give a feeling of its structure (in the file 
+"*HOME-DIR*/KB/SUBCAT/lab-hierarchy.dat", it is possible to find further
+details a and a number of examples).
+
+DEPENDENT
+  |--> FUNCTION
+  |      |--> ARG
+  |      |      |--> ADJC-ARG
+  |      |      |--> ADVB-ARG
+  |      |      |--> CONJ-ARG
+  |      |      |--> DET-ARG
+  |      |      |--> NOUN-ARG
+  |      |      |--> VERB-ARG
+  |      |             |--> VERB-SUBJ
+  |      |             |--> VERB-OBJ
+  |      |--> RMOD
+  |      |      |--> ADJC-RMOD
+  |      |      |--> ADVB-RMOD
+  |      |      |--> DATE-RMOD
+  |      |      |--> NOUN-RMOD
+  |      |      |--> NUM-RMOD
+  |      |      |--> PREP-RMOD
+  |      |      |--> PRON-RMOD
+  |      |      |--> VERB-RMOD
+  |      |--> APPOSITION
+  |--> NOFUNCTION
+         |--> AUX
+         |      |--> AUX-PASSIVE
+         |      |--> AUX-PROGRESSIVE
+         |      |--> AUX-TENSE
+         |--> CONTIN
+         |      |--> CONTIN+DENOM
+         |      |--> CONTIN+LOCUT
+         |      |--> CONTIN+PREP
+         |--> COORDINATOR
+         |      |--> COORD
+         |      |--> COORDANTEC
+         |      |--> COORD2ND
+         |--> EMPTYCOMPL
+         |--> INTERJECTION
+         |--> SEPARATOR
+         |      |--> OPEN
+         |      |--> CLOSE
+         |      |--> END
+         |--> VISITOR
+
+Currently, 260 labels are in use, although the figure gives only an idea of the
+size, since the labelling scheme is dynamic.
+
+2.2.2 Traces and coindexing
+
+      Although the output of the parser includes a number of traces, it is
+necessary to make clear that the treatment of traces and coindexing is
+currently in an extremely preliminary phase. In the following, we report
+some comments on the function, the use, and the representation of traces.
+
+      The parse tree is atree where intersecting arcs are not allowed. In
+other words, it fully respects the projectivity condition. This implies the
+adoption of some machinery enabling us to represent phenomena as movements.
+Moreover, in Italian, null dependents are common (resulting from pro-drop).
+To handle these phenomena, we introduced the traces. A trace, as in all
+classical approach, stands for a position in the tree where a dependent
+should appear, which, on the contrary, is absent (an 'empty' or 'null'
+dependent). This 'hole' has been left after a movement, a sharing, or,
+more simply, a deletion (as in the pro-drop case).
+
+      These empty dependents are represented in the tree in the following
+way:
+- the referent of the missing dependent is found (if any)
+- the position of the missing dependent is determined (but this is not
+  very relevant, because of the order of Italian which is only partially
+  fixed (configurational).
+- a line representing a trace is inserted in that position. This line has
+  the form:
+		posiz t [ref] syntinfo struct
+where:
+- posiz identifies the position of the trace in the sentence, and has the form
+  'ind.tr', where 'ind' is the position of the word preceding the trace, and
+  'tr' is 10 (and subsequent integers, 11, 12, ..., for many adjacent traces).
+- t is fixed
+- 'ref' is the referent, encoded as 'posV', where 'pos' is the position of
+  the line of the referent in the sentence, and V can assume the values:
+  - f (trace of the whole subtree that has the word in position 'pos'
+    as root),
+  - p (trace of a portion of that subtree),
+  - w (trace of the sole referent word)
+  In case the referent is not available, this third element of the trace is
+  simply '[]'.
+- 'syntinfo' is a copy of the syntactic information of the referent (if any);
+  if there is not such a referent, it has the form:
+	(GENERIC-T PRON PERS ALLVAL ALLVAL ALLVAL)
+  where ALLVAL refers to an undefined value (unifiable with any other possible
+  value of the involved feature).
+- 'struct' has the standard form '[parent;label]'
+
+3. The parser architecture
+
+In this chapter, we provide an overview of the overall architecture of the 
+parser, starting from the input text file. We mention some top-level
+functions that take care of the various operations. The functions are
+listed below in a tree-like fashion, representing the nesting of function
+calls. Within parentheses, it is reported the name of the file where the
+function is defined. In these file names, we omit the full path, so that
+the base directory must be assumed, for all files, to be:
+	 *HOME-DIR*/SYSTEM/ALLLANG/PROC-ALL.
+
+The top function (evaluated when the user answers '1' to the initial
+question - see section 1) is 'ana-and-tag-and-parse', which refers to
+the sequence 'morphological analysis'+'tagging'+'parsing'. All functions
+whose name is 'ana_XXX' are in the file "MORPHO/analizzatore".
+
+ana-and-tag-and-parse ("main")
+ |--> ana-text+tag ("top-level-fun")
+ |  	|--> tokenize ("MORPHO-PROC-ALL/tokenizer")
+ |  	|--> analyser ("MORPHO-PROC-ALL/analizzatore")
+ |  	|      |--> analyser_elem ("MORPHO-PROC-ALL/analizzatore")
+ |  	|	      |--> anal-scan-el ("MORPHO-PROC-ALL/analizzatore")
+ |  	|	   	     |--> analyser-single-elem ("MORPHO-PROC-ALL/analizzatore")
+ |  	|	   		    |--> ana_year
+ |  	|	   		    |--> ana_date
+ |  	|	   		    |--> ana_sigla
+ |  	|	   		    |--> ana_np
+ |  	|	   		    |--> ana_gw	(access to the dictionary)
+ |  	|	     		    	   |--> ana_noun
+ |  	|			    	   |--> ana_adj
+ |  	|			    	   |--> ana_verb
+ |  	|	   		    	   |--> ana_adv
+ |  	|	   			   |--> ana_enclitica
+ |  	|--> menudisamb+tag ("TAGGER-PROC-ALL/menudisamb")
+ |--> parse-single-f ("PARSER-PROC-ALL/chunk-parser")
+ 	|--> parse-sentences ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> remove-parentheses ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> apply-loc-parserules ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> link-conjunctions ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> find-v-complements ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> attach-unlinked ("PARSER-PROC-ALL/chunk-parser")
+    	       |--> add-parentheses ("PARSER-PROC-ALL/chunk-parser")
+
+3.1 Tokenizer
+
+       The first step consists in the identification of the tokens composing the
+input sentence ("tokenizer"). This task is carried out on the basis of the data
+contained in the automaton "*HOME-DIR*/KB/MORPHO/token-autom". Different parts of
+the automaton are represented in graphical form in ".obj" files (that can be
+opened via tgif) in this subdirectory (*HOME-DIR*/DESCR).
+       The output of the tokenizer is a list of "tokens". Note that the 
+segmentation in tokens can be ambiguous, as, for instance, in the case of
+"37.", which may be a real number or an integer followed by a separator.
+Beyond the segmentation problems, any token can be ambiguous; the various
+possibility are called "scan interpretations" (e.g., "Donato" can be a
+proper noun or a verb). Finally, every scan interpretation may be composed
+of more than one "scan elements" (this feature is what enables us to cope
+with the segmentation ambiguities mentioned above).
+
+Each 'scan element' is associated with a 'scanner-category', which is one
+of the following:
+- GW: General Word
+- NOMEP: Proper name
+- SIGLA: Code
+- SEGNOINTER: Puntuation Mark
+- SPECIAL: Special Symbol
+- DATE: Date
+- YEAR: Year
+- NUMBER: number
+
+The structure of the whole output is as follows:
+
+      output --> token*
+      token --> scan-interp | (scan-interp++)
+      scan-interp --> (scan-elem+)
+      scan-elem --> ((ascii-code+) scanner-category)
+
+Note that, because of previous choices, a non-ambiguous token lacks a level
+of parentheses (I have used ++ to refer to the presence of at least two
+elements).
+
+Examples:
+(unambiguous):
+          asino: (((97 115 105 110 111) GW))
+(ambiguous):
+          Asino: ((((97 115 105 110 111) GW)) (((65 115 105 110 111) NOMEP)))
+(ambiguous in segmentation):
+	  37.:   ((((51 55) NUMBER) ((46) SEGNOINTER))
+	          (((51 55 46) NUMBER)))
+
+Finally, note that it is a task of the tokenizer to split the text into
+sentences, on the basis of the punctuation marks. The decision of the
+tokenizer can be overcome in the following step, forcing the concatenation
+of two portions of the input that the tokenizer took as different sentences
+(for instance, in the case wher the separation was established inside a
+parenthesis).
+
+3.2 Analyzer
+
+       The task of the analyzer is to determine which of the hypotheses issued
+by the tokenizer are compatible with the lexicon (and the morphological 
+knowledge). In other words, the analyzer implements the access to the 
+dictionary by making hypotheses about the suffixes of a token and looking for
+the root in the dictionary. Beyond this (which is the standard treatment for
+tokens of 'scanner-category' = GW), the analyser takes care also of:
+- lookup of proper nouns and codes in the dedicated dictionaries
+- emission of 'proper name' hypotheses, in case a token is unknown, but it
+  begins with upper case.
+- management of locutions
+- handling of derivations (ex. affermare --> affermazione [to state -->
+  statement], agile --> agilità [agile --> agility]).
+
+       The morphological analysis is carried out starting from the end of the
+'word' (i.e. token resulting from the tokenizer) and travelling across an
+'augmented' automaton (file "*HOME-DIR*/KB/MORPHO/network.dat"), which 
+encodes the possible suffixes. The automaton is rather complex, since it 
+takes care also of clitics. The result of this step (hypothesis of split
+root+suffix) is then checked by searching the dictionary for the root
+(the dictionary is in the file "*HOME-DIR*/KB/DICTIONARY/dizionario").
+In this phase, when there is no match and the word is capitalized, then
+a reading as a proper noun is assumed. The possible suffixes for a given
+root are specified in the dictionary via the feature CLASSE. The possible
+values of this feature are described in the files "*HOME-DIR*/DESCR/morph-adj",
+"*HOME-DIR*/DESCR/morph-noun", and "*HOME-DIR*/DESCR/morph-verb".
+
+      The output of the analyzer includes six level of parentheses, to
+represent all different types of ambiguity (in the grammar below, I have
+highlighted the different levels with different symbols, but of course, in
+LISP all parentheses are equal).
+
+   element     ---> {scan-res1 ... scan-resz1}
+   scan-res    ---> [scan-el1 ... scan-elz2]
+   scan-el     ---> <word-interp1 ... word-interpz3>
+   word-interp ---> (lex-el1 ... lex-elz4)
+   lex-el      ---> /amb-el1 ... amb-elz5\
+   amb-el      ---> `lexical data'
+
+It must be observed that we maintain the alignment with the tokenizer
+output; so, the actual lexical ambiguities (e.g. a GW that is both a noun and
+a verb) are 'added' to the ones obtained by the tokenizer.
+
+   For instance, far "Barbara." we get:
+* Tokenizer output:
+   ((((66 97 114 98 97 114 97 46) SIGLA))
+   ((((66 97 114 98 97 114 97) SIGLA) ((46) SEGNOINTER))
+   ((((66 97 114 98 97 114 97) NOMEP) ((46) SEGNOINTER))
+   ((((98 97 114 98 97 114 97) GW) ((46) SEGNOINTER))
+  The first interpretation is useful for inputs as "Dr.", where the period
+  is part of the abbreviation; the second one for "... in the UE.", where
+  UE is a code, and the period is a separator; the third is the right one
+  (the most obvious); the last one would be correct in a context as:
+  "Com'è questa civiltà? Barbara." (How is this ...); note that for GW
+  interpretation, the leading character has been converted to lower case,
+  to make easier the access to the dictionary.
+* Output of the morphological analyzer:
+  ((NIL)			'Barbara.' is not a known code
+   (NIL ((((#\. CAT SEGNOINTER TYPE PUNTO)))))
+				The period is ok, but 'Barbara' as a code is not
+   (((((BARBARA CAT NOUN PROPER YES GENDER F SEMTYPE £NAME))))
+    ((((#\. CAT SEGNOINTER TYPE PUNTO)))))
+				Ok Barbara proper noun, followed by the period.
+   (((((BARBARO CAT NOUN CLASSE (3) GENDER F NUMBER SING)))
+     (((BARBARO CAT ADJC CLASSE (1) TYPE QUALIF GENDER F NUMBER SING))))
+    ((((#\. CAT SEGNOINTER TYPE PUNTO))))))
+				Ok Barbara general word (but with both a noun 
+				and ana ajective interpretation), followed by
+				the period.
+
+  An example of the lowest level ambiguity is given by some clitics (ex. porci):
+  (((((PORRE CAT VERB CLASSE (7 ...) TRANSITIVE YES MOOD INFINITE ...))
+     ((CI CAT ENCLIT TYPE PERS ...)
+      (CI CAT ENCLIT TYPE LOC ...))))
+   ((((PORCO CAT NOUN CLASSE (2) ...)))))
+  where the first interpretation refers to a verb+clitic, where the verb is 'porre'
+  [to put], and the clitic may be personal [put us] or locative [put there]; a
+  third interpretation is nominal [porks].
+
+  A final step of processing leads to exclusion of interpretations including
+  unknown components (as the first two above) in case a fully known interpretation
+  is available. Of course, the fully known interpretations are all kept as
+  standard ambiguity, which may be resolved by the tagger.
+
+3.3 The Tagger
+
+The tagger is rule-based. It is based on the idea that, when a word is syntactically
+ambiguous, the ambiguity concerns a subset of the syntactic cetegories (PoS). So, it
+is possible to associate with such a subset a packet of rules devoted to that type
+of ambiguity. For instance, in the case of 'pesca' (peach vs. [s/he] fishes), the
+ambiguity is between NOUN and VERB, so that it is possible to apply the rules aiming
+at disambiguating between these two categories. Now, the tagger operations are
+trivial:
+- determine the ambiguity on the basis of the result of the analyzer
+- apply the rules of the packet associated with that ambiguity
+- choose, among the interpretations of the word, that one (or the ones) of the 
+  category specified by the rule which succeeded.
+
+	The rules are in the file "*HOME-DIR*/KB/TAGRULES/lexdisambr".
+Comments:
+- The rules in the same packet are NOT mutually exclusive. A precedence schema is
+  applied, which is based on:
+  1. An explicit priority value (CF in the rules; it can take three values:
+     C - certain; A - Almost certain; U - Uncertain
+  2. The manual order in the packet.
+- Different interpretations of the word may belong to the same PoS. In this case,
+  an (intracategorial) ambiguity may remain. For some specific cases, there are
+  packet of rules aimed at feature-based disambiguation (ex. general-f-m for
+  gender of various categories, noun-common-proper for nouns, ecc.)
+- If no single choice is obtained, the final choice is random.
+
+	The output of the tagger is not, as for the previous modules, an internal
+data structure, but it is stored in a file (same name and same directory as the
+input, but extension '.tb'). This output does not include the names of the 
+features (CAT, GENDER, TENSE, ...), but only the values; i.e. the notation is
+positional, which is less explicit but more readable. The content of this file
+has exactly the same format as the final output of the parser (see §2.1), but
+without the structural information (and without the traces). It must be noted
+that the tagger produces two more files:
+a - extension '.tball': all lexical interpretations. The first interpretation
+    is the one selected by the PoS tagger; the others are not sorted.
+b - extension '.sim': sequence of citation forms (this makes easier the search
+    for all the occurrences of a given word).
+
+3.4 The Parser
+
+The parser takes as input the '.tb' file produced by the PoS tagger. Note that
+the '.tball' file (including all the possible interpretations) is available, but
+it is not currently used.
+
+The parser works on single sentences (even if more sentences may appear in the
+file), according to the following schema:
+- Remove from the sentence all material enclosed in parentheses
+- Parse the sentence
+- Parse the contents of the various parentheses
+- Restore the parsed parentheses in the original position, trying to establish
+  their connection to the context
+
+To carry out the parsing (function 'parse-sentences' in
+"*HOME-DIR*/PROC/PARSER/chunk-parser") the following steps are applied:
+I.   Apply the non-verbal chunking rules
+II.  Connect the coordinations
+III. Determine, for each verb, which are its dependents and assign them a
+     grammatical function 
+IV.  Link to the tree possible words remained unlinked.
+
+3.4.1 Non-verbal chunking
+
+This operation is carried out by means of a sequence of passes on the sentence.
+Each pass takes care of a chunkig level: the levels are associated with the
+various syntactic categories, and their order is as follows (see the global
+variable *CHUNK-LEVELS* in "*HOME-DIR*/PROC/PARSER/chunk-parser"):
+- SPECIAL
+- PUNCT
+- ADV
+- CONJ
+- ADJ
+- NUM
+- NOUN
+- ART
+- PRON
+- PREP
+- VERB
+For each level, the 'chunking rules' associated with the category of that level
+are applied. Each group of rules looks, in the immediate context of a word of the
+given category, for its possible dependents. In other words, first we determine
+the chunks having as head an element of category SPECIAL (the only element that
+may be governed by a SPECIAL appears in the form 'legge 480/1992' - rule 480/1992 -
+where the SPECIAL '/' governs the year), then the ones having as head a PUNCT,
+and so on. When the antecedent of the rule holds, the link having as label the
+consequent of the rule is included in the parse tree.
+
+Each group (level) of rules is organized in a tree-structure in order to enhance
+both readability and applicability. An example (a portion of the tree for the ADJ
+chunk) is the following:
+
+ADJ
+ |
+ |--DEMONS-------|
+ |               |---AFTER-------|
+ |                               |-- <NOUN(AGREE), DET+DEF-ARG>
+ |
+ |--INDEF--------|
+ |               |--follows------|
+ |                 (ADJ QUALIF*) |-- <NOUN(AGREE), DET+QUANTIF-ARG>
+ |
+ |--QUALIF-------|
+                 |---BEFORE------|
+                 |               |-- <ADV(COMPAR), ADVB+COMPAR-RMOD>
+                 |               |-- <ADV(QUANT), ADVB+QUANTIF-RMOD>
+                 |
+                 |---AFTER-------|
+                                 |-- <CONJ(COMPAR), COORD+COMPAR>
+
+It must be read in the following way:
+- The first level of the tree says that the underlying rules have to be applied
+  just to ADJ of the specified subcategory (syntactic type). For instance, the
+  last three rules apply to qualificative adjectives (QUALIF).
+- The second level defines the scope and the direction fo the search. The scope
+  can be:
+  - Immediate adjacency: BEFORE or AFTER, according to the required position of
+    the dependent wrt the ADJ head.
+  - Adjacency with possible intervening words (having some specified features):
+    PRECEDES or FOLLOWS, according to the direction.
+  - Adjacency with intervening chunk fragments: CHUNK-PRECEDES and CHUNK-FOLLOWS
+- The third level includes the rules in the form <conditions, label>
+
+For instance, the first rule of the tree in the figure above, can be read as:
+An adjective (ADJ) of subcategory 'demonstrative' (DEMONS) may govern a NOUN that
+immediately follows it (AFTER), if there is gender and number agreement (AGREE).
+In such a case, the label of the arc linking the NOUN to the ADJ must be DET+DEF-ARG.
+
+And for the third rule:
+An adjective (ADJ) of subcategory 'indefinite' (INDEF) may govern a NOUN that
+follows that adjective, provided that between the adjective and the noun appear
+only zero or more qualificative adjectives (FOLLOWS (ADJ QUALIF *)), if there is
+agreement; in this cse, the label is DET+QUANTIF-ARG.
+
+In the figure, just 5 out of the 18 rules currently in use are reported. The file
+that contains the rules is "*HOME-DIR*/KB/GRAMM/parserules.dat".
+
+For what concerns the scope described via chunks (CHUNK-PRECEDES and
+CHUNK-FOLLOWS), currently just CHUNK-FOLLOWS appears in the rules. A rule of this
+type is the following:
+
+ART
+ |
+ |--DEF----------|
+                 |-CHUNK-FOLLOWS-|
+                                 |-- <NOUN(AGREE), DET+DEF-ARG>
+
+It says that if a definite article is followed by elements that depend on a 
+NOUN which agrees with the article, then that noun (the head of the chunk that
+follows) must be linked to the article via the relation DET+DEF-ARG.
+
+More details on the non-verbal chunking rules are reported at the beginning of the
+file "*HOME-DIR*/KB/GRAMM/parserules.dat".
+
+3.4.2 Coordination
+
+The problem of coordination is faced in a heuristic way; the adopted method is:
+
+- Find the second conjunct
+  If the coordination is conjunctive ('and'), disjunctive ('or') or explicative
+  ('i.e.'), then the head of the second conjunct is assumed to be the first word
+  following the conjunction not yet linked to a parent (and skipping adverbials).
+  Otherwise, the head of the second conjunct is taken to be the first verb 
+  following the conjunction (preference for verbal coordination, e.g. in case of
+  adversative conjunction).
+- On the basis of the category of the second conjunct, the head of the first
+  conjunct is looked for in the portion of sentence preceding the coordination.
+  It must be of the same category of the second conjunct. Of course, there are
+  many exceptions to this rule. Some of them are accounted for in the current
+  implementation, e.g.
+  'art. 132 e seguenti'  ('art. 132 and following; second conjunct = 'following')
+  'l'opportunità di pubblicare o no' (the opportunity of publishing or not; 
+  category of the second conjunct = 'phras')
+  'telefono o altro apparecchio equivalente' (telephone or other equivalent 
+  device: cat. of the second conjunct = 'adj' and type = 'deitt' o 'demons')
+
+In the case of verbs, the verb must be of the same 'mood' of the second conjunct.
+Moreover, if the latter is an auxiliary, the first conjunct must also be such, 
+and viceversa. Just in case a corresponding first conjunct is not found, the
+constraint on the auxiliaries is relaxed.
+
+Finally, it must be noted that a coordinative conjunction appearing at the
+beginning of the sentence is interpreted as the root of the parse tree. 
+However, in case the sentence is inside a parenthesis, a first conjunct is
+looked for outside it.
+
+3.4.3 The verbal dependents
+
+One of the most relevant components of the parser is the one that takes care of
+assigning the grammatical relations to the verbal dependents. This component is
+based on a module that determines the correspondence between the obligatory
+depenndents (3.4.3 The verbal dependents
+
+One of the most relevant components of the parser is the one that takes care of
+assigning the grammatical relations to the verbal dependents. This component is
+based on a module that determines the correspondence between the obligatory
+depenndents (3.4.3 The verbal dependents
+
+One of the most relevant components of the parser is the one that takes care of
+assigning the grammatical relations to the verbal dependents. This component is
+based on a module that determines the correspondence between the obligatory
+dependents (complements, i.e. verbal arguments) licensed by a given verb and 
+the actual dependents selected in the sentence. In order to guarantee both a
+compact representation of the argument structures and an explicit representation
+of the possible surface realization of these structures, we introduced a 
+mechanism of transformation; it works on basic argumental structures and 
+automatically generates the possible surface realizations. Moreover, for
+representing some linguistic regularities, the base structures are encoded in
+an 'inheritance hierarchy', which enabled us not to define twice the surface
+realization of the same argument. For instance, the grammatical relation
+'subject' is defined in a single node of the hierarchy (named SUBJ-VERBS) and
+its definition (wher it is specified that a subject can be a noun, a verb in 
+the infinite, etc.) is inherited by all descendants of SUBJ-VERBS (among which
+transitives, intransitives, modals, movement verbs, etc.).
+
+Briefly, the information actually used by the parser to perform the match is
+produced in the following way:
+
+	For each node NV in the hierarchy:
+                NV (verbal class)
+                 |
+                 | Access to the definition
+                 |
+                NVB (local argumental structure)
+                 |
+                 | Inheritance
+                 |
+                NVC (full argumental structure)
+                 |
+                 | Transformations
+                 |
+                SNV+ (set of possible surface realizations)
+
+The operations described in the previous diagram are executed once (off-line);
+so when the parser is applied, the correspondence NV --> SNV+ is already
+available. Moreover, in the case of the introduction of a new node (an
+operation that in this stage of development is more common than it could seem,
+since the nodes of the hierarchy encode also verbal locutions as 'tener conto'
+- keep into account -), it is sufficient to 'compile' the hierarchy, obtaining
+in this way all possible surface realizations of the new class.
+
+Finally, each verb is associated with a set of NV (verbal classes); so, given
+a verb, it is immediate to determine all ts possible surface realizations. The
+task of the matching module is to choose, among all possible realizations, the 
+one which corresponds best to the set of actual verbal dependents. Beyond the
+fact that this is a rather complex task (consider the presence of adjuncts),
+it also depends on a previous step, not less complex, i.e. the selection of the
+actual dependents of the verb. 
+
+3.4.3.1 Subcategorization
+
+The subcategorization classes of the verbs are stored in 
+"*HOME-DIR*/KB/SUBCAT/verbclass.dat". Currently (March 2003) 405 verbs have
+associated classes (which are not assumed to be exhaustive). The total number
+of classes associated with the verbs is 796 (an average of 1.96 class per verb).
+However, it must be noted that for each of the 4780 verbs present in the
+dictionary, a class is given. But in the dictionary the only possibilities are
+TRANS (transitive yes), INTRANS (transitive no), and REFL (transitive rifl),
+and it is not possible to associate more than one class to a given verb. So,
+we have that accurate data are available for 405 verbs, while for the 
+remaining 4375 only approximate data are present.
+
+The definition of the subcategorization classes is in the file 
+"*HOME-DIR*/KB/SUBCAT/subc-hier.lisp". Currently (march 2003) 152 classes are
+defined, 19 of which are 'abstract classes', i.e. no verb is assigned to these
+classes, but thy are used just for inheritance, and 38 refer to verbal locutions.
+
+3.4.3.2 Transformations
+
+As we stated above, what is used in the matching against the actual verbal
+dependents found in the sentence is not the base subcategorization frame defined
+by the verbal class, but the set of surface patterns obtained via transformations.
+Currently, 14 transformations are in use (see *HOME-DIR*/KB/SUBCAT/transf-def.lisp).
+It is not possible to describe here in any detail the transformation process. In
+general, each transformation is associated with a subset of the verbal classes;
+it specifies how one or more of the original surface realization have to be
+changed as a consequence of the transformation. This process results in a class
+as TRANS (transitive verbs) having more than 20 surface realizations, depending
+on its being in the base form, or having been passivized, or having undergone
+pro-drop, etc. Obviously, the number of realizations may overcome the one of the
+transformations, since more than one transformation can be applied to the same
+class at the same time (e.g. TRANS+PASSIVIZATION+INFINITIVIZATION).
+
+These operations lead (from the 152 base classes) to about 2560 surface
+realizations (not all different, of course). The resulting transformed classes
+are stored in the file "*HOME-DIR*/KB/SUBCAT/newhier.out"), which is the
+result of the 'compilation' of the knowledge about verbal subcategorization.
+
+3.4.3.3 Determining the verbal dependents
+
+The sentence is read left-to-right: for each (non auxiliary) verb that is found,
+the search of its dependents is carried out, according to the following steps:
+- a possible subject preceding the verb is looked for.
+  It is any element preceding the verb of category NOUN. ADJ. ART, NUM, PRON (the
+  latter with LSUBJ, i.e. nominative, feature), which is not yet linked to 
+  the tree.
+- determine if there are clitics preceding the verb.
+  One or to elements having the feature CLITIC.
+- find out all dependents that follow the verb.
+  They are all the elements still unlinked, which are collected until a 'barrier'
+  element is found. barrier elements can be 'exclusive' (in case the barrier
+  element is not included among the complements), 'inclusive' (if it is
+  included), or 'skipping' (if some material after the barrier can still act as
+  a complement of the current verb). The exclusive barriers are:
+  . The relative pronouns
+  . Coordinating conjunctions whose first conjunct is the verb under analysis
+  . Verbs not in the infinite or gerund tense, unless the current verb admits
+    direct discourse
+  . A clitic (not enclitics)
+  . The negative adverb 'non' (it is usually linked to a following verb)
+  . The preposition 'da' (by) followed by a pronoun and by a past participle; it
+    is assumed to be the agent complement of a reduced relative ('il documento
+    da lui firmato' - the document by him signed, i.e. the document signed by him)
+  . a comma, if followed by an unmarked NP (assumed to be the subject of an
+    incoming verb)
+  . an unmarked NP, if the current verb is the verb of a reduced relative
+  The inclusive barriers are:
+  . A gerund or an infinite verb
+  . A finite verb, in case the current verb admits direct discourse
+  . A subordinative conjunction
+  . Some doubly linked relative pronouns (currently 'chi' - who)
+  The skipping barriers are:
+  . reduced relatives (in case there is after them an unmarked NP, from which the
+    search can continue)
+- look for the dependents preceding the verb
+  Finally, all elements preceding the verb are collected until a pre-barrier is
+  reached; pre-barriers are:
+  . a (non auxiliary) verb
+  . a relative pronoun
+  . a subordinative conjuction
+The set of elements collected in these four steps constitutes the set of dependents
+of the verb (both complements and adjuncts).
+
+The only exception is given by unmarked elements separated by commas. If the
+sequence is longer than two elements, we assume that they are not all dependents
+on the verb, but only the first is, while the others are coordinated elements.
+
+3.4.3.4 The match
+
+For this operation, we have at disposal:
+- A verb
+- Its dependents, i.e. the result of the previous step
+- A set of possible surface argumental realizations (see the sections on
+  subcategorization and transformations).
+
+Now, a first substep aims at reducing the set of surface realization to be
+taken into account. This is obtained by observing the form of the verb (passive,
+infinite, with or without clitics) and selecting only the realizations compatible
+with ts form (e.g. all realizations including in their sequence of derivation
+the PASSIVIZATION transformation can be excluded if the verb is not passive).
+
+In the second step, we cut off duplicated surface realizations (e.g. both
+INFINITIVIZATION and NULL-SUBJ produce the deletion of the subject, so the 
+surface realizations are identical and it is useless to carry out the match twice.
+Furthermore, since the base matching procedure returns a single result for each
+realization, alle realizations including both a subject and an object are
+duplicated (exchanging the order of VERB-SUBJ and VERB-OBJ; so that both matches
+can in principle be obtained; see below).
+
+The match proper, between a single surface realization and the set of dependents
+must take into account the possible presence of both complements and adjuncts.
+Since this is a 'robust' parser, and no backtracking step is included for
+allowing to choose a different set of dependents, the match 'must' succeed.
+So, no argument really is obligatory, and the match can succeed even with missing
+arguments. The only exception are the verbal locutions, where the argument 
+identifying the locution, labelled as EMPTYCOMPL, must appear: of course, the
+locution 'keep into account' cannot be hypothesized if 'into account' is missing.
+Then, among all the possible matches, the best one is obtained, according to
+criteria that are described below. The single match is based on an 'internal'
+preference: a match with an argument is preferred to a match with an adjunct.
+
+At the end of all single matches, we have a set of results, composed of one
+match for each possible surface realization available for the verb. Now, the
+differen hypotheses are compared applying a larger set of preference criteria.
+They are the following (applied in this order):
+   1. A label of VERB-ARG*LOCUT type appears in the result: if there is a
+      verbal locution associated with the verb, and the element that 
+      characterizes the locution (e.g. 'into account' in 'keep into account')
+      is present, then that interpretation is chosen.
+   2. The label PRON-RMOD-LOC+METAPH appears in the result (this label is used
+      for clitics as 'CI sono' (There are)
+   3. The label VERB-SUBJ+IMPERS is not assigned to an enclitic (the cases of
+      enclitic impersonal subject ar rare)
+   4. There are less adjuncts
+   5. The label EMPTYCOMPL appears in the result (if there is a pseudo-reflexive
+      interpretation as accorger-si - remark - it is preferred)
+   6. The verb is imperative, and the label VERB-SUBJ does not appear in the
+      result
+   7. There are less unassigned arguments
+   8. There is no competition between VERB-SUBJ and VERB-OBJ (there is just one
+      unmarked case) and VERB-OBJ is assigned (pro-drop is preferred if applied
+      to the subject)
+   9. There is competition between VERB-SUBJ and VERB-OBJ, but VERB-SUBJ is
+      assigned to a dependent preceding the verb, while VERB-OBJ follows the verb
+      (standard order).
+
+3.4.4 The elements that are still unlinked
+
+If there are words of the sentence which, at ths stage, are still lacking the
+pointer to the parent (unlinked), some heuristic rules are applied to find a
+solution. These rules are applied in two steps (the rules of the first step
+are 'preferred' to the rules of the second step. The rules depend on the PoS
+of the word to attach.
+
+First step:
+ADJ -->   An adjective is linked to the nearest preceding or following noun
+ADV -->   An adverb is linked to the nearest preceding or following verb
+NOUN -->  as ADV
+PRON -->  If it is not a doubly linked relative pronoun (ex. 'chi' - 'who -)
+          as ADV, otherwise it is linked to the first verb that follows the
+          relative clause to which the pronoun belongs.
+PREP -->  If it does not precede a relative pronoun (ex. 'di cui' - of which -
+          'per il quale' - for whom -), as ADV. Otherwise, it is linked to
+          the first verb that follows it (hopefully, the main verb of the
+          relative clause)
+CONJ -->  A conjunction is linked to the nearest preceding verb
+NUM -->   If it is followed by a period or by a closed parentheses, it is
+          assumed to be a list counter, so it is attached to the next element
+          with a label NUM-RMOD-LISTPOS.
+SPECIAL --> If it is a single alphabetic character, as NUM.
+PUNCT --> If it is a period or a closed parenthesis, and the preceding element
+          has been assigned the label NUM-RMOD-LISTPOS, then link the PUNCT to
+          the next element as SEPARATOR
+
+Second step:
+PREP -->  It is linked to the nearest preceding noun
+CONJ -->  If it is a subordinative conjunction, it is linked to the first noun
+          that precedes it, and that may govern it (i.e. skipping relative
+          clauses and other subordinates).
+
+4. Evaluation
+
+4.1 Evaluation of the PoS tagger
+
+Answering 2 to the initial request of the system (Which of the options you want
+to follow?), it is possible to count the number of errors of the PoS Tagger. Of
+course, the evaluation is made comparing the output of the tagger (file '.tb')
+with a file which is assumed to be correct (it must have the same name and
+extension '.man').
+
+So, the process that produces the evaluation is the following:
+I.   Carry out the standard tagging (answer 1 to the initial request)
+II.  Copy the resulting 'XXX.tb' file into 'XXX.man'
+III. Check and correct manually XXX.man
+IV.  Carry out the tagging+comparison process (answer 1 to the initial request)
+
+Of course, since XXX.man is correct, the tagger can be refined and re-evaluated
+without repeating the steps I, II, III.
+
+The result of the comparison is contained in two new files:
+- 'XXX.dif'; it contains the list of the differences between the manual and the
+  automatic file
+- 'XXX.ext'; it contains a table synthesizing the result of the comparison:
+  a. The number of lines of the sentences
+  b. The number of punctuation marks
+  c. The number of words which have not been found inthe dictionary
+  d. The number of non-punctuation words
+  e. The number of errors
+  f. The frequency of errors
+  The exclusion of punctuation marks aims a obtaining a 'fair' evaluation of the
+  tagger; in fact, punctuation is intrinsically non-ambiguous.
+
+4.2 Evaluation of the parser
+   
+This evaluation can be obtained by answering '4' to initial question of the system.
+Here, as in the previous case, it is required that the correct version of the
+parsed sentences be available. If the input file is "XXX" (or XXX with any
+extension), the result of the parser will be in "XXX.prs", and the correct data
+must appear in "XXX.man". Note that, in this case, "XXX.man" must include also
+the data about the parse tree (links to the parent), while in the previous
+case they are not needed (if they are present, they are ignored).
+
+The result of the evaluation is contained in two new files. The first contains
+the actual result of the comparison. It is a copy of the manual correct file,
+where in each line where a disagreement has been found wrt the result of the
+parser, it has been added the sequence:
+	??? >>> error description
+So, it is possible to check where the parser made an error. Note that the errors
+include the ones coming from the tagger; the latter are identified by the
+sequence:
+	??? >>> DIFFERENT SYNTINFOS
+The file that contains this comparison has extension ".cmp".
+
+The second file (extension ".err") contains the figures about the errors. It
+consists in a table as the following:
+
+------------------------------------------------------------------------
+ SENT   |lines|trace|punct** err **lkerr|trerr|coref|puerr|syerr| %err |
+--------|-----|-----|-----**-----**-----|-----|-----|-----|-----|------|
+  1-  5 |   59|    2|    5**    4**    3|    1|    0|    0|    1|  6.78|
+  6- 10 |  116|    2|   15**   27**   25|    3|    0|    6|    2| 23.28|
+ 11- 15 |   98|    6|   16**   12**    9|   12|    2|    8|    3| 12.24|
+ 16- 20 |  221|   12|   17**   46**   43|   17|    4|   11|    3| 20.81|
+ 21- 25 |  141|    8|   15**   23**   21|    6|    3|    5|    2| 16.31|
+ 26- 30 |   94|    4|    6**   19**   14|   10|    2|    2|    5| 20.21|
+ 31- 35 |  193|    2|   12**   25**   25|    4|    1|    5|    0| 12.95|
+ 36- 40 |  194|   10|   14**   39**   33|   12|    5|    6|    6| 20.10|
+ 41- 45 |  139|    5|   14**   23**   20|   10|    5|    7|    3| 16.55|
+ 46- 50 |   65|    0|    5**    9**    8|    0|    0|    1|    1| 13.85|
+--------|-----|-----|-----**-----**-----|-----|-----|-----|-----|------|
+ TOTAL  | 1320|   51|  119**  227**  201|   75|   22|   51|   26| 17.20|
+------------------------------------------------------------------------
+
+where:
+a. SENT is a sequential numbering of the sentences in the file (note that
+   it always begins with 1, that is it is not related with the 'official'
+   numbering defined by INITIAL-SENT-NUMBER (see §1.2). Noto also that, in
+   order to have compact tables, each line of the table corresponds to a 
+   group of 5 sentences.
+b. lines: The number of lines (words, punctuation marks, etc.) of the 5
+   sentences.
+c. trace: the total number of traces appearing in these sentences
+d. punct: the number of punctuation marks (and text markers)
+e. err: the total number of errors made by the parser
+f. lkerr: the linkig errors, i.e. the errors due to a wrong attachment to the
+   parent (wrong parent, or wrong arc label)
+g. trerr: errors in the traces. Note that the value in 'trerr' may overcome
+   the one in 'trace'. In fact the parser may have inserted some extra traces.
+   Each added trace (which is not counted in 'trace') is a 'trerr'
+h. puerr: errors in the linking of the punctuation marks
+i. syerr: tagging errors (i.e. errors concerning the syntactic data in the line).
+   It must be noted that when an error of this type occurs, a possible linking
+   error in the same line is disregarded.
+l. %err: The value obtained by dividing 'err' by 'lines', i.e. the percent of
+   errors with respect to the number of lines.
+
+

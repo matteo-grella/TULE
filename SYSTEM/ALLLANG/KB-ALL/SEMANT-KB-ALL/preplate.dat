@@ -1,0 +1,85 @@
+(in-package "USER")
+
+; *** this converts the meaning of prepositions in terms of ontology concepts
+;     each description has the following form:
+;        (prep-meaning CONC-LIST)
+;     each CONC-LIST is:
+;        (SELECTOR concepts)
+;     where a SELECTOR is a pair <upper-concept lower-concept> and "concepts" is
+;        a list of possible ontology concepts corresponding to the preposition
+; *** EXAMPLE:
+;       (--di-relation (
+;	   ((££concert ££person) (££conduct)) 		; concerto di Abbado
+;        ))
+;     Is to be read as:
+;       if the preposition meaning is --di-relation
+;          if the governing concept is a subconcept of ££concert and
+;             the governed concept is a subconcept of ££person
+;          then the ontology concept corresponding to "di" is ££conduct
+(setq *PREP-TEMPLATES*
+  '((--a-relation  (
+                    ((££event ££location) (££location))
+                    ((££event ££loc-descr) (££location))
+                    ((££event ££addr-descr) (££location))
+                    ((££event ££event) (££location))	; this is for "vull anar a ..."
+                    ((££put ££location) (&put-location))
+                    ((££collect ££location) (&collect-location))
+                    ((££in-day-time ££begin) (&begin-time))
+                   ))
+    (--about-relation (
+                    ((££event ££genre) (&has-event-genre))
+                    ((££timetable ££simple-ev-descr) (&event-timetable))
+                   ))
+    (--in-relation (
+                    ((££dialogue ££location) (££location))
+                    ((££event ££location) (££location))
+                    ((££event ££addr-descr) (££location))
+                    ((££event ££loc-descr) (££location))
+		    ((££event ££time-spec) (££time-spec))
+                    ((££occur ££loc-descr) (&occur-location))
+                    ((££collect ££location) (&collect-location))
+                    ((££collect ££located-entity) (&collect-location))
+                    ((££put ££location) (&put-location))
+                   ))
+    (--di-relation (
+                    ((££advertisement ££event) (££describe))	; manifesto di un concerto
+                    ((££collect ££collectable-obj) &collect-patient)	; collection of a sofa
+                    ((££concert ££music) (&played-in))		; concerto di musica classica
+                    ((££concert ££person) (££conduct)) 		; concerto di Abbado
+                    ((££service ££city) (&offers-service))	; agenda culturale di Torino
+                    ((££date ££simple-ev-descr) (££occur))	; date of La Locandiera
+                    ((££description ££document) (&itemDescrInDoc))
+                    ((££description ££item) (&itemDescr))
+                    ((££description-list ££entity) (&has-descr-member))	; lista (elenco) di eventi
+                    ((££dialogue ££collect) (££collect))
+                    ((££event ££event) no-rel)			; spettacoli di cabaret
+                    ((££event ££location) (££location))		; eventi di teatro
+                    ((££event ££loc-descr) (££location))	; eventi del Teatro Gioiello
+                    ((££event ££time-spec) (££occur))	; concerto della prossima settimana
+                    ((££event ££time-descr) (££occur))		; eventi di sabato
+                    ((££exposition ££genre) (££expo-concern))	; mostra di arte antica
+                    ((££location ££genre) (££expose))		; museo di arte antica
+                    ((££movie ££person) (££direct-movie))	; film di Pasolini
+                    ((££price ££ticket) (££to-cost))		; prezzo dei biglietti
+                    ((££price ££event) (££to-cost))		; prezzo del concerto
+                    ((££put ££collectable-obj) &put-patient)	; 
+                    ((££ticket ££event) (&ticket-for))          ; biglietti del concerto
+                    ((££type ££event) (&has-event-type))	; tipo di evento
+                   ))
+    (--near-relation (
+                    ((££collect ££location) (&collect-location))
+                    ((££collect ££located-entity) (&collect-location))
+                   ))
+    (--on-relation (			; this is a merge of "about" and "in" for English "on"
+                    ((££event ££genre) (&has-event-genre))
+                    ((££dialogue ££location) (££location))
+                    ((££event ££location) (££location))
+                    ((££event ££addr-descr) (££location))
+                    ((££event ££loc-descr) (££location))
+		    ((££event ££time-spec) (££time-spec))
+		    ((££event ££day-numb-descr) (&event-day))
+                    ((££occur ££loc-descr) (&occur-location))
+                   ))
+     ))   
+
+

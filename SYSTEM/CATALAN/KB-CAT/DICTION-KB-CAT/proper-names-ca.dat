@@ -1,0 +1,22 @@
+; ***********************************************************************
+; *** This file includes Catalan names.
+;     In particular "person names" and translated place names
+;     Note that Catalan names of places (as "Barcelona", "Catalunya") are in the
+;     file "proper-names-all.dat", since it includes all "local" names
+;     for geographic places, i.e. their names in the language spoken there
+
+; *** PERSON NAMES ******************************************************
+(Alejandro ((Alejandro cat noun proper yes gender m number sing semtype ££name)))
+(David ((David cat noun proper yes gender m number sing semtype ££name)))
+(Joan ((Joan cat noun proper yes gender m number sing semtype ££name)))
+(Jordi ((Jordi cat noun proper yes gender m number sing semtype ££name)))
+(Marta ((Marta cat noun proper yes gender f number sing semtype ££name)))
+(Meritxell ((Meritxell cat noun proper yes gender f number sing semtype ££name)))
+
+; *** TRANSLATED PLACE NAMES ********************************************\
+(Alemanya ((Alemanya cat noun proper yes gender f number sing semtype ££state)))
+(Holanda ((Holanda cat noun proper yes gender f number sing semtype ££state)))
+(Israel ((Israel cat noun proper yes gender m number sing semtype ££state)))
+(Liban ((Liban cat noun proper yes gender m number sing semtype ££state)))
+(Turí ((Turí cat noun proper yes gender m number sing semtype ££city)))
+

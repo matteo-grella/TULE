@@ -1,0 +1,11 @@
+(in-package "USER")
+
+(setq *ENCLITINFO*
+  '(
+ ;   am ((be cat verb type aux classe (0) mood ind tense pres person 1 number sing) (be cat verb classe (0) mood ind tense pres person 1 number sing))
+ ;   are ((be cat verb type aux classe (0) mood ind tense pres person 2 number allval) (be cat verb classe (0) mood ind tense pres person 2 number allval))
+    not ((not cat adv type neg))
+ ;   would ((will cat verb type mod classe (0) mood ind tense rempast person allval number allval))
+   )
+)
+

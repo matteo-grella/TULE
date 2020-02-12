@@ -1,0 +1,212 @@
+(setq *SUFFIX-TABLE*
+    '(adv
+       (0 (@empt)    ; *** bien
+;       1 (ment)     ; *** manifestement nécessairement obligatoirement 
+;       2 (ément)    ; *** conformément
+;       3 (ement)    ; *** moyennement immédiatement intégralement principalement activement
+;       4 (ablement) ; *** considérablement
+;       5 (lement)   ; *** officiellement naturellement
+;       6 (ivement)  ; *** abusivement administrativement décisivement
+;       7 (alement)  ; *** artisanalement banalement
+; ****** adv suffix after adj MS
+      1 (ment)       ; -> adj (1)
+      2 (nement)     ; -> adj (2)
+      3 (ement)      ; -> adj (3)     *** class adj (5): if adv exists, written in dictionary
+      4 (sement)     ; -> adj (4 8)   *** class adj (6): if adv exists, written in dictionary
+      5 (hement)     ; -> adj (7)
+      6 (ssement)    ; -> adj (9)
+      7 (cement)     ; -> adj (10)
+      8 (ètement)    ; -> adj (11)
+      9 (èrement)    ; -> adj (12)    *** class adj (13) doesn't have adv     
+      10 (quement)   ; -> adj (15)    *** class adj (14): if adv exists, written in dictionary
+      11 (lement)    ; -> adj (16)
+      12 (nellement) ; -> adj (17)
+      13 (alement)   ; -> adj (18 19)
+      14 (llement)   ; -> adj (20)
+      15 (iblement)  ; -> adj (21)
+      16 (ablement)  ; -> adj (22)    *** class adj (23) doesn't have adv
+      17 (uement)    ; -> adj (24)
+      18 (ivement)   ; -> adj (25)
+      )	                          ; *** end of adverbs **********************
+;     pron ; MS    FS    NS    MP    FP    NP
+;       (0 (@empt @empt @empt @empt @empt @empt)  ; *** ce,ceci,cela,ça
+;        1 (lui   lle   @empt ux    lles  @empt)  ; *** celui,celle,ce,ceux,celles
+;        2 (@empt @empt nil   s     s     nil)    ; *** autre 
+;       )	                          ; *** end of pronouns **************
+    adj ; MS    FS    NS    MP    FP    NP 
+      (0 (@empt @empt nil   @empt @empt nil) ; *** chic, soi-disant, poss 
+       1 (@empt @empt nil   s     s     nil) ; *** jeune, honnête, plastique, (conformément adv classe (0))
+       2 (@empt ne    nil   ns    nes   nil) ; *** moyen, bon, européen 
+       3 (@empt e     nil   @empt es    nil) ; *** antenais, mauvais, niais 
+       4 (@empt se    nil   @empt ses   nil) ; *** bas, exprès, gras 
+       5 (@empt e     nil   s     es    nil) ; *** joli, civil, commun (29)
+       6 (@empt le    nil   s     les   nil) ; *** gentil (gentiment), pareil (pareillement) (2)        
+       7 (@empt he    nil   s     hes   nil) ; *** blanc, franc (2)
+       8 (x     se    nil   x     ses   nil) ; *** heureux, jaloux, curieux 
+       9 (x     sse   nil   x     sses  nil) ; *** faux, roux 
+       10 (x     ce    nil   x     ces    nil) ; *** doux 
+       11 (et    ète   nil   ets   ètes   nil) ; *** secret, inquiet, complet 
+       12 (er    ère   nil   ers   ères   nil) ; *** fier, dernier, financier 
+       13 (let   lette nil   lets  lettes nil) ; *** verdelet, maigrelet, gentillet 
+       14 (f     ve    nil   fs    ves    nil) ; *** neuf, bref (exception: brièvement) 
+       15 (c     que   nil   cs    ques   nil) ; *** public, turc, caduc 
+       16 (@empt le    nil   s     les    nil) ; *** naturel, culturel, officiel 
+       17 (nel   nelle nil   nels  nelles nil) ; *** relationnel, traditionnel, professionnel 
+       18 (al    ale   nil   aux   ales   nil) ; *** égal, amical, légal 
+       19 (al    ale   nil   als   ales   nil) ; *** banal, fatal, final
+       20 (au    lle   nil   aux   lles   nil) ; *** nouveau, beau 
+       21 (ible  ible  nil   ibles ibles  nil) ; *** exigible 
+       22 (able  able  nil   ables ables  nil) ; *** applicable, considérable, équitable
+       23 (teur  trice nil   teurs trices nil) ; *** directeur 
+       24 (@empt ue    nil   s     ues    nil) ; *** barlong, long, oblong 
+       25 (if    ive   nil   ifs   ives   nil) ; *** adoptif, décisif
+      )	                            ; *** end of adjectives *******************
+    noun ;  MS    FS    NS    MP     FP     NP
+      (0 ()                                     ; *** invariable *** abus, cas
+       1 (nil   @empt nil   nil    s      nil)  ; *** feminine *** 
+       2 (@empt nil   nil   s      nil    nil)  ; *** masculine *** accord acompte
+       3 (nil   ation nil   nil    ations nil)  ; *** acceptation activation contestation
+       4 (nil   ion   nil   nil    ions   nil)  ; *** adjudication action administration adoption décision application conciliation conclusion
+       5 (eur   euse  nil   eurs   euses  nil)  ; *** acheteur aménageur
+       6 (eur   rice  nil   eurs   rices  nil)  ; *** acteur applicateur conciliateur
+       7 (@empt e     nil   s      es     nil)  ; *** artisan commerçant concurrent
+       8 (nil   ité   nil   nil    ités   nil)  ; *** activité (actualité(no) agressivité(si agressivement) autorité(no))
+       9 (iste  iste  nil   istes  istes  nil)  ; *** aménagiste
+      10 (@empt nil   nil   x      nil    nil)  ; *** bureau, cadeau, niveau
+      )	                          ; *** end of nouns *******************
+    verb  ;1	2	 3	  4	     5	 6	
+      (0 ()                                      ; *** 
+       1 ((e      es     e      ons      ez      ent)        ; (a) ind.pres.
+          (ais    ais    ait    ions     iez     aient)      ; (b) ind.imperf.
+          (ai     as     a      âmes     âtes    èrent)      ; (c) pass.rem. (passe' simple)
+          (erai   eras   era    erons    erez    eront)      ; (d) future
+          (e      es     e      ions     iez     ent)        ; (e) conj.pres.
+          (asse   asses  ât     assions  assiez  assent)     ; (f) conj.imperf.
+          (erais  erais  erait  erions   eriez   eraient)    ; (g) condiz.
+          (ant    ante   ants   antes)                       ; (h) partic.pres.
+          (é      ée     és     ées)                         ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (er)                                               ; (m) infinite
+          (nil    e      nil    ons      ez      nil))       ; (n) imperative
+         ; *** (B7) aimer, exercer !let op stam!, intégrer (ook: placer, céder !let op stam!)
+       2 ((e     es     e     eons     ez      ent)          ; (a) ind.pres.
+          (eais  eais   eait  ions     iez     eaient)       ; (b) ind.imperf.
+          (eai   eas    ea    eâmes    eâtes   èrent)        ; (c) pass.rem. (passe' simple)
+          (erai  eras   era   erons    erez    eront)        ; (d) future
+          (e     es     e     ions     iez     ent)          ; (e) conj.pres.
+          (easse easses eât   eassions eassiez eassent)      ; (f) conj.imperf.
+          (erais erais  erait erions   eriez   eraient)      ; (g) condiz.
+          (eant  eante  eants eantes)                        ; (h) partic.pres.
+          (é     ée     és    ées)                           ; (i) partic.pass.
+          (eant)                                             ; (l) gerund
+          (er)                                               ; (m) infinite
+          (nil   e      nil   eons     ez      nil))         ; (n) imperative
+         ; *** (B9)abroger, manger, decourager
+       3 ((is     is      it      issons  issez  issent)     ; (a) ind.pres.
+          (issais issais  issait  issions issiez issaient)   ; (b) ind.imperf.
+          (is     is      it      îmes    îtes   irent)      ; (c) pass.rem.
+          (irai   iras    ira     irons   irez   iront)      ; (d) future
+          (isse   isses   isse    issions issiez issent)     ; (e) conj.pres.
+          (isse   isses   ît      issions issiez issent)     ; (f) conj.imperf.
+          (irais  irais   irait   irions  iriez  iraient)    ; (g) condiz.
+          (issant issante issants issantes)                  ; (h) partic.pres.
+          (i      ie      is      ies)                       ; (i) partic.pass.
+          (issant)                                           ; (l) gerund
+          (ir)                                               ; (m) infinite
+          (nil    is      nil     issons  issez  nil))       ; (n) imperative
+         ; *** (B20) finir, définir 
+       4 ((s    s      t     ons      ez      nent)          ; (a) ind.pres.
+          (ais   ais    ait   ions     iez     aient)        ; (b) ind.imperf.
+          (ins   ins    int   înmes    întes   inrent)       ; (c) pass.rem. (passe' simple)
+          (drai  dras   dra   drons    drez    dront)        ; (d) future
+          (ne    nes    ne    ions     iez     nent)         ; (e) conj.pres.
+          (insse insses înt   inssions inssiez inssent)      ; (f) conj.imperf.
+          (drais drais  drait drions   driez   draient)      ; (g) condiz.
+          (ant   ante   ants  antes)                         ; (h) partic.pres.
+          (u     ue     us    ues)                           ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (ir)                                               ; (m) infinite
+          (nil   s      nil   ons      ez      nil))         ; (n) imperative
+         ; *** (B24)contenir, convenir, devenir !let op stam! (ook: venir,tenir)
+       5 ((e     es    e     ons     ez     ent)             ; (a) ind.pres.
+          (ais   ais   ait   ions    iez    aient)           ; (b) ind.imperf.
+          (is    is    it    îmes    îtes   irent)           ; (c) pass.rem.
+          (irai  iras  ira   irons   irez   iront)           ; (d) future
+          (e     es    e     ions    iez    ent)             ; (e) conj.pres.
+          (isse  isses ît    issions issiez issent)          ; (f) conj.imperf.
+          (irais irais irait irions  iriez  iraient)         ; (g) condiz.
+          (ant   ante  ants  antes)                          ; (h) partic.pres.
+          (ert   erte  erts  ertes)                          ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (ir)                                               ; (m) infinite
+          (nil   e     nil   ons     ez     nil))            ; (n) imperative
+         ; ***(B28) couvrir, offrir 
+       6 ((ois   ois    oit  ons     ez     ent)             ; (a) ind.pres.
+          (ais    ais    ait  ions    iez    aient)          ; (b) ind.imperf.
+          (us     us     ut   ûmes    ûtes   urent)          ; (c) pass.rem. (passe' simple)
+          (rai    ras    ra   rons    rez    ront)           ; (d) future
+          (e      es     e    ions    iez    ent)            ; (e) conj.pres.
+          (usse   usses  ût   ussions ussiez ussent)         ; (f) conj.imperf.
+          (rais   rais   rait rions   riez   raient)         ; (g) condiz.
+          (ant    ante   ants antes)                         ; (h) partic.pres.
+          (u      ue     us   ues)                           ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (oir)                                              ; (m) infinite
+          (nil    ois    nil  ons     vez    nil))           ; (n) imperative
+         ; *** (B40)concevoir,(re)devoir, (a)percevoir, décevoir, recevoir
+       7 ((s    s     @empt ons     ez     nent)             ; (a) ind.pres.
+          (ais  ais   ait   ions    iez    aient)            ; (b) ind.imperf.
+          (is   is    it    îmes    îtes   irent)            ; (c) pass.rem. (passe' simple)
+          (rai  ras   ra    rons    rez    ront)             ; (d) future
+          (ne   nes   ne    ions    iez    nent)             ; (e) conj.pres.
+          (isse isses ît    issions issiez issent)           ; (f) conj.imperf.
+          (rais rais  rait  rions   riez   raient)           ; (g) condiz.
+          (ant  ante  ants  antes)                           ; (h) partic.pres.
+          (is   ise   is    ises)                            ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (re)                                               ; (m) infinite
+          (nil  s     nil   ons     ez     nil))             ; (n) imperative
+         ; *** (B58,59) comprendre, correspondre (some forms) (ook: rendre (let op dubbel n!), prendre)
+       8 ((s     s     t     ons     ez     ent)             ; (a) ind.pres.
+          (ais   ais   ait   ions    iez    aient)           ; (b) ind.imperf.
+          (is    is    it    îmes    îtes   irent)           ; (c) pass.rem. (passe' simple)
+          (drai  dras  dra   drons   drez   dront)           ; (d) future
+          (e     es    e     ions    iez    ent)             ; (e) conj.pres.
+          (isse  isses ît    issions issiez issent)          ; (f) conj.imperf.
+          (drais drais drait drions  driez  draient)         ; (g) condiz.
+          (ant   ante  ants  antes)                          ; (h) partic.pres.
+          (t     te    ts    tes)                            ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (dre)                                              ; (m) infinite
+          (nil   s     nil   ons     ez     nil))            ; (n) imperative
+         ; *** (B62) atteindre (ook: peindre)
+       9 ((ais     ais      aît      aissons   aissez  aissent)   ; (a) ind.pres.
+          (aissais aissais  aissait  aissions  aissiez aissaient) ; (b) ind.imperf.
+          (us      us       ut       ûmes      ûtes    urent)     ; (c) pass.rem. (passe' simple)
+          (aîtrai  aîtras   aîtra    aîtrons   aîtrez  aîtront)   ; (d) future
+          (aisse   aisses   aisse    aissions  aissiez aissent)   ; (e) conj.pres.
+          (usse    usses    ût       ussions   ussiez  ussent)    ; (f) conj.imperf.
+          (aîtrais aîtras   aîtra    aîtrions  aîtriez aîtraient) ; (g) condiz.
+          (aissant aissante aissants aissantes)                   ; (h) partic.pres.
+          (u       ue       us       ues)                         ; (i) partic.pass.
+          (ant)                                                   ; (l) gerund
+          (aître)                                                 ; (m) infinite
+          (nil     ais      nil      aissons   aissez  nil))      ; (n) imperative
+         ; *** (B69) reconnaître (ook: connaître, paraître)
+       10 ((s    s     t    ons     ez     ent)               ; (a) ind.pres.
+          (ais  ais   ait  ions    iez    aient)             ; (b) ind.imperf.
+          (us   us    ut   ûmes    ûtes   urent)             ; (c) pass.rem. (passe' simple)
+          (rai  ras   ra   rons    rez    ront)              ; (d) future
+          (e    es    e    ions    iez    ent)               ; (e) conj.pres.
+          (usse usses ût   ussions ussiez ussent)            ; (f) conj.imperf.
+          (rais rais  rait rions   riez   raient)            ; (g) condiz.
+          (ant  ante  ants antes)                            ; (h) partic.pres.
+          (u    use   us   uses)                             ; (i) partic.pass.
+          (ant)                                              ; (l) gerund
+          (re)                                               ; (m) infinite
+          (nil  s     nil   ons    ez     nil))              ; (n) imperative
+         ; *** (B77) conclure, correspondre (some forms), encourir
+      )                           ; *** end of verbs *******************
+
+ ))             ; ************** end of suffix infos ************************
+

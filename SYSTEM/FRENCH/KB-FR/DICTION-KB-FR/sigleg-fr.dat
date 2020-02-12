@@ -1,0 +1,4 @@
+(|Art.| ((article cat noun classe (0) gender m number sing)))
+(|art.| ((article cat noun classe (0) gender m number sing)))
+(|artt.| ((article cat noun classe (0) gender m number pl)))
+

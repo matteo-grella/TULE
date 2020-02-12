@@ -1,0 +1,10 @@
+(in-package "USER")
+
+; *** the preference data have the following structure:
+;     (SECONDNOUN (BESTFIRSTNOUN WORSEFIRSTNOUN)))
+;     this has to be read as follows:
+;     SECONDNOUN, then is a better second conjunct for 
+;     BESTFIRSTNOUN than WORSEFIRSTNOUN
+; *** see examples for Italian
+(setq *PREFER-CONJ-ATTACH* nil)
+

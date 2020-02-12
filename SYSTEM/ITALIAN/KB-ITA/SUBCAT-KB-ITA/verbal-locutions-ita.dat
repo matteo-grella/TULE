@@ -1,0 +1,281 @@
+; ££££££££££££££££££££ 
+; This file includes the
+;	DEFINITION OF THE CLASSES (HIERARCHY NODES)
+; ££££££££££££££££££££ 
+
+(in-package "USER")
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			DEFINITION OF THE VERBAL LOCUTIONS 
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+; ***********************************************************
+;                     DEFINED LOCUTIONS
+; ***********************************************************
+; aver bisogno
+; aver cuore 
+; aver diritto 
+; aver-objlocut (aver ragione, aver torto, aver luogo)
+; chiamare in causa 
+; correre voce 
+; dare segno 
+; dare-luogo-seguito (dar luogo, dar seguito)
+; essere-da 
+; essere-da-indef (c'è da correre)
+; essere in grado 
+; essere il caso 
+; essere oggetto
+; fare-locut-theme 
+;        (far posto, far visita, far largo, far omaggio, far fronte, far capo
+; fare-uso-fede-parte )
+;	 (far uso, far fede, far parte)
+; fare-di-theme () (intrans)
+; far fuori 
+; farsi avanti 
+; farsi la croce 
+; intrans-far-si (far sì che) 
+; mettere avanti 
+; mettere a punto 
+; mettere piede 
+; mettere in atto 
+; mettere in piedi 
+; mettere in guardia
+; perdere di vista 
+; portar via
+; prendere di mira 
+; prendere parte 
+; rendersi conto 
+; starsene 
+; stare a vedere
+; tenere conto 
+; tenere compagnia 
+; tenere conto che 
+; tenere presente 
+; trans in pratica 
+; trarre in inganno 
+; venir meno 
+; venire al mondo 
+; non veder l'ora 
+; vedersela brutta 
+; venire a patti
+; ************************************************************************
+
+(setq *VERBAL-LOCUTIONS-ITA*
+'(
+  (aver-bisogno () (intrans-obj)
+ 	    (((noun (word bisogno))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (aver-cuore () (intrans sobj-to-verbs)
+            (((noun (word cuore))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (aver-diritto () (intrans theme-in-verbs)
+            (((noun (word diritto)))
+	     ((prep (word di) (down (cat verb)))
+	      (prep (word a) (not (down (cat verb))))))
+	    (verb-obj*locut verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+  (aver-objlocut () (intrans)
+            (((noun (word (ragione torto luogo)))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (chiamare-in-causa () (basic-trans)
+	    (((prep (word in)
+		    (down (word causa) (number sing)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (correre-voce () (sobj-that-verbs)
+            (((noun (word voce))))
+	    (verb-subj*locut))
+; --------------------------------------------------------------------------
+  (dare-segno () (intrans-topic)
+            (((noun (word segno))))
+	    (verb-obj*locut))
+; --------------------------------------------------------------------------
+  (dare-luogo-seguito () (intrans-theme)
+            (((noun (word (luogo seguito)))
+	      (art (word un)
+		   (down (word seguito)))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (essere-da () (intrans)
+            (((conj (word che)))
+	     ((prep (word da)
+                    (down (cat verb) (mood infinite)))))
+	    (verb-subj verb-indcompl-goal))
+; ---------------------------------------------------------------------------
+  (essere-da-indef () (intrans)
+	    (((prep (word da)
+                    (down (cat verb) (mood infinite))))
+	     ((pron (word (ci vi)))))
+	    (verb-subj pron-rmod-loc+metaph))
+	      	  ; --- essere (c'è da correre)
+; ---------------------------------------------------------------------------
+  (essere-in-grado () (intrans sobj-to-verbs)
+            (((prep (word in)
+                    (down (word grado)
+                          (number sing) (no-dependents)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (essere-il-caso () (ssubj-that-to-verbs)
+            (((art (type def) (number sing)
+                   (down (word caso)
+                         (number sing) (no-dependents)))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (essere-oggetto () (intrans)
+            (((noun (word oggetto))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (fare-locut-theme () (intrans-theme)
+            (((noun (word (posto visita largo omaggio fronte capo riferimento)))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (fare-uso-fede-parte () (intrans-obj)
+	    (((noun (word (uso fede parte)))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (fare-di-theme () (intrans)
+            (((prep (word di)
+                    (down (not (cat verb)))))
+	     (art noun (adj (type (indef demons deitt interr poss)))))
+	    (verb-obj verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+  (far-fuori () (trans)
+            (((adv (word fuori))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (farsi-avanti () (refl)
+            (((adv (word avanti))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (farsi-la-croce () (subj-verbs)
+            (((pron (word si)))
+	     ((art (type def) (gender f)
+                   (down (word croce) (number sing) (no-dependents)))))
+	    (emptycompl verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (intrans-far-si () (intrans-that)
+	    (((phras (word (|si'| sì)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (mettere-avanti () (trans)
+            (((adv (word avanti))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (mettere-a-punto () (trans)
+	    (((prep (word a)
+		    (down (word punto) (number sing) (no-dependents)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (mettere-piede () (intrans-loc-to)
+            (((noun (word piede) (no-dependents))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (mettere-in-piedi () (trans)
+	    (((prep (word in)
+		    (down (word piede) (number pl)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (mettere-in-atto-guardia () (trans)
+	    (((prep (word in)
+		    (down (word (atto guardia)) (number sing)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (perdere-di-vista () (basic-trans)
+	    (((conj (word che)))
+	     ((prep (word di)
+		    (down (word vista) (number sing)))))
+	    (verb-obj verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (prendere-di-mira () (basic-trans)
+	    (((prep (word di)
+		    (down (word (assalto mira)) (number sing)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (portar-via () (intrans)
+            (((adv (word via))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (prendere-parte () (intrans)
+            (((noun (word parte)))
+	     ((prep (word (a in)) (not (down (cat verb))))))
+	    (verb-obj*locut verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+  (rendersi-conto () (refl-that-to)
+	    (((noun (word conto))))
+	    (verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (starsene () (subj-verbs)
+	    (((pron (word se)))
+	     ((pron (word ne)))
+	     (adj))
+	    (emptycompl emptycompl verb-predcompl+subj))
+			; starsene tranquillo
+; ---------------------------------------------------------------------------
+  (stare-a-vedere () (intrans sobj-that-verbs)
+            (((prep (word a) 
+		    (down (cat verb) (word vedere) (mood infinite)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (tenere-conto () (intrans-topic)
+	    (((noun (word conto))))
+	    (verb-obj*locut))
+			; tengono conto delle sue opinioni
+; ---------------------------------------------------------------------------
+  (tenere-compagnia () (intrans-indobj)
+	    (((noun (word compagnia))))
+	    (verb-obj*locut))
+			; ci avrebbe tenuto compagnia
+; ---------------------------------------------------------------------------
+  (tenere-conto-che () (intrans-that)
+	    (((noun (word conto))))
+	    (verb-obj*locut))
+			; tengono conto che lui è partito
+; ---------------------------------------------------------------------------
+  (tenere-presente () (intrans-that-to)
+	    (((adj (word presente))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (trans-in-pratica () (basic-trans)
+            (((prep (word in)
+                    (down (word (pratica vendita))
+                          (number sing) (no-dependents)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (trarre-in-inganno () (trans)
+            (((prep (word in)
+                    (down (word inganno)
+                          (number sing) (no-dependents)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (venir-meno () (intrans)
+            (((adv (word meno))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+  (venire-al-mondo () (intrans)
+            (((prep (word a)
+	      	    (down (word il)
+		   	  (down (word mondo))))))
+	    (verb-indcompl+loc*locut))
+; ---------------------------------------------------------------------------
+  (non-veder-l-ora () (intrans sobj-that-verbs)
+            (((adv (word non)))
+	     ((art (word il)
+		   (down (word ora)))))
+	    (verb-indcompl*locut verb-obj*locut))
+; ---------------------------------------------------------------------------
+  (vedersela-brutta () (intrans)
+            (((pron (case liobj)))
+             ((pron (case lobj) (gender f)))
+	     ((adj (word brutto) (gender f))))
+	    (verb-indcompl*locut verb-obj*locut verb-predcompl+obj*locut))
+; ---------------------------------------------------------------------------
+  (venire-a-patti () (intrans-with)
+	    (((prep (word a)
+		    (down (word patto) (number pl)))))
+	    (verb-indcompl*locut))
+; ---------------------------------------------------------------------------
+	))
+

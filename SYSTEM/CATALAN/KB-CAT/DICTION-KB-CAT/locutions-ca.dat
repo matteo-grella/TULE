@@ -1,0 +1,64 @@
+(in-package "USER")
+
+; **************************************************************************
+; *** the locutions in this file are of two types: fixed and flexible.
+;     - fixed: they are sequences of words that are not subject to morphological
+;              analysis, and that are strictly adjacent to each other
+;     - flexible: as above, but with the possibility of morphological variations.
+;              ex "conferenza stampa" --> "conferenze stampa"
+;                 "da solo" --> "da soli"
+;     They are stored as pairs <form infos>, but in a single sequence, so the
+;     actual internal structure is <form1 infos1 form2 infos2 .... formN infosN>
+; *** the sequences are linked via a double mechanism:
+;     1. The "normalized form" must be the same for all component forms (as
+;        "of_course" in the following example:
+;             ( ...
+;               of      <of_course ...>
+;               course  <of_course ...>
+;               ... )
+;     2. The "root", "next", "prev" features in the "infos", which implement
+;        a doubly-linked list structure
+;             ( ...
+;               of      <.. prev nil root of next course ...>
+;               course  <.. prev or root course next nil ...>
+;               ... )
+; *** In general, the organization of each info-i is as follows:
+;     ( info-locut-1 info-locut-2 ... info-locut-N )
+;     This is due to the fact that eac form can belong to more than one locution
+;     In its turn, each info-locut-i includes the following:
+;     ( normalized-form CAT category TYPE synt-type LOCUT YES LOCTYPE fixed/flex
+;          PREV prev-form ROOT this-form NEXT next-form other-syntinfo)
+
+
+; ----------------------- List of the existing locutions -------------
+; agenda_cultural
+; aquesta_nit
+; des_de
+; en_canvi
+; en_concret
+; ja_que
+; per_part_de
+; waiting_list
+; ---------------------------------------------------------------
+
+(loadinvar 'locutdef
+'(
+  agenda ((agenda_cultural cat noun classe (0) gender f number sing locut yes loctype fixed root agenda prev nil next cultural))
+  aquesta ((aquesta_nit cat adv type time locut yes loctype fixed root aquesta prev nil next nit))
+  canvi ((en_canvi cat adv type manner locut yes root canvi loctype fixed prev en next nil))
+  concret ((en_concret cat adj type qualif classe (0) gender allval number allval locut yes root concret loctype fixed prev en next nil))
+  cultural ((agenda_cultural cat noun classe (0) gender f number sing locut yes loctype fixed root cultural prev agenda next nil))
+  des ((des_de cat prep type poli locut yes root des loctype fixed prev nil next de))
+  de ((des_de cat prep type poli locut yes root de loctype fixed prev des next nil) (per_part_de cat prep type poli locut yes root de loctype fixed prev part next nil))
+  en ((en_canvi cat adv type manner locut yes root en loctype fixed prev nil next canvi)
+      (en_concret cat adj type qualif classe (0) gender allval number allval locut yes root en loctype fixed prev nil next concret))
+  ja ((ja_que cat conj locut yes type subord semtype caus root ja loctype fixed prev nil next que))
+  list ((waiting_list cat noun locut yes gender f number allval root list loctype fixed prev waiting next nil))
+  nit ((aquesta_nit cat adv type time locut yes loctype fixed root nit prev aquesta next nil))
+  part ((per_part_de cat prep type poli locut yes root part loctype fixed prev per next de))
+  per ((per_part_de cat prep type poli locut yes root per loctype fixed prev nil next part))
+  que ((ja_que cat conj locut yes type subord semtype caus root que loctype fixed prev ja next nil))
+  waiting ((waiting_list cat noun locut yes gender f number allval root waiting loctype fixed prev nil next list))
+
+				))
+

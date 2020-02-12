@@ -1,0 +1,180 @@
+
+(in-package "USER")
+
+;************************************************************************
+; *** In this file, definition of some semantic properties
+;     of lexical items. This info should more properly be part of the KB
+;************************************************************************
+
+;******************** SEMANTIC VARIABLES ********************************
+; *** until now in the rules there are the following semtypes: daytime, time,
+;     text, person, month, time-period, predicative, reason (for conj, 
+;     equivalent to the type reason for adverbs)
+; ***	V. gramrul-eval-arg
+; **** Currently, I define them here, but this is clearly redundant with
+;      respect to the KB
+; *** a ££ prefix means that the key is not used directly in the rules, but
+;     just through inheritance
+(put-semtype '(
+; ---- Times ---
+   (£weekday ())
+
+   (£day ())
+   (£month ())
+   (£season (spring summer autumn winter night))
+   (£daytime-period (morning afetrnoon evening night))
+   (£time-period ())
+   (£time-adv (today))
+   (£other-time-adv (yesterday tomorrow))
+   (££timemeasure (year month day minute hour week moment century period instant))
+   (£time-limit (start beginning end conclusion))
+   (£adv-conj-time (after before when during while))
+; ---- Places --
+   (£place1 (square street avenue road city))
+   (£place2 (terreno selciato terreiro))
+   (£place3 (campagna sala spiaggia luogo teatro terrazzo pollaio maggese
+	     stallatico chiesa sede stanza bagno corridoio))
+   (£cardin-dir (nord sud est ovest nordest nordovest sudest sudovest))
+   (£body-place (braccio mano))
+   (£other-posit (piano letto pavimento tetto sostegno))
+   (£tv-channel (|BBC| |Telemontecarlo| |Raiuno| |Raitre| |Raidue|))
+; ---- Events ----
+   (£event-situat (battesimo))
+; ---- Measures ----
+   (£money-measure (decina migliaio centinaio milione miliardo))
+   (£gen-measure (litro chilometro |meta'| doppio giorno settimana quarantina
+		 ventina trentina cinquantina numero |quantita`|))
+   (£approx-measure (grado livello))
+   (£measure-unit (grado metro litro centimetro chilometro chilo grammo etto))
+; --------------
+   (£agent (cantore autore))
+   (£attitude (benevolenza affetto gratitudine odio amore rispetto disprezzo
+	       interesse attenzione sospetto |perplessita`| favore))
+   (£auth-work (giornale rivista libro servizio articolo rapporto relazione
+	   film sinfonia sonata romanzo racconto pellicola prosa poesia
+	   concerto))
+   (£body-part (faccia mano collo polso braccio gamba gomito spalla ginocchio
+		cadavere))
+   (£change (calo diminuzione ascesa crescita))
+   (£clothing (divisa giacca camicia pantaloni guanti maglia cappello berretto))
+   (£colour (bianco giallo rosa rosso verde nero |blu`|))
+   (£competition (partita incontro campionato torneo match mondiale))
+   (£container (glass bottle can))
+   (£employee (employee worker teacher professor researcher personnel))
+   (£geogr (european italian franch torinese english american
+	    spanish australian german brasilian sovietic serbian
+	    palestinian israeli chinese japanese southamerican
+            serbian kurdish arab russian))
+   (£goal (target goal end task))
+   (£group (gruppo esercito massa squadra mucchio collezione corte sacca
+	    schiera |comunita`| lista elenco banda serie unione catasta
+	    manipolo valanga))
+   (£house-annex (giardino piscina soffitta cantina garage box balcone parco
+		  finestra mansarda mansardato cucina soggiorno bagno terrazzo))
+   (£house-type (casa villa appartamento edificio palazzo palazzina))
+   (£institution (dipartimento azienda |universita`| ministero fabbrica
+		  comune))
+   (£luggage (bagaglio valigia baule))
+   (£material (vetro plastica ferro legno alluminio acciaio trave oro argento))
+   (£numbident (numero))
+   (£office (ministero ufficio procura esecutivo assemblea commissione))
+   (£pers (persona signore giornalista inviato uomo donna monsignore individuo
+	   ragazzo figlio amico demonio candidato cittadino studente))
+   (£pers-tract (coraggio forza |volonta`| paura speranza ostinazione
+		 simpatia intelligenza |stupidita`|))
+   (£perspective (prospettiva))
+		; ??? come si mette 'punto di vista'?
+   (£portion (parte porzione |meta`| terzo quarto quinto sezione frammento
+	      percentuale fase))
+   (£property (|unicita`| |capacita`| importanza |possibilita`| struttura
+		 |necessita`| misura pesantezza |aggressivita`| |solidita`|
+		 armonia |economicita`| |ospitalita`| |qualita'|
+		 |produttivita`| limitatezza raffinatezza |popolarita`|
+		 significato nome))
+   (£relation (parentela rapporto contatto relazione))
+   (£role (segretario ministro leader capo amministratore manager coordinatore
+	   responsabile sindaco vicesindaco presidente custode comandante))
+   (£title (signore dottore avvocato))
+   (£situat (problema caso concetto patto idea concordanza pericolo rischio
+	     |possibilita`| occasione punto dubbio ora ambito contesto volta
+	     fatto notizia condizione))
+   ; *** situation nouns governing verbs
+   (£sit-vgov (funzione |facolta`| diritto obbligo |opportunita`| bisogno
+	       assunto abitudine obiettivo incarico scopo pretesto))
+   (£sport (calcio baseball basket tennis rugby atletica |calcio|))
+   (£status (costruzione))
+   (£type (tipo genere specie sorta categoria))
+   (£vehicle (auto automobile macchina treno aereo barca nave piroscafo moto
+	      motocicletta bicicletta))
+   (£objectpart (prua faccia))
+   (£dress (smoking giacca pantaloni camicia cravatta))
+; ---- conj and prep ----------
+   (£reason (|perche`| |poiche`| per))
+; ---- ADJ -----
+   (£manner-adj (positive negative big small))  ; per 'in positivo'
+   (£ease-adj (easy difficult complex))
+	  ; for 'easy to do'
+; ---- VERB ----
+   (£communic (insist compare discuss recall comment))
+   (£predicative (be result seem appear become believe state learn consider
+                  convince tell show become exclude interest note observe
+                  realize think hope explain see))
+    ; *** predic2 used in PARSER/chunk-parser
+   (£predic2 (state add admit learn comment conclude consider realize
+              believe declare show prove tell exclude note observe think
+              promise laugh answer seem appear hope explain))
+    ; *** predic3 used in PARSER/chunk-parser; they are the verbs that
+    ;     prefer the INDOBJ case over OBJ for first and second person
+    ;     pronouns (dim-mi, spiega-mi ...)
+   (£predic3 (declare show tell promise answer explain))
+    ; *** interr-obj-verb used in postagger for disambiguating words as "dove"
+    ;     (where) which should be adv and not conj after these verbs
+   (£interr-obj-verb (individuate know tell explain show))
+				))
+
+(put-semsubcl '(
+   (£daytime £weekday)
+   (£daytime £day)
+   (£time-ref £daytime)
+   (£time-ref £time-period)
+   (£time-ref2 £time-ref)
+   (£time-ref2 £season)
+   (£time-period £daytime-period)
+   (£time-loc £month)
+   (£time-loc £season)
+   (£time-loc £time-period)
+   (£time-loc ££timemeasure)
+   (£time £month)
+   (£time £season)
+   (£time £time-ref)
+   (£time ££timemeasure)
+   (£time £adv-conj-time)
+   (£time £time-adv)
+   (£time-adv £other-time-adv)
+   (£gen-loc £geogr-loc)
+   (£gen-loc £container)
+   (£gen-loc £house-type)
+   (£gen-loc £house-annex)
+   (£gen-loc £place1)
+   (£gen-loc £place2)
+   (£gen-loc £place3)
+   (£gen-loc £other-posit)
+   (£gen-loc £event-situat)	; per loc metaph: si trovarono in un battesimo
+   (£geogr-loc £city)
+   (£geogr-loc £continent)
+   (£geogr-loc £state)
+   (£geogr-loc £region)
+   (£geogr-loc £cardin-dir)
+   (£attitude £pers-tract)
+   (£measure £money-measure)
+   (£measure £gen-measure)
+   (£position £place1)		; £position per la preposizione 'su'
+   (£position £place2)
+   (£position £container)
+   (£position £material)
+   (£position £house-type)
+   (£position £house-annex)
+   (£position £tv-channel)
+   (£position £other-posit)
+				))
+

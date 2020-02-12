@@ -1,0 +1,4636 @@
+; *** This table associates with each suffix the categories, class codes, and features that it identifies
+( 
+@EMPT 
+  ( 
+  ADJ 
+    ( 
+     2 (GENDER M NUMBER SING) 
+     4 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+     17 (GENDER M NUMBER SING) 
+     23 (GENDER M NUMBER SING) 
+     47 (GENDER M NUMBER SING) 
+     27 (GENDER M NUMBER SING) 
+     58 (GENDER M NUMBER SING) 
+     12 (GENDER N NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     4 (NUMBER ALLVAL GENDER M) 
+     1 (GENDER M NUMBER SING) 
+     24 (GENDER M NUMBER SING) 
+     20 (GENDER M NUMBER SING) 
+     26 (GENDER M NUMBER SING) 
+     41 (NUMBER ALLVAL GENDER F) 
+     6 (GENDER F NUMBER SING) 
+     51 ((NUMBER ALLVAL GENDER F) (GENDER M NUMBER SING)) 
+     9 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+     50 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     3 (A (3) N (2) )
+     5 (A (3) N (2) )
+     6 (A (3) )
+     7 (A (3) N (2) )
+     8 (A (3) N (2) )
+     9 (I (GENDER M NUMBER SING) )
+     10 (I (GENDER M NUMBER SING) )
+     11 (A (3) N (2) )
+    ) 
+  ) 
+A 
+  ( 
+  ADJ 
+    ( 
+     2 (GENDER F NUMBER SING) 
+     17 (GENDER F NUMBER SING) 
+     23 (GENDER F NUMBER SING) 
+     11 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+     3 (GENDER F NUMBER SING) 
+     44 (GENDER F NUMBER SING) 
+     45 (GENDER F NUMBER SING) 
+     70 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     27 (GENDER M NUMBER SING) 
+     3 (GENDER F NUMBER SING) 
+     15 (GENDER F NUMBER SING) 
+     19 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+     30 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     1 (A (3) N (2) )
+     2 (A (3) N (2) )
+     9 (B (1 3) I (GENDER F NUMBER SING) )
+     10 (I (GENDER F NUMBER SING) )
+     17 (B (1 3) )
+    ) 
+  ) 
+S 
+  ( 
+  ADJ 
+    ( 
+     2 (GENDER M NUMBER PL) 
+     4 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+     17 (GENDER M NUMBER PL) 
+     58 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     1 (GENDER M NUMBER PL) 
+     6 (GENDER F NUMBER PL) 
+     9 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+     50 (GENDER F NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     3 (A (2) )
+     6 (A (2) )
+     7 (A (2) )
+     8 (A (2) )
+     10 (I (GENDER M NUMBER PL) )
+     11 (A (2) )
+    ) 
+  ) 
+ES 
+  ( 
+  ADJ 
+    ( 
+     2 (GENDER F NUMBER PL) 
+     23 (GENDER F NUMBER PL) 
+     11 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+     3 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+     37 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+     44 (GENDER F NUMBER PL) 
+     45 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     27 (GENDER M NUMBER PL) 
+     3 (GENDER F NUMBER PL) 
+     19 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  VERB 
+    ( 
+     1 (A (2) )
+     2 (A (2) )
+     4 (A (2) )
+     5 (A (2) )
+     6 (F (1 3) N (2) )
+     9 (B (2) I (GENDER F NUMBER PL) )
+     10 (I (GENDER F NUMBER PL) )
+     17 (B (2) )
+    ) 
+  ) 
+U 
+  ( 
+  ADJ 
+    ( 
+     7 (GENDER M NUMBER SING) 
+     44 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     9 (A (3) N (2) )
+     10 (A (3) N (2) )
+    ) 
+  ) 
+VA 
+  ( 
+  ADJ 
+    ( 
+     7 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+US 
+  ( 
+  ADJ 
+    ( 
+     7 (GENDER M NUMBER PL) 
+     44 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     9 (A (2) )
+     10 (A (2) )
+    ) 
+  ) 
+VES 
+  ( 
+  ADJ 
+    ( 
+     7 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+T 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     8 (I (GENDER M NUMBER SING) )
+     13 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+DA 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+TS 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     8 (I (GENDER M NUMBER PL) )
+     13 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+DES 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+C 
+  ( 
+  ADJ 
+    ( 
+     68 (GENDER M NUMBER SING) 
+     6 (GENDER M NUMBER SING) 
+     21 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     8 (A (1) )
+     9 (A (1) )
+     10 (A (1) )
+    ) 
+  ) 
+CA 
+  ( 
+  ADJ 
+    ( 
+     68 (GENDER F NUMBER SING) 
+     6 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     17 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+CS 
+  ( 
+  ADJ 
+    ( 
+     68 (GENDER M NUMBER PL) 
+     6 (GENDER M NUMBER PL) 
+     21 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+QES 
+  ( 
+  ADJ 
+    ( 
+     68 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ERI 
+  ( 
+  ADJ 
+    ( 
+     8 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èRIA 
+  ( 
+  ADJ 
+    ( 
+     8 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ERIS 
+  ( 
+  ADJ 
+    ( 
+     8 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+èRIES 
+  ( 
+  ADJ 
+    ( 
+     8 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ARI 
+  ( 
+  ADJ 
+    ( 
+     10 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àRIA 
+  ( 
+  ADJ 
+    ( 
+     10 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ARIS 
+  ( 
+  ADJ 
+    ( 
+     10 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+àRIES 
+  ( 
+  ADJ 
+    ( 
+     10 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ORI 
+  ( 
+  ADJ 
+    ( 
+     24 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òRIA 
+  ( 
+  ADJ 
+    ( 
+     24 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ORIS 
+  ( 
+  ADJ 
+    ( 
+     24 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òRIES 
+  ( 
+  ADJ 
+    ( 
+     24 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+INU 
+  ( 
+  ADJ 
+    ( 
+     35 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+íNUA 
+  ( 
+  ADJ 
+    ( 
+     35 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+INUS 
+  ( 
+  ADJ 
+    ( 
+     35 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+íNUES 
+  ( 
+  ADJ 
+    ( 
+     35 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ENU 
+  ( 
+  ADJ 
+    ( 
+     52 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èNUA 
+  ( 
+  ADJ 
+    ( 
+     52 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ENUS 
+  ( 
+  ADJ 
+    ( 
+     52 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+èNUES 
+  ( 
+  ADJ 
+    ( 
+     52 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+UTU 
+  ( 
+  ADJ 
+    ( 
+     57 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+úTUA 
+  ( 
+  ADJ 
+    ( 
+     57 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+UTUS 
+  ( 
+  ADJ 
+    ( 
+     57 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+úTUES 
+  ( 
+  ADJ 
+    ( 
+     57 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ANI 
+  ( 
+  ADJ 
+    ( 
+     34 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àNIA 
+  ( 
+  ADJ 
+    ( 
+     34 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ANIS 
+  ( 
+  ADJ 
+    ( 
+     34 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+àNIES 
+  ( 
+  ADJ 
+    ( 
+     34 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ENI 
+  ( 
+  ADJ 
+    ( 
+     49 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èNIA 
+  ( 
+  ADJ 
+    ( 
+     49 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ENIS 
+  ( 
+  ADJ 
+    ( 
+     49 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+èNIES 
+  ( 
+  ADJ 
+    ( 
+     49 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ONI 
+  ( 
+  ADJ 
+    ( 
+     41 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òNIA 
+  ( 
+  ADJ 
+    ( 
+     41 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ONIS 
+  ( 
+  ADJ 
+    ( 
+     41 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òNIES 
+  ( 
+  ADJ 
+    ( 
+     41 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ACI 
+  ( 
+  ADJ 
+    ( 
+     48 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àCIA 
+  ( 
+  ADJ 
+    ( 
+     48 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ACIS 
+  ( 
+  ADJ 
+    ( 
+     48 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+àCIES 
+  ( 
+  ADJ 
+    ( 
+     48 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ICI 
+  ( 
+  ADJ 
+    ( 
+     36 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+íCIA 
+  ( 
+  ADJ 
+    ( 
+     36 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ICIS 
+  ( 
+  ADJ 
+    ( 
+     36 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+íCIES 
+  ( 
+  ADJ 
+    ( 
+     36 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+EDI 
+  ( 
+  ADJ 
+    ( 
+     53 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èDIA 
+  ( 
+  ADJ 
+    ( 
+     53 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+EDIS 
+  ( 
+  ADJ 
+    ( 
+     53 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+èDIES 
+  ( 
+  ADJ 
+    ( 
+     53 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+AMPLI 
+  ( 
+  ADJ 
+    ( 
+     19 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àMPLIA 
+  ( 
+  ADJ 
+    ( 
+     19 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+AMPLIS 
+  ( 
+  ADJ 
+    ( 
+     19 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+àMPLIES 
+  ( 
+  ADJ 
+    ( 
+     19 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+OLI 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òLIA 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+OLIS 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òLIES 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+OBVI 
+  ( 
+  ADJ 
+    ( 
+     59 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òBVIA 
+  ( 
+  ADJ 
+    ( 
+     59 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+OBVIS 
+  ( 
+  ADJ 
+    ( 
+     59 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òBVIES 
+  ( 
+  ADJ 
+    ( 
+     59 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+AVI 
+  ( 
+  ADJ 
+    ( 
+     67 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àVIA 
+  ( 
+  ADJ 
+    ( 
+     67 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+AVIS 
+  ( 
+  ADJ 
+    ( 
+     67 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+àVIES 
+  ( 
+  ADJ 
+    ( 
+     67 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+EVI 
+  ( 
+  ADJ 
+    ( 
+     61 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èVIA 
+  ( 
+  ADJ 
+    ( 
+     61 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+EVIS 
+  ( 
+  ADJ 
+    ( 
+     61 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+èVIES 
+  ( 
+  ADJ 
+    ( 
+     61 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+OPI 
+  ( 
+  ADJ 
+    ( 
+     62 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òPIA 
+  ( 
+  ADJ 
+    ( 
+     62 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+OPIS 
+  ( 
+  ADJ 
+    ( 
+     62 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òPIES 
+  ( 
+  ADJ 
+    ( 
+     62 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+OGEN 
+  ( 
+  ADJ 
+    ( 
+     16 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     13 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òGENA 
+  ( 
+  ADJ 
+    ( 
+     16 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+òGENS 
+  ( 
+  ADJ 
+    ( 
+     16 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     13 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+òGENES 
+  ( 
+  ADJ 
+    ( 
+     16 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+UES 
+  ( 
+  ADJ 
+    ( 
+     17 (GENDER F NUMBER PL) 
+     70 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  NOUN 
+    ( 
+     15 (GENDER F NUMBER PL) 
+     30 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  ) 
+QUES 
+  ( 
+  ADJ 
+    ( 
+     6 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     17 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+GA 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+GUES 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+EG 
+  ( 
+  ADJ 
+    ( 
+     22 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+OGA 
+  ( 
+  ADJ 
+    ( 
+     22 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+EGS 
+  ( 
+  ADJ 
+    ( 
+     22 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+OGUES 
+  ( 
+  ADJ 
+    ( 
+     22 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+OS 
+  ( 
+  ADJ 
+    ( 
+     23 (GENDER M NUMBER PL) 
+     45 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     20 (GENDER M NUMBER PL) 
+     51 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     9 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+ç 
+  ( 
+  ADJ 
+    ( 
+     40 (GENDER M NUMBER SING) 
+     28 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  ) 
+çA 
+  ( 
+  ADJ 
+    ( 
+     40 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     11 (GENDER F NUMBER SING) 
+     49 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  ) 
+çOS 
+  ( 
+  ADJ 
+    ( 
+     40 (GENDER M NUMBER PL) 
+     28 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+CES 
+  ( 
+  ADJ 
+    ( 
+     40 (GENDER F NUMBER PL) 
+     28 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     11 (GENDER F NUMBER PL) 
+     49 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  ) 
+èS 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER M NUMBER SING) 
+     43 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     16 (GENDER M NUMBER SING) 
+     37 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+ESA 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ESOS 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     16 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ESES 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+íS 
+  ( 
+  ADJ 
+    ( 
+     60 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     48 (GENDER M NUMBER SING) 
+     28 (GENDER M NUMBER SING) 
+     39 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     10 (F (1 3) )
+     11 (F (1 3) )
+     13 (F (1 3) )
+     14 (F (1 3) )
+    ) 
+  ) 
+ISA 
+  ( 
+  ADJ 
+    ( 
+     60 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ISOS 
+  ( 
+  ADJ 
+    ( 
+     60 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     28 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ISES 
+  ( 
+  ADJ 
+    ( 
+     60 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+óS 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     34 (GENDER M NUMBER SING) 
+     31 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+OSA 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER F NUMBER SING) 
+     51 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+OSOS 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER M NUMBER PL) 
+     51 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     52 (GENDER M NUMBER PL) 
+     34 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+OSES 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER F NUMBER PL) 
+     51 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+òS 
+  ( 
+  ADJ 
+    ( 
+     51 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     52 (GENDER M NUMBER SING) 
+     18 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+úS 
+  ( 
+  ADJ 
+    ( 
+     33 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     7 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+USA 
+  ( 
+  ADJ 
+    ( 
+     33 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+USOS 
+  ( 
+  ADJ 
+    ( 
+     33 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     7 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+USES 
+  ( 
+  ADJ 
+    ( 
+     33 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+àS 
+  ( 
+  ADJ 
+    ( 
+     42 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     25 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     15 (A (2) )
+    ) 
+  ) 
+ASSA 
+  ( 
+  ADJ 
+    ( 
+     42 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ASSOS 
+  ( 
+  ADJ 
+    ( 
+     42 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     25 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ASSES 
+  ( 
+  ADJ 
+    ( 
+     42 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ESSA 
+  ( 
+  ADJ 
+    ( 
+     43 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ESSOS 
+  ( 
+  ADJ 
+    ( 
+     43 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     8 (GENDER M NUMBER PL) 
+     37 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ESSES 
+  ( 
+  ADJ 
+    ( 
+     43 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+è 
+  ( 
+  ADJ 
+    ( 
+     14 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     14 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+ENA 
+  ( 
+  ADJ 
+    ( 
+     14 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ENS 
+  ( 
+  ADJ 
+    ( 
+     14 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     42 (GENDER M NUMBER PL) 
+     14 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     12 (A (2) )
+    ) 
+  ) 
+ENES 
+  ( 
+  ADJ 
+    ( 
+     14 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+í 
+  ( 
+  ADJ 
+    ( 
+     15 (GENDER M NUMBER SING) 
+     71 (GENDER M NUMBER SING) 
+     9 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  NOUN 
+    ( 
+     22 (GENDER M NUMBER SING) 
+     55 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (C (1) )
+     2 (C (1) )
+     3 (C (1) )
+     7 (C (1) )
+     10 (C (1 3) )
+     11 (C (1 3) )
+     13 (C (1 3) )
+     14 (C (1 3) )
+    ) 
+  ) 
+INA 
+  ( 
+  ADJ 
+    ( 
+     15 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+INS 
+  ( 
+  ADJ 
+    ( 
+     15 (GENDER M NUMBER PL) 
+     9 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  NOUN 
+    ( 
+     22 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+INES 
+  ( 
+  ADJ 
+    ( 
+     15 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+à 
+  ( 
+  ADJ 
+    ( 
+     18 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     12 (GENDER M NUMBER SING) 
+     43 (GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (C (3) )
+     2 (C (3) )
+     15 (A (3) )
+    ) 
+  ) 
+ANA 
+  ( 
+  ADJ 
+    ( 
+     18 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ANS 
+  ( 
+  ADJ 
+    ( 
+     18 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     12 (GENDER M NUMBER PL) 
+     43 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ANES 
+  ( 
+  ADJ 
+    ( 
+     18 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ú 
+  ( 
+  ADJ 
+    ( 
+     32 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+UNA 
+  ( 
+  ADJ 
+    ( 
+     32 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+UNS 
+  ( 
+  ADJ 
+    ( 
+     32 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+UNES 
+  ( 
+  ADJ 
+    ( 
+     32 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ïNA 
+  ( 
+  ADJ 
+    ( 
+     71 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ïNS 
+  ( 
+  ADJ 
+    ( 
+     71 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     55 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ïNES 
+  ( 
+  ADJ 
+    ( 
+     71 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ó 
+  ( 
+  ADJ 
+    ( 
+     66 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     2 (GENDER M NUMBER SING) 
+     5 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ONA 
+  ( 
+  ADJ 
+    ( 
+     66 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ONS 
+  ( 
+  ADJ 
+    ( 
+     66 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     44 (GENDER M NUMBER PL) 
+     2 (GENDER M NUMBER PL) 
+     53 (GENDER M NUMBER PL) 
+     5 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ONES 
+  ( 
+  ADJ 
+    ( 
+     66 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+SA 
+  ( 
+  ADJ 
+    ( 
+     47 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+SOS 
+  ( 
+  ADJ 
+    ( 
+     47 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     26 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+SES 
+  ( 
+  ADJ 
+    ( 
+     47 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+NA 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+NS 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     24 (GENDER M NUMBER PL) 
+     50 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+NES 
+  ( 
+  ADJ 
+    ( 
+     27 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+·LA 
+  ( 
+  ADJ 
+    ( 
+     58 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+·LES 
+  ( 
+  ADJ 
+    ( 
+     58 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+E 
+  ( 
+  ADJ 
+    ( 
+     3 (GENDER M NUMBER SING) 
+     37 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     4 (A (3) N (2) )
+    ) 
+  ) 
+O 
+  ( 
+  ADJ 
+    ( 
+     45 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (A (1) )
+     2 (A (1) )
+     3 (A (1) )
+     4 (A (1) )
+     7 (A (1) )
+     11 (A (1) )
+    ) 
+  ) 
+IG 
+  ( 
+  ADJ 
+    ( 
+     25 (GENDER M NUMBER SING) 
+     54 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER M NUMBER SING) 
+     33 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     6 (A (1) )
+    ) 
+  ) 
+JA 
+  ( 
+  ADJ 
+    ( 
+     25 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     23 (GENDER F NUMBER SING) 
+     54 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  ) 
+JOS 
+  ( 
+  ADJ 
+    ( 
+     25 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+GES 
+  ( 
+  ADJ 
+    ( 
+     25 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     23 (GENDER F NUMBER PL) 
+     54 ((GENDER F NUMBER PL) (GENDER M NUMBER PL)) 
+    ) 
+  ) 
+TJA 
+  ( 
+  ADJ 
+    ( 
+     54 (GENDER F NUMBER SING) 
+     55 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+TJOS 
+  ( 
+  ADJ 
+    ( 
+     54 (GENDER M NUMBER PL) 
+     55 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     29 (GENDER M NUMBER PL) 
+     33 (GENDER M NUMBER PL) 
+     40 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+TGES 
+  ( 
+  ADJ 
+    ( 
+     54 (GENDER F NUMBER PL) 
+     55 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+G 
+  ( 
+  ADJ 
+    ( 
+     55 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     29 (GENDER M NUMBER SING) 
+     40 ((GENDER F NUMBER SING) (GENDER M NUMBER SING)) 
+    ) 
+  ) 
+UE 
+  ( 
+  ADJ 
+    ( 
+     70 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+èN 
+  ( 
+  NOUN 
+    ( 
+     42 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+IGEN 
+  ( 
+  NOUN 
+    ( 
+     46 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+íGENS 
+  ( 
+  NOUN 
+    ( 
+     46 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+IQUEN 
+  ( 
+  NOUN 
+    ( 
+     38 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+íQUENS 
+  ( 
+  NOUN 
+    ( 
+     38 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+óN 
+  ( 
+  NOUN 
+    ( 
+     44 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+AMEN 
+  ( 
+  NOUN 
+    ( 
+     35 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+àMENS 
+  ( 
+  NOUN 
+    ( 
+     35 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+OMEN 
+  ( 
+  NOUN 
+    ( 
+     36 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+òMENS 
+  ( 
+  NOUN 
+    ( 
+     36 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ò 
+  ( 
+  NOUN 
+    ( 
+     53 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+ïSOS 
+  ( 
+  NOUN 
+    ( 
+     48 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+éS 
+  ( 
+  NOUN 
+    ( 
+     8 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (F (1 3) )
+     2 (F (1 3) )
+     3 (F (1 3) )
+     7 (F (1 3) )
+     18 (A (3) )
+    ) 
+  ) 
+ISSOS 
+  ( 
+  NOUN 
+    ( 
+     39 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+OSSOS 
+  ( 
+  NOUN 
+    ( 
+     18 (GENDER M NUMBER PL) 
+     31 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+UA 
+  ( 
+  NOUN 
+    ( 
+     47 (GENDER M NUMBER SING) 
+     10 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+üES 
+  ( 
+  NOUN 
+    ( 
+     47 (GENDER M NUMBER PL) 
+     10 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+GS 
+  ( 
+  NOUN 
+    ( 
+     40 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+EM 
+  ( 
+  VERB 
+    ( 
+     1 (A (4) E (4) N (4) )
+     2 (A (4) E (4) N (4) )
+     3 (A (4) E (4) N (4) )
+     4 (A (4) E (4) N (4) )
+     5 (A (4) )
+     6 (A (4) E (4) N (4) )
+     7 (A (4) E (4) N (4) )
+     8 (A (4) )
+     9 (A (4) B (4) )
+     15 (A (4) )
+     17 (A (4) B (4) )
+    ) 
+  ) 
+EU 
+  ( 
+  VERB 
+    ( 
+     1 (A (5) E (5) N (5) )
+     2 (A (5) E (5) N (5) )
+     3 (A (5) E (5) N (5) )
+     4 (A (5) E (5) N (5) )
+     5 (A (5) N (5) )
+     6 (A (5) E (5) N (5) )
+     7 (A (5) E (5) N (5) )
+     8 (A (5) N (5) )
+     9 (A (5) B (5) N (5) )
+     15 (A (5) )
+     17 (A (3 5) B (5) N (2 5) )
+    ) 
+  ) 
+EN 
+  ( 
+  VERB 
+    ( 
+     1 (A (6) )
+     2 (A (6) )
+     3 (A (6) )
+     4 (A (6) )
+     5 (A (6) )
+     7 (A (6) )
+     8 (A (6) )
+     9 (B (6) )
+     11 (A (6) )
+     17 (B (6) )
+    ) 
+  ) 
+AVA 
+  ( 
+  VERB 
+    ( 
+     1 (B (1 3) )
+     2 (B (1 3) )
+     15 (B (1 3) )
+    ) 
+  ) 
+AVES 
+  ( 
+  VERB 
+    ( 
+     1 (B (2) )
+     2 (B (2) )
+     15 (B (2) )
+    ) 
+  ) 
+àVEM 
+  ( 
+  VERB 
+    ( 
+     1 (B (4) )
+     2 (B (4) )
+     15 (B (4) )
+    ) 
+  ) 
+àVEU 
+  ( 
+  VERB 
+    ( 
+     1 (B (5) )
+     2 (B (5) )
+     15 (B (5) )
+    ) 
+  ) 
+AVEN 
+  ( 
+  VERB 
+    ( 
+     1 (B (6) )
+     2 (B (6) )
+     15 (B (6) )
+    ) 
+  ) 
+ARES 
+  ( 
+  VERB 
+    ( 
+     1 (C (2) )
+     2 (C (2) )
+    ) 
+  ) 
+àREM 
+  ( 
+  VERB 
+    ( 
+     1 (C (4) )
+     2 (C (4) )
+    ) 
+  ) 
+àREU 
+  ( 
+  VERB 
+    ( 
+     1 (C (5) )
+     2 (C (5) )
+    ) 
+  ) 
+AREN 
+  ( 
+  VERB 
+    ( 
+     1 (C (6) )
+     2 (C (6) )
+    ) 
+  ) 
+ARé 
+  ( 
+  VERB 
+    ( 
+     1 (D (1) )
+     2 (D (1) )
+     15 (D (1) )
+    ) 
+  ) 
+ARàS 
+  ( 
+  VERB 
+    ( 
+     1 (D (2) )
+     2 (D (2) )
+     15 (D (2) )
+    ) 
+  ) 
+ARà 
+  ( 
+  VERB 
+    ( 
+     1 (D (3) )
+     2 (D (3) )
+     15 (D (3) )
+    ) 
+  ) 
+AREM 
+  ( 
+  VERB 
+    ( 
+     1 (D (4) )
+     2 (D (4) )
+     15 (D (4) )
+    ) 
+  ) 
+AREU 
+  ( 
+  VERB 
+    ( 
+     1 (D (5) )
+     2 (D (5) )
+     15 (D (5) )
+    ) 
+  ) 
+ARAN 
+  ( 
+  VERB 
+    ( 
+     1 (D (6) )
+     2 (D (6) )
+     15 (D (6) )
+    ) 
+  ) 
+I 
+  ( 
+  VERB 
+    ( 
+     1 (E (1 3) N (3) )
+     3 (E (1 3) N (3) )
+     4 (E (1 3) N (3) )
+     6 (E (1 3) N (3) )
+     7 (E (1 3) N (3) )
+     11 (E (1 3) N (3) )
+    ) 
+  ) 
+IS 
+  ( 
+  VERB 
+    ( 
+     1 (E (2) )
+     3 (E (2) )
+     4 (E (2) )
+     6 (E (2) )
+     7 (E (2) )
+     11 (E (2) )
+    ) 
+  ) 
+IN 
+  ( 
+  VERB 
+    ( 
+     1 (E (6) N (6) )
+     3 (E (6) N (6) )
+     4 (E (6) N (6) )
+     6 (E (6) N (6) )
+     7 (E (6) N (6) )
+     11 (E (6) N (6) )
+    ) 
+  ) 
+ESSIS 
+  ( 
+  VERB 
+    ( 
+     1 (F (2) )
+     2 (F (2) )
+     3 (F (2) )
+     6 (F (2) )
+     7 (F (2) )
+    ) 
+  ) 
+éSSIM 
+  ( 
+  VERB 
+    ( 
+     1 (F (4) )
+     2 (F (4) )
+     3 (F (4) )
+     6 (F (4) )
+     7 (F (4) )
+    ) 
+  ) 
+éSSIU 
+  ( 
+  VERB 
+    ( 
+     1 (F (5) )
+     2 (F (5) )
+     3 (F (5) )
+     6 (F (5) )
+     7 (F (5) )
+    ) 
+  ) 
+ESSIN 
+  ( 
+  VERB 
+    ( 
+     1 (F (6) )
+     2 (F (6) )
+     3 (F (6) )
+     6 (F (6) )
+     7 (F (6) )
+    ) 
+  ) 
+ARIA 
+  ( 
+  VERB 
+    ( 
+     1 (G (1 3) )
+     2 (G (1 3) )
+     15 (G (1 3) )
+    ) 
+  ) 
+ARIES 
+  ( 
+  VERB 
+    ( 
+     1 (G (2) )
+     2 (G (2) )
+     15 (G (2) )
+    ) 
+  ) 
+ARíEM 
+  ( 
+  VERB 
+    ( 
+     1 (G (4) )
+     2 (G (4) )
+     15 (G (4) )
+    ) 
+  ) 
+ARíEU 
+  ( 
+  VERB 
+    ( 
+     1 (G (5) )
+     2 (G (5) )
+     15 (G (5) )
+    ) 
+  ) 
+ARIEN 
+  ( 
+  VERB 
+    ( 
+     1 (G (6) )
+     2 (G (6) )
+     15 (G (6) )
+    ) 
+  ) 
+AT 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER SING) )
+     2 (I (GENDER M NUMBER SING) )
+     15 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ADA 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER F NUMBER SING) )
+     2 (I (GENDER F NUMBER SING) )
+     15 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ATS 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER PL) )
+     2 (I (GENDER M NUMBER PL) )
+     15 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+ADES 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER F NUMBER PL) )
+     2 (I (GENDER F NUMBER PL) )
+     15 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+ANT 
+  ( 
+  VERB 
+    ( 
+     1 (L )
+     2 (L )
+     15 (L )
+    ) 
+  ) 
+AR 
+  ( 
+  VERB 
+    ( 
+     1 (M )
+     2 (M )
+     15 (M )
+    ) 
+  ) 
+ï 
+  ( 
+  VERB 
+    ( 
+     2 (E (1 3) N (3) )
+    ) 
+  ) 
+ïS 
+  ( 
+  VERB 
+    ( 
+     2 (E (2) )
+    ) 
+  ) 
+ïN 
+  ( 
+  VERB 
+    ( 
+     2 (E (6) N (6) )
+    ) 
+  ) 
+IA 
+  ( 
+  VERB 
+    ( 
+     3 (B (1 3) )
+     4 (B (1 3) )
+     5 (B (1 3) )
+     7 (B (1 3) )
+     8 (B (1 3) )
+     10 (B (1 3) )
+     11 (B (1 3) )
+     13 (B (1 3) )
+    ) 
+  ) 
+IES 
+  ( 
+  VERB 
+    ( 
+     3 (B (2) )
+     4 (B (2) )
+     5 (B (2) )
+     7 (B (2) )
+     8 (B (2) )
+     10 (B (2) )
+     11 (B (2) )
+     13 (B (2) )
+    ) 
+  ) 
+íEM 
+  ( 
+  VERB 
+    ( 
+     3 (B (4) )
+     4 (B (4) )
+     5 (B (4) )
+     7 (B (4) )
+     8 (B (4) )
+     10 (B (4) )
+     11 (B (4) )
+     13 (B (4) )
+     14 (B (4) )
+    ) 
+  ) 
+íEU 
+  ( 
+  VERB 
+    ( 
+     3 (B (5) )
+     4 (B (5) )
+     5 (B (5) )
+     7 (B (5) )
+     8 (B (5) )
+     10 (B (5) )
+     11 (B (5) )
+     13 (B (5) )
+     14 (B (5) )
+    ) 
+  ) 
+IEN 
+  ( 
+  VERB 
+    ( 
+     3 (B (6) )
+     4 (B (6) )
+     5 (B (6) )
+     7 (B (6) )
+     8 (B (6) )
+     10 (B (6) )
+     11 (B (6) )
+     13 (B (6) )
+    ) 
+  ) 
+ERES 
+  ( 
+  VERB 
+    ( 
+     3 (C (2) )
+     6 (C (2) )
+     7 (C (2) )
+     18 (B (2) )
+    ) 
+  ) 
+é 
+  ( 
+  VERB 
+    ( 
+     3 (C (3) )
+     7 (C (3) )
+     12 (A (3) N (2) )
+     16 (A (1) )
+    ) 
+  ) 
+éREM 
+  ( 
+  VERB 
+    ( 
+     3 (C (4) )
+     6 (C (4) )
+     7 (C (4) )
+     18 (B (4) )
+    ) 
+  ) 
+éREU 
+  ( 
+  VERB 
+    ( 
+     3 (C (5) )
+     6 (C (5) )
+     7 (C (5) )
+     18 (B (5) )
+    ) 
+  ) 
+EREN 
+  ( 
+  VERB 
+    ( 
+     3 (C (6) )
+     6 (C (6) )
+     7 (C (6) )
+     18 (B (6) )
+    ) 
+  ) 
+ERé 
+  ( 
+  VERB 
+    ( 
+     3 (D (1) )
+     4 (D (1) )
+     5 (D (1) )
+    ) 
+  ) 
+ERàS 
+  ( 
+  VERB 
+    ( 
+     3 (D (2) )
+     4 (D (2) )
+     5 (D (2) )
+    ) 
+  ) 
+ERà 
+  ( 
+  VERB 
+    ( 
+     3 (D (3) )
+     4 (D (3) )
+     5 (D (3) )
+    ) 
+  ) 
+EREM 
+  ( 
+  VERB 
+    ( 
+     3 (D (4) )
+     4 (D (4) )
+     5 (D (4) )
+    ) 
+  ) 
+EREU 
+  ( 
+  VERB 
+    ( 
+     3 (D (5) )
+     4 (D (5) )
+     5 (D (5) )
+    ) 
+  ) 
+ERAN 
+  ( 
+  VERB 
+    ( 
+     3 (D (6) )
+     4 (D (6) )
+     5 (D (6) )
+    ) 
+  ) 
+ERIA 
+  ( 
+  VERB 
+    ( 
+     3 (G (1 3) )
+     4 (G (1 3) )
+     5 (G (1 3) )
+    ) 
+  ) 
+ERIES 
+  ( 
+  VERB 
+    ( 
+     3 (G (2) )
+     4 (G (2) )
+     5 (G (2) )
+    ) 
+  ) 
+ERíEM 
+  ( 
+  VERB 
+    ( 
+     3 (G (4) )
+     4 (G (4) )
+     5 (G (4) )
+    ) 
+  ) 
+ERíEU 
+  ( 
+  VERB 
+    ( 
+     3 (G (5) )
+     4 (G (5) )
+     5 (G (5) )
+    ) 
+  ) 
+ERIEN 
+  ( 
+  VERB 
+    ( 
+     3 (G (6) )
+     4 (G (6) )
+     5 (G (6) )
+    ) 
+  ) 
+UT 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER SING) )
+     7 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+UDA 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER F NUMBER SING) )
+     7 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+UTS 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER PL) )
+     7 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+UDES 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER F NUMBER PL) )
+     7 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+ENT 
+  ( 
+  VERB 
+    ( 
+     3 (L )
+     4 (L )
+     5 (L )
+     6 (L )
+     7 (L )
+     8 (L )
+     9 (L )
+     17 (L )
+    ) 
+  ) 
+ER 
+  ( 
+  VERB 
+    ( 
+     3 (M )
+     4 (M )
+     5 (M )
+     6 (M )
+    ) 
+  ) 
+EGUí 
+  ( 
+  VERB 
+    ( 
+     4 (C (1) )
+     5 (C (1) )
+    ) 
+  ) 
+EGUERES 
+  ( 
+  VERB 
+    ( 
+     4 (C (2) )
+     5 (C (2) )
+    ) 
+  ) 
+EGUé 
+  ( 
+  VERB 
+    ( 
+     4 (C (3) )
+     5 (C (3) )
+    ) 
+  ) 
+EGUéREM 
+  ( 
+  VERB 
+    ( 
+     4 (C (4) )
+     5 (C (4) )
+    ) 
+  ) 
+EGUéREU 
+  ( 
+  VERB 
+    ( 
+     4 (C (5) )
+     5 (C (5) )
+    ) 
+  ) 
+EGUEREN 
+  ( 
+  VERB 
+    ( 
+     4 (C (6) )
+     5 (C (6) )
+    ) 
+  ) 
+EGUéS 
+  ( 
+  VERB 
+    ( 
+     4 (F (1 3) )
+     5 (F (1 3) )
+    ) 
+  ) 
+EGUESSIS 
+  ( 
+  VERB 
+    ( 
+     4 (F (2) )
+     5 (F (2) )
+    ) 
+  ) 
+EGUéSSIM 
+  ( 
+  VERB 
+    ( 
+     4 (F (4) )
+     5 (F (4) )
+    ) 
+  ) 
+EGUéSSIU 
+  ( 
+  VERB 
+    ( 
+     4 (F (5) )
+     5 (F (5) )
+    ) 
+  ) 
+EGUESSIN 
+  ( 
+  VERB 
+    ( 
+     4 (F (6) )
+     5 (F (6) )
+    ) 
+  ) 
+EGUT 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER M NUMBER SING) )
+     5 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+EGUDA 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER F NUMBER SING) )
+     5 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+EGUTS 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER M NUMBER PL) )
+     5 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+EGUDES 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER F NUMBER PL) )
+     5 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+EC 
+  ( 
+  VERB 
+    ( 
+     5 (A (1) )
+     17 (A (1) )
+    ) 
+  ) 
+EGUI 
+  ( 
+  VERB 
+    ( 
+     5 (E (1 3) N (3) )
+     17 (E (1 3) N (3) )
+    ) 
+  ) 
+EGUIS 
+  ( 
+  VERB 
+    ( 
+     5 (E (2) )
+     17 (E (2) )
+    ) 
+  ) 
+EGUEM 
+  ( 
+  VERB 
+    ( 
+     5 (E (4) N (4) )
+    ) 
+  ) 
+EGUEU 
+  ( 
+  VERB 
+    ( 
+     5 (E (5) )
+    ) 
+  ) 
+EGUIN 
+  ( 
+  VERB 
+    ( 
+     5 (E (6) N (6) )
+     17 (E (6) N (6) )
+    ) 
+  ) 
+N 
+  ( 
+  VERB 
+    ( 
+     6 (A (6) )
+    ) 
+  ) 
+EIA 
+  ( 
+  VERB 
+    ( 
+     6 (B (1 3) )
+    ) 
+  ) 
+EIES 
+  ( 
+  VERB 
+    ( 
+     6 (B (2) )
+    ) 
+  ) 
+èIEM 
+  ( 
+  VERB 
+    ( 
+     6 (B (4) )
+    ) 
+  ) 
+èIEU 
+  ( 
+  VERB 
+    ( 
+     6 (B (5) )
+    ) 
+  ) 
+EIEN 
+  ( 
+  VERB 
+    ( 
+     6 (B (6) )
+    ) 
+  ) 
+IU 
+  ( 
+  VERB 
+    ( 
+     6 (C (1) )
+     10 (A (5) N (5) )
+     11 (A (5) E (5) N (5) )
+     13 (A (5) E (5) N (5) )
+    ) 
+  ) 
+éU 
+  ( 
+  VERB 
+    ( 
+     6 (C (3) )
+    ) 
+  ) 
+Ré 
+  ( 
+  VERB 
+    ( 
+     6 (D (1) )
+     7 (D (1) )
+    ) 
+  ) 
+RàS 
+  ( 
+  VERB 
+    ( 
+     6 (D (2) )
+     7 (D (2) )
+    ) 
+  ) 
+Rà 
+  ( 
+  VERB 
+    ( 
+     6 (D (3) )
+     7 (D (3) )
+    ) 
+  ) 
+REM 
+  ( 
+  VERB 
+    ( 
+     6 (D (4) )
+     7 (D (4) )
+    ) 
+  ) 
+REU 
+  ( 
+  VERB 
+    ( 
+     6 (D (5) )
+     7 (D (5) )
+    ) 
+  ) 
+RAN 
+  ( 
+  VERB 
+    ( 
+     6 (D (6) )
+     7 (D (6) )
+    ) 
+  ) 
+RIA 
+  ( 
+  VERB 
+    ( 
+     6 (G (1 3) )
+     7 (G (1 3) )
+    ) 
+  ) 
+RIES 
+  ( 
+  VERB 
+    ( 
+     6 (G (2) )
+     7 (G (2) )
+    ) 
+  ) 
+RíEM 
+  ( 
+  VERB 
+    ( 
+     6 (G (4) )
+     7 (G (4) )
+    ) 
+  ) 
+RíEU 
+  ( 
+  VERB 
+    ( 
+     6 (G (5) )
+     7 (G (5) )
+    ) 
+  ) 
+RIEN 
+  ( 
+  VERB 
+    ( 
+     6 (G (6) )
+     7 (G (6) )
+    ) 
+  ) 
+ET 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ETA 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ETS 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER M NUMBER PL) )
+     18 (A (2) )
+    ) 
+  ) 
+ETES 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+RE 
+  ( 
+  VERB 
+    ( 
+     7 (M )
+    ) 
+  ) 
+GUí 
+  ( 
+  VERB 
+    ( 
+     8 (C (1) )
+     9 (C (1) )
+    ) 
+  ) 
+GUERES 
+  ( 
+  VERB 
+    ( 
+     8 (C (2) )
+     9 (C (2) )
+    ) 
+  ) 
+GUé 
+  ( 
+  VERB 
+    ( 
+     8 (C (3) )
+     9 (C (3) )
+    ) 
+  ) 
+GUéREM 
+  ( 
+  VERB 
+    ( 
+     8 (C (4) )
+     9 (C (4) )
+    ) 
+  ) 
+GUéREU 
+  ( 
+  VERB 
+    ( 
+     8 (C (5) )
+     9 (C (5) )
+    ) 
+  ) 
+GUEREN 
+  ( 
+  VERB 
+    ( 
+     8 (C (6) )
+     9 (C (6) )
+    ) 
+  ) 
+DRé 
+  ( 
+  VERB 
+    ( 
+     8 (D (1) )
+    ) 
+  ) 
+DRàS 
+  ( 
+  VERB 
+    ( 
+     8 (D (2) )
+    ) 
+  ) 
+DRà 
+  ( 
+  VERB 
+    ( 
+     8 (D (3) )
+    ) 
+  ) 
+DREM 
+  ( 
+  VERB 
+    ( 
+     8 (D (4) )
+    ) 
+  ) 
+DREU 
+  ( 
+  VERB 
+    ( 
+     8 (D (5) )
+    ) 
+  ) 
+DRAN 
+  ( 
+  VERB 
+    ( 
+     8 (D (6) )
+    ) 
+  ) 
+GUI 
+  ( 
+  VERB 
+    ( 
+     8 (E (1 3) N (3) )
+     9 (E (1 3) N (3) )
+     10 (E (1 3) N (3) )
+    ) 
+  ) 
+GUIS 
+  ( 
+  VERB 
+    ( 
+     8 (E (2) )
+     9 (E (2) )
+     10 (E (2) )
+    ) 
+  ) 
+GUEM 
+  ( 
+  VERB 
+    ( 
+     8 (E (4) N (4) )
+     9 (E (4) N (4) )
+     10 (E (4) N (4) )
+    ) 
+  ) 
+GUEU 
+  ( 
+  VERB 
+    ( 
+     8 (E (5) )
+     9 (E (5) )
+     10 (E (5) )
+    ) 
+  ) 
+GUIN 
+  ( 
+  VERB 
+    ( 
+     8 (E (6) N (6) )
+     9 (E (6) N (6) )
+     10 (E (6) N (6) )
+    ) 
+  ) 
+GUéS 
+  ( 
+  VERB 
+    ( 
+     8 (F (1 3) )
+     9 (F (1 3) )
+    ) 
+  ) 
+GUESSIS 
+  ( 
+  VERB 
+    ( 
+     8 (F (2) )
+     9 (F (2) )
+    ) 
+  ) 
+GUéSSIM 
+  ( 
+  VERB 
+    ( 
+     8 (F (4) )
+     9 (F (4) )
+    ) 
+  ) 
+GUéSSIU 
+  ( 
+  VERB 
+    ( 
+     8 (F (5) )
+     9 (F (5) )
+    ) 
+  ) 
+GUESSIN 
+  ( 
+  VERB 
+    ( 
+     8 (F (6) )
+     9 (F (6) )
+    ) 
+  ) 
+DRIA 
+  ( 
+  VERB 
+    ( 
+     8 (G (1 3) )
+    ) 
+  ) 
+DRIES 
+  ( 
+  VERB 
+    ( 
+     8 (G (2) )
+    ) 
+  ) 
+DRíEM 
+  ( 
+  VERB 
+    ( 
+     8 (G (4) )
+    ) 
+  ) 
+DRíEU 
+  ( 
+  VERB 
+    ( 
+     8 (G (5) )
+    ) 
+  ) 
+DRIEN 
+  ( 
+  VERB 
+    ( 
+     8 (G (6) )
+    ) 
+  ) 
+TA 
+  ( 
+  VERB 
+    ( 
+     8 (I (GENDER F NUMBER SING) )
+     13 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+TES 
+  ( 
+  VERB 
+    ( 
+     8 (I (GENDER F NUMBER PL) )
+     13 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+DRE 
+  ( 
+  VERB 
+    ( 
+     8 (M )
+    ) 
+  ) 
+UEN 
+  ( 
+  VERB 
+    ( 
+     9 (A (6) )
+     10 (A (6) )
+    ) 
+  ) 
+URé 
+  ( 
+  VERB 
+    ( 
+     9 (D (1) )
+     10 (D (1) )
+    ) 
+  ) 
+URàS 
+  ( 
+  VERB 
+    ( 
+     9 (D (2) )
+     10 (D (2) )
+    ) 
+  ) 
+URà 
+  ( 
+  VERB 
+    ( 
+     9 (D (3) )
+     10 (D (3) )
+    ) 
+  ) 
+UREM 
+  ( 
+  VERB 
+    ( 
+     9 (D (4) )
+     10 (D (4) )
+    ) 
+  ) 
+UREU 
+  ( 
+  VERB 
+    ( 
+     9 (D (5) )
+     10 (D (5) )
+    ) 
+  ) 
+URAN 
+  ( 
+  VERB 
+    ( 
+     9 (D (6) )
+     10 (D (6) )
+    ) 
+  ) 
+URIA 
+  ( 
+  VERB 
+    ( 
+     9 (G (1 3) )
+     10 (G (1 3) )
+    ) 
+  ) 
+URIES 
+  ( 
+  VERB 
+    ( 
+     9 (G (2) )
+     10 (G (2) )
+    ) 
+  ) 
+URíEM 
+  ( 
+  VERB 
+    ( 
+     9 (G (4) )
+     10 (G (4) )
+    ) 
+  ) 
+URíEU 
+  ( 
+  VERB 
+    ( 
+     9 (G (5) )
+     10 (G (5) )
+    ) 
+  ) 
+URIEN 
+  ( 
+  VERB 
+    ( 
+     9 (G (6) )
+     10 (G (6) )
+    ) 
+  ) 
+URE 
+  ( 
+  VERB 
+    ( 
+     9 (M )
+     10 (M )
+    ) 
+  ) 
+IM 
+  ( 
+  VERB 
+    ( 
+     10 (A (4) )
+     11 (A (4) E (4) N (4) )
+     13 (A (4) E (4) N (4) )
+    ) 
+  ) 
+IRES 
+  ( 
+  VERB 
+    ( 
+     10 (C (2) )
+     11 (C (2) )
+     13 (C (2) )
+    ) 
+  ) 
+íREM 
+  ( 
+  VERB 
+    ( 
+     10 (C (4) )
+     11 (C (4) )
+     13 (C (4) )
+     14 (C (4) )
+    ) 
+  ) 
+íREU 
+  ( 
+  VERB 
+    ( 
+     10 (C (5) )
+     11 (C (5) )
+     13 (C (5) )
+     14 (C (5) )
+    ) 
+  ) 
+IREN 
+  ( 
+  VERB 
+    ( 
+     10 (C (6) )
+     11 (C (6) )
+     13 (C (6) )
+    ) 
+  ) 
+ISSIS 
+  ( 
+  VERB 
+    ( 
+     10 (F (2) )
+     11 (F (2) )
+     13 (F (2) )
+    ) 
+  ) 
+íSSIM 
+  ( 
+  VERB 
+    ( 
+     10 (F (4) )
+     11 (F (4) )
+     13 (F (4) )
+     14 (F (4) )
+    ) 
+  ) 
+íSSIU 
+  ( 
+  VERB 
+    ( 
+     10 (F (5) )
+     11 (F (5) )
+     13 (F (5) )
+     14 (F (5) )
+    ) 
+  ) 
+ISSIN 
+  ( 
+  VERB 
+    ( 
+     10 (F (6) )
+     11 (F (6) )
+     13 (F (6) )
+    ) 
+  ) 
+INT 
+  ( 
+  VERB 
+    ( 
+     10 (L )
+     11 (L )
+     13 (L )
+     14 (L )
+    ) 
+  ) 
+IRé 
+  ( 
+  VERB 
+    ( 
+     11 (D (1) )
+     13 (D (1) )
+     14 (D (1) )
+    ) 
+  ) 
+IRàS 
+  ( 
+  VERB 
+    ( 
+     11 (D (2) )
+     13 (D (2) )
+     14 (D (2) )
+    ) 
+  ) 
+IRà 
+  ( 
+  VERB 
+    ( 
+     11 (D (3) )
+     13 (D (3) )
+     14 (D (3) )
+    ) 
+  ) 
+IREM 
+  ( 
+  VERB 
+    ( 
+     11 (D (4) )
+     13 (D (4) )
+     14 (D (4) )
+    ) 
+  ) 
+IREU 
+  ( 
+  VERB 
+    ( 
+     11 (D (5) )
+     13 (D (5) )
+     14 (D (5) )
+    ) 
+  ) 
+IRAN 
+  ( 
+  VERB 
+    ( 
+     11 (D (6) )
+     13 (D (6) )
+     14 (D (6) )
+    ) 
+  ) 
+IRIA 
+  ( 
+  VERB 
+    ( 
+     11 (G (1 3) )
+     13 (G (1 3) )
+     14 (G (1 3) )
+    ) 
+  ) 
+IRIES 
+  ( 
+  VERB 
+    ( 
+     11 (G (2) )
+     13 (G (2) )
+     14 (G (2) )
+    ) 
+  ) 
+IRíEM 
+  ( 
+  VERB 
+    ( 
+     11 (G (4) )
+     13 (G (4) )
+     14 (G (4) )
+    ) 
+  ) 
+IRíEU 
+  ( 
+  VERB 
+    ( 
+     11 (G (5) )
+     13 (G (5) )
+     14 (G (5) )
+    ) 
+  ) 
+IRIEN 
+  ( 
+  VERB 
+    ( 
+     11 (G (6) )
+     13 (G (6) )
+     14 (G (6) )
+    ) 
+  ) 
+IT 
+  ( 
+  VERB 
+    ( 
+     11 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+IDA 
+  ( 
+  VERB 
+    ( 
+     11 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ITS 
+  ( 
+  VERB 
+    ( 
+     11 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+IDES 
+  ( 
+  VERB 
+    ( 
+     11 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+IR 
+  ( 
+  VERB 
+    ( 
+     11 (M )
+     13 (M )
+     14 (M )
+    ) 
+  ) 
+INC 
+  ( 
+  VERB 
+    ( 
+     12 (A (1) )
+    ) 
+  ) 
+ENIM 
+  ( 
+  VERB 
+    ( 
+     12 (A (4) )
+    ) 
+  ) 
+ENIU 
+  ( 
+  VERB 
+    ( 
+     12 (A (5) )
+    ) 
+  ) 
+ENEN 
+  ( 
+  VERB 
+    ( 
+     12 (A (6) )
+    ) 
+  ) 
+ENIA 
+  ( 
+  VERB 
+    ( 
+     12 (B (1 3) )
+    ) 
+  ) 
+ENIES 
+  ( 
+  VERB 
+    ( 
+     12 (B (2) )
+    ) 
+  ) 
+ENíEM 
+  ( 
+  VERB 
+    ( 
+     12 (B (4) )
+    ) 
+  ) 
+ENíEU 
+  ( 
+  VERB 
+    ( 
+     12 (B (5) )
+    ) 
+  ) 
+ENIEN 
+  ( 
+  VERB 
+    ( 
+     12 (B (6) )
+    ) 
+  ) 
+INGUí 
+  ( 
+  VERB 
+    ( 
+     12 (C (1) )
+    ) 
+  ) 
+INGUERES 
+  ( 
+  VERB 
+    ( 
+     12 (C (2) )
+    ) 
+  ) 
+INGUé 
+  ( 
+  VERB 
+    ( 
+     12 (C (3) )
+    ) 
+  ) 
+INGUéREM 
+  ( 
+  VERB 
+    ( 
+     12 (C (4) )
+    ) 
+  ) 
+INGUéREU 
+  ( 
+  VERB 
+    ( 
+     12 (C (5) )
+    ) 
+  ) 
+INGUEREN 
+  ( 
+  VERB 
+    ( 
+     12 (C (6) )
+    ) 
+  ) 
+INDRé 
+  ( 
+  VERB 
+    ( 
+     12 (D (1) )
+    ) 
+  ) 
+INDRàS 
+  ( 
+  VERB 
+    ( 
+     12 (D (2) )
+    ) 
+  ) 
+INDRà 
+  ( 
+  VERB 
+    ( 
+     12 (D (3) )
+    ) 
+  ) 
+INDREM 
+  ( 
+  VERB 
+    ( 
+     12 (D (4) )
+    ) 
+  ) 
+INDREU 
+  ( 
+  VERB 
+    ( 
+     12 (D (5) )
+    ) 
+  ) 
+INDRAN 
+  ( 
+  VERB 
+    ( 
+     12 (D (6) )
+    ) 
+  ) 
+INGUI 
+  ( 
+  VERB 
+    ( 
+     12 (E (1 3) N (3) )
+    ) 
+  ) 
+INGUIS 
+  ( 
+  VERB 
+    ( 
+     12 (E (2) )
+    ) 
+  ) 
+INGUEM 
+  ( 
+  VERB 
+    ( 
+     12 (E (4) N (4) )
+    ) 
+  ) 
+INGUEU 
+  ( 
+  VERB 
+    ( 
+     12 (E (5) N (5) )
+    ) 
+  ) 
+INGUIN 
+  ( 
+  VERB 
+    ( 
+     12 (E (6) N (6) )
+    ) 
+  ) 
+INGUéS 
+  ( 
+  VERB 
+    ( 
+     12 (F (1 3) )
+    ) 
+  ) 
+INGUESSIS 
+  ( 
+  VERB 
+    ( 
+     12 (F (2) )
+    ) 
+  ) 
+INGUéSSIM 
+  ( 
+  VERB 
+    ( 
+     12 (F (4) )
+    ) 
+  ) 
+INGUéSSIU 
+  ( 
+  VERB 
+    ( 
+     12 (F (5) )
+    ) 
+  ) 
+INGUESSIN 
+  ( 
+  VERB 
+    ( 
+     12 (F (6) )
+    ) 
+  ) 
+INDRIA 
+  ( 
+  VERB 
+    ( 
+     12 (G (1 3) )
+    ) 
+  ) 
+INDRIES 
+  ( 
+  VERB 
+    ( 
+     12 (G (2) )
+    ) 
+  ) 
+INDRíEM 
+  ( 
+  VERB 
+    ( 
+     12 (G (4) )
+    ) 
+  ) 
+INDRíEU 
+  ( 
+  VERB 
+    ( 
+     12 (G (5) )
+    ) 
+  ) 
+INDRIEN 
+  ( 
+  VERB 
+    ( 
+     12 (G (6) )
+    ) 
+  ) 
+GUT 
+  ( 
+  VERB 
+    ( 
+     12 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+GUDA 
+  ( 
+  VERB 
+    ( 
+     12 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+GUTS 
+  ( 
+  VERB 
+    ( 
+     12 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+GUDES 
+  ( 
+  VERB 
+    ( 
+     12 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+ENINT 
+  ( 
+  VERB 
+    ( 
+     12 (L )
+    ) 
+  ) 
+ENIR 
+  ( 
+  VERB 
+    ( 
+     12 (M )
+    ) 
+  ) 
+EIXO 
+  ( 
+  VERB 
+    ( 
+     13 (A (1) )
+     14 (A (1) )
+    ) 
+  ) 
+EIXES 
+  ( 
+  VERB 
+    ( 
+     13 (A (2) )
+     14 (A (2) )
+    ) 
+  ) 
+EIX 
+  ( 
+  VERB 
+    ( 
+     13 (A (3) N (2) )
+     14 (A (3) N (2) )
+    ) 
+  ) 
+EIXEN 
+  ( 
+  VERB 
+    ( 
+     13 (A (6) )
+     14 (A (6) )
+    ) 
+  ) 
+EIXI 
+  ( 
+  VERB 
+    ( 
+     13 (E (1 3) N (3) )
+     14 (E (1 3) N (3) )
+    ) 
+  ) 
+EIXIS 
+  ( 
+  VERB 
+    ( 
+     13 (E (2) )
+     14 (E (2) )
+    ) 
+  ) 
+EIXIN 
+  ( 
+  VERB 
+    ( 
+     13 (E (6) N (6) )
+     14 (E (6) N (6) )
+    ) 
+  ) 
+ïM 
+  ( 
+  VERB 
+    ( 
+     14 (A (4) E (4) N (4) )
+    ) 
+  ) 
+ïU 
+  ( 
+  VERB 
+    ( 
+     14 (A (5) E (5) N (5) )
+    ) 
+  ) 
+ïA 
+  ( 
+  VERB 
+    ( 
+     14 (B (1 3) )
+    ) 
+  ) 
+ïES 
+  ( 
+  VERB 
+    ( 
+     14 (B (2) )
+    ) 
+  ) 
+ïEN 
+  ( 
+  VERB 
+    ( 
+     14 (B (6) )
+    ) 
+  ) 
+ïRES 
+  ( 
+  VERB 
+    ( 
+     14 (C (2) )
+    ) 
+  ) 
+ïREN 
+  ( 
+  VERB 
+    ( 
+     14 (C (6) )
+    ) 
+  ) 
+ïSSIS 
+  ( 
+  VERB 
+    ( 
+     14 (F (2) )
+    ) 
+  ) 
+ïSSIN 
+  ( 
+  VERB 
+    ( 
+     14 (F (6) )
+    ) 
+  ) 
+ïT 
+  ( 
+  VERB 
+    ( 
+     14 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ïDA 
+  ( 
+  VERB 
+    ( 
+     14 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ïTS 
+  ( 
+  VERB 
+    ( 
+     14 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+ïDES 
+  ( 
+  VERB 
+    ( 
+     14 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+IC 
+  ( 
+  VERB 
+    ( 
+     15 (A (1) )
+    ) 
+  ) 
+AN 
+  ( 
+  VERB 
+    ( 
+     15 (A (6) )
+    ) 
+  ) 
+IGUí 
+  ( 
+  VERB 
+    ( 
+     15 (C (1) )
+    ) 
+  ) 
+IGUERES 
+  ( 
+  VERB 
+    ( 
+     15 (C (2) )
+    ) 
+  ) 
+IGUé 
+  ( 
+  VERB 
+    ( 
+     15 (C (3) )
+    ) 
+  ) 
+IGUéREM 
+  ( 
+  VERB 
+    ( 
+     15 (C (4) )
+    ) 
+  ) 
+IGUéREU 
+  ( 
+  VERB 
+    ( 
+     15 (C (5) )
+    ) 
+  ) 
+IGUEREN 
+  ( 
+  VERB 
+    ( 
+     15 (C (6) )
+    ) 
+  ) 
+IGUI 
+  ( 
+  VERB 
+    ( 
+     15 (E (1 3) N (3) )
+    ) 
+  ) 
+IGUIS 
+  ( 
+  VERB 
+    ( 
+     15 (E (2) )
+    ) 
+  ) 
+IGUEM 
+  ( 
+  VERB 
+    ( 
+     15 (E (4) N (4) )
+    ) 
+  ) 
+IGUEU 
+  ( 
+  VERB 
+    ( 
+     15 (E (5) N (5) )
+    ) 
+  ) 
+IGUIN 
+  ( 
+  VERB 
+    ( 
+     15 (E (6) N (6) )
+    ) 
+  ) 
+IGUéS 
+  ( 
+  VERB 
+    ( 
+     15 (F (1 3) )
+    ) 
+  ) 
+IGUESSIS 
+  ( 
+  VERB 
+    ( 
+     15 (F (2) )
+    ) 
+  ) 
+IGUéSSIM 
+  ( 
+  VERB 
+    ( 
+     15 (F (4) )
+    ) 
+  ) 
+IGUéSSIU 
+  ( 
+  VERB 
+    ( 
+     15 (F (5) )
+    ) 
+  ) 
+IGUESSIN 
+  ( 
+  VERB 
+    ( 
+     15 (F (6) )
+    ) 
+  ) 
+IGUES 
+  ( 
+  VERB 
+    ( 
+     15 (N (2) )
+    ) 
+  ) 
+APS 
+  ( 
+  VERB 
+    ( 
+     16 (A (2) )
+    ) 
+  ) 
+AP 
+  ( 
+  VERB 
+    ( 
+     16 (A (3) )
+    ) 
+  ) 
+ABEM 
+  ( 
+  VERB 
+    ( 
+     16 (A (4) )
+    ) 
+  ) 
+ABEU 
+  ( 
+  VERB 
+    ( 
+     16 (A (5) )
+    ) 
+  ) 
+ABEN 
+  ( 
+  VERB 
+    ( 
+     16 (A (6) )
+    ) 
+  ) 
+ABIA 
+  ( 
+  VERB 
+    ( 
+     16 (B (1 3) )
+    ) 
+  ) 
+ABIES 
+  ( 
+  VERB 
+    ( 
+     16 (B (2) )
+    ) 
+  ) 
+ABíEM 
+  ( 
+  VERB 
+    ( 
+     16 (B (4) )
+    ) 
+  ) 
+ABíEU 
+  ( 
+  VERB 
+    ( 
+     16 (B (5) )
+    ) 
+  ) 
+ABIEN 
+  ( 
+  VERB 
+    ( 
+     16 (B (6) )
+    ) 
+  ) 
+ABí 
+  ( 
+  VERB 
+    ( 
+     16 (C (1) )
+    ) 
+  ) 
+ABERES 
+  ( 
+  VERB 
+    ( 
+     16 (C (2) )
+    ) 
+  ) 
+ABé 
+  ( 
+  VERB 
+    ( 
+     16 (C (3) )
+    ) 
+  ) 
+ABéREM 
+  ( 
+  VERB 
+    ( 
+     16 (C (4) )
+    ) 
+  ) 
+ABéREU 
+  ( 
+  VERB 
+    ( 
+     16 (C (5) )
+    ) 
+  ) 
+ABEREN 
+  ( 
+  VERB 
+    ( 
+     16 (C (6) )
+    ) 
+  ) 
+ABRé 
+  ( 
+  VERB 
+    ( 
+     16 (D (1) )
+    ) 
+  ) 
+ABRàS 
+  ( 
+  VERB 
+    ( 
+     16 (D (2) )
+    ) 
+  ) 
+ABRà 
+  ( 
+  VERB 
+    ( 
+     16 (D (3) )
+    ) 
+  ) 
+ABREM 
+  ( 
+  VERB 
+    ( 
+     16 (D (4) )
+    ) 
+  ) 
+ABREU 
+  ( 
+  VERB 
+    ( 
+     16 (D (5) )
+    ) 
+  ) 
+ABRAN 
+  ( 
+  VERB 
+    ( 
+     16 (D (6) )
+    ) 
+  ) 
+àPIGA 
+  ( 
+  VERB 
+    ( 
+     16 (E (1 3) N (3) )
+    ) 
+  ) 
+àPIGUES 
+  ( 
+  VERB 
+    ( 
+     16 (E (2) N (2) )
+    ) 
+  ) 
+APIGUEM 
+  ( 
+  VERB 
+    ( 
+     16 (E (4) N (4) )
+    ) 
+  ) 
+APIGUEU 
+  ( 
+  VERB 
+    ( 
+     16 (E (5) N (5) )
+    ) 
+  ) 
+àPIGUEN 
+  ( 
+  VERB 
+    ( 
+     16 (E (6) N (6) )
+    ) 
+  ) 
+ABéS 
+  ( 
+  VERB 
+    ( 
+     16 (F (1 3) )
+    ) 
+  ) 
+ABESSIS 
+  ( 
+  VERB 
+    ( 
+     16 (F (2) )
+    ) 
+  ) 
+ABéSSIM 
+  ( 
+  VERB 
+    ( 
+     16 (F (4) )
+    ) 
+  ) 
+ABéSSIU 
+  ( 
+  VERB 
+    ( 
+     16 (F (5) )
+    ) 
+  ) 
+ABESSIN 
+  ( 
+  VERB 
+    ( 
+     16 (F (6) )
+    ) 
+  ) 
+ABRIA 
+  ( 
+  VERB 
+    ( 
+     16 (G (1 3) )
+    ) 
+  ) 
+ABRIES 
+  ( 
+  VERB 
+    ( 
+     16 (G (2) )
+    ) 
+  ) 
+ABRíEM 
+  ( 
+  VERB 
+    ( 
+     16 (G (4) )
+    ) 
+  ) 
+ABRíEU 
+  ( 
+  VERB 
+    ( 
+     16 (G (5) )
+    ) 
+  ) 
+ABRIEN 
+  ( 
+  VERB 
+    ( 
+     16 (G (6) )
+    ) 
+  ) 
+ABUT 
+  ( 
+  VERB 
+    ( 
+     16 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ABUDA 
+  ( 
+  VERB 
+    ( 
+     16 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ABUTS 
+  ( 
+  VERB 
+    ( 
+     16 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+ABUDES 
+  ( 
+  VERB 
+    ( 
+     16 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+ABENT 
+  ( 
+  VERB 
+    ( 
+     16 (L )
+    ) 
+  ) 
+ABER 
+  ( 
+  VERB 
+    ( 
+     16 (M )
+    ) 
+  ) 
+EUS 
+  ( 
+  VERB 
+    ( 
+     17 (A (2) )
+    ) 
+  ) 
+EUEN 
+  ( 
+  VERB 
+    ( 
+     17 (A (6) )
+    ) 
+  ) 
+AGUí 
+  ( 
+  VERB 
+    ( 
+     17 (C (1) )
+    ) 
+  ) 
+AGUERES 
+  ( 
+  VERB 
+    ( 
+     17 (C (2) )
+    ) 
+  ) 
+AGUé 
+  ( 
+  VERB 
+    ( 
+     17 (C (3) )
+    ) 
+  ) 
+AGUéREM 
+  ( 
+  VERB 
+    ( 
+     17 (C (4) )
+    ) 
+  ) 
+AGUéREU 
+  ( 
+  VERB 
+    ( 
+     17 (C (5) )
+    ) 
+  ) 
+AGUEREN 
+  ( 
+  VERB 
+    ( 
+     17 (C (6) )
+    ) 
+  ) 
+AURé 
+  ( 
+  VERB 
+    ( 
+     17 (D (1) )
+    ) 
+  ) 
+AURàS 
+  ( 
+  VERB 
+    ( 
+     17 (D (2) )
+    ) 
+  ) 
+AURà 
+  ( 
+  VERB 
+    ( 
+     17 (D (3) )
+    ) 
+  ) 
+AUREM 
+  ( 
+  VERB 
+    ( 
+     17 (D (4) )
+    ) 
+  ) 
+AUREU 
+  ( 
+  VERB 
+    ( 
+     17 (D (5) )
+    ) 
+  ) 
+AURAN 
+  ( 
+  VERB 
+    ( 
+     17 (D (6) )
+    ) 
+  ) 
+àGIM 
+  ( 
+  VERB 
+    ( 
+     17 (E (4) )
+    ) 
+  ) 
+àGIU 
+  ( 
+  VERB 
+    ( 
+     17 (E (5) )
+    ) 
+  ) 
+AGUéS 
+  ( 
+  VERB 
+    ( 
+     17 (F (1 3) )
+    ) 
+  ) 
+AGUESSIS 
+  ( 
+  VERB 
+    ( 
+     17 (F (2) )
+    ) 
+  ) 
+AGUéSSIM 
+  ( 
+  VERB 
+    ( 
+     17 (F (4) )
+    ) 
+  ) 
+AGUéSSIU 
+  ( 
+  VERB 
+    ( 
+     17 (F (5) )
+    ) 
+  ) 
+AGUESSIN 
+  ( 
+  VERB 
+    ( 
+     17 (F (6) )
+    ) 
+  ) 
+AURIA 
+  ( 
+  VERB 
+    ( 
+     17 (G (1 3) )
+    ) 
+  ) 
+AURIES 
+  ( 
+  VERB 
+    ( 
+     17 (G (2) )
+    ) 
+  ) 
+AURíEM 
+  ( 
+  VERB 
+    ( 
+     17 (G (4) )
+    ) 
+  ) 
+AURíEU 
+  ( 
+  VERB 
+    ( 
+     17 (G (5) )
+    ) 
+  ) 
+AURIEN 
+  ( 
+  VERB 
+    ( 
+     17 (G (6) )
+    ) 
+  ) 
+AGUT 
+  ( 
+  VERB 
+    ( 
+     17 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+AGUDA 
+  ( 
+  VERB 
+    ( 
+     17 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+AGUTS 
+  ( 
+  VERB 
+    ( 
+     17 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+AGUDES 
+  ( 
+  VERB 
+    ( 
+     17 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+EURE 
+  ( 
+  VERB 
+    ( 
+     17 (M )
+    ) 
+  ) 
+AGUEM 
+  ( 
+  VERB 
+    ( 
+     17 (N (4) )
+    ) 
+  ) 
+SóC 
+  ( 
+  VERB 
+    ( 
+     18 (A (1) )
+    ) 
+  ) 
+SOM 
+  ( 
+  VERB 
+    ( 
+     18 (A (4) )
+    ) 
+  ) 
+SOU 
+  ( 
+  VERB 
+    ( 
+     18 (A (5) )
+    ) 
+  ) 
+SóN 
+  ( 
+  VERB 
+    ( 
+     18 (A (6) )
+    ) 
+  ) 
+ERA 
+  ( 
+  VERB 
+    ( 
+     18 (B (1 3) )
+    ) 
+  ) 
+FUI 
+  ( 
+  VERB 
+    ( 
+     18 (C (1) )
+    ) 
+  ) 
+FORES 
+  ( 
+  VERB 
+    ( 
+     18 (C (2) )
+    ) 
+  ) 
+FOU 
+  ( 
+  VERB 
+    ( 
+     18 (C (3) )
+    ) 
+  ) 
+FóREM 
+  ( 
+  VERB 
+    ( 
+     18 (C (4) )
+    ) 
+  ) 
+FóREU 
+  ( 
+  VERB 
+    ( 
+     18 (C (5) )
+    ) 
+  ) 
+FOREN 
+  ( 
+  VERB 
+    ( 
+     18 (C (6) )
+    ) 
+  ) 
+SERé 
+  ( 
+  VERB 
+    ( 
+     18 (D (1) )
+    ) 
+  ) 
+SERàS 
+  ( 
+  VERB 
+    ( 
+     18 (D (2) )
+    ) 
+  ) 
+SERà 
+  ( 
+  VERB 
+    ( 
+     18 (D (3) )
+    ) 
+  ) 
+SEREM 
+  ( 
+  VERB 
+    ( 
+     18 (D (4) )
+    ) 
+  ) 
+SEREU 
+  ( 
+  VERB 
+    ( 
+     18 (D (5) )
+    ) 
+  ) 
+SERAN 
+  ( 
+  VERB 
+    ( 
+     18 (D (6) )
+    ) 
+  ) 
+SIGUI 
+  ( 
+  VERB 
+    ( 
+     18 (E (1 3) N (3) )
+    ) 
+  ) 
+SIGUIS 
+  ( 
+  VERB 
+    ( 
+     18 (E (2) )
+    ) 
+  ) 
+SIGUEM 
+  ( 
+  VERB 
+    ( 
+     18 (E (4) N (4) )
+    ) 
+  ) 
+SIGUEU 
+  ( 
+  VERB 
+    ( 
+     18 (E (5) N (5) )
+    ) 
+  ) 
+SIGUIN 
+  ( 
+  VERB 
+    ( 
+     18 (E (6) N (6) )
+    ) 
+  ) 
+FOS 
+  ( 
+  VERB 
+    ( 
+     18 (F (1 3) )
+    ) 
+  ) 
+FOSSIS 
+  ( 
+  VERB 
+    ( 
+     18 (F (2) )
+    ) 
+  ) 
+FóSSIM 
+  ( 
+  VERB 
+    ( 
+     18 (F (4) )
+    ) 
+  ) 
+FóSSIU 
+  ( 
+  VERB 
+    ( 
+     18 (F (5) )
+    ) 
+  ) 
+FOSSIN 
+  ( 
+  VERB 
+    ( 
+     18 (F (6) )
+    ) 
+  ) 
+SERIA 
+  ( 
+  VERB 
+    ( 
+     18 (G (1 3) )
+    ) 
+  ) 
+SERIES 
+  ( 
+  VERB 
+    ( 
+     18 (G (2) )
+    ) 
+  ) 
+SERíEM 
+  ( 
+  VERB 
+    ( 
+     18 (G (4) )
+    ) 
+  ) 
+SERíEU 
+  ( 
+  VERB 
+    ( 
+     18 (G (5) )
+    ) 
+  ) 
+SERIEN 
+  ( 
+  VERB 
+    ( 
+     18 (G (6) )
+    ) 
+  ) 
+ESTAT 
+  ( 
+  VERB 
+    ( 
+     18 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+SENT 
+  ( 
+  VERB 
+    ( 
+     18 (L )
+    ) 
+  ) 
+éSSER 
+  ( 
+  VERB 
+    ( 
+     18 (M )
+    ) 
+  ) 
+SIGUES 
+  ( 
+  VERB 
+    ( 
+     18 (N (2) )
+    ) 
+  ) 
+) 

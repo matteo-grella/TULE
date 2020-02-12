@@ -1,0 +1,6 @@
+; *** In this file compound verbs, formed by the verb plus a preposition 
+;     (e.g. "carry out")
+(setq *VERB-PARTICLE*
+  '(
+   )
+)

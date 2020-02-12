@@ -1,0 +1,8 @@
+(in-package "USER")
+
+(setq *NOUN-GOVERN*
+ '(
+   (confrontació amb)
+   (informació sobre)
+  ))
+

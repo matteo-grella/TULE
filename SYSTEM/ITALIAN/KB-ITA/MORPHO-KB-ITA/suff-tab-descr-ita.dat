@@ -1,0 +1,43 @@
+
+; *** this is the description of the table of suffixes for Italian
+(setq *SUFF-TAB-DESCR*
+  '((ADJ (cases nil)
+         (genders (m f))
+         (numbers (sing pl))
+         (gender-number ((m sing) (f sing) (m pl) (f pl))))
+    (NOUN (cases nil)
+          (genders (m f))
+          (numbers (sing pl))
+          (gender-number ((m sing) (f sing) (m pl) (f pl))))
+    (VERB (cases nil)
+          (genders (m f))
+          (numbers (sing pl))
+          (persons (1 2 3))
+          (moods (ind cong condiz participle gerund infinitive imperative))
+          (tenses (pres imperf rempast fut))
+          (moods-tenses-def
+            (a (ind pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (b (ind imperf) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (c (ind rempast) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (d (ind fut) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (e (cong pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (f (cong imperf) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (g (condiz pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (h (participle pres) (gender number)
+               ((m sing) (f sing) (m pl) (f pl)))
+            (i (participle past) (gender number)
+               ((m sing) (f sing) (m pl) (f pl)))
+            (l (gerund pres) nil
+               nil)
+            (m (infinite pres) nil
+               nil)
+            (n (imperative pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))))))
+

@@ -1,0 +1,8 @@
+(setq *SUBJ-CONTROL-VERBS*
+  '())
+    
+(setq *OBJ-CONTROL-VERBS*
+  '())
+    
+(setq *INDOBJ-CONTROL-VERBS*
+  '())

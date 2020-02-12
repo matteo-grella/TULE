@@ -1,0 +1,9 @@
+; **** This file include pair of lemmata, such that the second of them
+;      is the specification of a subtype of the first, e.g. 
+;      <stato obsolescenza>
+
+(setq *SUBTYPES-SPEC*
+  (append *SUBTYPES-SPEC*
+   '(
+     (stato obsolescenza)
+    )))

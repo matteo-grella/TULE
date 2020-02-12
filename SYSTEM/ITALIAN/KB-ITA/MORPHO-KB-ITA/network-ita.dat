@@ -1,0 +1,1548 @@
+(in-package "USER")
+
+;*****************************************************************
+; *** The global variable *SUFF-NET* holds the suffix ATN network
+
+(setq *SUFF-NET*
+; *** n1 is entered in the following situations:
+;	  1. At the beginning
+;     2. From n1, with 'c' (doubled enclitic: da-cci, fa-cce-lo)
+;     3. From n1, with 'l' (doubled enclitic: da-llo, fa-lli)
+;     4. From n1, with 'm' (doubled enclitic: da-mmi, va-mme-lo)
+;     5. From n1, with 'n' (doubled enclitic: da-nne)
+;     6. From n1, with 't' (doubled enclitic: da-tti, va-tte-lo)
+;     7. From n2, with 'l' (enclitic 'la')
+;     8. From n5, with 'c' (enclitic 'ce')
+;     9. From n5, with 'l' (enclitic 'le')
+;    10. From n5, with 'm' (enclitic 'me')
+;    11. From n5, with 'n' (enclitic 'ne')
+;    12. From n5, with 's' (enclitic 'se')
+;    13. From n5, with 't' (enclitic 'te')
+;    14. From n5, with 'v' (enclitic 've')
+;    15. From n16, with 'c' (enclitic 'ci')
+;    16. From n16, with 'l' (enclitic 'li')
+;    17. From n16, with 'm' (enclitic 'mi')
+;    18. From n16, with 's' (enclitic 'si')
+;    19. From n16, with 't' (enclitic 'ti')
+;    20. From n16, with 'v' (enclitic 'vi')
+;    21. From n23, with 'l' (enclitic 'lo')
+;    22. From n148, with 'g' (enclitic 'glie': da-glie-lo, prendi-glie-la).
+  '((n1 
+     (|a| final
+       (cond ((with-doublencl) (setoutp 'ai))
+             ((with-gliencl) (setoutp 'ai) (setoutp 'a))
+             (t (setoutp 'a)))
+       (nxt-state-lex 'n2)) 				; >>> end of n1:a
+     (|à| final
+       (setoutp 'à)
+       (nxt-state-lex 'n50))			 	; >>> end of n1:à
+     (|c| final
+       (setencl 'c)
+       (nxt-state-lex 'n1)) 			        ; >>> end of n1:c
+     (|e| final
+       (setoutp 'e)
+       (nxt-state-lex 'n5))			 	; >>> end of n1:e
+     (|è| final 
+       (setoutp 'è)
+       (nxt-state-lex 'stop)) 	  		        ; >>> end of n1:è
+     (|é| final 
+       (setoutp 'è)
+       (nxt-state-lex 'stop)) 	  		        ; >>> end of n1:é
+     (|È| final 
+       (setoutp 'è)
+       (nxt-state-lex 'stop))  			        ; >>> end of n:È
+     (|É| final 
+       (setoutp 'è)
+       (nxt-state-lex 'stop))  			        ; >>> end of n:É
+     (|i| final
+       (cond ((with-doublencl) (setoutp 'ì))
+             ((with-gliencl) (setoutp 'ì) (setoutp 'i))
+             (t (setoutp 'i)))
+       (nxt-state-lex 'n16))                            ; >>> end of n1:i
+     (|ì| final
+	   (setoutp 'ì)
+       (nxt-state-lex 'stop))  			        ; >>> end of n1:ì
+     (|l| nil
+       (setencl 'l)
+       (nxt-state-lex 'n1))                             ; >>> end of n1:l
+     (|m| final
+       (setencl 'm)
+       (nxt-state-lex 'n1))                             ; >>> end of n1:m
+     (|n| final
+       (twoways
+         '((setencl 'n)
+           (nxt-state-lex 'n1))               
+   	 '((nxt-state-lex 'n32-2))))                    ; >>> end of n1:n 
+     (|o| final
+       (setoutp 'o)
+       (nxt-state-lex 'n23))                            ; >>> end of n1:o
+     (|ò| final 
+       (setoutp 'ò)
+       (nxt-state-lex 'n51)) 	  			; >>> end of n1:ò
+     (|r| nil
+       (cond ((and (or (next-char #\o)	; porlo, porsi
+                       (next-char #\a)  ; estrarlo, estrarsi
+                       (next-char #\u)) ; condurlo, condursi
+                   (with-enclit))
+               (setoutp 're t)))
+       (nxt-state-lex 'n102))                           ; >>> end of n1:r
+     (|t| final
+       (setencl 't)
+       (nxt-state-lex 'n1))                             ; >>> end of n1:m
+     (|'| nil
+       (nxt-state-lex 'n49))                            ; >>> end of n1:'
+     (|`| nil
+       (nxt-state-lex 'n49)))                           ; >>> end of n1:`
+					   ;  ************* End of n1
+    (n2 										   ; *** node n2: after 'a'
+	  (|c| nil
+	   (nxt-state-lex 'n3)) 					   ; >>> end of n2:c
+      (|i| final
+	   (setoutp 'ia)
+	   (nxt-state-lex 'stop))  					   ; >>> end of n2:i
+      (|l| final
+	   (setencl 'la)
+	   (nxt-state-lex 'n1))						   ; >>> end of n2:l
+      (|m| nil
+	   (nxt-state-lex 'n149)) 			   	   	   ; >>> end of n2:m
+      (|t| nil
+	   (nxt-state-lex 'n116)) 			   	   	   ; >>> end of n2:t
+      (|v| nil
+	   (nxt-state-lex 'n90)))  			   	   	   ; >>> end of n2:v
+												   ;  ************* End of n2
+    (n3 										   ; *** node n3: after 'ca'
+	  (|s| nil
+       (nxt-state-lex 'n4)))   			   	       ; >>> end of n3:s
+												   ;  ************* End of n3
+
+    (n4 										   ; *** node n4: after 'sca'
+	  (|i| final
+	   (setoutp 'isca)
+	   (nxt-state-lex 'stop)))  		   	   ; >>> end of n4:i
+						   ;  ************* End of n4
+
+    (n5 					   ; *** node n2: after 'e'
+      (|b| nil
+        (nxt-state-lex 'n6))                            ; >>> end of n5:b
+      (|c| nil
+        (twoways
+	 '((setencl 'ce)
+	   (nxt-state-lex 'n1))
+   	 '((nxt-state-lex 'n9))))                       ; >>> end of n5:c
+      (|h| final
+        (setoutp 'he)
+        (nxt-state-lex 'stop))                          ; >>> end of n5:h
+      (|i| final 
+        (setoutp 'ie)
+        (nxt-state-lex 'n147))                          ; >>> end of n5:i
+      (|l| final
+        (setencl 'le)
+        (nxt-state-lex 'n1))                            ; >>> end of n5:l
+      (|m| nil
+        (twoways
+         '((setencl 'me)
+           (nxt-state-lex 'n1)) 
+         '((nxt-state-lex 'n153))))                     ; >>> end of n5:m
+      (|n| final
+        (twoways 
+         '((nxt-state-lex 'n126))    ; *** nominalization: -zione
+         '((setencl 'ne)
+           (nxt-state-lex 'n1)))) 	                ; >>> end of n5:n
+      (|r| nil
+	(nxt-state-lex 'n102))                          ; >>> end of n5:r
+      (|s| final 
+        (twoways
+         '((setencl 'se)
+           (nxt-state-lex 'n1)) 
+         '((nxt-state-lex 'n104))))                     ; >>> end of n5:s
+      (|t| final 
+        (twoways
+         '((setencl 'te)
+           (nxt-state-lex 'n1))
+         '((nxt-state-lex 'n11))))                      ; >>> end of n5:t
+      (|v| final
+        (setencl 've)
+        (nxt-state-lex 'n1)))                           ; >>> end of n5:v
+						   ;  ************* End of n5
+
+    (n6  					   ; *** node n6: after 'be'
+      (|b| nil
+	   (nxt-state-lex 'n7)))	   		   ; >>> end of n6:b
+						   ;  ************* End of n6
+
+    (n7 					   ; *** node n6: after 'bbe'
+      (|e| nil
+	   (nxt-state-lex 'n8)))	       		   ; >>> end of n7:b
+						   ;  ************* End of n7
+
+    (n8  					   ; *** node n7: after 'ebbe'
+      (|r| final
+	   (setoutp 'rebbe)
+           (nxt-state-lex 'n57)))	    		   ; >>> end of n8:r
+						   ;  ************* End of n8
+
+    (n9  					   ; *** node n9: after 'ce'
+      (|s| nil 
+        (nxt-state-lex 'n10))	   		   ; >>> end of n9:r
+      (|i| nil
+        (nxt-state-lex 'n55)))	      		   ; >>> end of n9:i
+						   ;  ************* End of n9
+
+    (n10   					   ; *** node n10: after 'sce'
+      (|i| final
+        (setoutp 'isce)
+        (nxt-state-lex 'stop)))   		   ; >>> end of n10:i
+						   ;  ************* End of n10
+
+    (n11 					   ; *** node n11: after 'te'
+	  (|a| final
+	   (setoutp 'ate)
+	   (nxt-state-lex 'n12))	       	   	   ; >>> end of n11:a
+	  (|e| final
+	   (setoutp 'ete)
+	   (nxt-state-lex 'n14))	       	   	   ; >>> end of n11:e
+	  (|i| final
+	   (setoutp 'ite)
+	   (nxt-state-lex 'stop))	       	   	   ; >>> end of n11:i
+	  (|n| nil
+	   (nxt-state-lex 'n122))	       	   	   ; >>> end of n11:n
+	  (|s| final
+	   (setoutp 'ste)
+       (nxt-state-lex 'n81))      	   	   	   ; >>> end of n11:n
+	  (|t| nil
+	   (nxt-state-lex 'n15))       	   	   	   ; >>> end of n11:t
+	  (|u| final
+	   (setoutp 'ute)
+	   (nxt-state-lex 'stop)))    	   	   	   ; >>> end of n11:u
+						   ;  ************* End of n11
+
+    (n12					   ; *** node n12: after 'ate' 
+	  (|i| final
+	   (setoutp 'iate)
+	   (nxt-state-lex 'n13))    	   	   	   ; >>> end of n12:i
+	  (|v| nil
+	   (nxt-state-lex 'n96)))   	   	   	   ; >>> end of n12:v
+						   ;  ************* End of n12
+
+    (n13 					   ; *** node n13: after 'iate' 
+	  (|h| final
+	   (setoutp 'hiate)
+	   (nxt-state-lex 'stop)))   		   	   ; >>> end of n13:h
+						   ;  ************* End of n13
+
+    (n14					   ; *** node n14: after 'ete' 
+	  (|i| final 
+	   (setoutp 'iete)
+	   (nxt-state-lex 'stop))  	      	   	   ; >>> end of n14:i
+	  (|r| final
+	   (setoutp 'rete)
+	   (nxt-state-lex 'n59)))  	      	   	   ; >>> end of n14:r
+						   ;  ************* End of n14
+
+    (n15					   ; *** node n15: after 'tte' 
+      (|e| final
+	   (setoutp 'ette)
+	   (nxt-state-lex 'stop)))  	   	   	   ; >>> end of n15:e
+						   ;  ************* End of n15
+
+    (n16 					   ; *** node n16: after 'i' 
+      (|a| final
+	   (setoutp 'ai)
+	   (nxt-state-lex 'n17))  	      	   	   ; >>> end of n16:a
+      (|c| nil
+	   (twoways
+		 '((setencl 'ci)
+	       (nxt-state-lex 'n1))
+	     '((nxt-state-lex 'n18))))     	   	   ; >>> end of n16:c
+      (|e| final
+	   (setoutp 'ei)
+	   (nxt-state-lex 'n20))  	   	   	   ; >>> end of n16:e
+      (|h| final
+	   (setoutp 'hi)
+	   (nxt-state-lex 'stop))  	   	   	   ; >>> end of n16:h
+      (|i| final
+	   (setoutp 'ii)
+	   (nxt-state-lex 'stop))  	   	   	   ; >>> end of n16:i
+      (|l| final
+	   (cond ((next-char #\g)
+				; *** this branch for -gli (prendi-gli)
+		       (nxt-state-lex 'n21))
+	         (t (setencl 'li)
+		    (nxt-state-lex 'n1))))  	           ; >>> end of n16:l
+      (|m| nil
+	   (twoways
+		  '((setencl 'mi)
+		    (nxt-state-lex 'n1))
+		  '((nxt-state-lex 'n157))))  		   ; >>> end of n16:m
+      (|n| nil
+	   (nxt-state-lex 'n131)) 	 		   ; >>> end of n16:n
+      (|r| nil
+	   (nxt-state-lex 'n53))   	                   ; >>> end of n16:r
+      (|s| nil
+	   (twoways
+		  '((setencl 'si)
+			(nxt-state-lex 'n1))
+		  '((nxt-state-lex 'n107))))  		   ; >>> end of n16:s
+      (|t| nil
+	   (twoways
+	    '((setencl 'ti)
+		  (nxt-state-lex 'n1))
+	    '((nxt-state-lex 'n118))))			   ; >>> end of n16:t
+      (|v| nil
+	   (twoways
+	    '((setencl 'vi)
+		  (nxt-state-lex 'n1))
+	    '((nxt-state-lex 'n92)))))	   		   ; >>> end of n16:v
+						   ;  ************* End of n16
+
+    (n17  					   ; *** node n17: after 'ai' 
+	  (|i| final
+	   (setoutp 'iai)
+	   (nxt-state-lex 'stop))                          ; >>> end of n17:i
+	  (|r| final
+	   (setoutp 'rai)
+	   (nxt-state-lex 'n61)))                          ; >>> end of n17:r
+						   ;  ************* End of n17
+
+    (n18   					   ; *** node n18: after 'ci' 
+	  (|s| nil
+	   (nxt-state-lex 'n19))                           ; >>> end of n18:s
+	  (|i| nil
+	   (nxt-state-lex 'n55-1)))                          ; >>> end of n18:i
+                                                   ;  ************* End of n18
+
+    (n19   										   ; *** node n19: after 'sci' 
+	  (|i| final
+	   (setoutp 'isci)
+	   (nxt-state-lex 'stop))) 	       			   ; >>> end of n19:i
+												   ;  ************* End of n19
+
+    (n20    									   ; *** node n20: after 'ei' 
+      (|r| final 
+	   (setoutp 'rei)
+	   (nxt-state-lex 'n63)))  	       			   ; >>> end of n20:r
+												   ;  ************* End of n20
+
+    (n21    									   ; *** node n21: after 'li' 
+	  (|g| final
+	   (setencl 'gli)
+	   (nxt-state-lex 'n1))) 			 		   ; >>> end of n21:g
+												   ;  ************* End of n21
+
+    (n22    									   ; *** node n22: after 'tti' 
+      (|e| final
+	   (setoutp 'etti)
+	   (nxt-state-lex 'stop)))                      ; >>> end of n22:e
+                                           ;  ************* End of n22
+
+    (n23                                   ; *** node n23: after 'o' 
+	  (|c| final
+	   (nxt-state-lex 'n24))                        ; >>> end of n23:c
+	  (|d| nil
+	   (nxt-state-lex 'n26))                        ; >>> end of n23:d
+	  (|i| final
+	   (setoutp 'io)
+	   (nxt-state-lex 'stop))                       ; >>> end of n23:i
+	  (|l| nil
+	   (setencl 'lo)
+	   (nxt-state-lex 'n1))                         ; >>> end of n23:l
+	  (|m| nil
+           (nxt-state-lex 'n27)
+;	   (twoways 
+;		  '((nxt-state-lex 'n27))
+;		  '((nxt-state-lex 'n161)))
+				)                       ; >>> end of n23:m
+	  (|n| nil
+	   (nxt-state-lex 'n32))                        ; >>> end of n23:n
+	  (|r| nil
+	   (nxt-state-lex 'n44))                        ; >>> end of n23:r
+	  (|t| nil
+	   (nxt-state-lex 'n120))                       ; >>> end of n23:t
+	  (|v| nil
+	   (nxt-state-lex 'n94)))                       ; >>> end of n23:v
+                                           ;  ************* End of n23
+
+    (n24                                   ; *** node n24: after 'co' 
+	  (|s| nil
+	   (nxt-state-lex 'n25)))		   			   ; >>> end of n24:s
+												   ;  ************* End of n24
+
+    (n25 									       ; *** node n25: after 'sco' 
+	  (|i| final
+	   (setoutp 'isco)
+	   (nxt-state-lex 'stop)))		   			   ; >>> end of n25:i
+												   ;  ************* End of n25
+
+    (n26                                   ; *** node n26: after 'do' 
+	  (|n| nil
+	   (nxt-state-lex 'n124)))                      ; >>> end of n26:n
+                                           ;  ************* End of n26
+
+    (n27                                   ; *** node n27: after 'mo' 
+	  (|a| nil 
+	   (nxt-state-lex 'n28))                        ; >>> end of n27:a
+	  (|e| nil
+	   (nxt-state-lex 'n30))                        ; >>> end of n27:e
+	  (|i| nil
+	   (nxt-state-lex 'n31))                        ; >>> end of n27:i
+	  (|m| final
+	   (setoutp 'mmo)
+	   (nxt-state-lex 'n87)))                       ; >>> end of n27:m
+                                           ;  ************* End of n27
+
+    (n28                                   ; *** node n28: after 'amo' 
+	  (|i| final
+	   (setoutp 'iamo)
+	   (nxt-state-lex 'n29))                        ; >>> end of n28:i
+	  (|v| nil
+	   (nxt-state-lex 'n98)))                       ; >>> end of n28:v
+                                           ;  ************* End of n28
+
+    (n29                                   ; *** node n29: after 'iamo' 
+	  (|h| final
+	   (setoutp 'hiamo)
+	   (nxt-state-lex 'stop)))                      ; >>> end of n29:h
+                                           ;  ************* End of n29
+
+    (n30                                   ; *** node n30: after 'emo' 
+	  (|r| final
+	   (setoutp 'remo)
+	   (nxt-state-lex 'n65)))                       ; >>> end of n30:h
+                                           ;  ************* End of n30
+
+    (n31                                   ; *** node n31: after 'imo' 
+	  (|s| nil
+	   (nxt-state-lex 'n110)))		   			   ; >>> end of n31:s
+								   ;  ************* End of n31
+
+    (n32 						           ; *** node n32: after 'no' 
+	  (|a| final
+	   (setoutp 'ano)
+	   (nxt-state-lex 'n33))	   			   	   ; >>> end of n32:a
+	  (|i| final
+	   (setoutp 'ino)
+	   (nxt-state-lex 'n36)) 	   			   	   ; >>> end of n32:i
+	  (|n| nil
+	   (nxt-state-lex 'n37)) 	   			   	   ; >>> end of n32:n
+	 (|o| final
+	   (setoutp 'ono)
+	   (nxt-state-lex 'n39))) 	   			   	   ; >>> end of n32:o
+								   ;  ************* End of n32
+
+    (n32-2 				           ; *** node n32: after 'n' ; elision of final 'o' 
+	  (|a| final
+            (twoways
+	       '((setoutp 'ano)
+	         (nxt-state-lex 'n33))	   			   	   ; >>> end of n32-2:a
+	       '((setoutp 'anno)
+	         (nxt-state-lex 'n37))))   			   	   ; >>> end of n32-2:a
+	  (|o| final
+	   (setoutp 'ono)
+	   (nxt-state-lex 'n39))) 	   			   	   ; >>> end of n32-2:o
+								   ;  ************* End of n32-2
+
+    (n33 							   ; *** node n33: after 'ano' 
+	  (|c| nil
+	   (nxt-state-lex 'n34)) 	   			   	   ; >>> end of n33:c
+	  (|i| final
+	   (setoutp 'iano)
+	   (nxt-state-lex 'stop)) 	   			   	   ; >>> end of n33:i
+	 (|v| nil
+	   (nxt-state-lex 'n100))) 	   			   	   ; >>> end of n33:v
+												   ;  ************* End of n33
+
+    (n34 									       ; *** node n34: after 'cano' 
+	  (|s| nil
+	   (nxt-state-lex 'n35))) 	   			   	   ; >>> end of n34:s
+												   ;  ************* End of n34
+
+    (n35 									       ; *** node n35: after 'scano'
+	  (|i| final
+	   (setoutp 'iscano)
+	   (nxt-state-lex 'stop))) 	   			   	   ; >>> end of n35:i
+												   ;  ************* End of n35
+
+    (n36 									       ; *** node n36: after 'ino' 
+	  (|h| final
+	   (setoutp 'hino)
+	   (nxt-state-lex 'stop)))	   			   	   ; >>> end of n36:h
+												   ;  ************* End of n36
+
+    (n37  									       ; *** node n37: after 'nno' 
+	  (|a| final
+	   (setoutp 'anno)
+	   (nxt-state-lex 'n38)))	   			   	   ; >>> end of n37:a
+												   ;  ************* End of n37
+
+    (n38   									       ; *** node n38: after 'anno' 
+	  (|r| final
+	   (setoutp 'ranno)
+	   (nxt-state-lex 'n67)))	   			   	   ; >>> end of n38:r
+												   ;  ************* End of n38
+
+    (n39    								       ; *** node n39: after 'ono' 
+	  (|c| nil
+	   (nxt-state-lex 'n40)) 	   			   	   ; >>> end of n39:c
+	  (|r| final
+	   (setoutp 'rono)
+	   (nxt-state-lex 'n42))) 	   			   	   ; >>> end of n39:r
+												   ;  ************* End of n39
+
+    (n40     								       ; *** node n40: after 'cono' 
+	  (|s| nil
+	   (nxt-state-lex 'n41))) 	   			   	   ; >>> end of n40:s
+												   ;  ************* End of n40
+
+    (n41     								      ; *** node n41: after 'scono' 
+	  (|i| final
+	   (setoutp 'iscono)
+	   (nxt-state-lex 'stop))) 	   			   	   ; >>> end of n41:i
+												   ;  ************* End of n41
+
+    (n42     								       ; *** node n42: after 'rono' 
+	  (|a| final
+	   (setoutp 'arono)
+	   (nxt-state-lex 'n43)) 	   			   	   ; >>> end of n42:a
+	 (|e| final
+	   (setoutp 'erono)
+	   (nxt-state-lex 'stop)) 	   			   	   ; >>> end of n42:e
+	 (|i| final
+	   (setoutp 'irono)
+	   (nxt-state-lex 'stop))) 	 	  			   ; >>> end of n42:i
+												   ;  ************* End of n42
+
+    (n43      								       ; *** node n43: after 'arono'
+	  (|i| final
+	   (setoutp 'iarono)
+	   (nxt-state-lex 'stop))) 	 	  			   ; >>> end of n43:i
+												   ;  ************* End of n43
+
+    (n44     								       ; *** node n44: after 'ro'
+	  (|e| final
+	   (setoutp 'ero)
+	   (nxt-state-lex 'n45))) 	 	  			   ; >>> end of n44:e
+												   ;  ************* End of n44
+
+    (n45      							       ; *** node n45: after 'ero'
+	  (|b| nil
+	   (nxt-state-lex 'n46)) 	 	  			   ; >>> end of n45:b
+	  (|s| nil
+	   (nxt-state-lex 'n113))	 	  			   ; >>> end of n45:s
+	  (|t| nil
+	   (nxt-state-lex 'n168))) 	 	  			   ; >>> end of n45:t
+												   ;  ************* End of n45
+
+    (n46       							       ; *** node n46: after 'bero'
+	  (|b| nil
+	   (nxt-state-lex 'n47))) 	 	  			   ; >>> end of n46:b
+												   ;  ************* End of n46
+
+    (n47        								   ; *** node n47: after 'bbero'
+	  (|e| nil
+	   (nxt-state-lex 'n48))) 	 	  			   ; >>> end of n47:e
+												   ;  ************* End of n47
+
+    (n48         								  ; *** node n48: after 'ebbero'
+	  (|r| final
+	   (setoutp 'rebbero)
+	   (nxt-state-lex 'n69))) 	  			       ; >>> end of n48:r
+							   ;  ************* End of n48
+
+    (n49    						   ; *** node n49: after ' and `
+      (|a| final
+       (setoutp 'à)
+       (nxt-state-lex 'n50)) 	  			       ; >>> end of n49:a
+      (|e| final 
+       (setoutp 'è)
+       (nxt-state-lex 'stop)) 	  			       ; >>> end of n49:e
+      (|i| final
+       (setoutp 'ì)
+       (nxt-state-lex 'stop)) 	  			       ; >>> end of n49:i
+      (|o| final 
+       (setoutp 'ò)
+       (nxt-state-lex 'n51))) 	  			       ; >>> end of n49:o
+							   ;  ************* End of n49
+
+    (n50   						 ; *** node n50: after a', a` and à
+      (|r| final
+         (setoutp 'rà)
+         (nxt-state-lex 'n71)) 	  			       ; >>> end of n50:r
+      (|t| nil
+         (nxt-state-lex 'n145))) 	  			   ; >>> end of n50:t
+								   ;  ************* End of n50
+    (n51       							 ; *** node n51: after o' and o`
+      (|i| final
+         (setoutp 'iò)
+         (nxt-state-lex 'stop)) 	  			       ; >>> end of n51:i
+      (|r| final
+	 (setoutp 'rò)
+         (nxt-state-lex 'n73))) 	  			       ; >>> end of n51:r
+						   ;  ************* End of n51
+
+    (n52         				   ; *** node n52: after 'ore'
+      (|t| final
+         (setoutp 'tore) 	  	
+         (nxt-state-lex 'stop)))	                        ; >>> end of n52:t
+						   ;  ************* End of n52
+
+    (n53         				   ; *** node n53: after 'ri'
+      (|o| nil
+         (nxt-state-lex 'n54))) 	                        ; >>> end of n53:o
+						   ;  ************* End of n53
+
+    (n54         				   ; *** node n54: after 'ori'
+      (|t| nil
+         (setoutp 'tori) 	  	
+         (nxt-state-lex 'stop)))                         ; >>> end of n54:t
+						   ;  ************* End of n54
+
+    (n55          				   ; *** node n55: after 'ice'
+      (|r| nil
+         (nxt-state-lex 'n56)))                          ; >>> end of n55:r
+						   ;  ************* End of n55
+
+    (n55-1          				   ; *** node n55-1: after 'ici'
+      (|r| nil
+         (nxt-state-lex 'n56-1)))                        ; >>> end of n55-1:r
+						   ;  ************* End of n55-1
+
+    (n56      					   ; *** node n56: after 'rice'
+      (|t| final
+	 (setoutp 'trice)
+	 (nxt-state-lex 'stop)))                      ; >>> end of n56:t
+						   ;  ************* End of n56
+
+    (n56-1     					   ; *** node n56-1: after 'rici'
+      (|t| final
+	 (setoutp 'trici)
+	 (nxt-state-lex 'stop)))                      ; >>> end of n56-1:t
+						   ;  ************* End of n56-1
+
+    (n57           				   ; *** node n57: after 'rebbe'
+      (|a| final
+	 (setoutp 'arebbe)
+	 (nxt-state-lex 'stop))                       ; >>> end of n57:a
+      (|e| final
+	 (setoutp 'erebbe)
+	 (nxt-state-lex 'n58))                        ; >>> end of n57:e
+      (|i| final
+	 (setoutp 'irebbe)
+	 (nxt-state-lex 'stop)))                      ; >>> end of n57:i
+                                                   ;  ************* End of n57
+
+    (n58                                           ; *** node n58: after 'erebbe'
+	  (|h| final
+	   (setoutp 'herebbe)
+	   (nxt-state-lex 'stop))                       ; >>> end of n58:h 
+      (|i| final
+	   (setoutp 'ierebbe)
+	   (nxt-state-lex 'stop)))                      ; >>> end of n58:i
+                                                   ;  ************* End of n58
+
+    (n59                                           ; *** node n59: after 'rete'
+	  (|a| final
+	   (setoutp 'arete)
+	   (nxt-state-lex 'stop))                       ; >>> end of n59:a
+      (|e| final
+	   (setoutp 'erete)
+	   (nxt-state-lex 'n60))                        ; >>> end of n59:e
+      (|i| final
+	   (setoutp 'irete)
+	   (nxt-state-lex 'stop)))                 ; >>> end of n59:i
+                                                   ;  ************* End of n59
+
+    (n60          							     ; *** node n60: after 'erete'
+	  (|h| final
+	   (setoutp 'herete)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n60:h
+      (|i| final
+	   (setoutp 'ierete)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n60:i
+												   ;  ************* End of n60
+
+    (n61           								   ; *** node n61: after 'rai'
+	  (|a| final
+	   (setoutp 'arai)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n61:a
+      (|e| final
+	   (setoutp 'erai)
+	   (nxt-state-lex 'n62)) 	 	  			   ; >>> end of n61:e
+      (|i| final
+	   (setoutp 'irai)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n61:i
+												   ;  ************* End of n61
+
+    (n62          							       ; *** node n62: after 'erai'
+	  (|h| final
+	   (setoutp 'herai)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n62:h
+      (|i| final
+	   (setoutp 'ierai)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n62:i
+												   ;  ************* End of n62
+
+    (n63           								   ; *** node n63: after 'rei'
+	  (|a| final
+	   (setoutp 'arei)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n63:a
+      (|e| final
+	   (setoutp 'erei)
+	   (nxt-state-lex 'n64)) 	 	  			   ; >>> end of n63:e
+      (|i| final
+	   (setoutp 'irei)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n63:i
+												   ;  ************* End of n63
+
+    (n64          							       ; *** node n64: after 'erei'
+	  (|h| final
+	   (setoutp 'herei)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n64:h
+      (|i| final
+	   (setoutp 'ierei)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n64:i
+												   ;  ************* End of n64
+
+    (n65           								   ; *** node n65: after 'remo'
+	  (|a| final
+	   (setoutp 'aremo)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n65:a
+      (|e| final
+	   (setoutp 'eremo)
+	   (nxt-state-lex 'n66)) 	 	  			   ; >>> end of n65:e
+      (|i| final
+	   (setoutp 'iremo)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n65:i
+												   ;  ************* End of n65
+
+    (n66          							       ; *** node n66: after 'eremo'
+	  (|h| final
+	   (setoutp 'heremo)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n66:h
+      (|i| final
+	   (setoutp 'ieremo)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n66:i
+												   ;  ************* End of n66
+
+    (n67           								   ; *** node n67: after 'ranno'
+	  (|a| final
+	   (setoutp 'aranno)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n67:a
+      (|e| final
+	   (setoutp 'eranno)
+	   (nxt-state-lex 'n68)) 	 	  			   ; >>> end of n67:e
+      (|i| final
+	   (setoutp 'iranno)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n67:i
+												   ;  ************* End of n67
+
+    (n68          							      ; *** node n68: after 'eranno'
+	  (|h| final
+	   (setoutp 'heranno)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n68:h
+      (|i| final
+	   (setoutp 'ieranno)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n68:i
+												   ;  ************* End of n68
+
+    (n69           								 ; *** node n69: after 'rebbero'
+	  (|a| final
+	   (setoutp 'arebbero)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n69:a
+      (|e| final
+	   (setoutp 'erebbero)
+	   (nxt-state-lex 'n70)) 	 	  			   ; >>> end of n69:e
+      (|i| final
+	   (setoutp 'irebbero)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n69:i
+												   ;  ************* End of n69
+
+    (n70          							    ; *** node n70: after 'erebbero'
+	  (|h| final
+	   (setoutp 'herebbero)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n70:h
+      (|i| final
+	   (setoutp 'ierebbero)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n70:i
+												   ;  ************* End of n70
+
+    (n71           							 ; *** node n71: after ra' and ra`
+	  (|a| final
+	   (setoutp 'arà)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n71:a
+      (|e| final
+	   (setoutp 'erà)
+	   (nxt-state-lex 'n72)) 	 	  			   ; >>> end of n71:e
+      (|i| final
+	   (setoutp 'irà)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n71:i
+												   ;  ************* End of n71
+
+    (n72          						    ; *** node n72: after era' and era`
+	  (|h| final
+	   (setoutp 'herà)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n72:h
+      (|i| final
+	   (setoutp 'ierà)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n72:i
+												   ;  ************* End of n72
+
+    (n73           							 ; *** node n73: after ro' and ro`
+	  (|a| final
+	   (setoutp 'arò)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n73:a
+      (|e| final
+	   (setoutp 'erò)
+	   (nxt-state-lex 'n74)) 	 	  			   ; >>> end of n73:e
+      (|i| final
+	   (setoutp 'irò)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n73:i
+												   ;  ************* End of n73
+
+    (n74          						    ; *** node n74: after ero' and ero`
+	  (|h| final
+	   (setoutp 'herò)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n74:h
+      (|i| final
+	   (setoutp 'ierò)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n74:i
+												   ;  ************* End of n74
+
+    (n75           							       ; *** node n75: after 'reste
+	  (|a| final
+	   (setoutp 'areste)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n75:a
+      (|e| final
+	   (setoutp 'ereste)
+	   (nxt-state-lex 'n76)) 	 	  			   ; >>> end of n75:e
+      (|i| final
+	   (setoutp 'ireste)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n75:i
+												   ;  ************* End of n75
+
+    (n76          						          ; *** node n76: after 'ereste
+	  (|h| final
+	   (setoutp 'hereste)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n76:h
+      (|i| final
+	   (setoutp 'iereste)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n76:i
+												   ;  ************* End of n76
+
+    (n77           							   ; *** node n77: after 'resti
+	  (|a| final
+	   (setoutp 'aresti)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n77:a
+      (|e| final
+	   (setoutp 'eresti)
+	   (nxt-state-lex 'n78)) 	 	  			   ; >>> end of n77:e
+      (|i| final
+	   (setoutp 'iresti)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n77:i
+												   ;  ************* End of n77
+
+    (n78          						          ; *** node n78: after 'eresti
+	  (|h| final
+	   (setoutp 'heresti)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n78:h
+      (|i| final
+	   (setoutp 'ieresti)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n78:i
+												   ;  ************* End of n78
+
+    (n79           							  ; *** node n79: after 'remmo
+      (|a| final
+	   (setoutp 'aremmo)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n79:a
+      (|e| final
+	   (setoutp 'eremmo)
+	   (nxt-state-lex 'n80)) 	 	  			   ; >>> end of n79:e
+      (|i| final
+	   (setoutp 'iremmo)
+	   (nxt-state-lex 'stop)))  	 	  		   ; >>> end of n79:i
+												   ;  ************* End of n79
+
+    (n80          						         ; *** node n80: after 'eremmo
+      (|h| final
+	   (setoutp 'heremmo)
+	   (nxt-state-lex 'stop)) 	 	  			   ; >>> end of n80:h
+      (|i| final
+	   (setoutp 'ieremmo)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n80:i
+												   ;  ************* End of n80
+
+    (n81          								   ; *** node n81: after 'ste'
+      (|a| final
+	   (setoutp 'aste)
+	   (nxt-state-lex 'n82))	 	  			   ; >>> end of n81:a 
+      (|e| final
+	   (setoutp 'este)
+	   (nxt-state-lex 'n83)) 		  			   ; >>> end of n81:e 
+      (|i| final
+	   (setoutp 'iste)
+	   (nxt-state-lex 'stop)))		  			   ; >>> end of n81:i 
+												   ;  ************* End of n81
+
+    (n82           							   ; *** node n82: after 'aste'
+	  (|i| final
+	   (setoutp 'iaste)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n82:i 
+												   ;  ************* End of n82
+
+    (n83            							   ; *** node n83: after 'este'
+	  (|r| final
+	   (setoutp 'reste)
+	   (nxt-state-lex 'n75))) 		  			   ; >>> end of n83:r 
+												   ;  ************* End of n83
+
+    (n84          								   ; *** node n84: after 'sti'
+	  (|a| final
+	   (setoutp 'asti)
+	   (nxt-state-lex 'n85))	 	  			   ; >>> end of n84:a 
+	  (|e| final
+	   (setoutp 'esti)
+	   (nxt-state-lex 'n86)) 		  			   ; >>> end of n84:e 
+	  (|i| final
+	   (setoutp 'isti)
+	   (nxt-state-lex 'stop)))		  			   ; >>> end of n84:i 
+												   ;  ************* End of n84
+
+    (n85           							   ; *** node n85: after 'asti'
+	  (|i| final
+	   (setoutp 'iasti)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n85:i 
+												   ;  ************* End of n85
+
+    (n86            							   ; *** node n86: after 'esti'
+	  (|r| final
+	   (setoutp 'resti)
+	   (nxt-state-lex 'n77))) 		  			   ; >>> end of n86:r 
+												   ;  ************* End of n86
+
+    (n87          								   ; *** node n87: after 'mmo'
+	  (|a| final
+	   (setoutp 'ammo)
+	   (nxt-state-lex 'n88))	 	  			   ; >>> end of n87:a 
+	  (|e| final
+	   (setoutp 'emmo)
+	   (nxt-state-lex 'n89)) 		  			   ; >>> end of n87:e 
+	  (|i| final
+	   (setoutp 'immo)
+	   (nxt-state-lex 'stop)))		  			   ; >>> end of n87:i 
+												   ;  ************* End of n87
+
+    (n88           							   ; *** node n88: after 'ammo'
+	  (|i| final
+	   (setoutp 'iammo)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n88:i 
+												   ;  ************* End of n88
+
+    (n89            							   ; *** node n89: after 'emmo'
+	  (|r| final
+	   (setoutp 'remmo)
+	   (nxt-state-lex 'n79))) 		  			   ; >>> end of n89:r 
+												   ;  ************* End of n89
+
+    (n90           							   ; *** node n90: after 'va'
+	  (|a| final
+	   (setoutp 'ava)
+	   (nxt-state-lex 'n91))  		  			   ; >>> end of n90:a 
+      (|e| final
+	   (setoutp 'eva)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n90:e 
+      (|i| final
+	   (setoutp 'iva)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n90:i 
+												   ;  ************* End of n90
+
+    (n91          							       ; *** node n91: after 'ava'
+	  (|i| final
+	   (setoutp 'iava)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n91:i 
+												   ;  ************* End of n91
+
+    (n92           							   ; *** node n92: after 'vi'
+	  (|a| final
+	   (setoutp 'avi)
+	   (nxt-state-lex 'n93))  		  			   ; >>> end of n92:a 
+      (|e| final
+	   (setoutp 'evi)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n92:e 
+      (|i| final
+	   (setoutp 'ivi)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n92:i 
+												   ;  ************* End of n92
+
+    (n93          							       ; *** node n93: after 'avi'
+	  (|i| final
+	   (setoutp 'iavi)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n93:i 
+												   ;  ************* End of n93
+
+    (n94           							   ; *** node n94: after 'vo'
+	  (|a| final
+	   (setoutp 'avo)
+	   (nxt-state-lex 'n95))  		  			   ; >>> end of n94:a 
+      (|e| final
+	   (setoutp 'evo)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n94:e 
+      (|i| final
+	   (setoutp 'ivo)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n94:i 
+												   ;  ************* End of n94
+
+    (n95          							       ; *** node n93: after 'avi'
+	  (|i| final
+	   (setoutp 'iavo)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n95:i 
+												   ;  ************* End of n95
+
+    (n96           							   ; *** node n96: after 'vate'
+	  (|a| final
+	   (setoutp 'avate)
+	   (nxt-state-lex 'n97))  		  			   ; >>> end of n96:a 
+      (|e| final
+	   (setoutp 'evate)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n96:e 
+      (|i| final
+	   (setoutp 'ivate)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n96:i 
+												   ;  ************* End of n96
+
+    (n97          							     ; *** node n97: after 'avate'
+	  (|i| final
+	   (setoutp 'iavate)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n97:i 
+												   ;  ************* End of n97
+
+    (n98           							   ; *** node n98: after 'vamo'
+	  (|a| final
+	   (setoutp 'avamo)
+	   (nxt-state-lex 'n99))  		  			   ; >>> end of n98:a 
+      (|e| final
+	   (setoutp 'evamo)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n98:e 
+      (|i| final
+	   (setoutp 'ivamo)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n98:i 
+												   ;  ************* End of n98
+
+    (n99          							      ; *** node n99: after 'avamo'
+	  (|i| final
+	   (setoutp 'iavamo)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n99:i 
+												   ;  ************* End of n99
+
+    (n100           							   ; *** node n100: after 'vano'
+	  (|a| final
+	   (setoutp 'avano)
+	   (nxt-state-lex 'n101))  		  			   ; >>> end of n100:a 
+      (|e| final
+	   (setoutp 'evano)
+	   (nxt-state-lex 'stop)) 		  			   ; >>> end of n100:e 
+      (|i| final
+	   (setoutp 'ivano)
+	   (nxt-state-lex 'stop))) 		  			   ; >>> end of n100:i 
+												   ;  ************* End of n100
+
+    (n101          							      ; *** node n101: after 'avano'
+	  (|i| final
+	   (setoutp 'iavano)
+	   (nxt-state-lex 'stop)))                      ; >>> end of n101:i 
+						   ;  ************* End of n101
+
+    (n102           			     ; *** node n102: after 'r' or 're'
+      (|a| final
+	   (setoutp 'are)
+	   (nxt-state-lex 'n103))                       ; >>> end of n102:a 
+      (|e| final
+	   (setoutp 'ere)
+	   (nxt-state-lex 'stop))                       ; >>> end of n102:e 
+      (|i| final
+	   (setoutp 'ire)
+	   (nxt-state-lex 'stop))                       ; >>> end of n102:i 
+	  (|o| nil
+	   (nxt-state-lex 'n52))                        ; >>> end of n102:o
+	  (|r| nil
+	   (setoutp 're t)
+	   (nxt-state-lex 'stop)))                      ; >>> end of n102:t
+						   ;  ************* End of n102
+
+    (n103          			           ; *** node n103: after 'ar'
+       (|i| final
+	   (setoutp 'iare)
+	   (nxt-state-lex 'stop))) 		        ; >>> end of n103:i 
+						   ;  ************* End of n103
+
+    (n104                                          ; *** node n104: after 'se
+       (|s| final
+        (setoutp 'sse)
+        (nxt-state-lex 'n105)))                         ; >>> end of n104:s
+						   ;  ************* End of n104
+
+    (n105            				   ; *** node n105: after 'sse
+       (|a| final
+          (setoutp 'asse)
+          (nxt-state-lex 'n106))                           ; >>> end of n105:a
+       (|e| final
+	  (setoutp 'esse)
+	  (nxt-state-lex 'stop))	 	  			   ; >>> end of n105:e
+      (|i| final
+	   (setoutp 'isse)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n105:i
+												   ;  ************* End of n105
+      
+    (n106               						   ; *** node n106: after 'asse
+	  (|i| final
+	   (setoutp 'iasse)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n106:i
+												   ;  ************* End of n106
+
+    (n107           							  ; *** node n107: after 'si
+      (|s| final
+	   (setoutp 'ssi)
+	   (nxt-state-lex 'n108)))	 	  			   ; >>> end of n107:s
+												   ;  ************* End of n107
+
+    (n108            							  ; *** node n108: after 'ssi
+	  (|a| final
+	   (setoutp 'assi)
+	   (nxt-state-lex 'n109))	 	  			   ; >>> end of n108:a
+      (|e| final
+	   (setoutp 'essi)
+	   (nxt-state-lex 'stop))	 	  			   ; >>> end of n108:e
+      (|i| final
+	   (setoutp 'issi)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n108:i
+												   ;  ************* End of n108
+      
+    (n109               						   ; *** node n109: after 'assi
+	  (|i| final
+	   (setoutp 'iassi)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n109:i
+												   ;  ************* End of n109
+
+    (n110           							  ; *** node n110: after 'simo
+      (|s| final
+	   (setoutp 'ssimo)
+	   (nxt-state-lex 'n111)))	 	  			   ; >>> end of n110:s
+												   ;  ************* End of n110
+
+    (n111            							  ; *** node n111: after 'ssimo
+	  (|a| final
+	   (setoutp 'assimo)
+	   (nxt-state-lex 'n112))	 	  			   ; >>> end of n111:a
+      (|e| final
+	   (setoutp 'essimo)
+	   (nxt-state-lex 'stop))	 	  			   ; >>> end of n111:e
+      (|i| final
+	   (setoutp 'issimo)
+	   (nxt-state-lex 'n111-2)))	 	  			   ; >>> end of n111:i
+												   ;  ************* End of n111
+      
+    (n111-2    				 	      		   ; *** node n111-2: after 'issimo'
+	  (|h| final
+	   (setoutp 'hissimo)
+	   (nxt-state-lex 'stop)))  				  	    ; >>> end of n111-2:h
+												    ; *********** End of n111-2
+
+    (n112               						 ; *** node n112: after 'assimo
+	  (|i| final
+	   (setoutp 'iassimo)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n112:i
+												   ;  ************* End of n112
+
+    (n113           							  ; *** node n113: after 'sero
+      (|s| final
+	   (setoutp 'ssero)
+	   (nxt-state-lex 'n114)))	 	  			   ; >>> end of n113:s
+												   ;  ************* End of n113
+
+    (n114            							  ; *** node n114: after 'ssero
+	  (|a| final
+	   (setoutp 'assero)
+	   (nxt-state-lex 'n115))	 	  			   ; >>> end of n114:a
+      (|e| final
+	   (setoutp 'essero)
+	   (nxt-state-lex 'stop))	 	  			   ; >>> end of n114:e
+      (|i| final
+	   (setoutp 'issero)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n114:i
+												   ;  ************* End of n114
+      
+    (n115               						 ; *** node n115: after 'assero
+	  (|i| final
+	   (setoutp 'iassero)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n115:i
+												   ;  ************* End of n115
+
+    (n116               						   ; *** node n116: after 'ta
+	  (|a| final
+	   (setoutp 'ata)
+	   (nxt-state-lex 'n117))	 	  			   ; >>> end of n116:a
+	 (|i| final
+	   (setoutp 'ita)
+	   (nxt-state-lex 'stop))	 	  			   ; >>> end of n116:i
+	 (|u| final
+	   (setoutp 'uta)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n116:u
+												   ;  ************* End of n116
+
+    (n117               						   ; *** node n117: after 'ata
+	  (|i| final
+	   (setoutp 'iata)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n117:i
+												   ;  ************* End of n117
+
+    (n118     					   ; *** node n118: after 'ti
+      (|a| final
+	   (setoutp 'ati)
+	   (nxt-state-lex 'n119))	 	  	   ; >>> end of n118:a
+      (|i| final
+	   (setoutp 'iti)
+	   (nxt-state-lex 'stop))	 	  	   ; >>> end of n118:i
+      (|n| nil
+	   (nxt-state-lex 'n140))	 	 	   ; >>> end of n118:n
+      (|s| final
+	   (setoutp 'sti)
+	   (nxt-state-lex 'n84)) 		 	   ; >>> end of 172:s
+      (|t| nil
+	   (nxt-state-lex 'n22))		  	   ; >>> end of n118:t
+      (|u| final
+	   (setoutp 'uti)
+	   (nxt-state-lex 'stop)))	 	 	   ; >>> end of n118:u
+						   ;  ************* End of n118
+
+    (n119               			   ; *** node n119: after 'ati
+	  (|i| final
+	   (setoutp 'iati)
+	   (nxt-state-lex 'stop)))	 		   ; >>> end of n119:i
+						   ;  ************* End of n119
+
+    (n120               			   ; *** node n120: after 'to
+	  (|a| final
+	   (setoutp 'ato)
+	   (nxt-state-lex 'n121))	 	  			   ; >>> end of n120:a
+	 (|i| final
+	   (setoutp 'ito)
+	   (nxt-state-lex 'stop))	 	  			   ; >>> end of n120:i
+	 (|n| nil
+	   (nxt-state-lex 'n136))	   			 	   ; >>> end of n120:n
+	 (|u| final
+	   (setoutp 'uto)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n120:u
+												   ;  ************* End of n120
+
+    (n121               						   ; *** node n121: after 'ato
+	  (|i| final
+	   (setoutp 'iato)
+	   (nxt-state-lex 'stop)))	 	  			   ; >>> end of n121:i
+												   ;  ************* End of n121
+
+    (n122              						       ; *** node n122: after 'nte
+      (|a| final
+	   (setoutp 'ante)
+	   (nxt-state-lex 'n123)) 	 	  			   ; >>> end of n122:a
+	  (|e| final
+	   (setoutp 'ente)
+	   (nxt-state-lex 'n165)))	  			   ; >>> end of n122:e
+												   ;  ************* End of n122
+
+    (n123              						       ; *** node n123: after 'ante
+	  (|i| final
+	   (setoutp 'iante)
+	   (nxt-state-lex 'stop)))	  			       ; >>> end of n123:i
+
+    (n124              						       ; *** node n124: after 'ndo
+      (|a| final
+	   (setoutp 'ando)
+	   (nxt-state-lex 'n125)) 	 	  			    ; >>> end of n124:a
+	  (|e| final
+	   (setoutp 'endo)
+	   (nxt-state-lex 'stop)))		  			    ; >>> end of n124:e
+												    ;  ************* End of n124
+
+    (n125              						        ; *** node n125: after 'ando
+	  (|i| final
+	   (setoutp 'iando)
+	   (nxt-state-lex 'stop)))	  			        ; >>> end of n125:i
+												    ;  ************* End of n125
+
+    (n126              						        ; *** node n126: after 'ne
+      (|o| nil
+	   (nxt-state-lex 'n127))) 	  			        ; >>> end of n126:o
+												    ;  ************* End of n126
+
+    (n127             						        ; *** node n127: after 'one
+	  (|i| nil
+	   (nxt-state-lex 'n128)))	  			        ; >>> end of n127:i
+												    ;  ************* End of n127
+
+    (n128            						        ; *** node n128: after 'ione
+	  (|z| nil
+	   (nxt-state-lex 'n129)))	  			        ; >>> end of n128:z
+												    ;  ************* End of n128
+
+    (n129          						           ; *** node n129: after 'zione
+	  (|a| final
+	   (setoutp 'azione)
+	   (nxt-state-lex 'n130))	  			        ; >>> end of n129:a
+	  (|i| final
+	   (setoutp 'izione)
+	   (nxt-state-lex 'stop)))	  			        ; >>> end of n129:i
+												    ; ************* End of n129
+
+    (n130         						          ; *** node n130: after 'azione
+	  (|i| final
+	   (setoutp 'iazione)
+	   (nxt-state-lex 'stop)))	  			        ; >>> end of n130:i
+												    ;  ************* End of n130
+
+    (n131              						        ; *** node n131: after 'ni
+      (|o| nil
+	   (nxt-state-lex 'n132))) 	  			        ; >>> end of n131:o
+												    ;  ************* End of n131
+
+    (n132             						        ; *** node n132: after 'oni
+	  (|i| nil
+	   (nxt-state-lex 'n133)))	  			        ; >>> end of n132:i
+												    ;  ************* End of n132
+
+    (n133            						        ; *** node n133: after 'ioni
+	  (|z| nil
+	   (nxt-state-lex 'n134)))	  			        ; >>> end of n133:z
+												    ;  ************* End of n133
+
+    (n134          						           ; *** node n134: after 'zioni
+	  (|a| final
+	   (setoutp 'azioni)
+	   (nxt-state-lex 'n135))	  			        ; >>> end of n134:a
+	  (|i| final
+	   (setoutp 'izioni)
+	   (nxt-state-lex 'stop)))	  			        ; >>> end of n134:i
+												    ;  ************* End of n134
+
+    (n135         						          ; *** node n135: after 'azioni
+	  (|i| final
+	   (setoutp 'iazioni)
+	   (nxt-state-lex 'stop)))	  			        ; >>> end of n135:i
+												    ;  ************* End of n135
+
+    (n136              						 	    ; *** node n136: after 'nto
+	  (|e| nil
+	   (nxt-state-lex 'n137))) 				        ; >>> end of n136:e
+												    ;  ************* End of n136
+
+    (n137             						 	    ; *** node n137: after 'ento
+	 (|m| nil
+	   (nxt-state-lex 'n138))) 				        ; >>> end of n137:m
+												    ;  ************* End of n137
+
+    (n138             					 	 	   ; *** node n138: after 'mento
+ 	  (|a| final
+	   (setoutp 'amento)
+	   (nxt-state-lex 'n139)) 				        ; >>> end of n138:a
+	  (|i| final
+	   (setoutp 'imento)
+	   (nxt-state-lex 'stop))) 				        ; >>> end of n138:i
+												    ;  ************* End of n138
+
+    (n139      			 	 	 ; *** node n139: after 'amento
+	  (|i| final
+	   (setoutp 'iamento)
+	   (nxt-state-lex 'stop))) 		        ; >>> end of n139:i
+					    ;  ************* End of n139
+
+    (n140              			    ; *** node n140: after 'nti
+      (|a| final
+	   (setoutp 'anti)
+	   (nxt-state-lex 'n141)) 	 		; >>> end of n140:a
+      (|e| nil
+	   (setoutp 'enti)
+	   (nxt-state-lex 'n142))) 		        ; >>> end of n140:e
+					    ;  ************* End of n140
+
+    (n141            			    ; *** node n141: after 'anti
+	  (|i| final
+	   (setoutp 'ianti)
+	   (nxt-state-lex 'stop)))		        ; >>> end of n141:i
+					    ;  ************* End of n141
+
+    (n142             		 	    ; *** node n142: after 'enti
+	 (|m| nil
+	   (nxt-state-lex 'n143))) 		        ; >>> end of n142:m
+					    ;  ************* End of n142
+
+    (n143             		 	    ; *** node n143: after 'menti
+ 	  (|a| final
+	   (setoutp 'amenti)
+	   (nxt-state-lex 'n144)) 		        ; >>> end of n143:a
+	  (|i| final
+	   (setoutp 'imenti)
+	   (nxt-state-lex 'stop))) 		        ; >>> end of n143:i
+					    ;  ************* End of n143
+    (n144            		 	    ; *** node n144: after 'amenti
+	  (|i| final
+	   (setoutp 'iamenti)
+	   (nxt-state-lex 'stop))) 				        ; >>> end of n144:i
+						    ;  ************* End of n144
+    (n145      		 	   		   ; *** node n145: after ta' or ta`
+	  (|i| final
+	   (setoutp 'ità)
+	   (nxt-state-lex 'stop)) 					    ; >>> end of n145:i
+	  (|e| nil
+	   (nxt-state-lex 'n146)))				  	    ; >>> end of n145:e
+						    ;  *********** End of n145
+
+    (n146     				 	      ; *** node n146: after eta' or eta` 
+	  (|i| final
+	   (setoutp 'ietà)
+	   (nxt-state-lex 'stop)))				  	   ; >>> end of n146:i
+												   ;  *********** End of n146
+
+    (n147 
+	  (|l| nil 
+	   (nxt-state-lex 'n148)))				  	   ; >>> end of n147:l
+												   ;  *********** End of n147
+
+    (n148 
+	  (|g| nil 
+	   (setencl 'glie)
+	   (nxt-state-lex 'n1)))			  	   	    ; >>> end of n148:g
+												    ; *********** End of n148
+
+    (n149     				 	      		  	    ; *** node n149: after 'ma'
+	  (|i| nil 
+	   (nxt-state-lex 'n150))) 				  	    ; >>> end of n149:i
+												    ; *********** End of n149
+
+    (n150     				 	      		  	    ; *** node n149: after 'ima'
+	  (|s| nil 
+	   (nxt-state-lex 'n151))) 				  	    ; >>> end of n150:s
+												    ; *********** End of n150
+
+    (n151    				 	      		  	   ; *** node n151: after 'sima'
+	  (|s| nil 
+	   (nxt-state-lex 'n152))) 				  	    ; >>> end of n151:s
+												    ; *********** End of n151
+
+    (n152    				 	      		  	  ; *** node n152: after 'ssima'
+	  (|i| final
+	   (setoutp 'issima)
+	   (nxt-state-lex 'n152-2)))  				  	    ; >>> end of n152:i
+												    ; *********** End of n152
+
+    (n152-2    				 	      		   ; *** node n152-2: after 'issima'
+	  (|h| final
+	   (setoutp 'hissima)
+	   (nxt-state-lex 'stop)))  				  	    ; >>> end of n152-2:h
+												    ; *********** End of n152-2
+
+    (n153     				 	      		  	    ; *** node n153: after 'me'
+	  (|i| nil 
+	   (nxt-state-lex 'n154))) 				  	    ; >>> end of n153:i
+												    ; *********** End of n153
+
+    (n154     				 	      		  	    ; *** node n154: after 'ime'
+	  (|s| nil 
+	   (nxt-state-lex 'n155))) 				  	    ; >>> end of n154:s
+												    ; *********** End of n154
+
+    (n155    				 	      		  	   ; *** node n155: after 'sime'
+	  (|s| nil 
+	   (nxt-state-lex 'n156))) 				  	    ; >>> end of n155:s
+												    ; *********** End of n155
+
+    (n156    				 	      		  	  ; *** node n156: after 'ssime'
+	  (|i| final
+	   (setoutp 'issime)
+	   (nxt-state-lex 'n156-2)))  				  	; >>> end of n156:i
+												    ; *********** End of n156
+
+    (n156-2    				 	      		   ; *** node n156-2: after 'issime'
+	  (|h| final
+	   (setoutp 'hissime)
+	   (nxt-state-lex 'stop)))  				  	    ; >>> end of n156-2:h
+												    ; *********** End of n156-2
+
+    (n157     				 	      		  	    ; *** node n157: after 'mi'
+	  (|i| nil 
+	   (nxt-state-lex 'n158))) 				  	    ; >>> end of n157:i
+												    ; *********** End of n157
+
+    (n158     				 	      		  	    ; *** node n158: after 'imi'
+	  (|s| nil 
+	   (nxt-state-lex 'n159))) 				  	    ; >>> end of n158:s
+												    ; *********** End of n158
+
+    (n159    				 	      		  	   ; *** node n159: after 'simi'
+	  (|s| nil 
+	   (nxt-state-lex 'n160))) 				  	    ; >>> end of n159:s
+												    ; *********** End of n159
+
+    (n160    				 	      		  	  ; *** node n160: after 'ssimi'
+	  (|i| final
+	   (setoutp 'issimi)
+	   (nxt-state-lex 'n160-2)))  				  	    ; >>> end of n160:i
+												    ; *********** End of n160
+
+    (n160-2    				 	      		   ; *** node n160-2: after 'issimi'
+	  (|h| final
+	   (setoutp 'hissimi)
+	   (nxt-state-lex 'stop)))  				  	    ; >>> end of n160-2:h
+												    ; *********** End of n160-2
+
+;    (n161     				 	      		  	    ; *** node n161: after 'mo'
+;	  (|i| nil 
+;	   (nxt-state-lex 'n162))) 				  	    ; >>> end of n161:i
+;												    ; *********** End of n161
+;
+;    (n162     				 	      		  	    ; *** node n162: after 'imo'
+;	  (|s| nil 
+;	   (nxt-state-lex 'n163))) 				  	    ; >>> end of n162:s
+;												    ; *********** End of n162
+;
+;    (n163    				 	      		  	   ; *** node n163: after 'simo'
+;	  (|s| nil 
+;	   (nxt-state-lex 'n164))) 				  	    ; >>> end of n163:s
+;												    ; *********** End of n163
+;
+;    (n164    				 	      		  	  ; *** node n164: after 'ssimo'
+;	  (|i| final
+;	   (setoutp 'issimo)
+;	   (nxt-state-lex 'stop)))  			  	    ; >>> end of n164:i
+;												    ; *********** End of n164
+
+    (n165  				 	      		  	  	   ; *** node n165: after 'ente'
+	  (|m| final
+	   (setoutp 'mente)
+	   (nxt-state-lex 'n166)))  			  	    ; >>> end of n165:m
+												    ; *********** End of n165
+
+    (n166   				 	      		  	  ; *** node n166: after 'mente'
+	  (|a| final
+	   (setoutp 'amente)
+	   (nxt-state-lex 'n167)) 				  	    ; >>> end of n166:a
+      (|e| final
+	   (setoutp 'emente)
+	   (nxt-state-lex 'stop))) 				  	    ; >>> end of n166:e
+								    ; *********** End of n166
+
+    (n167 				 	      	  	    ; *** node n167: after 'amente'
+	  (|i| final
+	   (setoutp 'iamente)
+	   (nxt-state-lex 'stop)))				  	    ; >>> end of n167:i
+								    ; *********** End of n167
+
+    (n168 			 	      		  	    ; *** node n168: after 'tero'
+	  (|t| nil
+	   (nxt-state-lex 'n169)))				  	    ; >>> end of n168:t
+								    ; *********** End of n168
+
+    (n169 			 	      		  	    ; *** node n169: after 'ttero'
+	  (|e| final
+	   (setoutp 'ettero)
+	   (nxt-state-lex 'stop)))				  	    ; >>> end of n169:t
+								    ; *********** End of n169
+
+	   
+))  ;end *SUFF-NET*

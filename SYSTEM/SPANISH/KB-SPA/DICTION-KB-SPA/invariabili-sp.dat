@@ -1,0 +1,9 @@
+(in-package "USER")
+
+(loadinvar 'invardef
+'(
+  aprobarse (((aprobar cat verb classe (0) mood infinite tense pres)
+              (se cat pron type refl-impers classe (0) gender allval number allval person 3 case (lobj))))
+
+	  ))
+

@@ -1,0 +1,245 @@
+(in-package "USER")
+
+;********* Variables and Functions for the character encoding ******
+(defvar *SYMBOL-CODE-TABLE* nil)
+(defvar *BASE-CODE-TABLE* nil)
+(defvar *CODE-TO-TULE-TABLE* nil)
+(defvar *CURRLISP-TO-TULE-TABLE* nil)
+(defvar *LISP-TO-TULE-TABLE* nil)
+(defvar *NON-DICTIONARY-CHARS* nil)
+
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/char-funct"))
+        ; *** char-funct includes basic functions, as "uppercase", so it must
+        ;     be loaded before others
+
+; *** the next loads the infos about the specific character set in use.
+; *** The code is chosen on the basis of the *CHAR-SET-ID* defined above
+; *** currently, the only available charset are ISO-8859-1 and UTF-8
+;     N.B. set-symbol-codes, set-char-set-values and set-upcase-lowcase are
+;          defined in char-funct (MORPHO-PROC-ALL)
+(set-symbol-codes)      ; loads the *SYMBOL-CODE-TABLE*, the *CODE-TO-TULE-TABLE*
+                        ; and the *LISP-TO-TULE-TABLE*; sets the char-value and lisp-char
+                        ; properties of the tule char names
+(set-char-set-values)
+(set-upcase-lowcase)
+
+;########################### GLOBAL VARIABLES #########################
+
+;******************* Morphology ***********************
+(defvar *SUFF-TABLE* nil)
+(defvar *SUFF-NET* nil)
+(defvar *ENCLITINFO* nil)
+(defvar *ANALYS-CONTEXT* 'text)    ; in ALLLANG/PROC-ALL/main:ana-and-tag
+                                   ; used for sentence separation: if the
+                                   ; value is "text", then in "34.", the
+                                   ; period is taken as a sentence separator
+                                   ; Currently, "text" is the only value used
+                                   ; The other value I was thinking about is
+                                   ; "formula"
+
+;******************* Lexicon **************************
+(defvar *LOCUTIONS* nil)           ; Multiwords
+(defvar *COMPL-PROPER* nil)        ; Proper-names multiwords (e.g. United States)
+(defvar *MARKERS* nil)             ; metalevel text markers (ignored)
+(defvar *CATEG-INVAR* nil)         ; loaded from KB/DICTIONARY/default-types
+                                   ; These are the syntactic categories for
+                                   ; which there is no morphological variation
+                                   ; (see ALLLANG/PROC-ALL/MORPHO-PROC-ALL/analizzatore)
+
+;************** File Output ****************************
+(defvar *DEFAULT-TYPES* nil)       ; loaded from ALLLANG/KB-ALL/DICTION-KB-ALL/default-types
+                                   ; In printing the output on file, the
+                                   ; standard types (not appearing in the
+                                   ; dictionary (as QUALIF for ADJ)) are
+                                   ; included, on the basis of this variable
+                                   ; (see ALLLANG/PROC-ALL/TAGGER-PROC-ALL/postagger)
+;******************* Parsing ***************************
+; *** all the next are language specific ***************
+(defvar *NOUN-GOVERN* nil)         ; loaded from ENGLISH/KB-ENG/GRAMM-KB-ENG/noungovern-eng.dat
+                                   ; This and the next two specify if there
+                                   ; is any preposition usually governed by
+                                   ; the noun (adj, adv, respectively)
+(defvar *NOUN-NOUN* nil)           ; loaded from ENGLISH/KB-ENG/GRAMM-KB-ENG/noun-noun-eng.dat
+(defvar *ADJ-GOVERN* nil)          ; loaded from ENGLISH/KB-ENG/GRAMM-KB-ENG/adjgovern-eng.dat
+(defvar *ADV-GOVERN* nil)          ; loaded from ENGLISH/KB-ENG/GRAMM-KB-ENG/advgovern-eng.dat
+(defvar *PREF-IMPERSONAL* nil)     ; used for Italian
+
+(defvar *PREFER-PP-ATTACH* nil)    ; loaded form ENGLISH/KB-ENG/GRAMM-KB-ENG/prefppattach-eng.dat
+(defvar *PREFER-CONJ-ATTACH* nil)  ; loaded form ENGLISH/KB-ENG/GRAMM-KB-ENG/prefconjattach-eng.dat
+(defvar *VERB-PARTICLE* nil)       ; used only for English (e.g. "carry out")
+(defvar *SUBJ-CONTROL-VERBS* nil)  ; loaded from ENGLISH/KB-ENG/SUBCAT-KB-ENG/verbal-control-eng.dat
+(defvar *OBJ-CONTROL-VERBS* nil)   ; loaded from ENGLISH/KB-ENG/SUBCAT-KB-ENG/verbal-control-eng.dat
+(defvar *INDOBJ-CONTROL-VERBS* nil) ; loaded from ENGLISH/KB-ENG/SUBCAT-KB-ENG/verbal-control-eng.dat
+(defvar *GRAMMTYPES* nil)          ; loaded from ENGLISH/KB-ENG/DICTION-KB-ENG/grammtypes-eng.dat
+(defvar *LEXICAL-PREFERENCES* nil) ; loaded from ITALIAN/KB-ITA/DICTION-KB-ITA/lexical-pref.dat
+
+; *** the next is language-independent ******************
+(defvar *ABSTRACT-SUBCAT-CLASSES* nil) ; loaded from ALLANG/KB-ALL/DICTION-KB-ALL/subc-hier.lisp
+(defvar *VERB-CF-TRANSFORM* nil)   ; verbal transformations; loaded from ALLLANG/KB-ALL/SUBCAT-KB-ALL/transf-def.dat
+
+;******************* Semantics ***************************
+(defvar *ONTO-TIME-START* nil)     ; loaded in ALLLANG/PROC-ALL/SEMANT-PROC-ALL/onto-reasoning
+(defvar *ONTOLOGY-CACHE* nil)      ; loaded in ALLLANG/PROC-ALL/main
+                                   ;   from ALLLANG/KB-ALL/SEMANT-KB-ALL/onto-cache.dat
+(defvar *WORD-MEANING* nil)        ; loaded from ENGLISH/KB-ENG/SEMANT-KB-ENG/word-mean.dat
+(defvar *DEICTIC-REFERENCE* nil)   ; loaded from ALLLANG/KB-ALL/SEMANT-KB-ALL/deictic-ref.dat
+(defvar *CONCEPT-WORD* nil)        ; loaded from ENGLISH/KB-ENG/SEMANT-KB-ENG/conc-word.dat
+(defvar *SUBTYPES-SPEC* nil)       ; loaded from ENGLISH/KB-ENG/SEMANT-KB-ENG/subtype-spec-eng.dat
+(defvar *ANAPHORIC-CONTEXT* nil)    ; Dynamically set by the semantic interpreter
+(defvar *DEFAULT-CONCEPT-INFOS* nil)  ; loaded from ALLLANG/KB-ALL/SEMANT-KB-ALL/query-target.dat
+
+;******************* Some file names ********************
+(defvar *ONTOLOGY-FILE-BASE* (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/ontology-base.dat"))
+(defvar *ONTO-CACHE-FILE* (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/onto-cache.dat"))
+(defvar *PARSERULES-FILE* (build-file-name "ALLLANG/KB-ALL/GRAMM-KB-ALL/parserules.dat"))
+(defvar *VERB-HIER-FILE* (build-file-name "ALLLANG/KB-ALL/SUBCAT-KB-ALL/newhier.out"))
+(defvar *LAB-HIER-FILE* (build-file-name "ALLLANG/KB-ALL/SUBCAT-KB-ALL/lab-hierarchy.dat"))
+
+;########################### LOADING DATA #############################
+
+(load (build-file-name "ALLLANG/PROC-ALL/SUBCAT-PROC-ALL/subc-hier"))  
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/semtypes-funct"))
+
+; ****** main **********************
+(load (build-file-name "ALLLANG/PROC-ALL/loadfunctions"))
+                                             ; *** loaded in advance since it
+                                             ;     includes the functions for loading
+                                             ;     the dictionaries and the ontology
+
+; ##################### LANGUAGE SPECIFIC DATA #########################
+
+; ****** morphological analysis ****
+(with-open-file
+     (inptab (build-file-name "ENGLISH/KB-ENG/MORPHO-KB-ENG/suff-tab-eng.dat")
+                :direction :input :if-does-not-exist :error)
+         (setq *SUFF-TABLE* (read inptab)))
+(load (build-file-name "ENGLISH/KB-ENG/MORPHO-KB-ENG/network-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/MORPHO-KB-ENG/enclitinfo-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/MORPHO-KB-ENG/numbautom-eng"))
+
+; *** lexicon ***************************
+        ; *** the next must be made first, since it "puts" property vals
+        ;     while the others "add" them
+(with-open-file
+   (ff (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/dictionary-eng.dat")
+       :direction :input :if-does-not-exist :error)
+    (with-open-file
+          (ffu (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/dictionary-funct-eng.dat")
+                   :direction :input :if-does-not-exist :error)
+     (with-open-file
+           (fsigla (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/sigle-eng.dat")
+                    :direction :input :if-does-not-exist :error)
+       (load_all ff fsigla nil ffu))))
+
+(load (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/invariabili-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/grammtypes-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/lexical-pref-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/locutions-eng.dat")) 	;standard locutions
+
+(f-loadnames 'mproperdef (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/proper-names-eng.dat"))
+(f-loadinvar 'mproperdef (build-file-name "ENGLISH/KB-ENG/DICTION-KB-ENG/proper-comp-eng.dat"))
+
+; ****** parsing *******************
+(load (build-file-name "ENGLISH/KB-ENG/SUBCAT-KB-ENG/verbclass-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/SUBCAT-KB-ENG/verbal-control-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/SUBCAT-KB-ENG/v-prefnotrefl-eng.dat"))  ; *** for Italian
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/adjgovern-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/advgovern-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/noungovern-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/noun-noun-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/verbgovern-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/prefppattach-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/prefconjattach-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/GRAMM-KB-ENG/semtypes-eng.dat"))
+
+; ****** semantic interpretation ***
+(load (build-file-name "ENGLISH/KB-ENG/SEMANT-KB-ENG/word-mean-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/SEMANT-KB-ENG/conc-word-eng.dat"))
+(load (build-file-name "ENGLISH/KB-ENG/SEMANT-KB-ENG/subtype-spec-eng.dat"))
+
+; ##################### LANGUAGE INDEPENDENT PROCEDURES ################
+
+; ****** connection between submodules
+(load (build-file-name "ALLLANG/PROC-ALL/main"))
+(load (build-file-name "ALLLANG/PROC-ALL/top-level-fun"))
+
+; ****** tokenizing ****************
+(load (build-file-name "ALLLANG/KB-ALL/MORPHO-KB-ALL/token-autom"))
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/tokenizer"))
+
+; ****** morphological analysis ****
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/endings"))
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/analizzatore"))
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/numbers"))
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/parsenumbers"))
+(load (build-file-name "ALLLANG/PROC-ALL/MORPHO-PROC-ALL/tb-functions"))
+
+; ****** tagging *******************
+(load (build-file-name "ALLLANG/PROC-ALL/TAGGER-PROC-ALL/postagger"))
+(load (build-file-name "ALLLANG/KB-ALL/TAGGER-KB-ALL/lexdisambr"))
+(load (build-file-name "ALLLANG/KB-ALL/DICTION-KB-ALL/default-types.dat"))
+
+; ****** parsing *******************
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/chunk-parser"))
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/avm-transf"))
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/checkcond"))
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/hier-funct"))
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/eval-parse"))
+(load (build-file-name "ALLLANG/PROC-ALL/PARSER-PROC-ALL/tag-statistics"))
+
+; ****** semantic interpretation ***
+(load (build-file-name "ALLLANG/PROC-ALL/SEMANT-PROC-ALL/seminterp"))
+(load (build-file-name "ALLLANG/PROC-ALL/SEMANT-PROC-ALL/buildquery"))
+(load (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/query-target.dat"))
+(load (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/preplate.dat"))     ; meaning of prepositions
+
+; ****** ontology ******************
+(load (build-file-name "ALLLANG/PROC-ALL/SEMANT-PROC-ALL/onto-reasoning"))
+(load (build-file-name "ALLLANG/PROC-ALL/SEMANT-PROC-ALL/conc-funct"))
+(load (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/deictic-ref.dat"))  ; default references
+                                                      ;  (e.g. "the city" --> "Torino"
+
+; *******************************************************************
+; ********* LOADING KNOWLEDGE BASES *********************************
+
+(load-labhier) 			; *** the hierarchy of arc labels
+
+; ******* single-word proper names ***********************************
+(f-loadnames 'mproperdef (build-file-name "ALLLANG/KB-ALL/DICTION-KB-ALL/proper-names-all.dat"))
+                                 ; general for all languages
+
+; ******* multi-word proper names ***********************************
+(f-loadinvar 'mproperdef (build-file-name "ALLLANG/KB-ALL/DICTION-KB-ALL/proper-comp-all.dat"))
+                                 ; general for all languages
+
+; ******* word meanings ***********************************
+(load (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/word-mean-proper-all.dat"))
+
+(load-hierarchy)
+                ; *** the hierarchy of (possibly transformed) verb subcategorization
+                ;     classes (generated off-line by the functions loadable with
+                ;     "lohier" and stored in ALLLANG/KB-ALL/SUBCAT-KB-ALL/newhier.out)
+
+(load (build-file-name "ALLLANG/KB-ALL/SUBCAT-KB-ALL/transf-def.dat"))
+                ; *** the definition of the transformations. This is stored in *VERB-CF-TRANSFORM*
+                ;     Currently, this is only used for getting the classes to which "passivization"
+                ;     is applied, but it could also be useful in other cases (Dec 9, 2008)
+
+(load-parserules)
+
+; ****** loading ontology **************
+(setq loadresult
+        (catch 'loadonto-error (load-ontology)))
+
+(cond ((not (eq loadresult 'ok))
+         (break "Error in loading ontology")))
+	;  *** POSSIBLE ERRORS
+	; "PROC/loadfunctions: Duplicate identifier in ontology" assert-name
+	; "PROC/loadfunctions: Subclass spec for a non existing concept (Upper concept, Lower concept):"
+        ;                   assert-name (third nxtassertion)
+	; "PROC/loadfunctions: Unknown specification in relation def:" (first nxtspec)
+	; "PROC/loadfunctions: Unknown assertion type" assert-type
+	; "PROC/loadfunctions: Unknown range op:" (second nxtspec)
+	; "PROC/loadfunctions: Unknown domain op:" (second nxtspec)
+
+

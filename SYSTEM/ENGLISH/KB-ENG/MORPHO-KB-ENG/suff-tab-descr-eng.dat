@@ -1,0 +1,38 @@
+
+; *** this is the description of the table of suffixes for English
+(setq *SUFF-TAB-DESCR*
+  '((ADJ (cases nil)
+         (genders (m f n))
+         (numbers (sing pl))
+         (gender-number ((m sing) (f sing) (n sing) (m pl) (f pl) (n pl))))
+    (NOUN (cases nil)
+          (genders (m f n))
+          (numbers (sing pl))
+          (gender-number ((m sing) (f sing) (n sing) (m pl) (f pl) (n pl))))
+    (VERB (cases nil)
+          (genders (m f n))
+          (numbers (sing pl))
+          (persons (1 2 3))
+          (moods (ind subjunctive participle gerund infinitive imperative))
+          (tenses (pres past))
+          (moods-tenses-def
+            (a (ind pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (b (ind past) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (e (subjunctive pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (f (subjunctive past) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))
+            (h (participle pres) (gender number)
+               ((m sing) (f sing) (n sing) (m pl) (f pl) (n pl)))
+            (i (participle past) (gender number)
+               ((m sing) (f sing) (n sing) (m pl) (f pl) (n pl)))
+            (l (gerund pres) nil
+               nil)
+            (m (infinite pres) nil
+               nil)
+            (n (imperative pres) (person number)
+               ((1 sing) (2 sing) (3 sing) (1 pl) (2 pl) (3 pl)))))))
+
+

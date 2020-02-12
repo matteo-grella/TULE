@@ -1,0 +1,40 @@
+(in-package "USER")
+
+; This file includes the following locutions, found in the 'legal' corpus:
+; --------------------------
+; conventio ad consociandum
+; Corte d'Appello
+; dominus soli
+; inter alia
+; inter vivos
+; ius receptum
+; pars fundi
+; pro tempore
+; rem propriam
+; res nullius
+
+(loadinvar 'locutdef
+'(
+  ad ((conventio_ad_consociandum cat noun locut yes loctype fixed root ad prev conventio next consociandum))
+  alia ((inter_alia cat adjc locut yes loctype fixed root alia prev inter next nil))
+  Appello ((|Corte_d'Appello| cat noun locut yes loctype fixed root appello prev di next nil))
+  consociandum ((conventio_ad_consociandum cat noun locut yes loctype fixed root consociandum prev ad next nil))
+  conventio ((conventio_ad_consociandum cat noun locut yes loctype fixed root conventio prev nil next ad))
+  Corte ((|Corte_d'Appello| cat noun locut yes loctype fixed root corte prev nil next di))
+  |d'| ((|Corte_d'Appello| cat noun locut yes loctype fixed root di prev nil next appello))
+  dominus ((dominus_soli cat noun classe (0) gender m number sing locut yes root dominus loctype fixed prev nil next soli))
+  fundi ((pars_fundi cat noun classe (0) gender f number sing locut yes root fundi loctype fixed prev pars next nil))
+  inter ((inter_vivos cat adjc locut yes loctype fixed root inter prev nil next vivos)
+           (inter_alia cat adv locut yes loctype fixed root inter prev nil next alia))
+  ius ((ius_receptum cat noun locut yes root ius loctype fixed prev nil next propriam))
+  pars ((pars_fundi cat noun classe (0) gender f number sing locut yes root pars loctype fixed prev nil next fundi))
+  pro ((pro_tempore cat adjc locut yes loctype fixed root pro prev nil next tempore))
+  nullius ((res_nullius cat noun classe (0) gender f number sing locut yes root nullius loctype fixed prev res next nil))
+  propriam ((rem_propriam cat noun locut yes root propriam loctype fixed prev rem next nil))
+  receptum ((ius_receptum cat noun locut yes root receptum loctype fixed prev ius next nil))
+  rem ((rem_propriam cat noun locut yes root rem loctype fixed prev nil next propriam))
+  res ((res_nullius cat noun classe (0) gender f number sing locut yes root res loctype fixed prev nil next nullius))
+  soli ((dominus_soli cat noun classe (0) gender m number sing locut yes root soli loctype fixed prev dominus next nil))
+  tempore ((pro_tempore cat adjc locut yes loctype fixed root tempore prev pro next nil))
+  vivos ((inter_vivos cat adjc locut yes loctype fixed root vivos prev inter next nil))
+		))

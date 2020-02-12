@@ -1,0 +1,8 @@
+(in-package "USER")
+
+(setq *ADJ-GOVERN*
+ '(
+   (empenyat contra)
+   (incapaç de)
+   (interessat en)
+   ))

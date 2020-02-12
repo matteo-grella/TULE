@@ -1,0 +1,3 @@
+find . -name '*.lib' -execdir rm -f {} \;
+find . -name '*.fas' -execdir rm -f {} \;
+find . -name '*.fasl' -execdir rm -f {} \;

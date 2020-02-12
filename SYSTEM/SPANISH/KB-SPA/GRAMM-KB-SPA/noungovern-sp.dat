@@ -1,0 +1,17 @@
+(in-package "USER")
+
+(setq *NOUN-GOVERN*
+ '(
+   (acuerdo sobre)
+   (diferencia sobre)
+   (discrepancia sobre)
+   (enmiemda a)
+   (evento en)
+   (evento para)
+   (insuficiencia de)
+   (modificacion a)
+   (presion sobre)
+   (relacion entre)
+   (reunion con)
+   ))
+

@@ -1,0 +1,21 @@
+; *** In this file compound verbs, formed by the verb plus a preposition 
+;     (e.g. "carry out")
+(setq *VERB-PARTICLE*
+  '(
+    (account (for))
+    (be (on))
+    (break (down))
+    (carry (in out on))
+    (die (off))
+    (fill (in))
+    (find (out))
+    (look (for))
+    (pick (up))
+    (pour (in))
+    (slow (down))
+    (take (away))
+    (throw (away))
+    (use (up))
+    (wash (away off))
+   )
+)

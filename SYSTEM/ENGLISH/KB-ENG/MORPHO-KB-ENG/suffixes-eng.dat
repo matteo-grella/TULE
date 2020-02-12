@@ -1,0 +1,167 @@
+(setq *SUFFIX-TABLE*
+  '(adv
+      (1 (ly)
+       2 (ily)
+       3 (ably)
+       4 (ibly)
+       5 (ubly)
+       6 (ically)
+       7 (y)
+      )	                          ; *** end of adverbs **********************
+    adj
+  ; *** classes 2, 3, 4, 5 are used to generate the corresponding adverbs
+  ;     note that the class number correspondence is casual and does not
+  ;     affect the behaviour of the analyser
+      (0 (nil   nil   nil   nil   nil   nil)   ; *** 
+       1 (@empt @empt @empt @empt @empt @empt) ; *** 
+       2 (y     y     y     y     y     y)     ; *** 
+       3 (able  able  able  able  able  able)  ; *** admirable, movable
+       4 (ible  ible  ible  ible  ible  ible)  ; *** eligible, extensible
+       5 (uble  uble  uble  uble  uble  uble)  ; *** soluble, voluble
+       6 (ic    ic    ic    ic    ic    ic)    ; *** terrific
+       7 (ic    ic    ic    ic    ic    ic)    ; *** numeric
+       7 (ical  ical  ical  ical  ical  ical)  ; *** numerical
+      )	                          ; *** end of adjectives *******************
+    noun
+      (0 (nil   nil   nil   nil   nil   nil)   ; *** 
+       1 (nil   @empt nil   nil   s     nil)   ; *** feminine
+       2 (@empt nil   nil   s     nil   nil)   ; *** masculine
+       3 (nil   nil   @empt nil   nil   s)     ; *** neuter
+       4 (nil   @empt nil   nil   es    nil)   ; *** feminine
+       5 (@empt nil   nil   es    nil   nil)   ; *** masculine
+       6 (nil   nil   @empt nil   nil   es)    ; *** neuter
+       7 (nil   y     nil   nil   ies   nil)   ; *** feminine
+       8 (y     nil   nil   ies   nil   nil)   ; *** masculine
+       9 (nil   nil   y     nil   nil   ies)   ; *** neuter
+       30 (nil  nil   ization nil nil izations)  ; *** neuter
+       31 (nil  nil   ion   nil   nil   ions)  ; *** neuter
+       ; also the next are covered by class 30: 
+       ;             (nil nil isation nil nil isations)
+       ; this is obtained by changing s into z into the suffix network
+      )	                          ; *** end of nouns *******************
+    verb	
+      (0 ()                                      ; *** 
+        ; *** regular (love, walk, ...) 
+       1 ((@empt @empt s     @empt   @empt  @empt)          ; ind.pres. (a)
+          (ed    ed    ed    ed      ed     ed)             ; ind.imperf. (b)
+          (ed    ed    ed    ed      ed     ed)             ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (@empt @empt @empt @empt   @empt  @empt)          ; conj.pres. (e)
+          (ed    ed    ed    ed      ed     ed)             ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (ing   ing   ing   ing     ing    ing)            ; partic.pres. (h)
+          (ed    ed    ed    ed      ed     ed)             ; partic.pass. (i)
+          (ing)                                             ; gerund (l)
+          (@empt)                                           ; infinite (m)
+          (nil   @empt @empt @empt   @empt  @empt))         ; imperative (n)
+        ; *** irregular (buy, eat, ...)
+       2 ((@empt @empt s     @empt   @empt  @empt)          ; ind.pres. (a)
+          (@empt @empt @empt @empt   @empt  @empt)          ; ind.imperf. (b)
+          (@empt @empt @empt @empt   @empt  @empt)          ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (@empt @empt @empt @empt   @empt  @empt)          ; conj.pres. (e)
+          (@empt @empt @empt @empt   @empt  @empt)          ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (@empt @empt @empt @empt   @empt  @empt)          ; partic.pres (h).
+          (@empt @empt @empt @empt   @empt  @empt)          ; partic.pass. (i)
+          (@empt)                                           ; gerund (l)
+          (@empt)                                           ; infinite (m)
+          (nil   @empt @empt @empt   @empt  @empt))         ; imperative (n)
+         ; *** have 
+       3 ((ve    ve    s     ve      ve     ve)             ; ind.pres.
+          (d     d     d     d       d      d)              ; ind.imperf.
+          (d     d     d     d       d      d)              ; pass.rem.
+          (nil   nil   nil   nil     nil    nil)            ; future
+          (ve    ve    ve    ve      ve     ve)             ; conj.pres.
+          (d     d     d     d       d      d)              ; conj.imperf.
+          (nil   nil   nil   nil     nil    nil)            ; condiz.
+          (ving  ving  ving  ving    ving   ving)           ; partic.pres.
+          (d     d     d     d       d      d)              ; partic.pass.
+          (ving) 	                                    ; gerund
+          (ve)                                              ; infinite
+          (nil   ve    ve    ve      ve     ve))            ; imperative
+         ; *** be, 
+       4 ((am    are   is    are     are    are)            ; ind.pres.
+          (was   were  was   were    were   were)           ; ind.imperf.
+          (was   were  was   were    were   were)           ; pass.rem.
+          (nil   nil   nil   nil     nil    nil)            ; future
+          (be    be    be    be      be     be)             ; conj.pres.
+          (were  were  were  were    were   were)           ; conj.imperf.
+          (nil   nil   nil   nil     nil    nil)            ; condiz.
+          (being being being being   being  being)          ; partic.pres.
+          (been  been  been  been    been   been)           ; partic.pass.
+          (being)                                           ; gerund
+          (be)                                              ; infinite
+          (nil   be    be    be      be     be))            ; imperative
+         ; *** armonize, armonise
+         ;     all the below are accepted without change with s substituted
+         ;     to z
+       5 ((ize   ize   izes  ize     ize    ize)            ; ind.pres.
+          (ized  ized  ized  ized    ized   ized)           ; ind.imperf.
+          (ized  ized  ized  ized    ized   ized)           ; pass.rem.
+          (nil   nil   nil   nil     nil    nil)            ; future
+          (ize   ize   ize   ize     ize    ize)            ; conj.pres.
+          (ized  ized  ized  ized    ized   ized)           ; conj.imperf.
+          (nil   nil   nil   nil     nil    nil)            ; condiz.
+          (izing izing izing izing   izing  izing)          ; partic.pres.
+          (ized  ized  ized  ized    ized   ized)           ; partic.pass.
+          (izing)                                           ; gerund
+          (ize)                                             ; infinite
+          (nil   ize   ize   ize     ize    ize))           ; imperative
+         ; *** aerify, amplify
+       6 ((y     y     ies   y       y      y)              ; ind.pres. (a)
+          (ied   ied   ied   ied     ied    ied)            ; ind.imperf. (b)
+          (ied   ied   ied   ied     ied    ied)            ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (y     y     y     y       y      y)              ; conj.pres. (e)
+          (ied   ied   ied   ied     ied    ied)            ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (ying  ying  ying  ying    ying   ying)           ; partic.pres. (h)
+          (ied   ied   ied   ied     ied    ied)            ; partic.pass. (i)
+          (ying)                                            ; gerund (l)
+          (y)                                               ; infinite (m)
+          (nil   y     y     y       y      y))             ; imperative (n)
+         ; *** accuse, activate
+       7 ((e     e     es    e       e      e)              ; ind.pres. (a)
+          (ed    ed    ed    ed      ed     ed)             ; ind.imperf. (b)
+          (ed    ed    ed    ed      ed     ed)             ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (e     e     e     e       e      e)              ; conj.pres. (e)
+          (ed    ed    ed    ed      ed     ed)             ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (ing   ing   ing   ing     ing    ing)            ; partic.pres. (h)
+          (ed    ed    ed    ed      ed     ed)             ; partic.pass. (i)
+          (ing)                                             ; gerund (l)
+          (e)                                               ; infinite (m)
+          (nil   e     e     e       e      e))             ; imperative (n)
+       8 ((@empt @empt es    @empt   @empt  @empt)          ; ind.pres. (a)
+          (ed    ed    ed    ed      ed     ed)             ; ind.imperf. (b)
+          (ed    ed    ed    ed      ed     ed)             ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (@empt @empt @empt @empt   @empt  @empt)          ; conj.pres. (e)
+          (ed    ed    ed    ed      ed     ed)             ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (ing   ing   ing   ing     ing    ing)            ; partic.pres. (h)
+          (ed    ed    ed    ed      ed     ed)             ; partic.pass. (i)
+          (ing)                                             ; gerund (l)
+          (e)                                               ; infinite (m)
+          (nil   e     e     e       e      e))             ; imperative (n)
+         ; *** modals: can, may, will
+       9 ((@empt @empt @empt @empt   @empt  @empt)          ; ind.pres. (a)
+          (nil   nil   nil   nil     nil    nil)            ; ind.imperf. (b)
+          (nil   nil   nil   nil     nil    nil)            ; pass.rem. (c)
+          (nil   nil   nil   nil     nil    nil)            ; future (d)
+          (@empt @empt @empt @empt   @empt  @empt)          ; conj.pres. (e)
+          (nil   nil   nil   nil     nil    nil)            ; conj.imperf. (f)
+          (nil   nil   nil   nil     nil    nil)            ; condiz. (g)
+          (nil   nil   nil   nil     nil    nil)            ; partic.pres. (h)
+          (nil   nil   nil   nil     nil    nil)            ; partic.pass. (i)
+          (nil)                                             ; gerund (l)
+          (@empt)                                           ; infinite (m)
+          (nil   @empt @empt @empt   @empt  @empt))         ; imperative (n)
+
+      )                           ; *** end of verbs *******************
+
+ ))             ; ************** end of suffix infos ************************
+
+

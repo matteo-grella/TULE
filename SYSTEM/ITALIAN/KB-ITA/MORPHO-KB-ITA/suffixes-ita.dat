@@ -1,0 +1,226 @@
+(setq *SUFFIX-TABLE*
+  '(adv
+      (1 (mente)
+       2 (amente)
+       3 (iamente)
+       4 (emente)
+      )	                          ; *** end of adverbs **********************
+
+    adj
+    ;       MS     FS     MPl    FPl 
+      (0  ((nil    nil    nil    nil ))    ; *** rosa, bel, chic, gran (75)
+       1  ((o      a      i      e   ))    ; *** acerbo, bello, kantiano (2339)
+       2  ((e      e      i      i   ))    ; *** abile, mordace, reale (1723)
+       3  ((io     ia     i      e   ))    ; *** guercio, malvagio, saggio (23)
+       4  ((o      a      hi     he  ))    ; *** antico, fiabesco, lungo (120)
+       5  ((o      a      i      he  ))    ; *** alcolico, logico, sismico (938)
+       6  ((io     ia     i      ie  ))    ; *** ampio, librario, rivoluzionario (261)
+       7  ((a      a      i      e   ))    ; *** buddista, israelita, suicida (41)
+       8  ((a      a      i      he  ))    ; *** belga (1)
+       9  ((tore   trice  tori   trici ))  ; *** chiarificatore
+       20 ((issimo issima issimi issime ))
+              ; *** for superlatives (bell-issimo, grand-issimo)
+       21 ((hissimo hissima hissimi hissime))
+              ; *** for superlatives (antic-hissimo)
+      )	                          ; *** end of adjectives *******************
+    noun
+      (0  ((nil    nil    nil    nil ))    ; *** album, località, mais (1521)
+       1  ((nil    a      nil    e   ))    ; *** acqua, memoria, salsa (4026)
+       2  ((o      nil    i      nil ))    ; *** chiodo, parametro, suffisso (3437)
+       3  ((o      a      i      e   ))    ; *** bambino, filosofo, maestro (291)
+       4  ((nil    a      nil    he  ))    ; *** albicocca, grammatica, riga (352)
+       5  ((o      nil    hi     nil ))    ; *** albergo, lago, tricheco (222)
+       6  ((io     nil    i      nil ))    ; *** cappuccio, avvoltoio, cerchio (888)
+       7  ((nil    ia     nil    e   ))    ; *** buccia, faccia, pioggia (89)
+       8  ((e      nil    nil    i   ))    ; *** (0)
+       9  ((a      a      i      e   ))    ; *** acrobata, congressista, omicida (338)
+       10 ((e      nil    i      nil ))    ; *** abete, quintale, torrone (1083)
+       11 ((nil    e      nil    i   ))    ; *** deduzione, abitudine, riunione (977)
+       12 ((a      nil    hi     nil ))    ; *** duca, gerarca, patriarca (6)
+       13 ((nil    ie     nil    i   ))    ; *** moglie, superficie (2)
+       14 ((o      nil    nil    a   ))    ; *** braccio, centinaio, miglio (9)
+       15 ((a      nil    i      nil ))    ; *** assioma, barista, schema (125)
+       16 ((a      a      hi     he  ))    ; *** collega, fuggiasco, oligarca (6)
+       17 ((e      e      i      i   ))    ; *** cantante, cliente, martire (144)
+       18 ((e      a      i      e   ))    ; *** buffone, padrone, panettiere (121)
+       19 ((o      a      i      he  ))    ; *** amico, biologo, monaco (64)
+       20 ((o      a      hi     he  ))    ; *** cuoco, mago, profugo (19)
+       21 ((tore   trice  tori   trici ))  ; *** attore, direttore, pescatore (383)
+              ; *** The next classes (31, 32, 33, 34, 35, 36, 37) do not appear
+              ;     in the dictionary. Entries of these classes are generated
+              ;     automatically by the morphological analyser for nouns
+              ;     obtained via verbal nominalization
+       30 ((nil    azione nil    azioni )) ; *** accettazione, adulazione, rifondazione
+       31 ((nil    izione nil    izioni )) ; *** abolizione, deglutizione, elargizione
+       32 ((nil    iazione nil   iazioni )) ; *** conciliazione, dissociazione, variazione
+       33 ((amento nil    amenti nil ))    ; *** accantonamento, pedinamento, turbamento
+       34 ((imento nil    imenti nil ))    ; *** abbattimento, pentimento, stordimento
+       35 ((iamento nil   iamenti nil ))   ; *** incoraggiamento
+       36 ((o      nil    i      nil ))    ; *** addebito, sviluppo, crollo
+       37 ((io     nil    i      nil ))    ; *** abbraccio, annuncio, elogio
+       38 ((o      nil    hi     nil ))    ; *** blocco, tocco
+              ; *** The next classes are as the ones above, but obtained via
+              ;     adjectival nominalization)
+       40 ((nil     ità    nil   ità ))    ; *** agilità, metodicità, reperibilità
+       41 ((nil     ietà   nil   ietà ))   ; *** aleatorietà, arbitrarietà, involontarietà
+
+      )	                                ; *** end of nouns *******************
+    verb
+      (1 ((o     i     a     iamo    ate    ano)            ; (a) ind.pres.
+          (avo   avi   ava   avamo   avate  avano)          ; (b) ind.imperf.
+          (ai    asti  ò     ammo    aste   arono)          ; (c) pass.rem.
+          (erò   erai  erà   eremo   erete  eranno)         ; (d) future
+          (i     i     i     iamo    iate   ino)            ; (e) conj.pres.
+          (assi  assi  asse  assimo  aste   assero)         ; (f) conj.imperf.
+          (erei  eresti erebbe eremmo ereste erebbero)      ; (g) condiz.
+          ((ante  ante  anti  anti))                        ; (h) partic.pres.
+          ((ato   ata   ati   ate))                         ; (i) partic.pass.
+          (ando)                                            ; (l) gerund
+          (are)	                                            ; (m) infinite
+          (nil   a     i     iamo    ate    ino))           ; (n) imperative
+         ; *** amare, lavorare, zappare
+       2 ((o     i     e     iamo    ete    ono)            ; ind.pres.
+          (evo   evi   eva   evamo   evate  evano)          ; ind.imperf.
+          ((ei etti) esti (è ette) emmo este (erono ettero))    ; pass.rem.
+          (erò   erai  erà   eremo   erete  eranno)         ; future
+          (a     a     a     iamo    iate   ano)            ; conj.pres.
+          (essi  essi  esse  essimo  este   essero)         ; conj.imperf.
+          (erei  eresti erebbe eremmo ereste erebbero)	    ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((uto   uta   uti   ute))                         ; partic.pass.
+          (endo)                                            ; gerund
+          (ere)	                                            ; infinite
+          (nil   i     a     iamo    ete    ano))           ; imperative
+         ; *** combattere, precedere, temere
+       3 ((o     i     e     iamo    ite    ono)            ; ind.pres.
+          (ivo   ivi   iva   ivamo   ivate  ivano)          ; ind.imperf.
+          (ii    isti  ì     immo    iste   irono)          ; pass.rem.
+          (irò   irai  irà   iremo   irete  iranno)         ; future
+          (a     a     a     iamo    iate   ano)            ; conj.pres.
+          (issi  issi  isse  issimo  iste   issero)         ; conj.imperf.
+          (irei  iresti irebbe iremmo ireste irebbero)	    ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((ito   ita   iti   ite))                         ; partic.pass.
+          (endo)                                            ; gerund
+          (ire)	                                            ; infinite
+          (nil   i     a     iamo    ite    ano))           ; imperative
+         ; *** avvertire, partire, servire (33)
+       4 ((o     hi    a     hiamo   ate    ano)            ; ind.pres.
+          (avo   avi   ava   avamo   avate  avano)          ; ind.imperf.
+          (ai    asti  ò     ammo    aste   arono)          ; pass.rem.
+          (herò  herai herà  heremo  herete heranno)	    ; future
+          (hi    hi    hi    hiamo   hiate  hino)           ; conj.pres.
+          (assi  assi  asse  assimo  aste   assero)         ; conj.imperf.
+          (herei  heresti herebbe heremmo hereste herebbero); condiz.
+          ((ante  ante  anti  anti))                        ; partic.pres.
+          ((ato   ata   ati   ate))                         ; partic.pass.
+          (ando)                                            ; gerund
+          (are)                                             ; infinite
+          (nil   a     hi     hiamo    ate    hino))        ; imperative
+         ; *** allagare, cercare, stroncare (415)
+       5 ((io    i     ia    iamo    iate    iano)          ; ind.pres.
+          (iavo  iavi  iava  iavamo  iavate  iavano)        ; ind.imperf.
+          (iai   iasti iò    iammo   iaste   iarono)        ; pass.rem.
+          (erò   erai  erà   eremo   erete   eranno)        ; future
+          (i     i     i     iamo    iate    ino)           ; conj.pres.
+          (iassi iassi iasse iassimo iaste   iassero)       ; conj.imperf.
+          (erei  eresti erebbe eremmo ereste erebbero)      ; condiz.
+          ((iante iante ianti ianti))                       ; partic.pres.
+          ((iato  iata  iati  iate))                        ; partic.pass.
+          (iando)                                           ; gerund
+          (iare)                                            ; infinite
+          (nil   ia    i     iamo    iate    ino))          ; imperative
+         ; *** annunciare, baciare, sbocciare (248)
+       6 ((o     ai    à     iamo    ate    anno)           ; ind.pres.
+          (avo   avi   ava   avamo   avate  avano)          ; ind.imperf.
+          (i     esti  e     emmo    este   ero)            ; pass.rem.
+          (arò   arai  arà   aremo   arete  aranno)         ; future
+          (ia    ia    ia    iamo    iate   iano)           ; conj.pres.
+          (essi  essi  esse  essimo  este   essero)         ; conj.imperf.
+          (arei  aresti arebbe aremmo areste arebbero)      ; condiz.
+          ((ante  ante  anti  anti))                        ; partic.pres.
+          ((ato   ata   ati   ate))                         ; partic.pass.
+          (ando)                                            ; gerund
+          (are)	                                            ; infinite
+          (nil   (ai à) ia    iamo   ate    iano))          ; imperative
+         ; *** dare, dire, fare (some forms) (41)
+       7 ((o     i     e     iamo    ete    ono)            ; ind.pres.
+          (evo   evi   eva   evamo   evate  evano)          ; ind.imperf.
+          (i     esti  e     emmo    este   ero)            ; pass.rem.
+          (rò    rai   rà    remo    rete   ranno)          ; future
+          (a     a     a     iamo    iate   ano)            ; conj.pres.
+          (essi  essi  esse  essimo  este   essero)         ; conj.imperf.
+          (rei   resti rebbe remmo   reste  rebbero)        ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((uto   uta   uti   ute))                         ; partic.pass.
+          (endo)                                            ; gerund
+          (re)	                                            ; infinite
+          (nil   i     a     iamo    ete    ano))           ; imperative
+         ; *** addurre, estrarre, porre (some forms) (313)
+       8 ((o     i     e     iamo    ete    ono)            ; ind.pres.
+          (evo   evi   eva   evamo   evate  evano)          ; ind.imperf.
+          (i     esti  e     emmo    este   ero)            ; pass.rem.
+          (erò   erai  erà   eremo   erete  eranno)         ; future
+          (a     a     a     iamo    iate   ano)            ; conj.pres.
+          (essi  essi  esse  essimo  este   essero)         ; conj.imperf.
+          (erei  eresti erebbe eremmo ereste erebbero)      ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((o     a     i     e))                           ; partic.pass.
+          (endo)                                            ; gerund
+          (ere)	                                            ; infinite
+          (nil   i     a     iamo    ete    ano))           ; imperative
+         ; *** accendere, chiudere, leggere (some forms) (1027)
+       9 ((isco  isci  isce  iamo    ite    iscono)         ; ind.pres.
+          (ivo   ivi   iva   ivamo   ivate  ivano)          ; ind.imperf.
+          (ii    isti  ì     immo    iste   irono)          ; pass.rem.
+          (irò   irai  irà   iremo   irete  iranno)         ; future
+          (isca  isca  isca  iamo    iate   iscano)         ; conj.pres.
+          (issi  issi  isse  issimo  iste   issero)         ; conj.imperf.
+          (irei  iresti irebbe iremmo ireste irebbero)	    ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((ito   ita   iti   ite))                         ; partic.pass.
+          (endo)                                            ; gerund
+          (ire)	                                            ; infinite
+          (nil   isci  isca  iamo    ite    iscano))        ; imperative
+         ; *** bollire, inserire, sfoltire (358)
+      10 ((ono   ei    nil   iamo    iete   ono)            ; ind.pres.
+          (o     i     a     avamo   avate  ano)            ; ind.imperf.
+          (i     sti   nil   mmo     ste    rono)           ; pass.rem.
+          (arò   arai  arà   aremo  arete  aranno)         ; future
+          (ia    ia    ia    iamo    iate   iano)           ; conj.pres.
+          (ssi   ssi   sse   ssimo   ste    ssero)          ; conj.imperf.
+          (arei  aresti arebbe aremmo areste arebbero)      ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((ato   ata   ati   ate))                         ; partic.pass.
+          (endo)                                            ; gerund
+          (ere)                                             ; infinite
+          (nil   ii    ia    iamo    ate    iano))          ; imperative
+         ; *** essere, sapere (some forms) (2)
+      11 ((io    i     ia    iamo    iate    iano)          ; ind.pres.
+          (iavo  iavi  iava  iavamo  iavate  iavano)        ; ind.imperf.
+          (iai   iasti iò    iammo   iaste   iarono)        ; pass.rem.
+          (ierò  ierai ierà  ieremo  ierete  ieranno)	    ; future
+          (i     i     i     iamo    iate    ino)           ; conj.pres.
+          (iassi iassi iasse iassimo iaste   iassero)       ; conj.imperf.
+          (ierei  ieresti ierebbe ieremmo iereste ierebbero); condiz.
+          ((iante iante ianti ianti))                       ; partic.pres.
+          ((iato  iata  iati  iate))                        ; partic.pass.
+          (iando)                                           ; gerund
+          (iare)                                            ; infinite
+          (nil   ia    i     iamo    iate    ino))          ; imperative
+         ; *** abbagliare, ammaliare, scambiare (269)
+      12 ((o     i     e     iamo    ite     ono)           ; ind.pres.
+          (evo   evi   eva   evamo   evate   evano)         ; ind.imperf.
+          (i     esti  e     emmo    este    ero)           ; pass.rem.
+          (irò   irai  irà   iremo   irete   iranno)	    ; future
+          (a     a     a     iamo    iate    ano)           ; conj.pres.
+          (essi  essi  esse  essimo  este    essero)        ; conj.imperf.
+          (irei  iresti irebbe iremmo ireste irebbero)      ; condiz.
+          ((ente  ente  enti  enti))                        ; partic.pres.
+          ((o     a     i     e))                           ; partic.pass.
+          (endo)                                            ; gerund
+          (ire)                                             ; infinite
+          (nil    ì     a     iamo    ite     ano))          ; imperative
+         ; *** dire (1) Introdotto per l'imperativo "di'"
+       )                             ; *** end of verbs *******************
+ ))             ; ************** end of suffix infos ************************

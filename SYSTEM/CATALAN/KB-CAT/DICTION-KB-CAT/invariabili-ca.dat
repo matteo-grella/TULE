@@ -1,0 +1,8 @@
+(in-package "USER")
+
+; *** loadinvar defined in "ALLLANG/PROC-ALL/loadfunctions")
+
+(loadinvar 'invardef
+'(
+	  ))
+

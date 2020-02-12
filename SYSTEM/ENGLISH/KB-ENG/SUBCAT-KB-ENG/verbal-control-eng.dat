@@ -1,0 +1,8 @@
+(setq *SUBJ-CONTROL-VERBS*
+  '(believe think prefer promise like want need))
+    
+(setq *OBJ-CONTROL-VERBS*
+  '(see))
+    
+(setq *INDOBJ-CONTROL-VERBS*
+  '(allow enable))

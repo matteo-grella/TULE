@@ -1,0 +1,328 @@
+(in-package "USER") 
+ 
+;**********************************************************
+; *** The global variable *SUFF-NET* holds the suffix ATN network
+(setq *SUFF-NET* 
+  '(
+    (n1                             ; *** state n1: after NIL
+      (|c| nil 
+        (nxt-state-lex 'N11))
+      (|d| final 
+        (cond ((next-char #\')			; >>>> for I'd --> I would
+                 (nxt-state-lex 'N45))		; >>>>
+              (t (setoutp 'D)			; >>>> replaces the standard
+                 (nxt-state-lex 'N29)))) 	; >>>> transition (see below)
+       ; (setoutp 'D)				; >>>> removed
+       ; (nxt-state-lex 'N29))			; >>>> removed
+      (|e| final 
+        (setoutp 'E)
+        (nxt-state-lex 'N8))
+      (|g| nil 
+        (nxt-state-lex 'N30))
+      (|l| nil 
+        (nxt-state-lex 'N12))
+      (|m| nil					; >>>> for I'm --> I am
+        (cond ((next-char #\')			; >>>>
+                 (nxt-state-lex 'N46))		; >>>> replaces the standard
+              (t (nxt-state-lex 'N33))))	; >>>> transition (see below)
+       ;(|m| nil 				; >>>> removed
+       ; (nxt-state-lex 'N33))			; >>>> removed
+      (|n| nil 
+        (nxt-state-lex 'N17))
+      (|s| final 
+        (setoutp 'S)
+        (nxt-state-lex 'N15))
+      (|t| final 				; >>>> for don't --> do not
+        (nxt-state-lex 'N48))			; >>>>
+      (|y| final 
+        (setoutp 'Y)
+        (nxt-state-lex 'N2))
+     )
+    (n2                             ; *** state n2: after Y
+      (|l| final 
+        (setoutp 'LY)
+        (nxt-state-lex 'N3))
+     )
+    (n3                             ; *** state n3: after LY
+      (|b| nil 
+        (nxt-state-lex 'N4))
+      (|i| final 
+        (setoutp 'ILY)
+        (nxt-state-lex 'STOP))
+      (|l| nil 
+        (nxt-state-lex 'N5))
+     )
+    (n4                             ; *** state n4: after BLY
+      (|a| final 
+        (setoutp 'ABLY)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IBLY)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp 'UBLY)
+        (nxt-state-lex 'STOP))
+     )
+    (n5                             ; *** state n5: after LLY
+      (|a| nil 
+        (nxt-state-lex 'N6))
+     )
+    (n6                             ; *** state n6: after ALLY
+      (|c| nil 
+        (nxt-state-lex 'N7))
+     )
+    (n7                             ; *** state n7: after CALLY
+      (|i| final 
+        (setoutp 'ICALLY)
+        (nxt-state-lex 'STOP))
+     )
+    (n8                             ; *** state n8: after E
+      (|b| final 
+        (setoutp 'BE)
+        (nxt-state-lex 'STOP))
+      (|l| nil 
+        (nxt-state-lex 'N9))
+      (|r| nil			    ; *** >>>> substitutes the next ones to 
+        (cond ((next-char #\')	    ; *** >>>> account for you're
+                 (nxt-state-lex 'n47))	; >>>>
+              (t (nxt-state-lex 'N34)))) ; >>>>
+      ; (|r| nil 
+      ;   (nxt-state-lex 'N34))
+      (|s| nil 			    ; *** >>> to accept both harmonize
+        (nxt-state-lex 'N40))	    ; *** >>> and harmonise
+      (|v| final 
+        (setoutp 'VE)
+        (nxt-state-lex 'STOP))
+      (|z| nil 
+        (nxt-state-lex 'N40))
+     )
+    (n9                             ; *** state n9: after LE
+      (|b| nil 
+        (nxt-state-lex 'N10))
+     )
+    (n10                             ; *** state n10: after BLE
+      (|a| final 
+        (setoutp 'ABLE)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IBLE)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp 'UBLE)
+        (nxt-state-lex 'STOP))
+     )
+    (n11                             ; *** state n11: after C
+      (|i| final 
+        (setoutp 'IC)
+        (nxt-state-lex 'STOP))
+     )
+    (n12                             ; *** state n12: after L
+      (|a| nil 
+        (nxt-state-lex 'N13))
+     )
+    (n13                             ; *** state n13: after AL
+      (|c| nil 
+        (nxt-state-lex 'N14))
+     )
+    (n14                             ; *** state n14: after CAL
+      (|i| final 
+        (setoutp 'ICAL)
+        (nxt-state-lex 'STOP))
+     )
+    (n15                             ; *** state n15: after S
+      (|a| nil 
+        (nxt-state-lex 'N35))
+      (|e| final 
+        (setoutp 'ES)
+        (nxt-state-lex 'N16))
+      (|i| final 
+        (setoutp 'IS)
+        (nxt-state-lex 'STOP))
+      (|n| nil 
+        (nxt-state-lex 'N23))
+     )
+    (n16                             ; *** state n16: after ES
+      (|i| final 
+        (setoutp 'IES)
+        (nxt-state-lex 'STOP))
+      (|s| nil 			     ; *** >>>> for recognizing authorizes
+        (nxt-state-lex 'N41))	     ; *** >>>> as well as authorises
+      (|z| nil 
+        (nxt-state-lex 'N41))
+     )
+    (n17                             ; *** state n17: after N
+      (|e| nil 
+        (nxt-state-lex 'N38))
+      (|o| nil 
+        (nxt-state-lex 'N18))
+     )
+    (n18                             ; *** state n18: after ON
+      (|i| final 
+        (setoutp 'ION)
+        (nxt-state-lex 'N19))
+     )
+    (n19                             ; *** state n19: after ION
+      (|t| nil 
+        (nxt-state-lex 'N20))
+     )
+    (n20                             ; *** state n20: after TION
+      (|a| nil 
+        (nxt-state-lex 'N21))
+     )
+    (n21                             ; *** state n21: after ATION
+      (|s| nil 			     ; *** >>>> to recognize also authorisation
+        (nxt-state-lex 'N22))	     ; *** >>>> and not only authorization
+      (|z| nil 
+        (nxt-state-lex 'N22))
+     )
+    (n22                             ; *** state n22: after ZATION >>>> and after SATION
+      (|i| final 
+        (setoutp 'IZATION)
+        (nxt-state-lex 'STOP))
+     )
+    (n23                             ; *** state n23: after NS
+      (|o| nil 
+        (nxt-state-lex 'N24))
+     )
+    (n24                             ; *** state n24: after ONS
+      (|i| final 
+        (setoutp 'IONS)
+        (nxt-state-lex 'N25))
+     )
+    (n25                             ; *** state n25: after IONS
+      (|t| nil 
+        (nxt-state-lex 'N26))
+     )
+    (n26                             ; *** state n26: after TIONS
+      (|a| nil 
+        (nxt-state-lex 'N27))
+     )
+    (n27                             ; *** state n27: after ATIONS
+      (|s| nil 			     ; *** >>>> to recognize harmonizations
+        (nxt-state-lex 'N28))	     ; *** >>>> as well as harmonizations
+      (|z| nil 
+        (nxt-state-lex 'N28))
+     )
+    (n28                             ; *** state n28: after ZATIONS
+      (|i| final 
+        (setoutp 'IZATIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n29                             ; *** state n29: after D
+      (|e| final 
+        (setoutp 'ED)
+        (nxt-state-lex 'N42))
+     )
+    (n30                             ; *** state n30: after G
+      (|n| nil 
+        (nxt-state-lex 'N31))
+     )
+    (n31                             ; *** state n31: after NG
+      (|i| final 
+        (setoutp 'ING)
+        (nxt-state-lex 'N32))
+     )
+    (n32                             ; *** state n32: after ING
+      (|e| nil 
+        (nxt-state-lex 'N37))
+      (|s| nil 			     ; >>>> to accept harmonizing as well as
+        (nxt-state-lex 'N44))	     ; >>>> harmonising
+      (|v| final 
+        (setoutp 'VING)
+        (nxt-state-lex 'STOP))
+      (|y| final 
+        (setoutp 'YING)
+        (nxt-state-lex 'STOP))
+      (|z| nil 
+        (nxt-state-lex 'N44))
+     )
+    (n33                             ; *** state n33: after M
+      (|a| final 
+        (setoutp 'AM)
+        (nxt-state-lex 'STOP))
+     )
+    (n34                             ; *** state n34: after RE
+      (|a| final 
+        (setoutp 'ARE)
+        (nxt-state-lex 'STOP))
+      (|e| nil 
+        (nxt-state-lex 'N36))
+     )
+    (n35                             ; *** state n35: after AS
+      (|w| final 
+        (setoutp 'WAS)
+        (nxt-state-lex 'STOP))
+     )
+    (n36                             ; *** state n36: after ERE
+      (|w| final 
+        (setoutp 'WERE)
+        (nxt-state-lex 'STOP))
+     )
+    (n37                             ; *** state n37: after EING
+      (|b| final 
+        (setoutp 'BEING)
+        (nxt-state-lex 'STOP))
+     )
+    (n38                             ; *** state n38: after EN
+      (|e| nil 
+        (nxt-state-lex 'N39))
+     )
+    (n39                             ; *** state n39: after EEN
+      (|b| final 
+        (setoutp 'BEEN)
+        (nxt-state-lex 'STOP))
+     )
+    (n40                             ; *** state n40: after ZE >>> and after SE
+      (|i| final 
+        (setoutp 'IZE)
+        (nxt-state-lex 'STOP))
+     )
+    (n41                             ; *** state n41: after ZES
+      (|i| final 
+        (setoutp 'IZES)
+        (nxt-state-lex 'STOP))
+     )
+    (n42                             ; *** state n42: after ED
+      (|i| final 
+        (setoutp 'IED)
+        (nxt-state-lex 'STOP))
+      (|s| nil 			     ; *** >>> to accept both harmonized 
+        (nxt-state-lex 'N43))	     ; *** >>> and harmonised
+      (|z| nil 
+        (nxt-state-lex 'N43))
+     )
+    (n43                             ; *** state n43: after ZED	>>> and after SED
+      (|i| final 	
+        (setoutp 'IZED)
+        (nxt-state-lex 'STOP))
+     )
+    (n44                             ; *** state n44: after ZING >>>> and after SING
+      (|i| final 
+        (setoutp 'IZING)
+        (nxt-state-lex 'STOP))
+     )
+    (n45                             ; >>>> *** node n45: after 'D'
+     (|'| final			     ; >>>>	for I'd --> I would
+        (setencl 'would)	     ; >>>>
+        (nxt-state-lex 'N1))  	     ; >>>>
+     )			     	     ; >>>>
+    (n46                             ; >>>> *** node n46: after 'm'
+     (|'| final			     ; >>>>     for I'm --> I am
+        (setencl 'am)		     ; >>>>
+        (nxt-state-lex 'N1))         ; >>>>
+     )				     ; >>>>
+    (n47                             ; >>>> *** node n47: after 're'
+     (|'| final			     ; >>>>     for you're --> you are
+        (setencl 'are)		     ; >>>>
+        (nxt-state-lex 'N1))         ; >>>>
+     )				     ; >>>>
+    (n48                             ; >>>> *** node n47: after 't'
+     (|'| nil			     ; >>>>     for don't --> do not
+        (nxt-state-lex 'N49))        ; >>>>
+     )				     ; >>>>
+    (n49                             ; >>>> *** node n48: after ''t'
+     (|n| nil			     ; >>>>     for don't --> do not
+        (setencl 'not)		     ; >>>>
+        (nxt-state-lex 'N1))         ; >>>>
+     )				     ; >>>>
+  )) 

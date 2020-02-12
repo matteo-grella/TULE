@@ -1,0 +1,326 @@
+; *** This table associates with each suffix the categories, class codes, and features that it identifies
+( 
+LY 
+  ( 
+  ADV 
+    (1)
+  ) 
+ILY 
+  ( 
+  ADV 
+    (2)
+  ) 
+ABLY 
+  ( 
+  ADV 
+    (3)
+  ) 
+IBLY 
+  ( 
+  ADV 
+    (4)
+  ) 
+UBLY 
+  ( 
+  ADV 
+    (5)
+  ) 
+ICALLY 
+  ( 
+  ADV 
+    (6)
+  ) 
+Y 
+  ( 
+  ADV 
+    (7)
+  ADJ 
+    ( 
+     2 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     7 (GENDER F NUMBER SING) 
+     8 (GENDER M NUMBER SING) 
+     9 (GENDER N NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     6 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+    ) 
+  ) 
+@EMPT 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     1 (GENDER F NUMBER SING) 
+     2 (GENDER M NUMBER SING) 
+     3 (GENDER N NUMBER SING) 
+     4 (GENDER F NUMBER SING) 
+     5 (GENDER M NUMBER SING) 
+     6 (GENDER N NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+     2 (A (1 2 4 5 6) B E F H (GENDER ALLVAL NUMBER ALLVAL)
+                            I (GENDER ALLVAL NUMBER ALLVAL) L M N (2 3 4 5 6) )
+     8 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+     9 (A E M N (2 3 4 5 6) )
+    ) 
+  ) 
+ABLE 
+  ( 
+  ADJ 
+    ( 
+     3 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  ) 
+IBLE 
+  ( 
+  ADJ 
+    ( 
+     4 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  ) 
+UBLE 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  ) 
+IC 
+  ( 
+  ADJ 
+    ( 
+     6 (GENDER ALLVAL NUMBER ALLVAL) 
+     7 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  ) 
+ICAL 
+  ( 
+  ADJ 
+    ( 
+     7 (GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  ) 
+S 
+  ( 
+  NOUN 
+    ( 
+     1 (GENDER F NUMBER PL) 
+     2 (GENDER M NUMBER PL) 
+     3 (GENDER N NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     1 (A (3) )
+     2 (A (3) )
+     3 (A (3) )
+    ) 
+  ) 
+ES 
+  ( 
+  NOUN 
+    ( 
+     4 (GENDER F NUMBER PL) 
+     5 (GENDER M NUMBER PL) 
+     6 (GENDER N NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     7 (A (3) )
+     8 (A (3) )
+    ) 
+  ) 
+IES 
+  ( 
+  NOUN 
+    ( 
+     7 (GENDER F NUMBER PL) 
+     8 (GENDER M NUMBER PL) 
+     9 (GENDER N NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     6 (A (3) )
+    ) 
+  ) 
+IZATION 
+  ( 
+  NOUN 
+    ( 
+     30 (GENDER N NUMBER SING) 
+    ) 
+  ) 
+IZATIONS 
+  ( 
+  NOUN 
+    ( 
+     30 (GENDER N NUMBER PL) 
+    ) 
+  ) 
+ION 
+  ( 
+  NOUN 
+    ( 
+     31 (GENDER N NUMBER SING) 
+    ) 
+  ) 
+IONS 
+  ( 
+  NOUN 
+    ( 
+     31 (GENDER N NUMBER PL) 
+    ) 
+  ) 
+ED 
+  ( 
+  VERB 
+    ( 
+     1 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+     7 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+     8 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+    ) 
+  ) 
+ING 
+  ( 
+  VERB 
+    ( 
+     1 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+     7 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+     8 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+    ) 
+  ) 
+VE 
+  ( 
+  VERB 
+    ( 
+     3 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+    ) 
+  ) 
+D 
+  ( 
+  VERB 
+    ( 
+     3 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+    ) 
+  ) 
+VING 
+  ( 
+  VERB 
+    ( 
+     3 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+    ) 
+  ) 
+AM 
+  ( 
+  VERB 
+    ( 
+     4 (A (1) )
+    ) 
+  ) 
+ARE 
+  ( 
+  VERB 
+    ( 
+     4 (A (2 4 5 6) )
+    ) 
+  ) 
+IS 
+  ( 
+  VERB 
+    ( 
+     4 (A (3) )
+    ) 
+  ) 
+WAS 
+  ( 
+  VERB 
+    ( 
+     4 (B (1 3) )
+    ) 
+  ) 
+WERE 
+  ( 
+  VERB 
+    ( 
+     4 (B (2 4 5 6) F )
+    ) 
+  ) 
+BE 
+  ( 
+  VERB 
+    ( 
+     4 (E M N (2 3 4 5 6) )
+    ) 
+  ) 
+BEING 
+  ( 
+  VERB 
+    ( 
+     4 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+    ) 
+  ) 
+BEEN 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER ALLVAL NUMBER ALLVAL) )
+    ) 
+  ) 
+IZE 
+  ( 
+  VERB 
+    ( 
+     5 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+    ) 
+  ) 
+IZES 
+  ( 
+  VERB 
+    ( 
+     5 (A (3) )
+    ) 
+  ) 
+IZED 
+  ( 
+  VERB 
+    ( 
+     5 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+    ) 
+  ) 
+IZING 
+  ( 
+  VERB 
+    ( 
+     5 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+    ) 
+  ) 
+IED 
+  ( 
+  VERB 
+    ( 
+     6 (B F I (GENDER ALLVAL NUMBER ALLVAL) )
+    ) 
+  ) 
+YING 
+  ( 
+  VERB 
+    ( 
+     6 (H (GENDER ALLVAL NUMBER ALLVAL) L )
+    ) 
+  ) 
+E 
+  ( 
+  VERB 
+    ( 
+     7 (A (1 2 4 5 6) E M N (2 3 4 5 6) )
+    ) 
+  ) 
+) 

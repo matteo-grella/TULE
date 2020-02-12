@@ -1,0 +1,881 @@
+(loadinvar 'locutdef
+'(
+        accessories ((wall_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev wall next nil )
+         (various_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev various next nil )
+         (kitchen_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev kitchen next nil )
+         (floor_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev floor next nil )
+         (desk_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev desk next nil )
+         (cleaning_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev cleaning next nil )
+         (bed_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev bed next nil )
+         (bath_accessories
+           cat noun gender n number pl locut yes loctype fixed root accessories 
+           prev bath next nil )
+     )
+        air ((air_conditioned
+           cat noun gender n number sing locut yes loctype fixed root air 
+           prev nil next conditioned )
+     )
+        and ((closet_with_door_and_mirror
+           cat noun gender n number sing locut yes loctype fixed root and 
+           prev door next mirror )
+     )
+        appliances ((electrical_appliances
+           cat noun gender n number pl locut yes loctype fixed root appliances 
+           prev electrical next nil )
+     )
+        armchair ((armchair_bed
+           cat noun gender n number sing locut yes loctype fixed root armchair 
+           prev nil next bed )
+         (reclining_armchair
+           cat noun gender n number sing locut yes loctype fixed root armchair 
+           prev reclining next nil )
+         (revolving_armchair
+           cat noun gender n number sing locut yes loctype fixed root armchair 
+           prev revolving next nil )
+     )
+        auxiliary ((auxiliary_table
+           cat noun gender n number sing locut yes loctype fixed root auxiliary 
+           prev nil next table )
+     )
+        baby ((baby_table
+           cat noun gender n number sing locut yes loctype fixed root baby 
+           prev nil next table )
+         (baby_chair
+           cat noun gender n number sing locut yes loctype fixed root baby 
+           prev nil next chair )
+         (baby_gym
+           cat noun gender n number sing locut yes loctype fixed root baby 
+           prev nil next gym )
+         (baby_bathtube
+           cat noun gender n number sing locut yes loctype fixed root baby 
+           prev nil next bathtube )
+     )
+        balance ((balance_beam
+           cat noun gender n number sing locut yes loctype fixed root balance 
+           prev nil next beam )
+     )
+        bank ((table_bank
+           cat noun gender n number sing locut yes loctype fixed root bank 
+           prev table next nil )
+         (tv_bank
+           cat noun gender n number sing locut yes loctype fixed root bank 
+           prev tv next nil )
+         (bank_with_drawer
+           cat noun gender n number sing locut yes loctype fixed root bank 
+           prev nil next with )
+     )
+        bar ((bar_stool
+           cat noun gender n number sing locut yes loctype fixed root bar 
+           prev nil next stool )
+         (curtain_bar
+           cat noun gender n number sing locut yes loctype fixed root bar 
+           prev curtain next nil )
+     )
+        base ((base_closet
+           cat noun gender n number sing locut yes loctype fixed root base 
+           prev nil next closet )
+     )
+        basin ((wash_basin
+           cat noun gender n number sing locut yes loctype fixed root basin 
+           prev wash next nil )
+     )
+        bath ((bath_rack
+           cat noun gender n number sing locut yes loctype fixed root bath 
+           prev nil next rack )
+         (bath_brushes
+           cat noun gender n number pl locut yes loctype fixed root bath 
+           prev nil next brushes )
+         (bath_accessories
+           cat noun gender n number pl locut yes loctype fixed root bath 
+           prev nil next accessories )
+     )
+        bathtube ((baby_bathtube
+           cat noun gender n number sing locut yes loctype fixed root bathtube 
+           prev baby next nil )
+     )
+        beam ((balance_beam
+           cat noun gender n number sing locut yes loctype fixed root beam 
+           prev balance next nil )
+     )
+        bed ((extendable_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev extendable next nil )
+         (tensile_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev tensile next nil )
+         (sofa_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev sofa next nil )
+         (reversible_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev reversible next nil )
+         (loft_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev loft next nil )
+         (inferior_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev inferior next nil )
+         (high_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev high next nil )
+         (canopy_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev canopy next nil )
+         (bunk_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev bunk next nil )
+         (armchair_bed
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev armchair next nil )
+         (bed_tray
+           cat noun gender n number sing locut yes loctype fixed root bed 
+           prev nil next tray )
+         (bed_accessories
+           cat noun gender n number pl locut yes loctype fixed root bed 
+           prev nil next accessories )
+     )
+        bedside ((bedside_table
+           cat noun gender n number sing locut yes loctype fixed root bedside 
+           prev nil next table )
+     )
+        blind ((venetian_blind
+           cat noun gender n number sing locut yes loctype fixed root blind 
+           prev venetian next nil )
+     )
+        board ((magnetic_board
+           cat noun gender n number sing locut yes loctype fixed root board 
+           prev magnetic next nil )
+         (chopping_board
+           cat noun gender n number sing locut yes loctype fixed root board 
+           prev chopping next nil )
+     )
+        bottle ((bottle_storage
+           cat noun gender n number sing locut yes loctype fixed root bottle 
+           prev nil next storage )
+     )
+        box ((musical_box
+           cat noun gender n number sing locut yes loctype fixed root box 
+           prev musical next nil )
+     )
+        brushes ((bath_brushes
+           cat noun gender n number pl locut yes loctype fixed root brushes 
+           prev bath next nil )
+     )
+        bunk ((bunk_bed
+           cat noun gender n number sing locut yes loctype fixed root bunk 
+           prev nil next bed )
+     )
+        cabinet ((wall_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev wall next nil )
+         (shoe_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev shoe next nil )
+         (mirror_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev mirror next nil )
+         (lockable_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev lockable next nil )
+         (linen_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev linen next nil )
+         (high_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev high next nil )
+         (filing_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev filing next nil )
+         (display_cabinet
+           cat noun gender n number sing locut yes loctype fixed root cabinet 
+           prev display next nil )
+     )
+        can ((watering_can
+           cat noun gender n number sing locut yes loctype fixed root can 
+           prev watering next nil )
+     )
+        canopy ((canopy_bed
+           cat noun gender n number sing locut yes loctype fixed root canopy 
+           prev nil next bed )
+     )
+        ceiling ((ceiling_spotlight
+           cat noun gender n number sing locut yes loctype fixed root ceiling 
+           prev nil next spotlight )
+         (ceiling_lamp
+           cat noun gender n number sing locut yes loctype fixed root ceiling 
+           prev nil next lamp )
+         (ceiling_fitting
+           cat noun gender n number sing locut yes loctype fixed root ceiling 
+           prev nil next fitting )
+     )
+        center ((center_table
+           cat noun gender n number sing locut yes loctype fixed root center 
+           prev nil next table )
+     )
+        chair ((folding_chair
+           cat noun gender n number sing locut yes loctype fixed root chair 
+           prev folding next nil )
+         (baby_chair
+           cat noun gender n number sing locut yes loctype fixed root chair 
+           prev baby next nil )
+         (junior_chair
+           cat noun gender n number sing locut yes loctype fixed root chair 
+           prev junior next nil )
+         (rocking_chair
+           cat noun gender n number sing locut yes loctype fixed root chair 
+           prev rocking next nil )
+         (revolving_chair
+           cat noun gender n number sing locut yes loctype fixed root chair 
+           prev revolving next nil )
+     )
+        changing ((changing_table
+           cat noun gender n number sing locut yes loctype fixed root changing 
+           prev nil next table )
+     )
+        chest ((chest_of_drawers
+           cat noun gender n number sing locut yes loctype fixed root chest 
+           prev nil next of )
+     )
+        children ((children_table
+           cat noun gender n number sing locut yes loctype fixed root children 
+           prev nil next table )
+     )
+        chopping ((chopping_board
+           cat noun gender n number sing locut yes loctype fixed root chopping 
+           prev nil next board )
+     )
+        cleaner ((vacuum_cleaner
+           cat noun gender n number sing locut yes loctype fixed root cleaner 
+           prev vacuum next nil )
+     )
+        cleaning ((cleaning_accessories
+           cat noun gender n number pl locut yes loctype fixed root cleaning 
+           prev nil next accessories )
+     )
+        clock ((giant_clock
+           cat noun gender n number sing locut yes loctype fixed root clock 
+           prev giant next nil )
+     )
+        closet ((wall_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev wall next nil )
+         (mirror_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev mirror next nil )
+         (corner_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev corner next nil )
+         (base_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev base next nil )
+         (closet_with_doors
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev nil next with )
+         (closet_with_door_and_mirror
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev nil next with )
+         (closet_with_door
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev nil next with )
+         (low_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev low next nil )
+         (high_closet
+           cat noun gender n number sing locut yes loctype fixed root closet 
+           prev high next nil )
+     )
+        clothes ((clothes_rack
+           cat noun gender n number sing locut yes loctype fixed root clothes 
+           prev nil next rack )
+     )
+        coffee ((coffee_machine
+           cat noun gender n number sing locut yes loctype fixed root coffee 
+           prev nil next machine )
+     )
+        computer ((computer_table
+           cat noun gender n number sing locut yes loctype fixed root computer 
+           prev nil next table )
+     )
+        conditioned ((air_conditioned
+           cat noun gender n number sing locut yes loctype fixed root conditioned 
+           prev air next nil )
+     )
+        corner ((corner_closet
+           cat noun gender n number sing locut yes loctype fixed root corner 
+           prev nil next closet )
+     )
+        cup ((flower_cup
+           cat noun gender n number sing locut yes loctype fixed root cup 
+           prev flower next nil )
+     )
+        curtain ((curtain_rod
+           cat noun gender n number sing locut yes loctype fixed root curtain 
+           prev nil next rod )
+         (curtain_bar
+           cat noun gender n number sing locut yes loctype fixed root curtain 
+           prev nil next bar )
+     )
+        cutting ((cutting_table
+           cat noun gender n number sing locut yes loctype fixed root cutting 
+           prev nil next table )
+     )
+        desk ((writing_desk
+           cat noun gender n number sing locut yes loctype fixed root desk 
+           prev writing next nil )
+         (desk_accessories
+           cat noun gender n number pl locut yes loctype fixed root desk 
+           prev nil next accessories )
+     )
+        dining ((dining_room
+           cat noun gender n number sing locut yes loctype fixed root dining 
+           prev nil next room )
+         (dining_room_table
+           cat noun gender n number sing locut yes loctype fixed root dining 
+           prev nil next room )
+         (dining_table
+           cat noun gender n number sing locut yes loctype fixed root dining 
+           prev nil next table )
+     )
+        display ((display_cabinet
+           cat noun gender n number sing locut yes loctype fixed root display 
+           prev nil next cabinet )
+     )
+        door ((sliding_door
+           cat noun gender n number sing locut yes loctype fixed root door 
+           prev sliding next nil )
+         (closet_with_door_and_mirror
+           cat noun gender n number sing locut yes loctype fixed root door 
+           prev with next and )
+         (closet_with_door
+           cat noun gender n number sing locut yes loctype fixed root door 
+           prev with next nil )
+         (door_mat
+           cat noun gender n number sing locut yes loctype fixed root door 
+           prev nil next mat )
+     )
+        doors ((closet_with_doors
+           cat noun gender n number sing locut yes loctype fixed root doors 
+           prev with next nil )
+     )
+        drawer ((drawer_unit
+           cat noun gender n number sing locut yes loctype fixed root drawer 
+           prev nil next unit )
+         (bank_with_drawer
+           cat noun gender n number sing locut yes loctype fixed root drawer 
+           prev with next nil )
+     )
+        drawers ((chest_of_drawers
+           cat noun gender n number sing locut yes loctype fixed root drawers 
+           prev of next nil )
+     )
+        dressing ((dressing_table
+           cat noun gender n number sing locut yes loctype fixed root dressing 
+           prev nil next table )
+     )
+        drying ((drying_rack
+           cat noun gender n number sing locut yes loctype fixed root drying 
+           prev nil next rack )
+     )
+        electrical ((electrical_appliances
+           cat noun gender n number pl locut yes loctype fixed root electrical 
+           prev nil next appliances )
+     )
+        extendable ((extendable_bed
+           cat noun gender n number sing locut yes loctype fixed root extendable 
+           prev nil next bed )
+     )
+        filing ((filing_cabinet
+           cat noun gender n number sing locut yes loctype fixed root filing 
+           prev nil next cabinet )
+     )
+        fitting ((ceiling_fitting
+           cat noun gender n number sing locut yes loctype fixed root fitting 
+           prev ceiling next nil )
+     )
+        floor ((floor_accessories
+           cat noun gender n number pl locut yes loctype fixed root floor 
+           prev nil next accessories )
+     )
+        flower ((flower_cup
+           cat noun gender n number sing locut yes loctype fixed root flower 
+           prev nil next cup )
+     )
+        folding ((folding_table
+           cat noun gender n number sing locut yes loctype fixed root folding 
+           prev nil next table )
+         (folding_chair
+           cat noun gender n number sing locut yes loctype fixed root folding 
+           prev nil next chair )
+     )
+        framed ((framed_picture
+           cat noun gender n number sing locut yes loctype fixed root framed 
+           prev nil next picture )
+     )
+        frying ((frying_pan
+           cat noun gender n number sing locut yes loctype fixed root frying 
+           prev nil next pan )
+     )
+        gateleg ((gateleg_table
+           cat noun gender n number sing locut yes loctype fixed root gateleg 
+           prev nil next table )
+     )
+        giant ((giant_clock
+           cat noun gender n number sing locut yes loctype fixed root giant 
+           prev nil next clock )
+     )
+        gym ((baby_gym
+           cat noun gender n number sing locut yes loctype fixed root gym 
+           prev baby next nil )
+     )
+        heating ((heating_machine
+           cat noun gender n number sing locut yes loctype fixed root heating 
+           prev nil next machine )
+     )
+        high ((high_closet
+           cat noun gender n number sing locut yes loctype fixed root high 
+           prev nil next closet )
+         (high_cabinet
+           cat noun gender n number sing locut yes loctype fixed root high 
+           prev nil next cabinet )
+         (high_bed
+           cat noun gender n number sing locut yes loctype fixed root high 
+           prev nil next bed )
+         (high_module
+           cat noun gender n number sing locut yes loctype fixed root high 
+           prev nil next module )
+     )
+        highchair ((highchair_tray
+           cat noun gender n number sing locut yes loctype fixed root highchair 
+           prev nil next tray )
+     )
+        inferior ((inferior_bed
+           cat noun gender n number sing locut yes loctype fixed root inferior 
+           prev nil next bed )
+     )
+        junior ((junior_chair
+           cat noun gender n number sing locut yes loctype fixed root junior 
+           prev nil next chair )
+     )
+        kit ((medicine_kit
+           cat noun gender n number sing locut yes loctype fixed root kit 
+           prev medicine next nil )
+     )
+        kitchen ((kitchen_module
+           cat noun gender n number sing locut yes loctype fixed root kitchen 
+           prev nil next module )
+         (kitchen_accessories
+           cat noun gender n number pl locut yes loctype fixed root kitchen 
+           prev nil next accessories )
+     )
+        lamp ((ceiling_lamp
+           cat noun gender n number sing locut yes loctype fixed root lamp 
+           prev ceiling next nil )
+         (table_lamp
+           cat noun gender n number sing locut yes loctype fixed root lamp 
+           prev table next nil )
+     )
+        leather ((leather_sofa
+           cat noun gender n number sing locut yes loctype fixed root leather 
+           prev nil next sofa )
+     )
+        linen ((linen_cabinet
+           cat noun gender n number sing locut yes loctype fixed root linen 
+           prev nil next cabinet )
+     )
+        lockable ((lockable_cabinet
+           cat noun gender n number sing locut yes loctype fixed root lockable 
+           prev nil next cabinet )
+     )
+        loft ((loft_bed
+           cat noun gender n number sing locut yes loctype fixed root loft 
+           prev nil next bed )
+     )
+        low ((low_closet
+           cat noun gender n number sing locut yes loctype fixed root low 
+           prev nil next closet )
+     )
+        machine ((pasta_machine
+           cat noun gender n number sing locut yes loctype fixed root machine 
+           prev pasta next nil )
+         (coffee_machine
+           cat noun gender n number sing locut yes loctype fixed root machine 
+           prev coffee next nil )
+         (washing_machine
+           cat noun gender n number sing locut yes loctype fixed root machine 
+           prev washing next nil )
+         (heating_machine
+           cat noun gender n number sing locut yes loctype fixed root machine 
+           prev heating next nil )
+     )
+        magnetic ((magnetic_board
+           cat noun gender n number sing locut yes loctype fixed root magnetic 
+           prev nil next board )
+     )
+        mat ((door_mat
+           cat noun gender n number sing locut yes loctype fixed root mat 
+           prev door next nil )
+     )
+        medicine ((medicine_kit
+           cat noun gender n number sing locut yes loctype fixed root medicine 
+           prev nil next kit )
+     )
+        microwave ((microwave_oven
+           cat noun gender n number sing locut yes loctype fixed root microwave 
+           prev nil next oven )
+     )
+        mirror ((mirror_closet
+           cat noun gender n number sing locut yes loctype fixed root mirror 
+           prev nil next closet )
+         (closet_with_door_and_mirror
+           cat noun gender n number sing locut yes loctype fixed root mirror 
+           prev and next nil )
+         (mirror_cabinet
+           cat noun gender n number sing locut yes loctype fixed root mirror 
+           prev nil next cabinet )
+         (table_mirror
+           cat noun gender n number sing locut yes loctype fixed root mirror 
+           prev table next nil )
+     )
+        module ((kitchen_module
+           cat noun gender n number sing locut yes loctype fixed root module 
+           prev kitchen next nil )
+         (high_module
+           cat noun gender n number sing locut yes loctype fixed root module 
+           prev high next nil )
+     )
+        multimedia ((multimedia_rack
+           cat noun gender n number sing locut yes loctype fixed root multimedia 
+           prev nil next rack )
+     )
+        musical ((musical_box
+           cat noun gender n number sing locut yes loctype fixed root musical 
+           prev nil next box )
+     )
+        nest ((nest_table
+           cat noun gender n number sing locut yes loctype fixed root nest 
+           prev nil next table )
+     )
+        of ((chest_of_drawers
+           cat noun gender n number sing locut yes loctype fixed root of 
+           prev chest next drawers )
+     )
+        organiser ((shoe_organiser
+           cat noun gender n number sing locut yes loctype fixed root organiser 
+           prev shoe next nil )
+     )
+        oven ((microwave_oven
+           cat noun gender n number sing locut yes loctype fixed root oven 
+           prev microwave next nil )
+     )
+        pan ((frying_pan
+           cat noun gender n number sing locut yes loctype fixed root pan 
+           prev frying next nil )
+     )
+        pasta ((pasta_machine
+           cat noun gender n number sing locut yes loctype fixed root pasta 
+           prev nil next machine )
+     )
+        pedestal ((pedestal_table
+           cat noun gender n number sing locut yes loctype fixed root pedestal 
+           prev nil next table )
+     )
+        picture ((framed_picture
+           cat noun gender n number sing locut yes loctype fixed root picture 
+           prev framed next nil )
+     )
+        rack ((multimedia_rack
+           cat noun gender n number sing locut yes loctype fixed root rack 
+           prev multimedia next nil )
+         (drying_rack
+           cat noun gender n number sing locut yes loctype fixed root rack 
+           prev drying next nil )
+         (clothes_rack
+           cat noun gender n number sing locut yes loctype fixed root rack 
+           prev clothes next nil )
+         (bath_rack
+           cat noun gender n number sing locut yes loctype fixed root rack 
+           prev bath next nil )
+         (shoe_rack
+           cat noun gender n number sing locut yes loctype fixed root rack 
+           prev shoe next nil )
+     )
+        reclining ((reclining_armchair
+           cat noun gender n number sing locut yes loctype fixed root reclining 
+           prev nil next armchair )
+     )
+        reversible ((reversible_bed
+           cat noun gender n number sing locut yes loctype fixed root reversible 
+           prev nil next bed )
+     )
+        revolving ((revolving_chair
+           cat noun gender n number sing locut yes loctype fixed root revolving 
+           prev nil next chair )
+         (revolving_armchair
+           cat noun gender n number sing locut yes loctype fixed root revolving 
+           prev nil next armchair )
+     )
+        rocking ((rocking_chair
+           cat noun gender n number sing locut yes loctype fixed root rocking 
+           prev nil next chair )
+     )
+        rod ((curtain_rod
+           cat noun gender n number sing locut yes loctype fixed root rod 
+           prev curtain next nil )
+     )
+        room ((dining_room
+           cat noun gender n number sing locut yes loctype fixed root room 
+           prev dining next nil )
+         (dining_room_table
+           cat noun gender n number sing locut yes loctype fixed root room 
+           prev dining next table )
+     )
+        round ((round_table
+           cat noun gender n number sing locut yes loctype fixed root round 
+           prev nil next table )
+     )
+        seat ((toilet_seat
+           cat noun gender n number sing locut yes loctype fixed root seat 
+           prev toilet next nil )
+     )
+        shelf ((shower_shelf
+           cat noun gender n number sing locut yes loctype fixed root shelf 
+           prev shower next nil )
+     )
+        shoe ((shoe_storage
+           cat noun gender n number sing locut yes loctype fixed root shoe 
+           prev nil next storage )
+         (shoe_rack
+           cat noun gender n number sing locut yes loctype fixed root shoe 
+           prev nil next rack )
+         (shoe_organiser
+           cat noun gender n number sing locut yes loctype fixed root shoe 
+           prev nil next organiser )
+         (shoe_cabinet
+           cat noun gender n number sing locut yes loctype fixed root shoe 
+           prev nil next cabinet )
+     )
+        shower ((shower_shelf
+           cat noun gender n number sing locut yes loctype fixed root shower 
+           prev nil next shelf )
+     )
+        sliding ((sliding_door
+           cat noun gender n number sing locut yes loctype fixed root sliding 
+           prev nil next door )
+     )
+        small ((small_table
+           cat noun gender n number sing locut yes loctype fixed root small 
+           prev nil next table )
+     )
+        sofa ((sofa_bed
+           cat noun gender n number sing locut yes loctype fixed root sofa 
+           prev nil next bed )
+         (leather_sofa
+           cat noun gender n number sing locut yes loctype fixed root sofa 
+           prev leather next nil )
+     )
+        spotlight ((ceiling_spotlight
+           cat noun gender n number sing locut yes loctype fixed root spotlight 
+           prev ceiling next nil )
+     )
+        stool ((bar_stool
+           cat noun gender n number sing locut yes loctype fixed root stool 
+           prev bar next nil )
+     )
+        storage ((shoe_storage
+           cat noun gender n number sing locut yes loctype fixed root storage 
+           prev shoe next nil )
+         (wall_storage
+           cat noun gender n number sing locut yes loctype fixed root storage 
+           prev wall next nil )
+         (bottle_storage
+           cat noun gender n number sing locut yes loctype fixed root storage 
+           prev bottle next nil )
+         (storage_table
+           cat noun gender n number sing locut yes loctype fixed root storage 
+           prev nil next table )
+     )
+        table ((table_lamp
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev nil next lamp )
+         (trolley_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev trolley next nil )
+         (table_top
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev nil next top )
+         (storage_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev storage next nil )
+         (small_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev small next nil )
+         (work_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev work next nil )
+         (wheel_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev wheel next nil )
+         (round_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev round next nil )
+         (pedestal_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev pedestal next nil )
+         (nest_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev nest next nil )
+         (changing_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev changing next nil )
+         (gateleg_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev gateleg next nil )
+         (folding_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev folding next nil )
+         (dressing_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev dressing next nil )
+         (dining_room_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev room next nil )
+         (dining_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev dining next nil )
+         (cutting_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev cutting next nil )
+         (computer_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev computer next nil )
+         (children_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev children next nil )
+         (center_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev center next nil )
+         (bedside_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev bedside next nil )
+         (baby_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev baby next nil )
+         (auxiliary_table
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev auxiliary next nil )
+         (table_bank
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev nil next bank )
+         (table_mirror
+           cat noun gender n number sing locut yes loctype fixed root table 
+           prev nil next mirror )
+     )
+        tensile ((tensile_bed
+           cat noun gender n number sing locut yes loctype fixed root tensile 
+           prev nil next bed )
+     )
+        toilet ((toilet_seat
+           cat noun gender n number sing locut yes loctype fixed root toilet 
+           prev nil next seat )
+     )
+        top ((table_top
+           cat noun gender n number sing locut yes loctype fixed root top 
+           prev table next nil )
+     )
+        tray ((highchair_tray
+           cat noun gender n number sing locut yes loctype fixed root tray 
+           prev highchair next nil )
+         (bed_tray
+           cat noun gender n number sing locut yes loctype fixed root tray 
+           prev bed next nil )
+     )
+        trolley ((trolley_table
+           cat noun gender n number sing locut yes loctype fixed root trolley 
+           prev nil next table )
+     )
+        tv ((tv_bank
+           cat noun gender n number sing locut yes loctype fixed root tv 
+           prev nil next bank )
+     )
+        unit ((drawer_unit
+           cat noun gender n number sing locut yes loctype fixed root unit 
+           prev drawer next nil )
+     )
+        vacuum ((vacuum_cleaner
+           cat noun gender n number sing locut yes loctype fixed root vacuum 
+           prev nil next cleaner )
+     )
+        various ((various_accessories
+           cat noun gender n number pl locut yes loctype fixed root various 
+           prev nil next accessories )
+     )
+        venetian ((venetian_blind
+           cat noun gender n number sing locut yes loctype fixed root venetian 
+           prev nil next blind )
+     )
+        wall ((wall_storage
+           cat noun gender n number sing locut yes loctype fixed root wall 
+           prev nil next storage )
+         (wall_closet
+           cat noun gender n number sing locut yes loctype fixed root wall 
+           prev nil next closet )
+         (wall_cabinet
+           cat noun gender n number sing locut yes loctype fixed root wall 
+           prev nil next cabinet )
+         (wall_accessories
+           cat noun gender n number pl locut yes loctype fixed root wall 
+           prev nil next accessories )
+     )
+        wash ((wash_basin
+           cat noun gender n number sing locut yes loctype fixed root wash 
+           prev nil next basin )
+     )
+        washing ((washing_machine
+           cat noun gender n number sing locut yes loctype fixed root washing 
+           prev nil next machine )
+     )
+        watering ((watering_can
+           cat noun gender n number sing locut yes loctype fixed root watering 
+           prev nil next can )
+     )
+        wheel ((wheel_table
+           cat noun gender n number sing locut yes loctype fixed root wheel 
+           prev nil next table )
+     )
+        with ((closet_with_doors
+           cat noun gender n number sing locut yes loctype fixed root with 
+           prev closet next doors )
+         (closet_with_door_and_mirror
+           cat noun gender n number sing locut yes loctype fixed root with 
+           prev closet next door )
+         (closet_with_door
+           cat noun gender n number sing locut yes loctype fixed root with 
+           prev closet next door )
+         (bank_with_drawer
+           cat noun gender n number sing locut yes loctype fixed root with 
+           prev bank next drawer )
+     )
+        work ((work_table
+           cat noun gender n number sing locut yes loctype fixed root work 
+           prev nil next table )
+     )
+        writing ((writing_desk
+           cat noun gender n number sing locut yes loctype fixed root writing 
+           prev nil next desk )
+     )
+  )
+)

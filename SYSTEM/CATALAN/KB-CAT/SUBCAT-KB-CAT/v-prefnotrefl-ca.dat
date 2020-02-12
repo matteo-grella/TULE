@@ -1,0 +1,7 @@
+; *** In this file verbs which, in presence of a reflexive pronoun
+; *** prefer an impersonal reading (ex. "si apprende")
+
+(setq *PREF-IMPERSONAL*
+  '(
+    ))
+

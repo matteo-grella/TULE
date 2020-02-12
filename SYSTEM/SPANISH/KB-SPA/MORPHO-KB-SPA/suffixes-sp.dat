@@ -1,0 +1,245 @@
+(setq *SUFFIX-TABLE*
+  '(adj
+      (0  (nil     nil     nil     nil     nil     nil)
+       1  (@empt   a       nil     es      as      nil)    ; *** traidor, señor, redactor
+       2  (o       a       nil     os      as      nil)    ; *** voluntario, vivo, violento
+       3  (@empt   @empt   nil     s       s       nil)    ; *** visible, verde, valiente
+       4  (@empt   @empt   nil     es      es      nil)    ; *** vulgar, vital, virgen
+       5  (@empt   @empt   @empt   @empt   @empt   @empt)  ; *** idem, donde, cuando
+       6  (@empt   @empt   nil     nil     nil     nil)    ; *** naide, nadie, nada, gran
+       7  (nil     nil     nil     os      as      nil)    ; *** veintitodos, veintitantos
+       8  (z       za      nil     ces     zas     nil)    ; *** andaluz
+       9  (nil     a       nil     os      as      nil)    ; *** aquel
+       10 (nil     a       o       os      as      nil)    ; *** el, aquel
+       11 (z       z       nil     ces     ces     nil)    ; *** veloz, incapaz, fugaz
+       12 (nil     nil     nil     @empt   @empt   nil)    ; *** veintiuno, veintiuno, veintitres
+       13 (nil     nil     nil     s       s       nil)    ; *** ciento
+       14 (e       a       nil     os      as      nil)    ; *** este, ese
+       15 (e       a       o       os      as      nil)    ; *** este, ese
+       16 (o       a       nil     nil     nil     nil)    ; *** estotro, esotro
+       17 (í       í       nil     is      is      nil)    ; *** israelí
+       18 (@empt   nil     nil     s       nil     nil)    ; *** macho
+       19 (@empt   nil     nil     es      nil     nil)    ; *** marron
+      )
+    noun
+      (0  (nil     nil     nil     nil     nil     nil)
+       1  (nil     @empt   nil     nil     es      nil)    ; *** vulgaridad, voluntad, vocacion
+       2  (@empt   nil     nil     s       nil     nil)    ; *** zapato, whisky, vuelo
+       3  (@empt   nil     nil     es      nil     nil)    ; *** volumen, virrey, vigor
+       4  (nil     @empt   nil     nil     s       nil)    ; *** zona, vuelta, vivienda
+       5  (@empt   @empt   nil     s       s       nil)    ; *** yegua, visitante, turista
+       6  (nil     z       nil     nil     ces     nil)    ; *** voz, vez, vejez
+       7  (z       nil     nil     ces     nil     nil)    ; *** matiz, arroz, andaluz
+       8  (@empt   nil     nil     @empt   nil     nil)    ; *** yin, virus, viernes
+       9  (@empt   @empt   nil     es      es      nil)    ; *** virgen, rival, profesional
+       10 (ú       nil     nil     us      nil     nil)    ; *** bambú
+       11 (é       nil     nil     es      nil     nil)    ; *** té, comité, café
+       12 (@empt   nil     nil     es      @empt   nil)    ; *** cancer
+       13 (@empt   nil     nil     s       @empt   nil)    ; *** cero
+       14 (@empt   nil     nil     nil     nil     nil)    ; *** vas, opium, monsieur
+       15 (nil     @empt   nil     nil     @empt   nil)    ; *** tesis, sintesis, hipotesis
+       16 (nil     nil     nil     nil     @empt   nil)    ; *** vacaciones, ex
+       17 (nil     @empt   nil     nil     nil     nil)    ; *** y, x, v
+       18 (z       z       nil     ces     ces     nil)    ; *** portavoz, pez, juez
+       19 (nil     á       nil     nil     as      nil)    ; *** sofá, mamá
+       20 (á       nil     nil     as      nil     nil)    ; *** papá
+       21 (o       nil     nil     os      nil     nil)    ; *** abismo
+       22 (nil     a       nil     nil     as      nil)    ; *** 
+      )
+    verb
+      (
+      ; classe 1: votar, vislumbrar, visitar
+       1 (
+          (o        as       a        amos     ais      an)          ; (a) ind.pres.
+          (aba      abas     aba      abamos   abais    aban)        ; (b) ind.imperf.
+          (é        aste     ó        amos     asteis   aron)        ; (c) ind.past.
+          (aré      aras     ará      aremos   areis    aran)        ; (d) ind.fut.
+          (e        es       e        emos     eis      en)          ; (e) subj.pres.
+          (ase      ases     ase      asemos   aseis    asen)        ; (f) subj.imperf.
+          (are      ares     are      aremos   areis    aren)        ; (p) subj.fut.
+          (aria     arias    aria     ariamos  ariais   arian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ado      ada      nil      ados     adas     nil)         ; (i) partic.past.
+          (ando)                                                     ; (l) gerund
+          (ar)                                                       ; (m) infinite
+          (nil      a        e        emos     ad       en)          ; (n) imperative
+         )
+      ; classe 2: vender, temer, tejer
+       2 (
+          (o        es       e        emos     eis      en)          ; (a) ind.pres.
+          (ia       ias      ia       iamos    iais     ian)         ; (b) ind.imperf.
+          (í        iste     ió       imos     isteis   ieron)       ; (c) ind.past.
+          (eré      eras     erá      eremos   ereis    eran)        ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (iese     ieses    iese     iesemos  ieseis   iesen)       ; (f) subj.imperf.
+          (iere     ieres    iere     ieremos  iereis   ieren)       ; (p) subj.fut.
+          (eria     erias    eria     eriamos  eriais   erian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ido      ida      nil      idos     idas     nil)         ; (i) partic.past.
+          (iendo)                                                    ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      e        a        amos     ed       an)          ; (n) imperative
+         )
+      ; classe 3: vivir, unir, transmitir
+       3 (
+          (o        es       e        imos     is       en)          ; (a) ind.pres.
+          (ia       ias      ia       iamos    iais     ian)         ; (b) ind.imperf.
+          (í        iste     ió       imos     isteis   ieron)       ; (c) ind.past.
+          (iré      iras     irá      iremos   ireis    iran)        ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (iese     ieses    iese     iesemos  ieseis   iesen)       ; (f) subj.imperf.
+          (iere     ieres    iere     ieremos  iereis   ieren)       ; (p) subj.fut.
+          (iria     irias    iria     iriamos  iriais   irian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ido      ida      nil      idos     idas     nil)         ; (i) partic.past.
+          (iendo)                                                    ; (l) gerund
+          (ir)                                                       ; (m) infinite
+          (nil      e        a        amos     id       an)          ; (n) imperative
+         )
+      ; classe 4: fallir
+       4 (
+          (o        es       e        imos     is       en)          ; (a) ind.pres.
+          (ia       ias      ia       iamos    iais     ian)         ; (b) ind.imperf.
+          (í        iste     ó        imos     isteis   eron)        ; (c) ind.past.
+          (iré      iras     irá      iremos   ireis    iran)        ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (ese      eses     ese      esemos   eseis    esen)        ; (f) subj.imperf.
+          (ere      eres     ere      eremos   ereis    eren)        ; (p) subj.fut.
+          (iria     irias    iria     iriamos  iriais   irian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ido      ida      nil      idos     idas     nil)         ; (i) partic.past.
+          (endo)                                                     ; (l) gerund
+          (ir)                                                       ; (m) infinite
+          (nil      e        a        amos     id       an)          ; (n) imperative
+         )
+      ; classe 5: descubrir, cubrir, abrir
+       5 (
+          (é        nil      é        nil      nil      nil)         ; (a) ind.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (b) ind.imperf.
+          (e        iste     o        imos     isteis   ieron)       ; (c) ind.past.
+          (ré       ras      rá       remos    reis     ran)         ; (d) ind.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (e) subj.pres.
+          (ese      eses     ese      esemos   eseis    esen)        ; (f) subj.imperf.
+          (ere      eres     ere      eremos   ereis    eren)        ; (p) subj.fut.
+          (ria      rias     ria      riamos   riais    rian)        ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (o        a        nil      os       as       nil)         ; (i) partic.past.
+          (endo)                                                     ; (l) gerund
+          (nil)                                                      ; (m) infinite
+          (nil      @empt    nil      nil      nil      nil)         ; (n) imperative
+         )
+      ; classe 6: estar
+       6 (
+          (oy       as       á        amos     ais      an)          ; (a) ind.pres.
+          (aba      abas     aba      abamos   abais    aban)        ; (b) ind.imperf.
+          (e        iste     o        imos     isteis   ieron)       ; (c) ind.past.
+          (aré      aras     ará      aremos   areis    aran)        ; (d) ind.fut.
+          (é        es       é        emos     eis      en)          ; (e) subj.pres.
+          (iese     ieses    iese     iesemos  ieseis   iesen)       ; (f) subj.imperf.
+          (iere     ieres    iere     ieremos  iereis   ieren)       ; (p) subj.fut.
+          (aria     arias    aria     ariamos  ariais   arian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ado      ada      nil      ados     adas     nil)         ; (i) partic.past.
+          (ando)                                                     ; (l) gerund
+          (ar)                                                       ; (m) infinite
+          (nil      á        é        emos     ad       en)          ; (n) imperative
+         )
+      ; classe 7: haber
+       7 (
+          (e        as       ay       emos     eis      an)          ; (a) ind.pres.
+          (ia       ias      ia       iamos    iais     ian)         ; (b) ind.imperf.
+          (e        iste     o        imos     isteis   ieron)       ; (c) ind.past.
+          (ré       ras      rá       remos    reis     ran)         ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (iese     ieses    iese     iesemos  ieseis   iesen)       ; (f) subj.imperf.
+          (iere     ieres    iere     ieremos  iereis   ieren)       ; (p) subj.fut.
+          (ria      rias     ria      riamos   riais    rian)        ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ido      ida      nil      idos     idas     nil)         ; (i) partic.past.
+          (iendo)                                                    ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      e        a        amos     ed       an)          ; (n) imperative
+         )
+      ; classe 8: ir
+       8 (
+          (oy       as       a        amos     ais      an)          ; (a) ind.pres.
+          (iba      ibas     iba      ibamos   ibais    iban)        ; (b) ind.imperf.
+          (i        iste     e        imos     isteis   eron)        ; (c) ind.past.
+          (ré       ras      rá       remos    reis     ran)         ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (ese      eses     ese      esemos   eseis    esen)        ; (f) subj.imperf.
+          (ere      eres     ere      eremos   ereis    eren)        ; (p) subj.fut.
+          (ria      rias     ria      riamos   riais    rian)        ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (do       da       nil      dos      das      nil)         ; (i) partic.past.
+          (endo)                                                     ; (l) gerund
+          (r)                                                        ; (m) infinite
+          (nil      e        a        amos     d        an)          ; (n) imperative
+         )
+      ; classe 9: ser
+       9 (
+          (oy       es       s        omos     ois      on)          ; (a) ind.pres.
+          (a        as       a        amos     ais      an)          ; (b) ind.imperf.
+          (i        iste     e        imos     isteis   eron)        ; (c) ind.past.
+          (eré      eras     erá      eremos   ereis    eran)        ; (d) ind.fut.
+          (a        as       a        amos     ais      an)          ; (e) subj.pres.
+          (ese      eses     ese      esemos   eseis    esen)        ; (f) subj.imperf.
+          (ere      eres     ere      eremos   ereis    eren)        ; (p) subj.fut.
+          (eria     erias    eria     eriamos  eriais   erian)       ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (ido      ida      nil      idos     idas     nil)         ; (i) partic.past.
+          (iendo)                                                    ; (l) gerund
+          (er)                                                       ; (m) infinite
+          (nil      é        a        amos     ed       an)          ; (n) imperative
+         )
+      ; classe 10: used only for the second form of the subjunctive imperfect
+       10 (
+          (nil      nil      nil      nil      nil      nil)         ; (a) ind.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (b) ind.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (c) ind.past.
+          (nil      nil      nil      nil      nil      nil)         ; (d) ind.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (e) subj.pres.
+          (iera     ieras    iera     ieramos  ierais   ieran)       ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (i) partic.past.
+          (nil      nil      nil      nil      nil      nil)         ; (l) gerund
+          (nil      nil      nil      nil      nil      nil)         ; (m) infinite
+          (nil      nil      nil      nil      nil      nil)         ; (n) imperative
+         )
+      ; classe 11: used only for the second form of the subjunctive imperfect
+       11 (
+          (nil      nil      nil      nil      nil      nil)         ; (a) ind.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (b) ind.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (c) ind.past.
+          (nil      nil      nil      nil      nil      nil)         ; (d) ind.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (e) subj.pres.
+          (ara      aras     ara      aramos   arais    aran)        ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (i) partic.past.
+          (nil      nil      nil      nil      nil      nil)         ; (l) gerund
+          (nil      nil      nil      nil      nil      nil)         ; (m) infinite
+          (nil      nil      nil      nil      nil      nil)         ; (n) imperative
+         )
+      ; classe 12: used only for the second form of the subjunctive imperfect
+       12 (
+          (nil      nil      nil      nil      nil      nil)         ; (a) ind.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (b) ind.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (c) ind.past.
+          (nil      nil      nil      nil      nil      nil)         ; (d) ind.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (e) subj.pres.
+          (era      eras     era      eramos   erais    eran)        ; (f) subj.imperf.
+          (nil      nil      nil      nil      nil      nil)         ; (p) subj.fut.
+          (nil      nil      nil      nil      nil      nil)         ; (g) ind.condit.
+          (nil      nil      nil      nil      nil      nil)         ; (h) partic.pres.
+          (nil      nil      nil      nil      nil      nil)         ; (i) partic.past.
+          (nil      nil      nil      nil      nil      nil)         ; (l) gerund
+          (nil      nil      nil      nil      nil      nil)         ; (m) infinite
+          (nil      nil      nil      nil      nil      nil)         ; (n) imperative
+         )
+      )
+   )
+)

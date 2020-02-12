@@ -1,0 +1,1393 @@
+
+(in-package "USER")
+
+; **************************************************************************
+; *** the locutions in this file are of two types: fixed and flexible.
+;     - fixed: they are sequences of words that are not subject to morphological
+;              analysis, and that are strictly adjacent to each other
+;     - flexible: as above, but with the possibility of morphological variations.
+;              ex "conferenza stampa" --> "conferenze stampa"
+;                 "da solo" --> "da soli"
+;     They are stored as pairs <form infos>, but in a single sequence, so the
+;     actual internal structure is <form1 infos1 form2 infos2 .... formN infosN>
+; *** the sequences are linked via a double mechanism:
+;     1. The "normalized form" must be the same for all component forms (as
+;        "of_course" in the following example:
+;             ( ...
+;               of      <of_course ...>
+;               course  <of_course ...>
+;               ... )
+;     2. The "root", "next", "prev" features in the "infos", which implement
+;        a doubly-linked list structure
+;             ( ...
+;               of      <.. prev nil root of next course ...>
+;               course  <.. prev or root course next nil ...>
+;               ... )
+; *** In general, the organization of each info-i is as follows:
+;     ( info-locut-1 info-locut-2 ... info-locut-N )
+;     This is due to the fact that eac form can belong to more than one locution
+;     In its turn, each info-locut-i includes the following:
+;     ( normalized-form CAT category TYPE synt-type LOCUT YES LOCTYPE fixed/flex
+;          PREV prev-form ROOT this-form NEXT next-form other-syntinfo)
+
+
+; ----------------------- List of the existing locutions -------------
+; a_base_di
+; a_braccetto
+; a_bruciapelo
+; a_breve
+; a_breve_termine
+; a_cagione_di
+; a_carico_di
+; a_capofitto
+; a_casaccio
+; a_causa_di
+; a_che_vedere
+; a_cominciare_da
+; a_condizione_che
+; a_cura_di
+; a_confronto_di
+; a_danno_di
+; a_decorrere_da
+; a_detta_di
+; a_differenza_di
+; a_dispetto_di
+; a_distanza **** tolto
+; a_favore_di
+; a_fianco_a
+; a_fianco_di
+; a_forza_di
+; a_fronte_di
+; a_furia_di
+; a_guisa_di
+; a_lato_di
+; a_lungo
+; a_malapena
+; a_meno_che
+; a_meno_di
+; a_meraviglia
+; a_mezzo_di
+; a_mo_di
+; a_morte
+; a_nome_di
+; a_norma_di
+; a_onor_del_vero
+; a_paragone_con
+; a_parte
+; a_partire_da
+; a_patto_che
+; a_più_non_posso
+; a_prima_vista
+; a_proposito_di
+; a_quanto_pare
+; a_ridosso_di
+; a_rilento
+; a_ritmo_di
+; a_scapito_di
+; a_scopo_di
+; a_scorno_di
+; a_sè_stante
+; a_seconda_che
+; a_seconda_di
+; a_sedere  (posti a sedere)
+; a_seguito_di
+; a_suo_dire
+; a_suo_tempo
+; a_tuttocampo
+; a_valere_su (legal)
+; a_vicenda
+; a_volte
+; a_poco_a_poco
+; a_tutt'_oggi
+; ad aedificandum (this is legal, but it includes "ad", so it has to be stored here)
+; ad_arte
+; ad_esempio
+; ad_hoc
+; ad_personam
+; ai_danni_di
+; ai_ferri_corti
+; al_cospetto_di
+; al_di_fuori
+; al_di_fuori_di
+; al_di_là
+; al_di_là_di
+; al_di_sopra
+; al_di_sotto
+; al_di_sopra_di
+; al_di_sotto_di
+; al_disopra_di
+; al_disotto_di
+; al_fine_di
+; al_massimo
+; al_pari_di
+; al_posto_di
+; al_sicuro
+; al_verde
+; all'aperto
+; all'incirca
+; all'infuori_di
+; all'insaputa_di
+; all'insegna_di
+; all'interno_di
+; all'orizzonte
+; all'uopo
+; alla_luce_di
+; alla_mercè_di
+; alla_pari_di
+; alla_volta_di
+; alla_rinfusa
+; allo_scopo_di
+; allo_scoperto
+; al_punto_che
+; ammesso_che
+; anatomo_patologo
+; arma_da_fuoco
+; associazione_a_delinquere
+; base_dei_tempi
+; calcio_d'angolo
+; can_can
+; centro-meridionale
+; centro-settentrionale
+; centro-occidentale
+; centro-orientale
+; che_cosa
+; che_cos'
+; check_point
+; cio'_nondimeno
+; così_che
+; come_mai
+; compact_disc
+; con_buona_pace_di
+; con_riguardo_a
+; conferenza_stampa
+; da_capogiro
+; da_parte_di
+; da_solo
+; da_tempo
+; dall'alto_di
+; dal_momento_che
+; dal_vivo
+; dato_che
+; decreto_legge
+; de_santo (letterario sudam.)
+; del_pari
+; del_resto
+; del_tutto
+; di_buon'occhio
+; di_certo
+; di_concerto_con
+; di_colpo
+; di_conseguenza
+; di_contro
+; di_fatto
+; di_faccia_a
+; di_fianco_a
+; di_fronte
+; di_fronte_a
+; di_fuori
+; di_mano_di
+; di_meno
+; di_modo_che
+; di_nuovo
+; di_per_sè
+; di_piu'
+; di_qua_da
+; di_regola
+; di_rimpetto_a
+; di_recente
+; di_sbieco
+; di_sicuro
+; di_solito
+; di_sfuggita
+; di_sorpresa
+; di_straforo
+; d'accordo
+; d'altra_parte
+; d'altronde
+; d'incanto
+; d'ora_innanzi
+; d'un_tratto
+; entrata_in_vigore
+; erba_cipollina
+; faccia_a_faccia
+; fino_a_nuovo_ordine
+; fra_l'altro
+; fine_anno
+; fuori_forma
+; già_che
+; giorno_per_giorno
+; grazie_a
+; guard_rail
+; guardia_di_finanza
+; homo_sapiens
+; il_più_possibile
+; in_alto
+; in_balia_di
+; in_base_a
+; in_basso
+; in_cambio_di
+; in_caso_che
+; in_cerca_di
+; in_cima_a
+; in_confronto_a
+; in_contrasto
+; in_conclusione
+; in_conseguenza_di
+; in_corso
+; in_corso_di
+; in_definitiva
+; in_direzione_di
+; in_disparte
+; in_esclusiva
+; in_eterno
+; in_fase_di
+; in_fondo_a
+; in_fretta
+; in_genere
+; in_grado
+; in_gran_parte
+; in_linea_con
+; in_linea_di_massima
+; in_loco
+; in_mano_a
+; in_maniera_che
+; in_meno
+; in_merito_a
+; in_mezzo_a
+; in_modo_che
+; in_modo_da
+; in_nome_di
+; in_particolar_modo
+; in_particolare
+; in_piedi
+; in_più
+; in_preda_a
+; in_preda_di
+; in_prevalenza
+; in_privato
+; in_procinto_di
+; in_quanto
+; in_ragione_di
+; in_rapporto_a
+; in_realta`
+; in_programma
+; in_salvo
+; in_scadenza
+; in_sede_di
+; in_seguito_a
+; in_seno_a
+; in_solido             (giuridico)
+; in_sostanza
+; intanto_che
+; in_tutta_fretta
+; in_tutto_e_per_tutto
+; in_via_di
+; in_via_di_sviluppo
+; in_vicinanza_di
+; in_vista
+; in_vista_di
+; in_virtù_di
+; joint_venture
+; longa_manus
+; l'_altro_ieri
+; man_mano
+; man_mano_che
+; mano_mano
+; mano_mano_che
+; mass_media
+; messa_in_opera
+; mezzo_di_trasporto
+; nei_confronti_di
+; nei_pressi_di
+; nel_contempo
+; nel_corso_di
+; nel_frattempo
+; nel_mentre_che
+; nella_misura_in_cui
+; nell'_arco_di
+; non_appena
+; nord-est
+; nord-occidentale
+; nord-ovest
+; nord-orientale
+; ogni_qualvolta
+; ogni_volta_che
+; or_sono
+; oltre_che
+; part_number
+; parte_di_ricambio
+; per_caso
+; per_cui
+; per_conto_di
+; per_esempio
+; per_favore
+; per_giunta
+; per_implicito
+; per_iscritto
+; per_lo_meno
+; per_lo_piu`
+; per_mezzo_di
+; per_piacere
+; per_terra
+; per_altro
+; per_difetto
+; per_ora
+; per_sempre
+; per_via_di
+; physical_item (TOCAI)
+; physical_part (TOCAI)
+; pian_piano
+; ping_pong
+; più_che_altro
+; più_o_meno
+; pur_di
+; prime_rate
+; pro_capite
+; pronti_via
+; punto_di_vista
+; quanto_a
+; quanto_meno
+; quartier_generale
+; quart_d'ora
+; sempre_che
+; se_non_altro
+; se_non_che
+; senza_tetto
+; serial_number
+; settembre_musica
+; sine_qua_non
+; siccome_che
+; sotto_forma_di
+; sotto_sotto
+; stante_che
+; sud-est
+; sud-occidentale
+; sud-orientale
+; sud-ovest
+; sul_serio
+; sulla_scorta_di
+; tasso_di_sconto
+; tra_l'altro
+; tutt'_al_piu`
+; tutt'_a_un_tratto
+; un_po'
+; un_tantino
+; T_shirt
+; Torino_card
+; una_tantum
+; vale_a_dire
+; via_libera
+; via_via
+; vox_populi
+; waiting_list
+; ---------------------------------------------------------------
+
+(loadinvar 'locutdef
+'(
+  a (
+     (a_base_di cat prep type poli locut yes root a loctype fixed prev nil next base)
+     (a_braccetto cat adv type manner locut yes root a loctype fixed prev nil next braccetto)
+     (a_breve cat adv type time locut yes root a loctype fixed prev nil next breve)
+     (a_breve_termine cat adv type time locut yes root a loctype fixed prev nil next breve)
+     (a_bruciapelo cat adv type manner locut yes root a loctype fixed prev nil next bruciapelo)
+     (a_cagione_di cat prep type poli locut yes root a loctype fixed prev nil next cagione)
+     (a_carico_di cat prep type poli locut yes root a loctype fixed prev nil next carico)
+     (a_capofitto cat adv type manner locut yes root a loctype fixed prev nil next capofitto)
+     (a_casaccio cat adv type manner locut yes root a loctype fixed prev nil next casaccio)
+     (a_causa_di cat prep type poli locut yes root a loctype fixed prev nil next causa)
+     (a_che_vedere cat adv type manner locut yes root a loctype fixed prev nil next che)
+     (a_cominciare_da cat prep type poli locut yes root a loctype fixed prev nil next cominciare)
+     (a_condizione_che cat conj type subord semtype cond locut yes root a loctype fixed prev nil next condizione)
+     (a_cura_di cat prep type poli locut yes root a loctype fixed prev nil next cura)
+     (a_danno_di cat prep type poli locut yes root a loctype fixed prev nil next danno)
+     (a_decorrere_da cat prep type poli locut yes root a loctype fixed prev nil next decorrere)
+     (a_detta_di cat prep type poli locut yes root a loctype fixed prev nil next detta)
+     (a_differenza_di cat prep type poli locut yes root a loctype fixed prev nil next differenza)
+     (a_dispetto_di cat prep type poli locut yes root a loctype fixed prev nil next dispetto)
+      ; (a_distanza cat adv type loc locut yes root a loctype fixed prev nil next distanza)
+     (a_favore_di cat prep type poli locut yes root a loctype fixed prev nil next favore)
+     (a_fianco_a cat prep type poli locut yes root a1 loctype fixed prev nil next fianco)
+     (a_fianco_a cat prep type poli locut yes root a2 loctype fixed prev fianco next nil)
+     (a_fianco_di cat prep type poli locut yes root a loctype fixed prev nil next fianco)
+     (a_forza_di cat prep type poli locut yes root a loctype fixed prev nil next forza)
+     (a_fronte_di cat prep type poli locut yes root a loctype fixed prev nil next fronte)
+     (a_furia_di cat conj type subord semtype reason locut yes root a loctype fixed prev nil next furia)
+     (a_guisa_di cat prep type poli locut yes root a loctype fixed prev nil next guisa)
+     (a_lato_di cat prep type poli locut yes root a loctype fixed prev nil next lato)
+     (a_lungo cat adv type time locut yes root a loctype fixed prev nil next lungo)
+     (a_malapena cat adv type manner locut yes root a loctype fixed prev nil next malapena)
+     (a_meno_che cat conj type subord semtype excluding locut yes root a loctype fixed prev nil next meno)
+     (a_meno_di cat prep type poli locut yes root a loctype fixed prev nil next meno)
+     (a_mezzo_di cat prep type poli locut yes root a loctype fixed prev nil next mezzo)
+     (a_mo_di cat prep type poli locut yes root a loctype fixed prev nil next mo)
+     (a_meraviglia cat adv type manner locut yes root a loctype fixed prev nil next meraviglia)
+     (a_morte cat verb locut yes mood imper tense pres person allval root a loctype fixed prev nil next morte)
+     (a_nome_di cat prep type poli locut yes root a loctype fixed prev nil next nome)
+     (a_norma_di cat prep type poli locut yes root a loctype fixed prev nil next norma)
+     (a_onor_del_vero cat adv type concess locut yes root a loctype fixed prev nil next onor)
+     (a_paragone_con cat prep type poli locut yes root a loctype fixed prev nil next paragone)
+     (a_parte cat prep type poli locut yes root a loctype fixed prev nil next parte)
+     (a_partire_da cat prep type poli locut yes root a loctype fixed prev nil next partire)
+     (a_patto_che cat conj type subord semtype cond locut yes root a loctype fixed prev nil next patto)
+     (a_più_non_posso cat adv type manner locut yes root a loctype fixed prev nil next più)
+     (a_poco_a_poco cat adv type manner locut yes root a1 loctype fixed prev nil next poco1)
+     (a_poco_a_poco cat adv locut yes root a2 loctype fixed prev poco1 next poco2)
+     (a_prima_vista cat adv type time locut yes root a loctype fixed prev nil next prima)
+     (a_proposito_di cat prep type poli locut yes root a loctype fixed prev nil next proposito)
+     (a_quanto_pare cat adv type manner locut yes root a loctype fixed prev nil next quanto)
+     (a_ridosso_di cat prep type poli locut yes root a loctype fixed prev nil next ridosso)
+     (a_rilento cat adv type manner locut yes root a loctype fixed prev nil next rilento)
+     (a_ritmo_di cat prep type poli locut yes root a loctype fixed prev nil next ritmo)
+     (a_scapito_di cat prep type poli locut yes root a loctype fixed prev nil next scapito)
+     (a_scopo_di cat prep type poli locut yes root a loctype fixed prev nil next scopo)
+     (a_scorno_di cat prep type poli locut yes root a loctype fixed prev nil next scorno)
+     (a_sè_stante cat adj type qualif gender allval number sing locut yes root a loctype fixed prev nil next sè)
+     (a_sè_stanti cat adj type qualif gender allval number pl locut yes root a loctype fixed prev nil next sè)
+     (a_seconda_che cat conj type subord semtype cond locut yes root a loctype fixed prev nil next seconda)
+     (a_seconda_di cat prep type poli locut yes root a loctype fixed prev nil next seconda)
+     (a_sedere cat adj type qualif classe (0) gender allval number allval locut yes root a loctype fixed prev nil next sedere)
+     (a_seguito_di cat prep type poli locut yes root a loctype fixed prev nil next seguito)
+     (a_sorpresa cat adv type manner locut yes root a loctype fixed prev nil next sorpresa)
+     (a_suo_dire cat adv type manner locut yes root a loctype fixed prev nil next suo)
+     (a_suo_tempo cat adv type time locut yes root a loctype fixed prev nil next suo)
+     (a_tuttocampo cat adv type manner locut yes root a loctype fixed prev nil next tuttocampo)
+     (|A_TUTT'_OGGI| cat adv type time locut yes root a loctype fixed prev nil next tutt)
+     (a_valere_su cat prep type poli locut yes root a loctype fixed prev nil next valere)
+     (a_vicenda cat adv type manner locut yes root a loctype fixed prev nil next vicenda)
+     (a_volte cat adv type time locut yes root a loctype fixed prev nil next volte)
+     (associazione_a_delinquere cat noun locut yes root a loctype flex prev associazione next delinquere)
+     (con_riguardo_a cat prep type poli locut yes root a loctype fixed prev riguardo next nil)
+     (faccia_a_faccia cat noun classe (0) gender m number allval locut yes loctype fixed root a prev faccia1 next faccia2)
+     (fino_a_nuovo_ordine cat adv type time locut yes root a loctype fixed prev fino next nuovo)
+     (di_faccia_a cat prep type poli locut yes root a loctype fixed prev faccia next nil)
+     (di_fianco_a cat prep type poli locut yes root a loctype fixed prev fianco next nil)
+     (di_fronte_a cat prep type poli locut yes root a loctype fixed prev fronte next nil)
+     (di_rimpetto_a cat prep type poli locut yes root a loctype fixed prev rimpetto next nil)
+     (grazie_a cat prep type poli locut yes root a loctype fixed prev grazie next nil)
+     (in_base_a cat prep type poli locut yes root a loctype fixed prev base next nil)
+     (in_cima_a cat prep type poli locut yes root a loctype fixed prev cima next nil)
+     (in_confronto_a cat prep type poli locut yes root a loctype fixed prev confronto next nil)
+     (in_fondo_a cat prep type poli locut yes root a loctype fixed prev fondo next nil)
+     (in_mano_a cat prep type poli locut yes root a loctype fixed prev mano next nil)
+     (in_merito_a cat prep type poli locut yes root a loctype fixed prev merito next nil)
+     (in_mezzo_a cat prep type poli locut yes root a loctype fixed prev mezzo next nil)
+     (in_preda_a cat prep type poli locut yes root a loctype fixed prev preda next nil)
+     (in_preda_di cat prep type poli locut yes root a loctype fixed prev preda next nil)
+     (in_rapporto_a cat prep type poli locut yes root a loctype fixed prev rapporto next nil)
+     (in_seguito_a cat prep type poli locut yes root a loctype fixed prev seguito next nil)
+     (in_seno_a cat prep type poli locut yes root a loctype fixed prev seno next nil)
+     (quanto_a cat prep type poli locut yes root a loctype fixed prev quanto next nil)
+     (|TUTT'_A_UN_TRATTO| cat adv type time locut yes root a loctype fixed prev tutt next un)
+     (vale_a_dire cat conj type coord semtype explic locut yes root a loctype fixed prev vale next dire))
+  accordo ((|D'_ACCORDO| cat adv locut yes type manner root accordo loctype fixed prev di next nil))
+  ad ((ad_aedificandum cat adj classe (0) gender allval number allval locut yes loctype fixed root ad prev nil next aedificandum)
+      (ad_esempio cat adv type manner locut yes loctype fixed root ad prev nil next esempio)
+      (ad_arte cat adv type manner locut yes loctype fixed root ad prev nil next arte)
+      (ad_hoc cat adj classe (0) gender allval number allval locut yes loctype fixed root ad prev nil next hoc)
+      (ad_personam cat adj classe (0) gender allval number allval locut yes loctype fixed root ad prev nil next personam)
+      (in_seguito_a cat prep type poli locut yes root a loctype fixed prev seguito next nil))
+  aedificandum ((ad_aedificandum cat adj classe (0) gender allval number allval locut yes loctype fixed root aedificandum prev ad next nil))
+  agenda ((agenda_culturale cat noun classe (0) gender f number sing locut yes loctype fixed root agenda prev nil next culturale))
+  ai ((ai_danni_di cat prep type poli locut yes loctype fixed root ai prev nil next danni)
+      (ai_ferri_corti cat adj type qualif locut yes loctype fixed root ai prev nil next ferri))
+  al ((|TUTT'_AL_PIù| cat adv locut yes loctype fixed root al prev tutt next più)
+      (al_cospetto_di cat prep type poli locut yes loctype fixed root al prev nil next cospetto)
+      (al_fine_di cat prep type poli locut yes loctype fixed root al prev nil next fine)
+      (al_massimo cat adv type quant locut yes loctype fixed root al prev nil next massimo)
+      (al_sicuro cat adv type manner locut yes loctype fixed root al prev nil next sicuro)
+      (al_pari_di cat prep type poli locut yes loctype fixed root al prev nil next pari)
+      (al_di_sopra cat adv type loc locut yes loctype fixed root al prev nil next di)
+      (al_di_sotto cat adv type loc locut yes loctype fixed root al prev nil next di)
+      (al_di_sopra_di cat prep type poli locut yes loctype fixed root al prev nil next di1)
+      (al_di_sotto_di cat prep type poli locut yes loctype fixed root al prev nil next di1)
+      (al_disopra_di cat prep type poli locut yes loctype fixed root al prev nil next disopra)
+      (al_disotto_di cat prep type poli locut yes loctype fixed root al prev nil next disotto)
+      (al_posto_di cat prep type poli locut yes loctype fixed root al prev nil next posto)
+      (al_verde cat adj classe (0) gender allval number allval locut yes root al loctype fixed prev nil next verde)
+      (al_di_là cat prep type poli locut yes loctype fixed root al prev nil next di)
+      (al_di_là_di cat prep type poli locut yes loctype fixed root al prev nil next di1)
+      (al_di_fuori cat prep type poli locut yes loctype fixed root al prev nil next di)
+      (al_di_fuori_di cat prep type poli locut yes loctype fixed root al prev nil next di1)
+      (al_punto_che cat conj type subord semtype reason locut yes root al loctype fixed prev nil next punto))
+  |all'| ((|all'aperto| cat adv type loc locut yes root all loctype fixed prev nil next aperto)
+          (|all'incirca| cat adv type loc locut yes root all loctype fixed prev nil next incirca)
+          (|all'infuori_di| cat prep type poli locut yes root all loctype fixed prev nil next infuori)
+          (|all'insaputa_di| cat prep type poli locut yes root all loctype fixed prev nil next insaputa)
+          (|all'insegna_di| cat prep type poli locut yes root all loctype fixed prev nil next insegna)
+          (|ALL'_INTERNO_DI| cat prep type poli locut yes root all loctype fixed prev nil next interno)
+          (|ALL'_ORIZZONTE| cat adv type loc locut yes root all loctype fixed prev nil next orizzonte)
+          (|ALL'_UOPO| cat adv type reason locut yes root all loctype fixed prev nil next uopo))
+  alla ((alla_rinfusa cat adv type manner locut yes root alla loctype fixed prev nil next rinfusa)
+        (alla_luce_di cat prep type poli locut yes loctype fixed root alla prev nil next luce)
+        (alla_mercè_di cat prep type poli locut yes loctype fixed root alla prev nil next mercè)
+        (alla_pari_di cat prep type poli locut yes loctype fixed root alla prev nil next pari)
+        (alla_volta_di cat prep type poli locut yes loctype fixed root alla prev nil next volta))
+  allo ((allo_scoperto cat adj classe (0) gender allval number allval locut yes root allo loctype fixed prev nil next scoperto)
+        (allo_scopo_di cat conj type subord semtype reason locut yes root allo loctype fixed prev nil next scopo))
+  alto ((|dall'alto_di| cat prep type poli locut yes root alto loctype fixed prev dall next di)
+        (in_alto cat adv type loc locut yes root alto loctype fixed prev in next nil))
+  altra ((|d'altra_parte| cat adv locut yes root altra loctype fixed prev di next parte))
+  altro ((|TRA_L'_ALTRO| cat adv type interj locut yes root altro loctype fixed prev l next nil)
+         (|FRA_L'_ALTRO| cat adv type interj locut yes root altro loctype fixed prev l next nil)
+         (|L'_ALTRO_IERI| cat adv type time locut yes root altro loctype fixed prev l next ieri)
+         (se_non_altro cat adv type concess locut yes root altro loctype fixed prev non next nil)
+         (per_altro cat adv type advers locut yes loctype fixed root altro prev per next nil)
+         (più_che_altro cat adv type manner locut yes root altro loctype fixed prev che next nil))
+  altronde ((|D'_ALTRONDE| cat adv type advers locut yes root altronde loctype fixed prev di next nil))
+  ammesso ((ammesso_che cat conj type subord semtype reason locut yes root che loctype fixed prev ammesso next nil))
+  anatomo ((anatomo_patologo cat noun locut yes root anatomo loctype flex prev nil next patologo))
+  angolo ((|calcio_d'_angolo| cat noun locut yes root angolo loctype flex prev di next nil))
+  anno ((fine_anno cat noun locut yes loctype fixed gender m number allval root anno prev fine next nil))
+  aperto ((|all'aperto| cat adv type loc locut yes root aperto loctype fixed prev all next nil))
+  appena ((non_appena cat conj type subord semtype time locut yes root appena loctype fixed prev non next nil))
+  arco ((|nell'_arco_di| cat prep type poli locut yes root arco loctype fixed prev |nell'| next di))
+  arma ((arma_da_fuoco cat noun classe (0) locut yes root arma gender f number sing loctype fixed prev nil next da))
+  armi ((armi_da_fuoco cat noun classe (0) locut yes root arma gender f number pl loctype fixed prev nil next da))
+  arte ((ad_arte cat adv type manner locut yes loctype fixed root arte prev ad next nil))
+  associazion ((associazione_a_delinquere cat noun morphcat noun classe (11) locut yes root associazione loctype flex prev nil next a))
+  balia ((in_balia_di cat prep type poli locut yes root balia loctype fixed prev in next di))
+  base ((in_base_a cat prep type poli locut yes root base loctype fixed prev in next a)
+        (a_base_di cat prep type poli locut yes root base loctype fixed prev a next di)
+        (base_dei_tempi cat noun classe (0) gender f number sing locut yes root base loctype fixed prev nil next dei)
+        (sulla_base_di cat prep type poli locut yes root base loctype fixed prev sulla next di))
+  basso ((in_basso cat adv type loc locut yes root basso loctype fixed prev in next nil))
+  braccetto ((a_braccetto cat adv type manner locut yes root braccetto loctype fixed prev a next nil))
+  breve ((a_breve cat adv type time locut yes root breve loctype fixed prev a next nil)
+         (a_breve_termine cat adv type time locut yes root breve loctype fixed prev a next termine))
+  bruciapelo ((a_bruciapelo cat adv type manner locut yes root bruciapelo loctype fixed prev a next nil))
+  buona ((con_buona_pace_di cat prep type poli locut yes root buona loctype fixed prev con next pace))
+  |buon'| ((|DI_BUON'_OCCHIO| cat adv type manner locut yes root buon loctype fixed prev di next occhio))
+  cagione ((a_cagione_di cat prep type poli locut yes root cagione loctype fixed prev a next di))
+  calc ((|calcio_d'_angolo| cat noun morphcat noun classe (6) locut yes root calcio loctype flex prev nil next di))
+  cambio ((in_cambio_di cat prep type poli locut yes root cambio loctype fixed prev in next di))
+  can ((can_can cat noun clesse (0) gender m number allval locut yes root can loctype fixed prev nil next can)
+       (can_can cat noun clesse (0) gender m number allval locut yes root can loctype fixed prev can next nil))
+  capite ((pro_capite cat adj locut yes gender allval number allval root capite type qualif loctype fixed prev pro next nil))
+  capofitto ((a_capofitto cat adv type manner locut yes root capofitto loctype fixed prev a next nil))
+  capogiro ((da_capogiro cat adj type qualif classe (0) locut yes gender allval number allval root capogiro loctype fixed prev da next nil))
+  carico ((a_carico_di cat prep type poli locut yes root carico loctype fixed prev a next di))
+  casaccio ((a_casaccio cat adv type manner locut yes root casaccio loctype fixed prev a next nil))
+  caso ((per_caso cat adv type manner locut yes loctype fixed root caso prev per next nil)
+        (in_caso_che cat conj type subord semtype cond locut yes root caso loctype fixed prev in next che))
+  causa ((a_causa_di cat prep type poli locut yes root causa loctype fixed prev a next di))
+  centro ((centro-occidentale cat adj type qualif locut yes loctype flex root centro prev nil next occidentale)
+        (centro-meridionale cat adj type qualif locut yes loctype flex root centro prev nil next meridionale)
+        (centro-settentrionale cat adj type qualif locut yes loctype flex root centro prev nil next settentrionale)
+        (centro-orientale cat adj type qualif locut yes loctype flex root centro prev nil next orientale))
+  cerca ((in_cerca_di cat prep type poli locut yes root cerca loctype fixed prev in next di))
+  certo ((di_certo cat adv locut yes root certo loctype fixed prev di next nil))
+  che ((a_meno_che cat conj type subord semtype excluding locut yes root che loctype fixed prev meno next nil)
+       (ammesso_che cat conj type subord semtype reason locut yes root che loctype fixed prev ammesso next nil)
+       (al_punto_che cat conj type subord semtype reason locut yes root che loctype fixed prev punto next nil)
+       (con_tutto_che cat conj type subord semtype time locut yes root che loctype fixed prev tutto next nil)
+       (in_maniera_che cat conj type subord semtype reason locut yes root che loctype fixed prev maniera next nil)
+       (in_modo_che cat conj type subord semtype reason locut yes root che loctype fixed prev modo next nil)
+       (a_che_vedere cat adv type manner locut yes root che loctype fixed prev a next vedere)
+       (a_condizione_che cat conj type subord semtype cond locut yes root che loctype fixed prev condizione next nil)
+       (a_patto_che cat conj type subord semtype cond locut yes root che loctype fixed prev patto next nil)
+       (a_seconda_che cat conj type subord semtype cond locut yes root che loctype fixed prev seconda next nil)
+       (che_cosa cat pron type interr classe (0) gender f number sing locut yes root che loctype fixed prev nil next cosa)
+       (così_che cat conj type subord semtype conseq locut yes root che loctype fixed prev così next nil)
+       (dal_momento_che cat conj type subord semtype caus locut yes root che loctype fixed prev momento next nil)
+       (dato_che cat conj type subord semtype caus locut yes root che loctype fixed prev dato next nil)
+       (di_modo_che cat conj type subord semtype concl locut yes root che loctype fixed prev modo next nil)
+       (fintanto_che cat conj type subord semtype time locut yes root che loctype fixed prev fintanto next nil)
+       (fin_tanto_che cat conj type subord semtype time locut yes root che loctype fixed prev tanto next nil)
+       (già_che cat conj type subord semtype caus locut yes loctype fixed root che prev già next nil)
+       (in_caso_che cat conj type subord semtype cond locut yes root che loctype fixed prev caso next nil)
+       (in_quanto_che cat conj type subord semtype caus locut yes root che loctype fixed prev quanto next nil)
+       (intanto_che cat conj type subord semtype time locut yes root che loctype fixed prev intanto next nil)
+       (man_mano_che cat conj type subord semtype time locut yes loctype fixed root che prev mano next nil)
+       (nel_mentre_che cat conj type subord semtype time locut yes loctype fixed root che prev mentre next nil)
+       (ogni_volta_che cat conj type subord semtype time locut yes loctype fixed root che prev volta next nil)
+       (oltre_che cat conj type coord semtype compar locut yes loctype fixed root che prev oltre next nil)
+       (più_che_altro cat adv type manner locut yes root che loctype fixed prev più next altro)
+       (sempre_che cat conj type subord semtype cond locut yes loctype fixed root che prev sempre next nil)
+       (se_non_che cat conj type coord semtype advers locut yes loctype fixed root che prev non next nil)
+       (siccome_che cat conj type subord semtype caus locut yes root che loctype fixed prev siccome next nil)
+       (stante_che cat conj type subord semtype cond locut yes root che loctype fixed prev stante next nil)
+       (una_volta_che cat conj type subord semtype time locut yes loctype fixed root che prev volta next nil))
+  check ((check_point cat noun gender m number allval locut yes loctype fixed root check prev nil next point))
+  cima ((in_cima_a cat prep type poli locut yes root cima loctype fixed prev in next a))
+  ciò ((ciò_nondimeno cat conj type coord semtype advers locut yes loctype fixed root ciò prev nil next nondimeno))
+  cipollina ((erba_cipollina cat noun classe (0) locut yes root cipollina gender f number sing loctype fixed prev erba next nil))
+  colpo ((di_colpo cat adv type manner locut yes root colpo loctype fixed prev di next nil))
+  come ((come_mai cat adv type interr semtype reason locut yes loctype fixed root come prev nil next mai))
+  cominciare ((a_cominciare_da cat prep type poli locut yes root cominciare loctype fixed prev a next da))
+  compact ((compact_disk cat noun classe (0) gender m number allval locut yes loctype fixed root compact prev nil next disk))
+  con ((a_paragone_con cat prep type poli locut yes root con loctype fixed prev paragone next nil)
+       (con_buona_pace_di cat prep type poli locut yes root con loctype fixed prev nil next buona)
+       (con_riguardo_a cat prep type poli locut yes root con loctype fixed prev nil next riguardo)
+       (con_tutto_che cat conj type subord semtype time locut yes root con loctype fixed prev nil next tutto)
+       (di_concerto_con cat prep type poli locut yes root con loctype fixed prev concerto next nil)
+       (in_linea_con cat prep type poli locut yes root con loctype fixed prev linea next nil)
+       (in_unione_con cat prep type poli locut yes root con loctype fixed prev unione next nil))
+  concerto ((di_concerto_con cat prep type poli locut yes root concerto loctype fixed prev di next con))
+  conclusione ((in_conclusione cat adv type time locut yes root conclusione loctype fixed prev in next nil))
+  condizione ((a_condizione_che cat conj type subord semtype cond locut yes root condizione loctype fixed prev a next che))
+  conferenz ((conferenza_stampa cat noun morphcat noun classe (1) locut yes root conferenza loctype flex prev nil next stampa))
+  confronti ((nei_confronti_di cat prep type poli locut yes root confronti loctype fixed prev nei next di))
+  confronto ((a_confronto_di cat prep type poli locut yes root confronto loctype fixed prev a next di)
+             (in_confronto_a cat prep type poli locut yes root confronto loctype fixed prev in next a))
+  conseguenza ((in_conseguenza_di cat prep type poli locut yes root conseguenza loctype fixed prev in next di)
+               (di_conseguenza cat adv type reason locut yes root conseguenza loctype fixed prev di next nil))
+  contempo ((nel_contempo cat adv type time locut yes root contempo loctype fixed prev nel next nil))
+  conto ((per_conto_di cat prep type poli locut yes loctype fixed root conto prev per next di))
+  contrasto ((in_contrasto cat prep type poli locut yes loctype fixed root contrasto prev in next nil))
+  contro ((di_contro cat adv type advers locut yes root contro loctype fixed prev di next nil))
+  corso ((in_corso cat adj type qualif locut yes gender allval number allval root corso loctype fixed prev in next nil)
+         (in_corso_di cat prep type poli locut yes root corso loctype fixed prev in next di)
+         (nel_corso_di cat prep type poli locut yes root corso loctype fixed prev nel next di))
+  corti ((ai_ferri_corti cat adj type qualif locut yes loctype fixed root corti prev ferri next nil))
+  |cos'| ((che_cosa cat pron type interr classe (0) gender f number sing locut yes root cosa loctype fixed prev che next nil))
+  cosa ((che_cosa cat pron type interr classe (0) gender f number sing locut yes root cosa loctype fixed prev che next nil))
+  così ((così_che cat conj type subord semtype conseq type fin locut yes root così loctype fixed prev nil next che))
+  cospetto ((al_cospetto_di cat prep type poli locut yes loctype fixed root cospetto prev al next di))
+  cui ((per_cui cat conj type subord locut yes semtype concl root cui loctype fixed prev per next nil)
+       (nella_misura_in_cui cat conj type subord semtype cond locut yes root cui loctype fixed prev in next nil))
+  culturale ((agenda_culturale cat noun classe (0) gender f number sing locut yes loctype fixed root culturale prev agenda next nil))
+  cura ((a_cura_di cat prep type poli locut yes root cura loctype fixed prev a next di))
+  da ((da_solo cat adv type manner locut yes root da loctype flex prev nil next solo)
+      (da_capogiro cat adj type qualif classe (0) locut yes gender allval number allval root da loctype fixed prev nil next capogiro)
+      (a_cominciare_da cat prep type poli locut yes root da loctype fixed prev cominciare next nil)
+      (a_decorrere_da cat prep type poli locut yes root da loctype fixed prev decorrere next nil)
+      (a_partire_da cat prep type poli locut yes root da loctype fixed prev partire next nil)
+      (da_parte_di cat prep type poli locut yes root da loctype fixed prev nil next parte)
+      (da_tempo cat adv type time locut yes root da loctype fixed prev nil next tempo)
+      (di_qua_da cat prep type poli locut yes root da loctype fixed prev qua next nil)
+      (in_modo_da cat conj type subord semtype reason locut yes root da loctype fixed prev modo next nil)
+      (arma_da_fuoco cat noun classe (0) locut yes root da gender f number sing loctype fixed prev arma next fuoco)
+      (armi_da_fuoco cat noun classe (0) locut yes root da gender f number pl loctype fixed prev armi next fuoco))
+  dal ((dal_vivo cat adv type manner locut yes root dal loctype fixed prev nil next vivo)
+       (dal_momento_che cat conj type subord semtype caus locut yes root dal loctype fixed prev nil next momento))
+  |dall'| ((|dall'alto_di| cat prep type poli locut yes root dall loctype fixed prev nil next alto))
+  danni ((ai_danni_di cat prep type poli locut yes loctype fixed root danni prev ai next di))
+  danno ((a_danno_di cat prep type poli locut yes root danno loctype fixed prev a next di))
+  dato ((dato_che cat conj type subord semtype caus locut yes root che loctype fixed prev dato next nil))
+  de ((de_santo cat adj type qualif classe (0) gender allval number allval locut yes root de loctype fixed prev nil next santo))
+  decorrere ((a_decorrere_da cat prep type poli locut yes root decorrere loctype fixed prev a next da))
+  decret ((decreto_legge cat noun morphcat noun classe (2) locut yes root decreto loctype flex prev nil next legge))
+  definitiva ((in_definitiva cat adv type time locut yes root definitiva loctype fixed prev in next nil))
+  dei ((base_dei_tempi cat noun classe (0) gender f number sing locut yes root dei loctype fixed prev base next tempi))
+  del ((del_resto cat adv locut yes type manner root del loctype fixed prev nil next resto)
+       (del_pari cat adv locut yes type manner root del loctype fixed prev nil next pari)
+       (del_tutto cat adv locut yes type manner root del loctype fixed prev nil next tutto)
+       (a_onor_del_vero cat adv type concess locut yes root del loctype fixed prev onor next vero))
+  delinquere ((associazione_a_delinquere cat noun locut yes root delinquere loctype flex prev a next nil))
+  detta ((a_detta_di cat prep type poli locut yes root detta loctype fixed prev a next di))
+  di ((|DI_BUON'_OCCHIO| cat adv type manner locut yes root di loctype fixed prev nil next buon)
+      (di_certo cat adv type manner locut yes root di loctype fixed prev nil next certo)
+      (di_concerto_con cat prep type poli locut yes root di loctype fixed prev nil next concerto)
+      (di_colpo cat adv type manner locut yes root di loctype fixed prev nil next colpo)
+      (di_conseguenza cat adv type reason locut yes root di loctype fixed prev nil next conseguenza)
+      (di_contro cat adv type advers locut yes root di loctype fixed prev nil next contro)
+      (di_fatto cat adv type manner locut yes root di loctype fixed prev nil next fatto)
+      (di_fronte cat adv type loc locut yes root di loctype fixed prev nil next fronte)
+      (di_fronte_a cat prep type poli locut yes root di loctype fixed prev nil next fronte)
+      (di_mano_di cat prep type poli locut yes root di1 loctype fixed prev nil next mano)
+      (di_mano_di cat prep type poli locut yes root di2 loctype fixed prev mano next nil)
+      (di_meno cat adv type quant locut yes root di loctype fixed prev nil next meno)
+      (di_modo_che cat conj type subord semtype concl locut yes root di loctype fixed prev nil next modo)
+      (di_fuori cat adv type loc locut yes root di loctype fixed prev nil next fuori)
+      (di_nuovo cat adv type time locut yes root di loctype fixed prev nil next nuovo)
+      (di_per_sè cat adv type manner locut yes root di loctype fixed prev nil next per)
+      (di_più cat adv type quant locut yes root di loctype fixed prev nil next più)
+      (di_qua_da cat prep type poli locut yes root di loctype fixed prev nil next qua)
+      (di_recente cat adv type time locut yes root di loctype fixed prev nil next recente)
+      (di_regola cat adv type manner locut yes root di loctype fixed prev nil next regola)
+      (di_rigore cat adj classe (0) gender allval number allval locut yes root di loctype fixed prev nil next rigore)
+      (di_rimpetto_a cat prep type poli locut yes root di loctype fixed prev nil next rimpetto)
+      (di_sbieco cat adv type manner locut yes root di loctype fixed prev nil next sbieco)
+      (di_sicuro cat adv type manner locut yes root di loctype fixed prev nil next sicuro)
+      (di_solito cat adv type manner locut yes root di loctype fixed prev nil next solito)
+      (di_sfuggita cat adv type manner locut yes root di loctype fixed prev nil next sfuggita)
+      (di_sorpresa cat adv type manner locut yes root di loctype fixed prev nil next sorpresa)
+      (di_straforo cat adv type manner locut yes root di loctype fixed prev nil next straforo)
+      (a_base_di cat prep type poli locut yes root di loctype fixed prev base next nil)
+      (a_favore_di cat prep type poli locut yes root di loctype fixed prev favore next nil)
+      (ai_danni_di cat prep type poli locut yes root di loctype fixed prev danni next nil)
+      (al_fine_di cat prep type poli locut yes loctype fixed root di prev fine next nil)
+      (al_pari_di cat prep type poli locut yes loctype fixed root di prev pari next nil)
+      (al_di_sopra cat adv type loc locut yes loctype fixed root di prev al next sopra)
+      (al_di_sotto cat adv type loc locut yes loctype fixed root di prev al next sotto)
+      (al_di_sopra_di cat prep type poli locut yes loctype fixed root di1 prev al next sopra)
+      (al_di_sotto_di cat prep type poli locut yes loctype fixed root di1 prev al next sotto)
+      (al_di_sopra_di cat prep type poli locut yes loctype fixed root di2 prev sopra next nil)
+      (al_di_sotto_di cat prep type poli locut yes loctype fixed root di2 prev sotto next nil)
+      (al_disopra_di cat prep type poli locut yes loctype fixed root di prev disopra next nil)
+      (al_disotto_di cat prep type poli locut yes loctype fixed root di prev disotto next nil)
+      (al_posto_di cat prep type poli locut yes loctype fixed root di prev posto next nil)
+      (alla_luce_di cat prep type poli locut yes loctype fixed root di prev luce next nil)
+      (alla_pari_di cat prep type poli locut yes loctype fixed root di prev pari next nil)
+      (alla_mercè_di cat prep type poli locut yes loctype fixed root di prev mercè next nil)
+      (alla_volta_di cat prep type poli locut yes loctype fixed root di prev volta next nil)
+      (a_meno_di cat prep type poli locut yes root di loctype fixed prev meno next nil)
+      (a_cagione_di cat prep type poli locut yes root di loctype fixed prev cagione next nil)
+      (a_carico_di cat prep type poli locut yes root di loctype fixed prev carico next nil)
+      (a_causa_di cat prep type poli locut yes root di loctype fixed prev causa next nil)
+      (a_confronto_di cat prep type poli locut yes root di loctype fixed prev confronto next nil)
+      (a_cura_di cat prep type poli locut yes root di loctype fixed prev cura next nil)
+      (a_danno_di cat prep type poli locut yes root di loctype fixed prev danno next nil)
+      (a_detta_di cat prep type poli locut yes root di loctype fixed prev detta next nil)
+      (a_differenza_di cat prep type poli locut yes root di loctype fixed prev differenza next nil)
+      (a_dispetto_di cat prep type poli locut yes root di loctype fixed prev dispetto next nil)
+      (a_fianco_di cat prep type poli locut yes root di loctype fixed prev fianco next nil)
+      (a_forza_di cat prep type poli locut yes root di loctype fixed prev forza next nil)
+      (a_furia_di cat conj type subord semtype reason locut yes root di loctype fixed prev furia next nil)
+      (a_guisa_di cat prep type poli locut yes root di loctype fixed prev guisa next nil)
+      (a_lato_di cat prep type poli locut yes root di loctype fixed prev lato next nil)
+      (a_nome_di cat prep type poli locut yes root di loctype fixed prev nome next nil)
+      (a_fronte_di cat prep type poli locut yes root di loctype fixed prev fronte next nil)
+      (a_mezzo_di cat prep type poli locut yes loctype fixed root di prev mezzo next nil)
+      (a_mo_di cat prep type poli locut yes root di loctype fixed prev mo next nil)
+      (a_norma_di cat prep type poli locut yes root di loctype fixed prev norma next nil)
+      (a_proposito_di cat prep type poli locut yes root di loctype fixed prev proposito next nil)
+      (a_ridosso_di cat prep type poli locut yes root di loctype fixed prev ridosso next nil)
+      (a_ritmo_di cat prep type poli locut yes root di loctype fixed prev ritmo next nil)
+      (a_scapito_di cat prep type poli locut yes root di loctype fixed prev scapito next nil)
+      (a_scopo_di cat prep type poli locut yes root di loctype fixed prev scopo next nil)
+      (a_scorno_di cat prep type poli locut yes root di loctype fixed prev scorno next nil)
+      (a_seconda_di cat prep type poli locut yes root di loctype fixed prev seconda next nil)
+      (a_seguito_di cat prep type poli locut yes root di loctype fixed prev seguito next nil)
+      (al_cospetto_di cat prep type poli locut yes loctype fixed root di prev cospetto next nil)
+      (al_di_fuori cat prep type poli locut yes loctype fixed root di prev al next fuori)
+      (al_di_fuori_di cat prep type poli locut yes loctype fixed root di1 prev al next fuori)
+      (al_di_fuori_di cat prep type poli locut yes loctype fixed root di2 prev fuori next nil)
+      (al_di_là cat prep type poli locut yes loctype fixed root di prev al next là)
+      (al_di_là_di cat prep type poli locut yes loctype fixed root di1 prev al next là)
+      (al_di_là_di cat prep type poli locut yes loctype fixed root di2 prev là next nil)
+      (allo_scopo_di cat conj type subord semtype reason locut yes root di loctype fixed prev scopo next nil)
+      (|all'infuori_di| cat prep type poli locut yes root di loctype fixed prev infuori next nil)
+      (|all'insaputa_di| cat prep type poli locut yes root di loctype fixed prev insaputa next nil)
+      (|ALL'_INTERNO_DI| cat prep type poli locut yes root di loctype fixed prev interno next nil)
+      (|all'insegna_di| cat prep type poli locut yes root di loctype fixed prev insegna next nil)
+      (|dall'alto_di| cat prep type poli locut yes root di loctype fixed prev alto next nil)
+      (da_parte_di cat prep type poli locut yes root di loctype fixed prev parte next nil)
+      (con_buona_pace_di cat prep type poli locut yes root di loctype fixed prev pace next nil)
+      (di_faccia_a cat prep type poli locut yes root di loctype fixed prev nil next faccia)
+      (di_fianco_a cat prep type poli locut yes root di loctype fixed prev nil next fianco)
+      (guardia_di_finanza cat noun classe (0) locut yes root di gender f number sing loctype fixed prev guardia next finanza)
+      (in_balia_di cat prep type poli locut yes root di loctype fixed prev balia next nil)
+      (in_cambio_di cat prep type poli locut yes root di loctype fixed prev cambio next nil)
+      (in_cerca_di cat prep type poli locut yes root di loctype fixed prev cerca next nil)
+      (in_conseguenza_di cat prep type poli locut yes root di loctype fixed prev conseguenza next nil)
+      (in_corso_di cat prep type poli locut yes root di loctype fixed prev corso next nil)
+      (in_direzione_di cat prep type poli locut yes root di loctype fixed prev direzione next nil)
+      (in_fase_di cat prep type poli locut yes root di loctype fixed prev fase next nil)
+      (in_linea_di_massima cat adv type manner locut yes root di loctype fixed prev linea next massima)
+      (in_luogo_di cat prep type poli locut yes root di loctype fixed prev luogo next nil)
+      (in_nome_di cat prep type poli locut yes root di loctype fixed prev nome next nil)
+      (in_procinto_di cat conj type subord semtype time locut yes root di loctype fixed prev procinto next nil)
+      (in_ragione_di cat prep type poli locut yes root di loctype fixed prev ragione next nil)
+      (in_sede_di cat prep type poli locut yes root di loctype fixed prev sede next nil)
+      (in_via_di cat prep type poli locut yes root di loctype fixed prev via next nil)
+      (in_via_di_sviluppo cat adj classe (0) locut yes root di loctype fixed gender allval number allval prev via next sviluppo)
+      (in_vicinanza_di cat prep type poli locut yes root di loctype fixed prev vicinanza next nil)
+      (in_vista_di cat prep type poli locut yes root di loctype fixed prev vista next nil)
+      (in_virtù_di cat prep type poli locut yes root di loctype fixed prev virtù next nil)
+      (mezzo_di_trasporto cat noun locut yes root di loctype flex prev mezzo next trasporto)
+      (tasso_di_sconto cat noun locut yes root di loctype flex prev tasso next sconto)
+      (nei_confronti_di cat prep type poli locut yes root di loctype fixed prev confronti next nil)
+      (nei_pressi_di cat prep type poli semtype loc locut yes root di loctype fixed prev pressi next nil)
+      (nel_corso_di cat prep type poli locut yes root di loctype fixed prev corso next nil)
+      (|nell'_arco_di| cat prep type poli locut yes root di loctype fixed prev arco next nil)
+      (parte_di_ricambio cat noun locut yes root di loctype flex prev parte next ricambio)
+      (per_conto_di cat prep type poli locut yes loctype fixed root di prev conto next nil)
+      (per_di_più cat adv type streng locut yes root di loctype fixed prev per next più)
+      (per_mezzo_di cat prep type poli locut yes loctype fixed root di prev mezzo next nil)
+      (per_tramite_di cat prep type poli locut yes loctype fixed root di prev tramite next nil)
+      (per_via_di cat prep type poli locut yes loctype fixed root di prev via next nil)
+      (punto_di_vista cat noun locut yes root di loctype flex prev punto next vista)
+      (pur_di cat conj type subord semtype concess locut yes root di loctype fixed prev pur next nil)
+      (sotto_forma_di cat prep type poli locut yes root di loctype fixed prev forma next nil)
+      (sulla_base_di cat prep type poli locut yes root di loctype fixed prev base next nil)
+      (sulla_scorta_di cat prep type poli locut yes root di loctype fixed prev scorta next nil))
+  |d'| (
+        (a_base_di cat prep type poli locut yes root di loctype fixed prev base next nil)
+        (a_cagione_di cat prep type poli locut yes root di loctype fixed prev cagione next nil)
+        (a_carico_di cat prep type poli locut yes root di loctype fixed prev carico next nil)
+        (a_causa_di cat prep type poli locut yes root di loctype fixed prev causa next nil)
+        (a_confronto_di cat prep type poli locut yes root di loctype fixed prev confronto next nil)
+        (a_cura_di cat prep type poli locut yes root di loctype fixed prev cura next nil)
+        (a_danno_di cat prep type poli locut yes root di loctype fixed prev danno next nil)
+        (a_detta_di cat prep type poli locut yes root di loctype fixed prev detta next nil)
+        (a_differenza_di cat prep type poli locut yes root di loctype fixed prev differenza next nil)
+        (a_dispetto_di cat prep type poli locut yes root di loctype fixed prev dispetto next nil)
+        (a_favore_di cat prep type poli locut yes root di loctype fixed prev favore next nil)
+        (a_fianco_di cat prep type poli locut yes root di loctype fixed prev fianco next nil)
+        (a_forza_di cat prep type poli locut yes root di loctype fixed prev forza next nil)
+        (a_furia_di cat conj type subord semtype reason locut yes root di loctype fixed prev furia next nil)
+        (a_guisa_di cat prep type poli locut yes root di loctype fixed prev guisa next nil)
+        (a_lato_di cat prep type poli locut yes root di loctype fixed prev lato next nil)
+        (a_meno_di cat prep type poli locut yes root di loctype fixed prev meno next nil)
+        (a_mezzo_di cat prep type poli locut yes loctype fixed root di prev mezzo next nil)
+        (a_mo_di cat prep type poli locut yes root di loctype fixed prev mo next nil)
+        (a_nome_di cat prep type poli locut yes root di loctype fixed prev nome next nil)
+        (a_proposito_di cat prep type poli locut yes root di loctype fixed prev proposito next nil)
+        (a_ridosso_di cat prep type poli locut yes root di loctype fixed prev ridosso next nil)
+        (a_ritmo_di cat prep type poli locut yes root di loctype fixed prev ritmo next nil)
+        (a_scopo_di cat prep type poli locut yes root di loctype fixed prev scopo next nil)
+        (a_scorno_di cat prep type poli locut yes root di loctype fixed prev scorno next nil)
+        (a_seconda_di cat prep type poli locut yes root di loctype fixed prev seconda next nil)
+        (a_seguito_di cat prep type poli locut yes root di loctype fixed prev seguito next nil)
+        (ai_danni_di cat prep type poli locut yes root di loctype fixed prev danni next nil)
+        (al_cospetto_di cat prep type poli locut yes root di loctype fixed prev cospetto next nil)
+        (al_di_fuori_di cat prep type poli locut yes loctype fixed root di2 prev fuori next nil)
+        (al_di_là_di cat prep type poli locut yes root di2 loctype fixed prev là next nil)
+        (al_di_sopra_di cat prep type poli locut yes root di2 loctype fixed prev sopra next nil)
+        (al_di_sotto_di cat prep type poli locut yes root di2 loctype fixed prev sotto next nil)
+        (al_fine_di cat prep type poli locut yes loctype fixed root di prev fine next nil)
+        (al_pari_di cat prep type poli locut yes loctype fixed root di prev pari next nil)
+        (alla_pari_di cat prep type poli locut yes loctype fixed root di prev pari next nil)
+        (al_posto_di cat prep type poli locut yes loctype fixed root di prev posto next nil)
+        (alla_luce_di cat prep type poli locut yes loctype fixed root di prev luce next nil)
+        (alla_mercè_di cat prep type poli locut yes root di loctype fixed prev mercè next nil)
+        (alla_volta_di cat prep type poli locut yes loctype fixed root di prev volta next nil)
+        (allo_scopo_di cat conj type subord semtype reason locut yes root di loctype fixed prev scopo next nil)
+        (|all'infuori_di| cat prep type poli locut yes root di loctype fixed prev infuori next nil)
+        (|all'insaputa_di| cat prep type poli locut yes root di loctype fixed prev insaputa next nil)
+        (|ALL'_INTERNO_DI| cat prep type poli locut yes root di loctype fixed prev interno next nil)
+        (|all'insegna_di| cat prep type poli locut yes root di loctype fixed prev insegna next nil)
+        (|calcio_d'_angolo| cat noun locut yes root di loctype flex prev calcio next angolo)
+        (con_buona_pace_di cat prep type poli locut yes root di loctype fixed prev pace next nil)
+        (|dall'alto_di| cat prep type poli locut yes root di loctype fixed prev alto next nil)
+        (da_parte_di cat prep type poli locut yes root di loctype fixed prev parte next nil)
+        (|D'_UN_TRATTO| cat adv type time locut yes root di loctype fixed prev nil next un)
+        (|D'_ACCORDO| cat adv type manner locut yes root di loctype fixed prev nil next accordo)
+        (|d'altra_parte| cat adv type manner locut yes root di loctype fixed prev nil next altra)
+        (|D'_ALTRONDE| cat adv type advers locut yes root di loctype fixed prev nil next altronde)
+        (|D'_INCANTO| cat adv type manner locut yes root di loctype fixed prev nil next incanto)
+        (|D'_ORA_INNANZI| cat adv locut yes type time root di loctype fixed prev nil next ora)
+        (in_balia_di cat prep type poli locut yes root di loctype fixed prev balia next nil)
+        (in_cambio_di cat prep type poli locut yes root di loctype fixed prev cambio next nil)
+        (in_cerca_di cat prep type poli locut yes root di loctype fixed prev cerca next nil)
+        (in_conseguenza_di cat prep type poli locut yes root di loctype fixed prev conseguenza next nil)
+        (in_corso_di cat prep type poli locut yes root di loctype fixed prev corso next nil)
+        (in_direzione_di cat prep type poli locut yes root di loctype fixed prev direzione next nil)
+        (in_luogo_di cat prep type poli locut yes root di loctype fixed prev luogo next nil)
+        (in_memoria_di cat prep type poli locut yes root di loctype fixed prev memoria next nil)
+        (in_fase_di cat prep type poli locut yes root di loctype fixed prev fase next nil)
+        (in_preda_di cat prep type poli locut yes root di loctype fixed prev preda next nil)
+        (in_ragione_di cat prep type poli locut yes root di loctype fixed prev ragione next nil)
+        (in_sede_di cat prep type poli locut yes root di loctype fixed prev sede next nil)
+        (in_via_di cat prep type poli locut yes root di loctype fixed prev via next nil)
+        (in_vicinanza_di cat prep type poli locut yes root di loctype fixed prev vicinanza next nil)
+        (in_vista_di cat prep type poli locut yes root di loctype fixed prev via next nil)
+        (|nell'_arco_di| cat prep type poli locut yes root di loctype fixed prev arco next nil)
+        (per_conto_di cat prep type poli locut yes root di loctype fixed prev conto next nil)
+        (per_mezzo_di cat prep type poli locut yes root di loctype fixed prev mezzo next nil)
+        (per_tramite_di cat prep type poli locut yes root di loctype fixed prev tramite next nil)
+        (per_via_di cat prep type poli locut yes root di loctype fixed prev via next nil)
+        (pur_di cat conj type subord semtype concess locut yes root di loctype fixed prev pur next nil)
+        (|quarto_d'ora| cat noun locut yes root di loctype flex prev quarto next ora)
+        (sulla_base_di cat prep type poli locut yes root di loctype fixed prev base next nil)
+        (sulla_scorta_di cat prep type poli locut yes root di loctype fixed prev scorta next nil))
+  difetto ((per_difetto cat adv type manner locut yes loctype fixed root difetto prev per next nil))
+  differenza ((a_differenza_di cat prep type poli locut yes root differenza loctype fixed prev a next di))
+  dire ((a_suo_dire cat adv type manner locut yes root dire loctype fixed prev suo next nil)
+        (vale_a_dire cat conj type coord semtype explic locut yes root dire loctype fixed prev a next nil))
+  direzione ((in_direzione_di cat prep type poli locut yes root direzione loctype fixed prev in next di))
+  disk ((compact_disk cat noun classe (0) gender m number allval locut yes loctype fixed root disk prev compact next nil))
+  disopra ((al_disopra_di cat prep type poli locut yes loctype fixed root disopra prev al next di))
+  disotto ((al_disotto_di cat prep type poli locut yes loctype fixed root disotto prev al next di))
+  disparte ((in_disparte cat adv type loc locut yes root disparte loctype fixed prev in next nil))
+  dispetto ((a_dispetto_di cat prep type poli locut yes root dispetto loctype fixed prev a next di))
+;  distanza ((a_distanza cat adv type loc locut yes root distanza loctype fixed prev a next nil))
+  e ((in_tutto_e_per_tutto cat adv type manner locut yes root e loctype fixed prev tutto1 next per))
+  effett ((effetto_serra cat noun morphcat noun classe (2) locut yes root effetto loctype flex prev nil next serra))
+  entrat ((entrata_in_vigore cat noun morphcat noun classe (1) locut yes root entrata loctype flex prev nil next in))
+  erba ((erba_cipollina cat noun classe (0) locut yes root erba gender f number sing loctype fixed prev nil next cipollina))
+  esclusiva ((in_esclusiva cat adv type manner locut yes root esclusiva loctype fixed prev in next nil))
+  esempio ((ad_esempio cat adv type manner locut yes loctype fixed root esempio prev ad next nil)
+             (per_esempio cat adv type manner locut yes loctype fixed root esempio prev per next nil))
+  est ((sud-est cat noun type common gender m number sing locut yes loctype fixed root est prev sud next nil)
+       (nord-est cat noun type common gender m number sing locut yes loctype fixed root est prev nord next nil))
+  eterno ((in_eterno cat adv locut yes type time root eterno loctype fixed prev in next nil))
+  faccia ((di_faccia_a cat prep type poli locut yes root faccia loctype fixed prev di next a)
+          (faccia_a_faccia cat noun classe (0) gender m number allval locut yes loctype fixed root faccia1 prev nil next a)
+          (faccia_a_faccia cat noun classe (0) gender m number allval locut yes loctype fixed root faccia2 prev a next nil))
+  fatto ((di_fatto cat adv type manner locut yes root fatto loctype fixed prev di next nil))
+  favore ((a_favore_di cat prep type poli locut yes root favore loctype fixed prev a next di)
+          (per_favore cat adv type interj locut yes root favore loctype fixed prev per next nil))
+  ferri ((ai_ferri_corti cat adj type qualif locut yes loctype fixed root ferri prev ai next corti))
+  fianco ((a_fianco_a cat prep type poli locut yes root fianco loctype fixed prev a1 next a2)
+          (a_fianco_di cat prep type poli locut yes root fianco loctype fixed prev a next di)
+          (di_fianco_a cat prep type poli locut yes root fianco loctype fixed prev di next a))
+  fin ((fin_tanto_che cat conj type subord semtype time locut yes root fin loctype fixed prev nil next tanto))
+  finanza ((guardia_di_finanza cat noun classe (0) locut yes root finanza gender f number sing loctype fixed prev di next nil))
+  fine ((al_fine_di cat prep type poli locut yes loctype fixed root fine prev al next di)
+        (fine_anno cat noun locut yes loctype fixed gender m number allval root fine prev nil next anno))
+  fino ((fino_a_nuovo_ordine cat adv type time locut yes root fino loctype fixed prev nil next a))
+  fintanto ((fintanto_che cat conj type subord semtype time locut yes root fintanto loctype fixed prev nil next che))
+  fondo ((in_fondo_a cat prep type poli locut yes root fondo loctype fixed prev in next a))
+  forma ((fuori_forma cat adj locut yes loctype fixed root forma prev fuori next nil)
+         (sotto_forma_di cat prep type poli locut yes root forma loctype fixed prev sotto next di))
+  forza ((a_forza_di cat prep type poli locut yes root forza loctype fixed prev a next di))
+  furia ((a_furia_di cat conj type subord semtype reason locut yes root furia loctype fixed prev a next di))
+  guisa ((a_guisa_di cat prep type poli locut yes root guisa loctype fixed prev a next di))
+  fase ((in_fase_di cat prep type poli locut yes root fase loctype fixed prev in next di))
+  fra ((|FRA_L'_ALTRO| cat adv type interj locut yes root fra loctype fixed prev nil next l))
+  frattempo ((nel_frattempo cat adv type time locut yes root frattempo loctype fixed prev nel next nil))
+  fretta ((in_fretta cat adv locut yes type time root fretta loctype fixed prev in next nil)
+          (in_tutta_fretta cat adv locut yes type time root fretta loctype fixed prev tutta next nil))
+  fronte ((a_fronte_di cat prep type poli locut yes root fronte loctype fixed prev a next di)
+          (di_fronte cat adv type loc locut yes root fronte loctype fixed prev di next nil)
+          (di_fronte_a cat prep type poli locut yes root fronte loctype fixed prev di next a))
+  fuoco ((arma_da_fuoco cat noun classe (0) locut yes root fuoco gender f number sing loctype fixed prev da next nil)
+         (armi_da_fuoco cat noun classe (1) locut yes root fuoco gender f number pl loctype fixed prev da next nil))
+  fuori ((al_di_fuori cat prep type poli locut yes loctype fixed root fuori prev di next nil)
+         (al_di_fuori_di cat prep type poli locut yes loctype fixed root fuori prev di1 next di2)
+         (di_fuori cat adv type loc locut yes root fuori loctype fixed prev di next nil)
+         (fuori_forma cat adj locut yes loctype fixed root fuori prev nil next forma))
+  genere ((in_genere cat adv locut yes type manner root genere loctype fixed prev in next nil))
+  già ((già_che cat conj type subord semtype caus locut yes loctype fixed root già prev nil next che))
+  giorno ((giorno_per_giorno cat adv locut yes type time loctype fixed root giorno2 prev per next nil)
+          (giorno_per_giorno cat adv locut yes type time loctype fixed root giorno1 prev nil next per))
+  giunta ((per_giunta cat adv locut yes type streng loctype fixed root giunta prev per next nil))
+  grado ((in_grado cat adj type qualif classe (0) gender allval number allval locut yes root grado loctype fixed prev in next nil))
+  guard ((guard_rail cat noun locut yes gender m number allval root guard loctype fixed prev nil next rail))
+  generale ((quartier_generale cat noun locut yes root generale loctype fixed prev quartier next nil))
+  gran ((in_gran_parte cat adv locut yes type quant root gran loctype fixed prev in next parte))
+  grazie ((grazie_a cat prep type poli locut yes root grazie loctype fixed prev nil next a))
+  guardia ((guardia_di_finanza cat noun classe (0) locut yes root guardia gender f number sing loctype fixed prev nil next di))
+  hoc ((ad_hoc cat adj classe (0) gender allval number allval locut yes loctype fixed root hoc prev ad next nil))
+  homo ((homo_sapiens cat noun locut yes gender m number sing root homo loctype fixed prev nil next sapiens))
+  ieri ((|L'_ALTRO_IERI| cat adv type time locut yes root ieri loctype fixed prev altro next nil))
+  il ((il_più_possibile cat adv type quant locut yes root il loctype fixed prev nil next più))
+  implicito ((per_implicito cat adv type manner locut yes loctype fixed root implicito prev per next nil))
+  in ((entrata_in_vigore cat noun locut yes root in loctype flex prev entrata next vigore)
+      (in_alto cat adv type loc locut yes root in loctype fixed prev nil next alto)
+      (in_balia_di cat prep type poli locut yes root in loctype fixed prev nil next balia)
+      (in_base_a cat prep type poli locut yes root in loctype fixed prev nil next base)
+      (in_basso cat adv type loc locut yes root in loctype fixed prev nil next basso)
+      (in_cambio_di cat prep type poli locut yes root in loctype fixed prev nil next cambio)
+      (in_caso_che cat conj type subord semtype cond locut yes root in loctype fixed prev nil next caso)
+      (in_cerca_di cat prep type poli locut yes root in loctype fixed prev nil next cerca)
+      (in_cima_a cat prep type poli locut yes root in loctype fixed prev nil next cima)
+      (in_conclusione cat adv type time locut yes root in loctype fixed prev nil next conclusione)
+      (in_confronto_a cat prep type poli locut yes root in loctype fixed prev nil next confronto)
+      (in_contrasto cat prep type poli locut yes loctype fixed root in prev nil next contrasto)
+      (in_corso cat adj type qualif locut yes gender allval number allval root in loctype fixed prev nil next corso)
+      (in_corso_di cat prep type poli locut yes root in loctype fixed prev nil next corso)
+      (in_definitiva cat adv type time locut yes root in loctype fixed prev nil next definitiva)
+      (in_direzione_di cat prep type poli locut yes root in loctype fixed prev nil next direzione)
+      (in_disparte cat adv type loc locut yes root in loctype fixed prev nil next disparte)
+      (in_esclusiva cat adv type manner locut yes root in loctype fixed prev nil next esclusiva)
+      (in_eterno cat adv locut yes type time root in loctype fixed prev nil next eterno)
+      (in_fondo_a cat prep type poli locut yes root in loctype fixed prev nil next fondo)
+      (in_fretta cat adv locut yes type time root in loctype fixed prev nil next fretta)
+      (in_genere cat adv type manner locut yes root in loctype fixed prev nil next genere)
+      (in_grado cat adj type qualif classe (0) gender allval number allval locut yes root in loctype fixed prev nil next grado)
+      (in_gran_parte cat adv locut yes type quant root in loctype fixed prev nil next gran)
+      (in_linea_con cat prep type poli locut yes root in loctype fixed prev nil next linea)
+      (in_linea_di_massima cat adv type manner locut yes root in loctype fixed prev nil next linea)
+      (in_loco cat adj type qualif classe (0) gender allval number allval locut yes root in loctype fixed prev nil next loco)
+      (in_maniera_che cat conj type subord semtype reason locut yes root in loctype fixed prev nil next maniera)
+      (in_mano_a cat prep type poli locut yes root in loctype fixed prev nil next mano)
+      (in_meno cat adj type qualif classe (0) gender allval number allval locut yes root in loctype fixed prev nil next meno)
+      (in_merito_a cat prep type poli locut yes root in loctype fixed prev nil next merito)
+      (in_mezzo_a cat prep type poli locut yes root in loctype fixed prev nil next mezzo)
+      (in_modo_che cat conj type subord semtype reason locut yes root in loctype fixed prev nil next modo)
+      (in_modo_da cat conj type subord semtype reason locut yes root in loctype fixed prev nil next modo)
+      (in_fase_di cat prep type poli locut yes root in loctype fixed prev nil next fase)
+      (in_nome_di cat prep type poli locut yes root in loctype fixed prev nil next nome)
+      (in_particolar_modo cat adv type streng locut yes root in loctype fixed prev nil next particolar)
+      (in_particolare cat adv type streng locut yes root in loctype fixed prev nil next particolare)
+      (in_piedi cat adv locut yes type manner root in loctype fixed prev nil next piedi)
+      (in_più cat adj type qualif classe (0) gender allval number allval locut yes root in loctype fixed prev nil next più)
+      (in_preda_a cat prep type poli locut yes root in loctype fixed prev nil next preda)
+      (in_preda_di cat prep type poli locut yes root in loctype fixed prev nil next preda)
+      (in_prevalenza cat adv type quant locut yes root in loctype fixed prev nil next prevalenza)
+      (in_privato cat adv locut yes type manner root in loctype fixed prev nil next privato)
+      (in_procinto_di cat conj type subord semtype time locut yes root in loctype fixed prev nil next procinto)
+      (in_programma cat adv locut yes type manner root in loctype fixed prev nil next programma)
+      (in_quanto cat conj type subord semtype caus locut yes root in loctype fixed prev nil next quanto)
+      (in_quanto_che cat conj type subord semtype caus locut yes root in loctype fixed prev nil next quanto)
+      (in_ragione_di cat prep type poli locut yes root in loctype fixed prev nil next ragione)
+      (in_rapporto_a cat prep type poli locut yes root in loctype fixed prev nil next rapporto)
+      (in_realtà cat adv type manner locut yes root in loctype fixed prev nil next realtà)
+      (in_salvo cat adv type loc locut yes root in loctype fixed prev nil next salvo)
+      (in_scadenza cat adj type qualif locut yes root in loctype fixed prev nil next scadenza)
+      (in_sede_di cat prep type poli locut yes root in loctype fixed prev nil next sede)
+      (in_seguito_a cat prep type poli locut yes root in loctype fixed prev nil next seguito)
+      (in_seno_a cat prep type poli locut yes root in loctype fixed prev nil next seno)
+      (in_situ cat adj classe (0) gender allval number allval locut yes loctype fixed root in prev nil next situ)
+      (in_solido cat adj type qualif locut yes gender allval number allval root in loctype fixed prev nil next solido)
+      (in_sostanza cat adv locut yes type manner root in loctype fixed prev nil next sostanza)
+      (in_tutta_fretta cat adv locut yes type time root in loctype fixed prev nil next tutta)
+      (in_tutto_e_per_tutto cat adv type manner locut yes root in loctype fixed prev nil next tutto1)
+      (in_unione_con cat prep type poli locut yes root in loctype fixed prev nil next unione)
+      (in_via_di cat prep type poli locut yes root in loctype fixed prev nil next via)
+      (in_via_di_sviluppo cat adj classe (0) locut yes root in loctype fixed gender allval number allval prev nil next via)
+      (in_vicinanza_di cat prep type poli locut yes root in loctype fixed prev nil next vicinanza)
+      (in_vista cat adj classe (0) gender allval number allval locut yes root in loctype fixed prev nil next vista)
+      (in_vista_di cat prep type poli locut yes root in loctype fixed prev nil next vista)
+      (in_virtù_di cat prep type poli locut yes root in loctype fixed prev nil next virtù)
+      (messa_in_opera cat noun locut yes classe (0) gender f number sing v-deriv mettere_in_opera v-trans yes root in loctype fixed prev messa next opera)
+      (nella_misura_in_cui cat conj type subord semtype cond locut yes root in loctype fixed prev misura next cui))
+  incanto ((|D'_INCANTO| cat adv type manner locut yes root incanto loctype fixed prev di next nil))
+  incirca ((|all'incirca| cat adv locut yes type manner root incirca loctype fixed prev all next nil))
+  infuori ((|all'infuori_di| cat prep type poli locut yes root infuori loctype fixed prev all next di))
+  innanzi ((|D'_ORA_INNANZI| cat adv locut yes type time root innanzi loctype fixed prev ora next nil))
+  insaputa ((|all'insaputa_di| cat prep type poli locut yes root insaputa loctype fixed prev all next di))
+  insegna ((|all'insegna_di| cat prep type poli locut yes root insegna loctype fixed prev all next di))
+  intanto ((intanto_che cat conj type subord semtype time locut yes root intanto loctype fixed prev nil next che))
+  interno ((|ALL'_INTERNO_DI| cat prep type poli locut yes root interno loctype fixed prev all next di))
+  iscritto ((per_iscritto cat adv type manner locut yes loctype fixed root iscritto prev per next nil))
+  item ((physical_item cat noun locut yes classe (0) gender m number allval root item loctype fixed prev physical next nil))
+  joint ((joint_venture cat noun locut yes gender f number allval root joint loctype fixed prev nil next venture))
+  |l'| ((|TRA_L'_ALTRO| cat adv type interj locut yes root l loctype fixed prev tra next altro)
+        (|FRA_L'_ALTRO| cat adv type interj locut yes root l loctype fixed prev fra next altro)
+        (|L'_ALTRO_IERI| cat adv type time locut yes root altro loctype fixed prev nil next altro))
+
+  lato ((a_lato_di cat prep type poli locut yes root lato loctype fixed prev a next di))
+  là ((al_di_là cat prep type poli locut yes loctype fixed root là prev di2 next nil)
+      (al_di_là_di cat prep type poli locut yes loctype fixed root là prev di1 next di2))
+  legge ((decreto_legge cat noun locut yes root legge loctype flex prev decreto next nil))
+  libera ((via_libera cat noun locut yes classe (0) gender m number allval root libera loctype fixed prev via next nil))
+  linea ((in_linea_di_massima cat adv type manner locut yes root linea loctype fixed prev in next di)
+           (in_linea_con cat prep type poli locut yes root linea loctype fixed prev in next con))
+  list ((waiting_list cat noun locut yes gender f number allval root list loctype fixed prev waiting next nil))
+
+  lo ((per_lo_più cat adv type manner locut yes loctype fixed root lo prev per next più)
+       (per_lo_meno cat adv type concess locut yes loctype fixed root lo prev per next meno))
+  loco ((in_loco cat adj type qualif classe (0) gender allval number allval locut yes root loco loctype fixed prev in next nil))
+  longa ((longa_manus cat noun locut yes root longa gender f number sing loctype fixed prev nil next manus))
+  luce ((alla_luce_di cat prep type poli locut yes loctype fixed root luce prev alla next di))
+  lungo ((a_lungo cat adv type time locut yes root lungo loctype fixed prev a next nil))
+  luogo ((in_luogo_di cat prep type poli locut yes root luogo loctype fixed prev in next di))
+  mai ((come_mai cat adv type interr semtype reason locut yes loctype fixed root mai prev come next nil))
+  malapena ((a_malapena cat adv type manner locut yes root malapena loctype fixed prev a next nil))
+  man  ((man_mano cat conj type subord locut yes root mano1 loctype fixed prev nil next mano2)
+        (man_mano_che cat conj type subord semtype time locut yes loctype fixed root mano1 prev nil next mano2))
+  maniera ((in_maniera_che cat conj type subord semtype reason locut yes root maniera loctype fixed prev in next che))
+  mano ((in_mano_a cat prep type poli locut yes root mano loctype fixed prev in next a)
+        (di_mano_di cat prep type poli locut yes root mano loctype fixed prev di1 next di2)
+        (man_mano cat conj type subord locut yes root mano2 loctype fixed prev mano1 next nil)
+        (man_mano cat conj type subord locut yes root mano1 loctype fixed prev nil next mano2)
+        (man_mano_che cat conj type subord semtype time locut yes loctype fixed root mano1 prev nil next mano2)
+        (man_mano_che cat conj type subord semtype time locut yes loctype fixed root mano2 prev mano1 next che))
+  manus ((longa_manus cat noun locut yes root manus gender f number sing loctype fixed prev longa next nil))
+  mass ((mass_media cat noun locut yes root mass gender m number pl loctype fixed prev nil next media))
+  massima ((in_linea_di_massima cat adv type manner locut yes root massima loctype fixed prev di next nil))
+  massimo ((al_massimo cat adv type quant locut yes loctype fixed root massimo prev al next nil))
+  media ((mass_media cat noun gender m number pl locut yes root media loctype fixed prev mass next nil))
+  meno ((meno_uno cat noun type sing locut yes root meno loctype fixed prev nil next uno)
+        (a_meno_che cat conj type subord semtype excluding locut yes root meno loctype fixed prev a next che)
+        (a_meno_di cat prep type poli locut yes root meno loctype fixed prev a next di)
+        (di_meno cat adv type quant locut yes root meno loctype fixed prev di next nil)
+        (in_meno cat adj type qualif classe (0) gender allval number allval locut yes root meno loctype fixed prev in next nil)
+        (per_lo_meno cat adv type concess locut yes loctype fixed root meno prev lo next nil)
+        (quanto_meno cat adv type quant locut yes loctype fixed root meno prev quanto next nil)
+        (più_o_meno cat adv locut yes loctype fixed root meno prev o next nil))
+  mentre ((nel_mentre_che cat conj type subord semtype time locut yes loctype fixed root mentre prev nil next che))
+  meraviglia ((a_meraviglia cat adv type manner locut yes root meraviglia loctype fixed prev a next nil))
+  mercè ((alla_mercè_di cat prep type poli locut yes loctype fixed root mercè prev alla next di))
+  meridional ((centro-meridionale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root meridionale prev centro next nil))
+  merito ((in_merito_a cat prep type poli locut yes root merito loctype fixed prev in next a))
+  messa ((messa_in_opera cat noun locut yes classe (0) gender f number sing v-deriv mettere_in_opera v-trans yes root messa loctype fixed prev nil next in))
+  mezz ((mezzo_di_trasporto cat noun morphcat noun classe (2) locut yes root mezzo loctype flex prev nil next di))
+  mezzo ((a_mezzo_di cat prep type poli locut yes loctype fixed root mezzo prev a next di)
+         (in_mezzo_a cat prep type poli locut yes root mezzo loctype fixed prev in next a)
+         (per_mezzo_di cat prep type poli locut yes loctype fixed root mezzo prev per next di))
+  misura ((nella_misura_in_cui cat conj type subord semtype cond locut yes root misura loctype fixed prev nella next in))
+  mo ((a_mo_di cat prep type poli locut yes root mo loctype fixed prev a next di))
+  |mo'| ((a_mo_di cat prep type poli locut yes root mo loctype fixed prev a next di))
+  modo ((in_modo_da cat conj type subord semtype reason locut yes root modo loctype fixed prev in next da)
+        (di_modo_che cat conj type subord semtype concl locut yes root modo loctype fixed prev di next che)
+        (in_modo_che cat conj type subord semtype reason locut yes root modo loctype fixed prev in next che)
+        (in_particolar_modo cat adv type streng locut yes root modo loctype fixed prev particolar next nil))
+  momento ((dal_momento_che cat conj type subord semtype caus locut yes root momento loctype fixed prev dal next che))
+  morte ((a_morte cat verb locut yes mood imper tense pres person allval root morte loctype fixed prev a next nil))
+  musica ((settembre_musica cat noun locut yes gender m number sing root musica loctype fixed prev settembre next nil))
+  nei ((nei_confronti_di cat prep type poli locut yes root nei loctype fixed prev nil next confronti)
+         (nei_pressi_di cat prep type poli semtype loc locut yes root nei loctype fixed prev nil next pressi))
+  nel ((nel_corso_di cat prep type poli locut yes root nel loctype fixed prev nil next corso)
+       (nel_mentre_che cat conj type subord semtype time locut yes loctype fixed root nel prev nil next mentre)
+       (nel_contempo cat adv type time locut yes root nel loctype fixed prev nil next contempo)
+       (nel_frattempo cat adv type time locut yes root nel loctype fixed prev nil next frattempo))
+  nella ((nella_misura_in_cui cat conj type subord semtype cond locut yes root nella loctype fixed prev nil next misura))
+  |nell'| ((|nell'_arco_di| cat prep type poli locut yes root |nell'| loctype fixed prev nil next arco))
+  nome ((a_nome_di cat prep type poli locut yes root nome loctype fixed prev a next di)
+        (in_nome_di cat prep type poli locut yes root nome loctype fixed prev in next di))
+  non ((se_non_altro cat adv type concess locut yes root non loctype fixed prev se next altro)
+       (se_non_che cat conj type coord semtype advers locut yes loctype fixed root non prev se next che)
+       (sine_qua_non cat adj type qualif classe (0) gender allval number allval locut yes root non loctype fixed prev qua next nil)
+       (a_più_non_posso cat adv type manner locut yes root non loctype fixed prev più next posso)
+       (non_appena cat conj type subord semtype time locut yes root non loctype fixed prev nil next appena))
+  nondimeno ((ciò_nondimeno cat conj type coord semtype advers locut yes loctype fixed root nondimeno prev ciò next nil))
+  nord ((nord-occidentale cat adj type qualif locut yes loctype flex root nord prev nil next occidentale)
+        (nord-orientale cat adj type qualif locut yes loctype flex root nord prev nil next orientale)
+        (nord-est cat noun type common gender m number sing locut yes loctype fixed root nord prev nil next est)
+        (nord-ovest cat noun type common gender m number sing locut yes loctype fixed root nord prev nil next ovest))
+  norma ((a_norma_di cat prep type poli locut yes root norma loctype fixed prev a next di))
+  number ((part_number cat noun locut yes classe (0) gender m number allval root number loctype fixed prev part next nil)
+          (serial_number cat noun locut yes classe (0) gender m number allval root number loctype fixed prev serial next nil))
+  nuovo ((di_nuovo cat adv type time locut yes root nuovo loctype fixed prev di next nil)
+         (fino_a_nuovo_ordine cat adv type time locut yes root nuovo loctype fixed prev a next ordine))
+  o ((più_o_meno cat adv locut yes loctype fixed root o prev più next meno))
+  occhio ((|DI_BUON'_OCCHIO| cat adv type manner locut yes root occhio loctype fixed prev buon next nil))
+  occidental ((nord-occidentale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root occidentale prev nord next nil)
+              (sud-occidentale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root occidentale prev sud next nil)
+              (centro-occidentale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root occidentale prev centro next nil))
+  oggi ((|A_TUTT'_OGGI| cat adv type time locut yes root oggi loctype fixed prev tutt next nil))
+  ogni ((ogni_qualvolta cat conj type subord semtype time locut yes loctype fixed root ogni prev nil next qualvolta)
+        (ogni_volta_che cat conj type subord semtype time locut yes loctype fixed root ogni prev nil next volta))
+  oltre ((oltre_che cat conj type coord semtype compar locut yes loctype fixed root oltre prev nil next che))
+  onor ((a_onor_del_vero cat adv type concess locut yes root onor loctype fixed prev a next del))
+  opera ((messa_in_opera cat noun locut yes classe (0) gender f number sing v-deriv mettere_in_opera v-trans yes root opera loctype fixed prev in next nil))
+  or ((or_sono cat adj locut yes root or type deitt loctype fixed prev nil next sono))
+  ora ((|D'_ORA_INNANZI| cat adv locut yes type time root ora loctype fixed prev di next innanzi)
+       (per_ora cat adv locut yes type time loctype fixed root ora prev per next nil)
+       (|quarto_d'ora| cat noun locut yes root ora loctype flex prev di next nil))
+  ordine ((fino_a_nuovo_ordine cat adv type time locut yes root ordine loctype fixed prev nuovo next nil))
+  oriental ((nord-orientale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root orientale prev nord next nil)
+            (sud-orientale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root orientale prev sud next nil)
+            (centro-orientale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root orientale prev centro next nil))
+  orizzonte ((|ALL'_ORIZZONTE| cat adv type loc locut yes root orizzonte loctype fixed prev all next nil))
+  ovest ((sud-ovest cat noun type common gender m number sing locut yes loctype fixed root ovest prev sud next nil)
+         (nord-ovest cat noun type common gender m number sing locut yes loctype fixed root ovest prev nord next nil))
+  pace ((con_buona_pace_di cat prep type poli locut yes root pace loctype fixed prev buona next di))
+  paragone ((a_paragone_con cat prep type poli locut yes root paragone loctype fixed prev a next con))
+  pare ((a_quanto_pare cat adv type manner locut yes root pare loctype fixed prev quanto next nil))
+  pari ((al_pari_di cat prep type poli locut yes loctype fixed root pari prev al next di)
+        (alla_pari_di cat prep type poli locut yes loctype fixed root pari prev alla next di)
+        (del_pari cat adv locut yes type manner root pari loctype fixed prev del next nil))
+  part ((part_number cat noun locut yes classe (0) gender m number allval root part loctype fixed prev nil next number)
+        (physical_part cat noun locut yes classe (0) gender f number allval root part loctype fixed prev physical next nil)
+        (parte_di_ricambio cat noun morphcat noun classe (11) locut yes root parte loctype flex prev nil next di))
+  parte ((in_gran_parte cat adv locut yes type quant root parte loctype fixed prev gran next nil)
+         (|d'altra_parte| cat adv locut yes loctype fixed root parte prev altra next nil)
+         (da_parte_di cat prep type poli locut yes root parte loctype fixed prev da next di)
+         (a_parte cat prep type poli locut yes root parte loctype fixed prev a next nil))
+  particolar ((in_particolar_modo cat adv type streng locut yes root particolar loctype fixed prev in next modo))
+  particolare ((in_particolare cat adv type streng locut yes root particolare loctype fixed prev in next nil))
+  partire ((a_partire_da cat prep type poli locut yes root partire loctype fixed prev a next da))
+  patologo ((anatomo_patologo cat noun locut yes morphcat noun classe (20) root patologo loctype flex prev anatomo next nil))
+  patto ((a_patto_che cat conj type subord semtype cond locut yes root patto loctype fixed prev a next che))
+  per ((per_cui cat conj type subord locut yes semtype concl root per loctype fixed prev nil next cui)
+       (per_altro cat adv type advers locut yes loctype fixed root per prev nil next altro)
+       (per_caso cat adv type manner locut yes loctype fixed root per prev nil next caso)
+       (per_conto_di cat prep type poli locut yes loctype fixed root per prev nil next conto)
+       (per_difetto cat adv type manner locut yes loctype fixed root per prev nil next difetto)
+       (per_di_più cat adv type streng locut yes root per loctype fixed prev nil next di)
+       (per_esempio cat adv type manner locut yes loctype fixed root per prev nil next esempio)
+       (per_favore cat adv type interj locut yes root per loctype fixed prev nil next favore)
+       (per_implicito cat adv type manner locut yes loctype fixed root per prev nil next implicito)
+       (per_iscritto cat adv type manner locut yes loctype fixed root per prev nil next iscritto)
+       (per_lo_meno cat adv type concess locut yes loctype fixed root per prev nil next lo)
+       (per_lo_più cat adv locut yes type manner loctype fixed root per prev nil next lo)
+       (per_mezzo_di cat prep type poli locut yes loctype fixed root per prev nil next mezzo)
+       (per_ora cat adv type time locut yes loctype fixed root per prev nil next ora)
+       (per_piacere cat adv type interj locut yes root per loctype fixed prev nil next piacere)
+      ; (per_quanto cat conj type subord semtype concess locut yes root per loctype fixed prev nil next quanto)
+       (per_sempre cat adv type time locut yes loctype fixed root per prev nil next sempre)
+       (per_terra cat adv type loc locut yes loctype fixed root per prev nil next terra)
+       (per_tramite_di cat prep type poli locut yes loctype fixed root per prev nil next tramite)
+       (per_via_di cat prep type poli locut yes loctype fixed root per prev nil next via)
+       (in_tutto_e_per_tutto cat adv type manner locut yes root per loctype fixed prev e next tutto2)
+       (di_per_sè cat adv type manner locut yes root per loctype fixed prev di next sè)
+       (per_giunta cat adv locut yes type streng loctype fixed root per prev nil next giunta)
+       (giorno_per_giorno cat adv locut yes type time loctype fixed root per prev giorno1 next giorno2))
+  personam ((ad_personam cat adj classe (0) gender allval number allval locut yes loctype fixed root personam prev ad next nil))
+  physical ((physical_part cat noun locut yes classe (0) gender f number allval root physical loctype fixed prev nil next part)
+            (physical_item cat noun locut yes classe (0) gender m number allval root physical loctype fixed prev nil next item))
+  piacere ((per_piacere cat adv type interj locut yes root piacere loctype fixed prev per next nil))
+  pian ((pian_piano cat adv locut yes type manner root pian loctype fixed prev nil next piano))
+  piano ((pian_piano cat adv locut yes type manner root piano loctype fixed prev pian next nil))
+  piedi ((in_piedi cat adv locut yes type manner root piedi loctype fixed prev in next nil))
+  ping ((ping_pong cat noun gender m number allval locut yes loctype fixed root ping prev nil next pong))
+  più ((a_più_non_posso cat adv type manner locut yes root più loctype fixed prev a next non)
+       (di_più cat adv type quant locut yes loctype fixed root più prev di next nil)
+       (il_più_possibile cat adv type quant locut yes root più loctype fixed prev il next possibile)
+       (in_più cat adj type qualif classe (0) gender allval number allval locut yes root più loctype fixed prev in next nil)
+       (per_di_più cat adv type streng locut yes root più loctype fixed prev di next nil)
+       (per_lo_più cat adv locut yes type manner loctype fixed root più prev lo next nil)
+       (più_che_altro cat adv type manner locut yes root più loctype fixed prev nil next che)
+       (più_o_meno cat adv type quant locut yes loctype fixed root più prev nil next o)
+       (|TUTT'_AL_PIù| cat adv locut yes root più loctype fixed prev al next nil))
+  pò ((|un_po'| cat adv type quant locut yes root pò loctype fixed prev un next nil))
+  poco ((a_poco_a_poco cat adv locut yes root poco1 loctype fixed prev a1 next a2)
+        (a_poco_a_poco cat adv locut yes root poco2 loctype fixed prev a2 next nil))
+  point ((check_point cat noun gender m number allval locut yes loctype fixed root point prev check next nil))
+  pong ((ping_pong cat noun gender m number allval locut yes loctype fixed root pong prev ping next nil))
+  populi ((vox_populi cat noun locut yes root populi gender f number sing loctype fixed prev vox next nil))
+  possibile ((il_più_possibile cat adv type quant locut yes root possibile loctype fixed prev più next nil))
+  posso ((a_più_non_posso cat adv type manner locut yes root posso loctype fixed prev non next nil))
+  posto ((al_posto_di cat prep type poli locut yes loctype fixed root posto prev al next di))
+  preda ((in_preda_a cat prep type poli locut yes root preda loctype fixed prev in next a)
+         (in_preda_di cat prep type poli locut yes root preda loctype fixed prev in next di))
+  pressi ((nei_pressi_di cat prep type poli semtype loc locut yes root pressi loctype fixed prev nei next di))
+  prevalenza ((in_prevalenza cat adv type quant locut yes root prevalenza loctype fixed prev in next nil))
+  prima ((a_prima_vista cat adv type time locut yes root prima loctype fixed prev a next vista))
+  prime ((prime_rate cat noun gender m number allval locut yes loctype fixed root prime prev nil next rate))
+  privato ((in_privato cat adv locut yes type manner root privato loctype fixed prev in next nil))
+  pro ((pro_capite cat adj locut yes gender allval number allval root pro type qualif loctype fixed prev nil next capite))
+  procinto ((in_procinto_di cat conj type subord semtype time locut yes root procinto loctype fixed prev in next di))
+  programma ((in_programma cat adv locut yes type manner root programma loctype fixed prev in next nil))
+  pronti ((pronti_via cat interj locut yes root pronti loctype fixed prev nil next via))
+  proposito ((a_proposito_di cat prep type poli locut yes root proposito loctype fixed prev a next di))
+  punt ((punto_di_vista cat noun morphcat noun classe (2) locut yes root punto loctype flex prev nil next di))
+  punto ((al_punto_che cat conj type subord semtype reason locut yes root punto loctype fixed prev al next che))
+  pur ((pur_di cat conj type subord semtype concess locut yes root pur loctype fixed prev nil next di))
+  qua ((di_qua_da cat prep type poli locut yes root di loctype fixed prev nil next qua)
+       (sine_qua_non cat adj type qualif classe (0) gender allval number allval locut yes root qua loctype fixed prev sine next non))
+  qualvolta ((ogni_qualvolta cat conj type subord semtype time locut yes loctype fixed root qualvolta prev ogni next nil))
+  quanto ((in_quanto cat conj type subord semtype caus locut yes root quanto loctype fixed prev in next nil)
+          (in_quanto_che cat conj type subord semtype caus locut yes root quanto loctype fixed prev in next che)
+        ; (per_quanto cat conj type subord semtype concess locut yes root quanto loctype fixed prev per next nil)
+          (quanto_a cat prep type poli locut yes root quanto loctype fixed prev nil next a)
+          (quanto_meno cat adv type quant locut yes loctype fixed root quanto prev nil next meno)
+          (a_quanto_pare cat adv type manner locut yes root quanto loctype fixed prev a next pare))
+  quart ((|quarto_d'ora| cat noun morphcat noun classe (2) locut yes root quarto loctype flex prev nil next di))
+  quartier ((quartier_generale cat noun morphcat noun classe (0) gender m number sing locut yes root quartier loctype fixed prev nil next generale))
+  ragione ((in_ragione_di cat prep type poli locut yes root ragione loctype fixed prev in next di))
+  rail ((guard_rail cat noun locut yes gender m number allval root rail loctype fixed prev guard next nil))
+  rate ((prime_rate cat noun gender m number allval locut yes loctype fixed root rate prev prime next nil))
+  realtà ((in_realtà cat adv type manner locut yes root realtà loctype fixed prev in next nil))
+  recente ((di_recente cat adv type time locut yes root recente loctype fixed prev di next nil))
+  regola ((di_regola cat adv type manner locut yes root regola loctype fixed prev di next nil))
+  resto ((del_resto cat adv locut yes type manner root resto loctype fixed prev del next nil))
+  ricambio ((parte_di_ricambio cat noun locut yes root ricambio loctype flex prev di next nil))
+  ridosso ((a_ridosso_di cat prep type poli locut yes root ridosso loctype fixed prev a next di))
+  rigore ((di_rigore cat adj classe (0) gender allval number allval locut yes root rigore loctype fixed prev di next nil))
+  riguardo ((con_riguardo_a cat prep type poli locut yes root riguardo loctype fixed prev con next a))
+  rilento ((a_rilento cat adv type manner locut yes root rilento loctype fixed prev a next nil))
+  rimpetto ((di_rimpetto_a cat prep type poli locut yes root rimpetto loctype fixed prev di next a))
+  rinfusa ((alla_rinfusa cat adv type manner locut yes root rinfusa loctype fixed prev alla next nil))
+  ritmo ((a_ritmo_di cat prep type poli locut yes root ritmo loctype fixed prev a next di))
+  salvo ((in_salvo cat adv type loc locut yes root salvo loctype fixed prev in next nil))
+  santo ((de_santo cat adj type qualif classe (0) gender allval number allval locut yes root santo loctype fixed prev de next nil))
+  sapiens ((homo_sapiens cat noun locut yes gender m number sing root sapiens loctype fixed prev homo next nil))
+  sbieco ((di_sbieco cat adv locut yes type manner root sbieco loctype fixed prev di next nil))
+  scadenza ((in_scadenza cat adj type qualif locut yes root scadenza loctype fixed prev in next nil))
+  scapito ((a_scapito_di cat prep type poli locut yes root scapito loctype fixed prev a next di))
+  sconto ((tasso_di_sconto cat noun locut yes root sconto loctype flex prev di next nil))
+  scopo ((a_scopo_di cat prep type poli locut yes root scopo loctype fixed prev a next di))
+  scorno ((a_scorno_di cat prep type poli locut yes root scorno loctype fixed prev a next di))
+  scoperto ((allo_scoperto cat adj classe (0) gender allval number allval locut yes root scoperto loctype fixed prev allo next nil))
+  scopo ((allo_scopo_di cat conj type subord semtype reason locut yes root scopo loctype fixed prev allo next di))
+  scorta ((sulla_scorta_di cat prep type poli locut yes root scorta loctype fixed prev sulla next di))
+  se ((se_non_altro cat adv type concess locut yes root se loctype fixed prev nil next non)
+      (se_non_che cat conj type coord semtype advers locut yes loctype fixed root se prev nil next non))
+  sè ((a_sè_stanti cat adj type qualif gender allval number pl locut yes root sè loctype fixed prev nil next stante)
+      (a_sè_stante cat adj type qualif gender allval number sing locut yes root sè loctype fixed prev nil next stante))
+  sé ((a_sè_stanti cat adj type qualif gender allval number pl locut yes root sè loctype fixed prev nil next stante)
+      (a_sè_stante cat adj type qualif gender allval number sing locut yes root sè loctype fixed prev nil next stante))
+  seconda ((a_seconda_di cat prep type poli locut yes root seconda loctype fixed prev a next di)
+           (a_seconda_che cat conj type subord semtype cond locut yes root seconda loctype fixed prev a next che))
+  sede ((in_sede_di cat prep type poli locut yes root sede loctype fixed prev in next di))
+  sedere ((a_sedere cat adj type qualif classe (0) gender allval number allval locut yes root sedere loctype fixed prev a next nil))
+  seguito ((a_seguito_di cat prep type poli locut yes root seguito loctype fixed prev a next di)
+           (in_seguito_a cat prep type poli locut yes root seguito loctype fixed prev in next a))
+  sè ((di_per_sè cat adv type manner locut yes root sè loctype fixed prev per next nil))
+  sempre ((per_sempre cat adv locut yes type time loctype fixed root sempre prev per next nil)
+          (sempre_che cat conj type subord semtype cond locut yes loctype fixed root sempre prev nil next che))
+  senza ((senza_tetto cat noun locut yes gender allval number allval loctype fixed root senza prev nil next tetto))
+  serial ((serial_number cat noun locut yes classe (0) gender m number allval root serial loctype fixed prev nil next number))
+  serio ((sul_serio cat adv type manner locut yes root serio loctype fixed prev sul next nil))
+  serra ((effetto_serra cat noun locut yes root serra loctype flex prev effetto next nil))
+  settembre ((settembre_musica cat noun locut yes gender m number sing root settembre loctype fixed prev nil next musica))
+  settentrional ((centro-settentrionale cat adj type qualif locut yes loctype flex morphcat adj classe (2) root settentrionale prev centro next nil))
+  sfuggita ((di_sfuggita cat adv type manner locut yes root sfuggita loctype fixed prev di next nil))
+  shirt ((T_shirt cat noun locut yes root shirt loctype fixed prev T next nil))
+  siccome ((siccome_che cat conj type subord semtype caus locut yes root siccome loctype fixed prev nil next che))
+  sicuro ((di_sicuro cat adv locut yes type manner root sicuro loctype fixed prev di next nil) 
+          (al_sicuro cat adv locut yes type manner root sicuro loctype fixed prev al next nil))
+  sine ((sine_qua_non cat adj type qualif classe (0) gender allval number allval locut yes root sine loctype fixed prev nil next qua))
+  situ ((in_situ cat adj classe (0) gender allval number allval locut yes loctype fixed root situ prev in next nil))
+  solito ((di_solito cat adv locut yes type manner root solito loctype fixed prev di next nil))
+  sorpresa ((di_sorpresa cat adv type manner locut yes root sorpresa loctype fixed prev di next nil)
+  	    (a_sorpresa cat adv type manner locut yes root sorpresa loctype fixed prev a next nil))
+  sol ((da_solo cat adv morphcat adj type manner classe (1) locut yes root solo loctype flex prev da next nil))
+  solido ((in_solido cat adj type qualif locut yes gender allval number allval root solido loctype fixed prev in next nil))
+  sostanza ((in_sostanza cat adv locut yes type manner root sostanza loctype fixed prev in next nil))
+  straforo ((di_straforo cat adv type manner locut yes root straforo loctype fixed prev di next nil))
+  sud ((sud-occidentale cat adj type qualif locut yes loctype flex root sud prev nil next occidentale)
+       (sud-orientale cat adj type qualif locut yes loctype flex root sud prev nil next orientale)
+       (sud-est cat noun type common gender m number sing locut yes loctype fixed root sud prev nil next est)
+       (sud-ovest cat noun type common gender m number sing locut yes loctype fixed root sud prev nil next ovest))
+  sul ((sul_serio cat adv type manner locut yes root sul loctype fixed prev nil next serio))
+  sulla ((sulla_scorta_di cat prep type poli locut yes root sulla loctype fixed prev nil next scorta)
+         (sulla_base_di cat prep type poli locut yes root sulla loctype fixed prev nil next scorta))
+  suo ((a_suo_tempo cat adv type time locut yes root suo loctype fixed prev a next tempo)
+       (a_suo_dire cat adv type manner locut yes root suo loctype fixed prev a next dire))
+  sviluppo ((in_via_di_sviluppo cat adj classe (0) locut yes root sviluppo loctype fixed gender allval number allval prev di next nil))
+  sono ((or_sono cat adj type deitt locut yes root sono loctype fixed prev or next nil))
+  sopra ((al_di_sopra_di cat prep type poli locut yes loctype fixed root sopra prev di1 next di2)
+         (al_di_sopra cat adv type loc locut yes loctype fixed root sopra prev di next nil))
+  sotto ((sotto_forma_di cat prep type poli locut yes root sotto loctype fixed prev nil next forma)
+         (sotto_sotto cat adv type manner locut yes root sotto loctype fixed prev nil next sotto)
+         (sotto_sotto cat adv type manner locut yes root sotto loctype fixed prev sotto next nil)
+         (al_di_sotto cat adv type loc locut yes loctype fixed root sotto prev di next nil)
+         (al_di_sotto_di cat prep type poli locut yes loctype fixed root sotto prev di1 next di2))
+  stampa ((conferenza_stampa cat noun locut yes root stampa loctype flex prev conferenza next nil))
+  stante ((stante_che cat conj type subord semtype cond locut yes root stante loctype fixed prev nil next che)
+          (a_sè_stanti cat adj type qualif gender allval number pl locut yes root stante loctype fixed prev sè next nil)
+          (a_sè_stante cat adj type qualif gender allval number sing locut yes root stante loctype fixed prev sè next nil))
+  su ((a_valere_su cat prep type poli locut yes root su loctype fixed prev valere next nil))
+  T ((T_shirt cat noun locut yes root T loctype fixed prev nil next shirt))
+  tantino ((un_tantino cat adv locut yes root tantino loctype fixed prev un next nil))
+  tanto ((fin_tanto_che cat conj type subord semtype time locut yes root tanto loctype fixed prev fin next che))
+  tantum ((una_tantum cat adj classe (0) gender allval number allval locut yes loctype fixed root tantum prev una next nil))
+  tass ((tasso_di_sconto cat noun morphcat noun classe (2) locut yes root tasso loctype flex prev nil next sconto))
+  tempi ((base_dei_tempi cat noun classe (0) gender f number sing locut yes root tempi loctype fixed prev dei next nil))
+  tempo ((a_suo_tempo cat adv type time locut yes root tempo loctype fixed prev suo next nil)
+          (da_tempo cat adv type time locut yes root tempo loctype fixed prev da next nil))
+  termine ((a_breve_termine cat adv type time locut yes root termine loctype fixed prev breve next nil))
+  terra ((per_terra cat adv type loc locut yes root terra loctype fixed prev per next nil))
+  tetto ((senza_tetto cat noun locut yes gender allval number allval loctype fixed root tetto prev senza next nil))
+  tra ((|TRA_L'_ALTRO| cat adv type interj locut yes root tra loctype fixed prev nil next l))
+  trasporto ((mezzo_di_trasporto cat noun locut yes root trasporto loctype flex prev di next nil))
+  tratto ((|D'_UN_TRATTO| cat adv type time locut yes root tratto loctype fixed prev un next nil)
+          (|TUTT'_A_UN_TRATTO| cat adv type time locut yes root tratto loctype fixed prev un next nil))
+  tutta ((in_tutta_fretta cat adv locut yes type time root tutta loctype fixed prev in next fretta))
+  |tutt'| ((|A_TUTT'_OGGI| cat adv type time locut yes root tutt loctype fixed prev a next oggi)
+           (|TUTT'_AL_PIù| cat adv type manner locut yes loctype fixed root tutt prev nil next al)
+           (|TUTT'_A_UN_TRATTO| cat adv type time locut yes root tutt loctype fixed prev nil next a))
+  tutto ((del_tutto cat adv locut yes type manner root tutto loctype fixed prev del next nil)
+         (con_tutto_che cat conj type subord semtype time locut yes root tutto loctype fixed prev con next che)
+         (in_tutto_e_per_tutto cat adv type manner locut yes root tutto1 loctype fixed prev in next e)
+         (in_tutto_e_per_tutto cat adv type manner locut yes root tutto2 loctype fixed prev per next nil))
+  tuttocampo ((a_tuttocampo cat adv type manner locut yes root tuttocampo loctype fixed prev a next nil))
+  un ((|D'_UN_TRATTO| cat adv type time locut yes root un loctype fixed prev di next tratto)
+      (|TUTT'_A_UN_TRATTO| cat adv type time locut yes root un loctype fixed prev a next tratto)
+      (un_tantino cat adv type quant locut yes root un loctype fixed prev nil next tantino)
+      (|un_po'| cat adv type quant locut yes root un loctype fixed prev nil next pò))
+  una ((una_volta_che cat conj type subord semtype time locut yes loctype fixed root una prev nil next volta)
+       (una_tantum cat adj classe (0) gender allval number allval locut yes loctype fixed root una prev nil next tantum))
+  unione ((in_unione_con cat prep type poli locut yes root unione loctype fixed prev in next con))
+  uno ((meno_uno cat noun type sing locut yes root uno loctype fixed prev meno next nil))
+  uopo ((|ALL'_UOPO| cat adv type reason locut yes root uopo loctype fixed prev all next nil))
+  vale ((vale_a_dire cat conj type coord semtype explic locut yes root vale loctype fixed prev nil next a))
+  valere ((a_valere_su cat prep type poli locut yes root valere loctype fixed prev a next su))
+  vedere ((a_che_vedere cat adv type manner locut yes root vedere loctype fixed prev che next nil))
+  venture ((joint_venture cat noun locut yes gender f number allval root venture loctype fixed prev joint next nil))
+  verde ((al_verde cat adj classe (0) gender allval number allval locut yes root verde loctype fixed prev al next nil))
+  vero ((a_onor_del_vero cat adv type concess locut yes root vero loctype fixed prev onor next nil))
+  via ((via_via cat adv type manner locut yes root via loctype fixed prev nil next via)
+       (via_via cat adv locut yes root via loctype fixed prev via next nil)
+       (via_libera cat noun locut yes classe (0) gender m number allval root via loctype fixed prev nil next libera)
+       (in_via_di cat prep type poli locut yes root via loctype fixed prev in next di)
+       (in_via_di_sviluppo cat adj classe (0) locut yes root via loctype fixed gender allval number allval prev in next di)
+       (per_via_di cat prep type poli locut yes loctype fixed root via prev per next di)
+       (pronti_via cat interj locut yes root via loctype fixed prev pronti next nil))
+  vicenda ((a_vicenda cat adv type manner locut yes root vicenda loctype fixed prev a next nil))
+  vicinanza ((in_vicinanza_di cat prep type poli locut yes root vicinanza loctype fixed prev in next di))
+  vigore ((entrata_in_vigore cat noun locut yes root vigore loctype flex prev in next nil))
+  vista ((a_prima_vista cat adv type time locut yes root vista loctype fixed prev prima next nil)
+         (punto_di_vista cat noun locut yes root vista loctype flex prev di next nil)
+         (in_vista_di cat prep type poli locut yes root vista loctype fixed prev in next di)
+         (in_vista cat adj classe (0) gender allval number allval locut yes root vista loctype fixed prev in next nil))
+  virtù ((in_virtù_di cat prep type poli locut yes root virtù loctype fixed prev in next di))
+  vivo ((dal_vivo cat adv locut yes type manner root vivo loctype fixed prev dal next nil))
+  volta ((alla_volta_di cat prep type poli locut yes loctype fixed root volta prev alla next di)
+         (ogni_volta_che cat conj type subord semtype time locut yes loctype fixed root volta prev ogni next che)
+         (una_volta_che cat conj type subord semtype time locut yes loctype fixed root volta prev una next che))
+  volte ((a_volte cat adv type time locut yes root volte loctype fixed prev a next nil))
+  vox ((vox_populi cat noun locut yes root vox gender f number sing loctype fixed prev nil next populi))
+  waiting ((waiting_list cat noun locut yes gender f number allval root waiting loctype fixed prev nil next list))
+
+; ??? nulla hanno a che vedere 
+				))
+

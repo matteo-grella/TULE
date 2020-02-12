@@ -1,0 +1,17 @@
+(in-package "USER")
+
+(setq *ADV-GOVERN*
+ '((anteriormente a)
+   (conformemente a)
+   (contemporaneamente a)
+   (contestualmente a)
+   (indipendentemente da)
+   (limitatamente a)
+   (proporzionalmente a)
+   (relativamente a)
+   (separatamente a)
+   (separatamente da)
+   (solidalmente con)
+   (successivamente a)
+   (unitamente a)))
+

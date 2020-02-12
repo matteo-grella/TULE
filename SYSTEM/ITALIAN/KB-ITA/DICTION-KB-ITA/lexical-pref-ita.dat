@@ -1,0 +1,36 @@
+(in-package "USER")
+
+;*************************************************************************
+;
+;   In this file, pairs of words of the same syntactic category, for which
+;   there seems to be a preference of the first over the second. In case of
+;   ambiguity, the first one should be chosen
+
+(setq *LEXICAL-PREFERENCES*
+  '(
+    (poltrona poltrone)
+    (cercare cerchiare)
+    (chimica chimico)
+    (condomino condominio)
+    (confine confino)
+    (conto conte)
+    (critica critico)	; attività vs. persona
+    (demone demonio)
+    (dire dettare)
+    (ferita ferito)
+    (fisica fisico)
+    (gregge greggio)
+    (logica logico)
+ ;  (marco marchio)
+    (martire martirio)
+    (mobile mobilio)
+    (osservatore osservatorio)
+    (parte parto)
+    (peste pesta)
+    (politica politico)
+    (presentare presentire)
+    (principio principe)
+    (regolatore regolatorio)
+    (ramo rame)
+    (testo teste)
+))

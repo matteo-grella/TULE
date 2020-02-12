@@ -1,0 +1,11 @@
+(in-package "USER")
+
+; *** the default infos about a concept are split into two parts:
+;     - a default target, expressed as path leading to the required
+;       info
+;     - a restriction extension
+; *** in practice, if I ask something about a ticket-counter, what
+;     I want to know is its address description (default target)
+(setq *DEFAULT-CONCEPT-INFOS*
+  '(
+    ))

@@ -1,0 +1,194 @@
+(in-package "USER")
+
+;*************************************************************************
+;
+;   In this file, some classes of words used in the parsing rules (file
+; *** "KB/GRAMM/parserules". They are not semantic classes, and often include
+;     single words that have some particular syntactic behaviour
+; *** They were added to the parser, to avoid reference to words of a
+;     particula language from inside the parse rules
+
+(load-grammtypes
+  '(
+    (&about (de))			; parlare 'di' (topic argument)
+    (&address-prep (pour contre))	; ringraziare (subc-hier)
+    (&address-conj (contre))		; ringraziare (subc-hier)
+    (&adjectival-prep (sauf))		; Previa Separazione; Salve le disposizioni
+    (&adj-after ())	                ; un mese Fa; TAGGER
+    (&adv-conj-pref ())			; TAGGER
+    (&adv-prep-head (encore |déja|))	; ancora in vigore
+    (&advgov-prep (de))			; da lontano
+    (&agent-compl-prep (par))		; fatto da me
+    (&aj-av-n-neo ())			; TAGGER
+    (&aj-av-n-plan ())			; TAGGER
+    (&and (et))				; 
+    (&and-foll (|ss.|))			; §7 ss. (means "and the following")
+    (&art-pron (un))			; "uni" in "gli uni e gli altri"
+    (&art-relat ())			; l'attuazione della Quale
+    (&art-mid-relat ())			; TAGGER ; cui?
+    (&artic-law-1 (article))		; Art. 99 L. dir. autore
+    (&artic-law-2 (loi))		; Art. 99 L. dir. autore
+    (&as (comme))			; è come se (subc-hier)
+    (&base-conj (et ou))		; TAGGER
+    (&base-mid-relat (lesquel))		; TAGGER
+    (&base-relat (lesquel))		; TAGGER
+    (&base-subord-conj (que))		; ha detto che ..
+    (&base-subord-prep (de))		; ha detto di ..
+    (&before-prep (de que))		; TAGGER; prima di, che
+    (&both ())				; TAGGER
+    (&beyond ())			; Torino e oltre
+    (&card ())				; TAGGER
+    (&citation-al (alii))		; Jones e al. 1984
+    (&citation-and (et))		; Jones e Smith 1984
+    (&code ())				; Cod. civ. 854
+    (&comma ())				; TAGGER
+    (&compar-adj (majeur mineur))
+    (&compar-prep (de))			; più alto Di Marco
+    (&compar-prep-2 (de que))		; TAGGER; più alto Di Marco
+    (&compar-pron (moin plus))		; also TAGGER
+    (&continue-prep ())			; TAGGER; continuare a; iniziare a
+    (&dat-pron ())			; TAGGER mi?
+    (&double-who (qui))			; quanto?
+    (&enter-prep (dans))		; TAGGER
+    (&event (concert))			; TAGGER ; mostra?
+    (&far-prep ())			; TAGGER; 
+    (&far-fuori-1 ())			; TAGGER
+    (&far-fuori-2 ())			; TAGGER
+    (&first-pers-pron (je))		; TAGGER
+    (&follow ())			; TAGGER seguente?
+    (&general (|général|))		; TAGGER
+    (&goal-prep (pour))			; spingere (subc-hier)
+    (&has-to (avoir))			; TAGGER
+    (&how-much ())			; TAGGER quanto?
+    (&indef-adj (certain))		; TAGGER
+    (&indobj-prep (|à|))		; (subc-hier)
+    (&institutional (governe parlement organisation
+              commission |comité| convention |état|))
+                                        ; TAGGER
+    (&interr-conj (comme))	; dimmi dove vai .. dove, perchè?
+    (&list ())				; TAGGER elenco?
+    (&loc-from-prep (de))		; (subc-hier)
+    (&loc-from-pron ())			; (subc-hier) ne?
+    (&loc-prep (sur))			; pesare (subc-hier)
+    (&loc-prep-1 (dans))			; (subc-hier)
+    (&loc-prep-2 ())		;(a davanti dietro oltre))	; (subc-hier)
+    (&loc-to-prep (|à|))			; inviare (subc-hier)
+    (&loc-to-prep-2 (|à| dans verse sur jusque))
+					; oltre dietro sopra sotto (subc-hier)
+    (&loc-metaph-prep (dans))		; consistere, imbattersi (subc-hier)
+    (&loc-pron (ci vi))			; TAGGER
+    (&long (lungo))			; ha parlato 'a lungo' (subc-hier)
+    (&mid-relat (cui))			; la Cui attuazione
+    (&more (|piu'|))			; TAGGER
+    (&near-prep (|à|))			; TAGGER; vicino a, insieme a, ...
+    (&neg-adv (non))
+    (&noun-noun-head (loi))	; sia "legge" che "brevetto" in: l. brev. invenzioni
+    (&noun-noun-head-2 ())		; "codice" in: Cod. Proc. Civ.
+    (&noun-noun-dep-2 (|procédure|))	; "procedura" in: Cod. Proc. Civ.
+    (&noun-noun-head-3 (droit))	; "diritto" in: l. dir. autore
+    (&noun-noun-dep-3 ())		; "autore" in: l. dir. autore
+    (&noun-pref-prep (de))		; la casa dei ragazzi; quella degli amici
+    (&obj-vlocut (droit))		; "aver diritto" treated as a locution
+    (&one (un))				; TAGGER
+    (&only (seule))			; TAGGER
+    (&onorevole ())			; TAGGER ; onorevole
+    (&operator-prep (par))		; dividere (subc-hier)
+    (&other (autre))			; TAGGER
+    (&other-aux (aller venir voir))	; TAGGER
+    (&own ())				; TAGGER ; il proprio diritto
+    (&partitive-prep ())		; il 45% del totale  + TAGGER
+    (&partitive-prep (entre))		; essere [di quelli] (subc-hier)
+    (&partitive-pron ())		; TAGGER	ne?
+    (&strong-pass-aux (venir aller))  ; va considerato, viene considerato
+    (&past-adj ())			; TAGGER; sabato scorso
+    (&past-adj-2 ())			; TAGGER; tre anni fa
+    (&percent-1 ())			; l'85 Per cento
+    (&percent-2 ())			; l'85 per Cento cento mille
+    (&pre--adj ())		; it: ex, mini, maxi un Maxi-emendamento
+    (&pred-prep ())			; è marco a parlare
+    (&pref-not-noun ())			; TAGGER
+    (&pref-not-noun-1 ())		; TAGGER
+    (&prep-prep-dep (de))		; "di" in "su di loro" "tra di noi"
+    (&prep-prep-head (sur entre))	; "su, tra, fra" in "su di loro" "tra di noi"
+    (&prep-subord-dep ())		; "che" in "dopo che era partito" + TAGGER
+    (&prep-subord-head (|après| avant sans sauf))	; "dopo" in "dopo che era partito"
+    (&program (programme))		; TAGGER
+    (&progressive-aux ())		; TAGGER  stare?
+    (&progressive-prep ())		; stava per partire (subc-hier)
+    (&pron-adj (|même|))		; "stessi" in "essi stessi"
+    (&pron-not-obl (je tu il elle |lui-même|))  ; TAGGER
+    (&range-prep (da))			; 
+    (&refl-pron (on))			; TAGGER
+    (&refl-pron-2 (on))			; TAGGER
+    (&refl-pron-3 (on))			; TAGGER
+    (&relat-head-pron '()) ; coloro uno |cio'| quello |piu'|))  ; TAGGER
+    (&right (droit))			; TAGGER
+    (&saint (saint))			; TAGGER
+    (&second-ordin ())			; TAGGER
+    (&second-pers-pron (tu))		; TAGGER
+    (&so ())				; TAGGER così?
+    (&special-neg (que))		; "che" in "non occupa che una parte"
+    (&superl-prep (dans))			; i Più simpatici Del mondo
+    (&subj-in ())			; in molti hanno visto ... (subc-hier)
+    (&tense-aux (avoir))
+    (&that (cel))			; TAGGER; quello che serve
+    (&theme-prep (dans su avec))		; insistere (subc-hier)
+    (&theme-prep-1 (|à|))			;  (subc-hier)
+    (&theme-prep-2 (sur))		; influire, pronunciarsi (subc-hier)
+    (&theme-prep-3 (de))		; sembrare (subc-hier)
+    (&theme-prep-4 (|à| avec))		; collegare (subc-hier)
+    (&theme-prep-5 (de))		; (subc-hier)
+    (&theme-prep-6 (dans))		; risultare (subc-hier)
+    (&this ())				; TAGGER; tutto cio'
+    (&through ())			; TAGGER; attraverso
+    (&thousand ())			; 35mila
+    (&time-noun (an mois jour))  ;  settimana jour ora minuto tempo ; TAGGER
+    (&time-prep ())			; essere [alle 3] (subc-hier)
+    (&time-ref-noun (janvier febbraio marzo aprile mai juin
+                          juillet |août| septembre ottobre novembre
+                          dicembre |lunedi`| |martedi`| |mercoledi`|
+                          |giovedi`| |venerdi`| sabato domenica)) ; TAGGER
+    (&title (ministro presidente signore commissione))  ; TAGGER
+    (&together-prep (avec))		; discutere, scontrarsi (subc-hier)
+    (&together-prep-2 (|à|))		; unirsi (subc-hier)
+    (&to-be (|être|))			; TAGGER
+    (&to-be-want (|être| volere))	; TAGGER
+    (&to-continue (continuare))		; TAGGER
+    (&to-do (fare))			; TAGGER
+    (&to-go (aller))			; TAGGER
+    (&to-have (avoir))
+    (&to-see (voir))			; TAGGER
+    (&toward (verse))			; TAGGER
+    (&true (vrai))			; TAGGER
+    (&until-prep (|à|))			; TAGGER; fino a    
+    (&verb-governing-inf ())    	; TAGGER
+    (&verb-locut-1 (bisogno))		; aver bisogno	(subc-class)
+    (&verb-locut-2 (cuore))		; aver cuore	(subc-class)
+    (&verb-locut-3 (diritto))		; aver diritto	(subc-class)
+    (&verb-locut-4 (ragione torto luogo))	; aver ragione ... (subc-class)
+    (&verb-locut-5 (causa))		; chiamare in causa ... (subc-class)
+    (&verb-locut-6 (voce))		; correre voce ... (subc-class)
+    (&verb-locut-7 (segno))		; dare segno ... (subc-class)
+    (&verb-locut-8 (luogo seguito))	; dare luogo ... (subc-class)
+    (&verb-locut-9 (seguito))		; dare un seguito ... (subc-class)
+    (&verb-locut-10 (grado))		; essere in grado ... (subc-class)
+    (&verb-locut-11 (caso))		; essere il caso ... (subc-class)
+    (&verb-locut-12 (posto visita largo ; far posto ... (subc-class)
+                       omaggio fronte capo))
+    (&verb-locut-13 (uso fede parte))	; fare uso ... (subc-class)
+    (&verb-locut-14 (fuori))		; fare fuori ... (subc-class)
+    (&verb-locut-15 (avanti))		; farsi avanti ... (subc-class)
+    (&verb-locut-16 (croce))		; farsi la croce ... (subc-class)
+    (&verb-locut-17 (|si'|))		; far sì che ... (subc-class)
+    (&verb-locut-18 (punto))		; fare il punto... (subc-class)
+    (&verb-locut-19 (piede))		; mettere in piedi ... (subc-class)
+    (&verb-locut-20 (guardia))		; mettere in guardia ... (subc-class)
+    (&verb-prep-ambig (dire dare))	; TAGGER
+    (&vgov-prep (di))			; il diritto Di andare
+    (&vgov-prep-2 (da))			; una cosa Da fare
+    (&what (cosa))			; TAGGER
+    (&where (dove))			; TAGGER
+    (&who-2 (che chi))			; TAGGER
+    (&yes-no-conj (se))			; dimmi se ..	(subc-class)
+
+))

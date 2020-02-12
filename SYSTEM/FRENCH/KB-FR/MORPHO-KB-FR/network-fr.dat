@@ -1,0 +1,1430 @@
+(in-package "USER") 
+ 
+;**********************************************************
+; *** The global variable *SUFF-NET* holds the suffix ATN network
+(setq *SUFF-NET* 
+  '(
+    (n1                             ; *** state n1: after NIL
+      (|t| final 
+        (setoutp 'T)
+        (nxt-state-lex 'N2))
+      (|s| final 
+        (setoutp 'S)
+        (nxt-state-lex 'N17))
+      (|e| final 
+        (setoutp 'E)
+        (nxt-state-lex 'N16))
+      (|x| final 
+        (setoutp 'X)
+        (nxt-state-lex 'N46))
+      (|r| nil 
+        (nxt-state-lex 'N24))
+      (|f| final 
+        (setoutp 'F)
+        (nxt-state-lex 'N61))
+      (|c| final 
+        (setoutp 'C)
+        (nxt-state-lex 'STOP))
+      (|l| nil 
+        (nxt-state-lex 'N36))
+      (|u| final 
+        (setoutp 'U)
+        (nxt-state-lex 'N48))
+      (|n| nil 
+        (nxt-state-lex 'N65))
+      (|È| final 
+        (setoutp 'È)
+        (nxt-state-lex 'N75))
+      (|z| nil 
+        (nxt-state-lex 'N81))
+      (|i| final 
+        (setoutp 'I)
+        (nxt-state-lex 'N86))
+      (|a| final 
+        (setoutp 'A)
+        (nxt-state-lex 'N93))
+     )
+    (n2                             ; *** state n2: after (T)
+      (|n| nil 
+        (nxt-state-lex 'N3))
+      (|e| final 
+        (setoutp 'ET)
+        (nxt-state-lex 'N28))
+      (|i| final 
+        (setoutp 'IT)
+        (nxt-state-lex 'N83))
+      (|‚| final 
+        (setoutp '‚T)
+        (nxt-state-lex 'N123))
+      (|Ó| final 
+        (setoutp 'ÓT)
+        (nxt-state-lex 'N161))
+      (|r| nil 
+        (nxt-state-lex 'N156))
+      (|u| final 
+        (setoutp 'UT)
+        (nxt-state-lex 'STOP))
+      (|˚| final 
+        (setoutp '˚T)
+        (nxt-state-lex 'STOP))
+     )
+    (n3                             ; *** state n3: after (N T)
+      (|e| final 
+        (setoutp 'ENT)
+        (nxt-state-lex 'N4))
+      (|o| nil 
+        (nxt-state-lex 'N97))
+      (|a| final 
+        (setoutp 'ANT)
+        (nxt-state-lex 'N127))
+      (|i| final 
+        (setoutp 'INT)
+        (nxt-state-lex 'STOP))
+      (|Ó| final 
+        (setoutp 'ÓNT)
+        (nxt-state-lex 'STOP))
+     )
+    (n4                             ; *** state n4: after (E N T)
+      (|m| final 
+        (setoutp 'MENT)
+        (nxt-state-lex 'N5))
+      (|i| nil 
+        (nxt-state-lex 'N85))
+      (|r| nil 
+        (nxt-state-lex 'N88))
+      (|s| nil 
+        (nxt-state-lex 'N106))
+      (|n| final 
+        (setoutp 'NENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n5                             ; *** state n5: after (M E N T)
+      (|e| final 
+        (setoutp 'EMENT)
+        (nxt-state-lex 'N6))
+     )
+    (n6                             ; *** state n6: after (E M E N T)
+      (|n| final 
+        (setoutp 'NEMENT)
+        (nxt-state-lex 'STOP))
+      (|s| final 
+        (setoutp 'SEMENT)
+        (nxt-state-lex 'N7))
+      (|h| final 
+        (setoutp 'HEMENT)
+        (nxt-state-lex 'STOP))
+      (|c| final 
+        (setoutp 'CEMENT)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N8))
+      (|r| nil 
+        (nxt-state-lex 'N9))
+      (|u| final 
+        (setoutp 'UEMENT)
+        (nxt-state-lex 'N10))
+      (|l| final 
+        (setoutp 'LEMENT)
+        (nxt-state-lex 'N11))
+      (|v| nil 
+        (nxt-state-lex 'N15))
+     )
+    (n7                             ; *** state n7: after (S E M E N T)
+      (|s| final 
+        (setoutp 'SSEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n8                             ; *** state n8: after (T E M E N T)
+      (|Ë| final 
+        (setoutp 'ËTEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n9                             ; *** state n9: after (R E M E N T)
+      (|Ë| final 
+        (setoutp 'ËREMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n10                             ; *** state n10: after (U E M E N T)
+      (|q| final 
+        (setoutp 'QUEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n11                             ; *** state n11: after (L E M E N T)
+      (|l| final 
+        (setoutp 'LLEMENT)
+        (nxt-state-lex 'N12))
+      (|a| final 
+        (setoutp 'ALEMENT)
+        (nxt-state-lex 'STOP))
+      (|b| nil 
+        (nxt-state-lex 'N14))
+     )
+    (n12                             ; *** state n12: after (L L E M E N T)
+      (|e| nil 
+        (nxt-state-lex 'N13))
+     )
+    (n13                             ; *** state n13: after (E L L E M E N T)
+      (|n| final 
+        (setoutp 'NELLEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n14                             ; *** state n14: after (B L E M E N T)
+      (|i| final 
+        (setoutp 'IBLEMENT)
+        (nxt-state-lex 'STOP))
+      (|a| final 
+        (setoutp 'ABLEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n15                             ; *** state n15: after (V E M E N T)
+      (|i| final 
+        (setoutp 'IVEMENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n16                             ; *** state n16: after (E)
+      (|n| final 
+        (setoutp 'NE)
+        (nxt-state-lex 'STOP))
+      (|s| final 
+        (setoutp 'SE)
+        (nxt-state-lex 'N19))
+      (|l| final 
+        (setoutp 'LE)
+        (nxt-state-lex 'N38))
+      (|h| final 
+        (setoutp 'HE)
+        (nxt-state-lex 'STOP))
+      (|c| final 
+        (setoutp 'CE)
+        (nxt-state-lex 'N53))
+      (|t| final 
+        (setoutp 'TE)
+        (nxt-state-lex 'N21))
+      (|r| final 
+        (setoutp 'RE)
+        (nxt-state-lex 'N25))
+      (|v| final 
+        (setoutp 'VE)
+        (nxt-state-lex 'N62))
+      (|u| final 
+        (setoutp 'UE)
+        (nxt-state-lex 'N34))
+      (|È| final 
+        (setoutp 'ÈE)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IE)
+        (nxt-state-lex 'STOP))
+     )
+    (n17                             ; *** state n17: after (S)
+      (|n| final 
+        (setoutp 'NS)
+        (nxt-state-lex 'N69))
+      (|e| final 
+        (setoutp 'ES)
+        (nxt-state-lex 'N18))
+      (|t| final 
+        (setoutp 'TS)
+        (nxt-state-lex 'N22))
+      (|r| nil 
+        (nxt-state-lex 'N26))
+      (|f| final 
+        (setoutp 'FS)
+        (nxt-state-lex 'N63))
+      (|c| final 
+        (setoutp 'CS)
+        (nxt-state-lex 'STOP))
+      (|l| nil 
+        (nxt-state-lex 'N41))
+      (|È| final 
+        (setoutp 'ÈS)
+        (nxt-state-lex 'N77))
+      (|i| final 
+        (setoutp 'IS)
+        (nxt-state-lex 'N82))
+      (|a| final 
+        (setoutp 'AS)
+        (nxt-state-lex 'N91))
+      (|u| final 
+        (setoutp 'US)
+        (nxt-state-lex 'STOP))
+     )
+    (n18                             ; *** state n18: after (E S)
+      (|n| final 
+        (setoutp 'NES)
+        (nxt-state-lex 'STOP))
+      (|s| final 
+        (setoutp 'SES)
+        (nxt-state-lex 'N20))
+      (|l| final 
+        (setoutp 'LES)
+        (nxt-state-lex 'N43))
+      (|h| final 
+        (setoutp 'HES)
+        (nxt-state-lex 'STOP))
+      (|c| final 
+        (setoutp 'CES)
+        (nxt-state-lex 'N58))
+      (|t| final 
+        (setoutp 'TES)
+        (nxt-state-lex 'N23))
+      (|r| nil 
+        (nxt-state-lex 'N27))
+      (|v| final 
+        (setoutp 'VES)
+        (nxt-state-lex 'N64))
+      (|u| final 
+        (setoutp 'UES)
+        (nxt-state-lex 'N35))
+      (|m| nil 
+        (nxt-state-lex 'N87))
+      (|È| final 
+        (setoutp 'ÈES)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IES)
+        (nxt-state-lex 'STOP))
+     )
+    (n19                             ; *** state n19: after (S E)
+      (|s| final 
+        (setoutp 'SSE)
+        (nxt-state-lex 'N99))
+      (|u| final 
+        (setoutp 'USE)
+        (nxt-state-lex 'N73))
+      (|i| final 
+        (setoutp 'ISE)
+        (nxt-state-lex 'STOP))
+     )
+    (n20                             ; *** state n20: after (S E S)
+      (|s| final 
+        (setoutp 'SSES)
+        (nxt-state-lex 'N100))
+      (|u| final 
+        (setoutp 'USES)
+        (nxt-state-lex 'N74))
+      (|i| final 
+        (setoutp 'ISES)
+        (nxt-state-lex 'STOP))
+     )
+    (n21                             ; *** state n21: after (T E)
+      (|Ë| final 
+        (setoutp 'ËTE)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N29))
+      (|s| nil 
+        (nxt-state-lex 'N79))
+      (|n| nil 
+        (nxt-state-lex 'N116))
+      (|r| nil 
+        (nxt-state-lex 'N157))
+     )
+    (n22                             ; *** state n22: after (T S)
+      (|e| final 
+        (setoutp 'ETS)
+        (nxt-state-lex 'N31))
+      (|n| nil 
+        (nxt-state-lex 'N117))
+      (|r| nil 
+        (nxt-state-lex 'N158))
+     )
+    (n23                             ; *** state n23: after (T E S)
+      (|Ë| final 
+        (setoutp 'ËTES)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N32))
+      (|s| nil 
+        (nxt-state-lex 'N80))
+      (|‚| final 
+        (setoutp '‚TES)
+        (nxt-state-lex 'N120))
+      (|n| nil 
+        (nxt-state-lex 'N118))
+      (|Ó| final 
+        (setoutp 'ÓTES)
+        (nxt-state-lex 'STOP))
+      (|r| nil 
+        (nxt-state-lex 'N159))
+      (|˚| final 
+        (setoutp '˚TES)
+        (nxt-state-lex 'STOP))
+     )
+    (n24                             ; *** state n24: after (R)
+      (|e| final 
+        (setoutp 'ER)
+        (nxt-state-lex 'STOP))
+      (|u| nil 
+        (nxt-state-lex 'N51))
+      (|i| final 
+        (setoutp 'IR)
+        (nxt-state-lex 'N160))
+     )
+    (n25                             ; *** state n25: after (R E)
+      (|Ë| final 
+        (setoutp 'ËRE)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRE)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N196))
+     )
+    (n26                             ; *** state n26: after (R S)
+      (|e| final 
+        (setoutp 'ERS)
+        (nxt-state-lex 'STOP))
+      (|u| nil 
+        (nxt-state-lex 'N56))
+     )
+    (n27                             ; *** state n27: after (R E S)
+      (|Ë| final 
+        (setoutp 'ËRES)
+        (nxt-state-lex 'STOP))
+     )
+    (n28                             ; *** state n28: after (E T)
+      (|l| final 
+        (setoutp 'LET)
+        (nxt-state-lex 'STOP))
+     )
+    (n29                             ; *** state n29: after (T T E)
+      (|e| nil 
+        (nxt-state-lex 'N30))
+     )
+    (n30                             ; *** state n30: after (E T T E)
+      (|l| final 
+        (setoutp 'LETTE)
+        (nxt-state-lex 'STOP))
+     )
+    (n31                             ; *** state n31: after (E T S)
+      (|l| final 
+        (setoutp 'LETS)
+        (nxt-state-lex 'STOP))
+     )
+    (n32                             ; *** state n32: after (T T E S)
+      (|e| nil 
+        (nxt-state-lex 'N33))
+     )
+    (n33                             ; *** state n33: after (E T T E S)
+      (|l| final 
+        (setoutp 'LETTES)
+        (nxt-state-lex 'STOP))
+     )
+    (n34                             ; *** state n34: after (U E)
+      (|q| final 
+        (setoutp 'QUE)
+        (nxt-state-lex 'STOP))
+     )
+    (n35                             ; *** state n35: after (U E S)
+      (|q| final 
+        (setoutp 'QUES)
+        (nxt-state-lex 'STOP))
+     )
+    (n36                             ; *** state n36: after (L)
+      (|e| nil 
+        (nxt-state-lex 'N37))
+      (|a| final 
+        (setoutp 'AL)
+        (nxt-state-lex 'STOP))
+     )
+    (n37                             ; *** state n37: after (E L)
+      (|n| final 
+        (setoutp 'NEL)
+        (nxt-state-lex 'STOP))
+     )
+    (n38                             ; *** state n38: after (L E)
+      (|l| final 
+        (setoutp 'LLE)
+        (nxt-state-lex 'N39))
+      (|a| final 
+        (setoutp 'ALE)
+        (nxt-state-lex 'STOP))
+      (|b| nil 
+        (nxt-state-lex 'N49))
+     )
+    (n39                             ; *** state n39: after (L L E)
+      (|e| nil 
+        (nxt-state-lex 'N40))
+     )
+    (n40                             ; *** state n40: after (E L L E)
+      (|n| final 
+        (setoutp 'NELLE)
+        (nxt-state-lex 'STOP))
+     )
+    (n41                             ; *** state n41: after (L S)
+      (|e| nil 
+        (nxt-state-lex 'N42))
+      (|a| final 
+        (setoutp 'ALS)
+        (nxt-state-lex 'STOP))
+     )
+    (n42                             ; *** state n42: after (E L S)
+      (|n| final 
+        (setoutp 'NELS)
+        (nxt-state-lex 'STOP))
+     )
+    (n43                             ; *** state n43: after (L E S)
+      (|l| final 
+        (setoutp 'LLES)
+        (nxt-state-lex 'N44))
+      (|a| final 
+        (setoutp 'ALES)
+        (nxt-state-lex 'STOP))
+      (|b| nil 
+        (nxt-state-lex 'N50))
+     )
+    (n44                             ; *** state n44: after (L L E S)
+      (|e| nil 
+        (nxt-state-lex 'N45))
+     )
+    (n45                             ; *** state n45: after (E L L E S)
+      (|n| final 
+        (setoutp 'NELLES)
+        (nxt-state-lex 'STOP))
+     )
+    (n46                             ; *** state n46: after (X)
+      (|u| nil 
+        (nxt-state-lex 'N47))
+     )
+    (n47                             ; *** state n47: after (U X)
+      (|a| final 
+        (setoutp 'AUX)
+        (nxt-state-lex 'STOP))
+     )
+    (n48                             ; *** state n48: after (U)
+      (|a| final 
+        (setoutp 'AU)
+        (nxt-state-lex 'STOP))
+     )
+    (n49                             ; *** state n49: after (B L E)
+      (|i| final 
+        (setoutp 'IBLE)
+        (nxt-state-lex 'STOP))
+      (|a| final 
+        (setoutp 'ABLE)
+        (nxt-state-lex 'STOP))
+     )
+    (n50                             ; *** state n50: after (B L E S)
+      (|i| final 
+        (setoutp 'IBLES)
+        (nxt-state-lex 'STOP))
+      (|a| final 
+        (setoutp 'ABLES)
+        (nxt-state-lex 'STOP))
+     )
+    (n51                             ; *** state n51: after (U R)
+      (|e| final 
+        (setoutp 'EUR)
+        (nxt-state-lex 'N52))
+     )
+    (n52                             ; *** state n52: after (E U R)
+      (|t| final 
+        (setoutp 'TEUR)
+        (nxt-state-lex 'STOP))
+     )
+    (n53                             ; *** state n53: after (C E)
+      (|i| nil 
+        (nxt-state-lex 'N54))
+     )
+    (n54                             ; *** state n54: after (I C E)
+      (|r| final 
+        (setoutp 'RICE)
+        (nxt-state-lex 'N55))
+     )
+    (n55                             ; *** state n55: after (R I C E)
+      (|t| final 
+        (setoutp 'TRICE)
+        (nxt-state-lex 'STOP))
+     )
+    (n56                             ; *** state n56: after (U R S)
+      (|e| final 
+        (setoutp 'EURS)
+        (nxt-state-lex 'N57))
+     )
+    (n57                             ; *** state n57: after (E U R S)
+      (|t| final 
+        (setoutp 'TEURS)
+        (nxt-state-lex 'STOP))
+     )
+    (n58                             ; *** state n58: after (C E S)
+      (|i| nil 
+        (nxt-state-lex 'N59))
+     )
+    (n59                             ; *** state n59: after (I C E S)
+      (|r| final 
+        (setoutp 'RICES)
+        (nxt-state-lex 'N60))
+     )
+    (n60                             ; *** state n60: after (R I C E S)
+      (|t| final 
+        (setoutp 'TRICES)
+        (nxt-state-lex 'STOP))
+     )
+    (n61                             ; *** state n61: after (F)
+      (|i| final 
+        (setoutp 'IF)
+        (nxt-state-lex 'STOP))
+     )
+    (n62                             ; *** state n62: after (V E)
+      (|i| final 
+        (setoutp 'IVE)
+        (nxt-state-lex 'STOP))
+     )
+    (n63                             ; *** state n63: after (F S)
+      (|i| final 
+        (setoutp 'IFS)
+        (nxt-state-lex 'STOP))
+     )
+    (n64                             ; *** state n64: after (V E S)
+      (|i| final 
+        (setoutp 'IVES)
+        (nxt-state-lex 'STOP))
+     )
+    (n65                             ; *** state n65: after (N)
+      (|o| nil 
+        (nxt-state-lex 'N66))
+     )
+    (n66                             ; *** state n66: after (O N)
+      (|i| final 
+        (setoutp 'ION)
+        (nxt-state-lex 'N67))
+     )
+    (n67                             ; *** state n67: after (I O N)
+      (|t| nil 
+        (nxt-state-lex 'N68))
+     )
+    (n68                             ; *** state n68: after (T I O N)
+      (|a| final 
+        (setoutp 'ATION)
+        (nxt-state-lex 'STOP))
+     )
+    (n69                             ; *** state n69: after (N S)
+      (|o| final 
+        (setoutp 'ONS)
+        (nxt-state-lex 'N70))
+      (|i| final 
+        (setoutp 'INS)
+        (nxt-state-lex 'STOP))
+     )
+    (n70                             ; *** state n70: after (O N S)
+      (|i| final 
+        (setoutp 'IONS)
+        (nxt-state-lex 'N71))
+      (|r| final 
+        (setoutp 'RONS)
+        (nxt-state-lex 'N95))
+      (|e| final 
+        (setoutp 'EONS)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N131))
+     )
+    (n71                             ; *** state n71: after (I O N S)
+      (|t| nil 
+        (nxt-state-lex 'N72))
+      (|s| nil 
+        (nxt-state-lex 'N101))
+      (|r| final 
+        (setoutp 'RIONS)
+        (nxt-state-lex 'N112))
+     )
+    (n72                             ; *** state n72: after (T I O N S)
+      (|a| final 
+        (setoutp 'ATIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n73                             ; *** state n73: after (U S E)
+      (|e| final 
+        (setoutp 'EUSE)
+        (nxt-state-lex 'STOP))
+     )
+    (n74                             ; *** state n74: after (U S E S)
+      (|e| final 
+        (setoutp 'EUSES)
+        (nxt-state-lex 'STOP))
+     )
+    (n75                             ; *** state n75: after (È)
+      (|t| nil 
+        (nxt-state-lex 'N76))
+     )
+    (n76                             ; *** state n76: after (T È)
+      (|i| final 
+        (setoutp 'ITÈ)
+        (nxt-state-lex 'STOP))
+     )
+    (n77                             ; *** state n77: after (È S)
+      (|t| nil 
+        (nxt-state-lex 'N78))
+     )
+    (n78                             ; *** state n78: after (T È S)
+      (|i| final 
+        (setoutp 'ITÈS)
+        (nxt-state-lex 'STOP))
+     )
+    (n79                             ; *** state n79: after (S T E)
+      (|i| final 
+        (setoutp 'ISTE)
+        (nxt-state-lex 'STOP))
+     )
+    (n80                             ; *** state n80: after (S T E S)
+      (|i| final 
+        (setoutp 'ISTES)
+        (nxt-state-lex 'STOP))
+     )
+    (n81                             ; *** state n81: after (Z)
+      (|e| final 
+        (setoutp 'EZ)
+        (nxt-state-lex 'N84))
+     )
+    (n82                             ; *** state n82: after (I S)
+      (|a| final 
+        (setoutp 'AIS)
+        (nxt-state-lex 'N108))
+      (|o| final 
+        (setoutp 'OIS)
+        (nxt-state-lex 'STOP))
+     )
+    (n83                             ; *** state n83: after (I T)
+      (|a| final 
+        (setoutp 'AIT)
+        (nxt-state-lex 'N110))
+      (|o| final 
+        (setoutp 'OIT)
+        (nxt-state-lex 'STOP))
+     )
+    (n84                             ; *** state n84: after (E Z)
+      (|i| final 
+        (setoutp 'IEZ)
+        (nxt-state-lex 'N103))
+      (|r| final 
+        (setoutp 'REZ)
+        (nxt-state-lex 'N96))
+      (|s| nil 
+        (nxt-state-lex 'N133))
+      (|v| final 
+        (setoutp 'VEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n85                             ; *** state n85: after (I E N T)
+      (|a| final 
+        (setoutp 'AIENT)
+        (nxt-state-lex 'N114))
+     )
+    (n86                             ; *** state n86: after (I)
+      (|a| final 
+        (setoutp 'AI)
+        (nxt-state-lex 'N89))
+     )
+    (n87                             ; *** state n87: after (M E S)
+      (|‚| final 
+        (setoutp '‚MES)
+        (nxt-state-lex 'N119))
+      (|Ó| final 
+        (setoutp 'ÓMES)
+        (nxt-state-lex 'STOP))
+      (|n| nil 
+        (nxt-state-lex 'N149))
+      (|˚| final 
+        (setoutp '˚MES)
+        (nxt-state-lex 'STOP))
+     )
+    (n88                             ; *** state n88: after (R E N T)
+      (|Ë| final 
+        (setoutp 'ËRENT)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRENT)
+        (nxt-state-lex 'STOP))
+      (|n| nil 
+        (nxt-state-lex 'N150))
+      (|u| final 
+        (setoutp 'URENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n89                             ; *** state n89: after (A I)
+      (|r| final 
+        (setoutp 'RAI)
+        (nxt-state-lex 'N90))
+      (|e| final 
+        (setoutp 'EAI)
+        (nxt-state-lex 'STOP))
+     )
+    (n90                             ; *** state n90: after (R A I)
+      (|e| final 
+        (setoutp 'ERAI)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRAI)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRAI)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N170))
+     )
+    (n91                             ; *** state n91: after (A S)
+      (|r| final 
+        (setoutp 'RAS)
+        (nxt-state-lex 'N92))
+      (|e| final 
+        (setoutp 'EAS)
+        (nxt-state-lex 'STOP))
+     )
+    (n92                             ; *** state n92: after (R A S)
+      (|e| final 
+        (setoutp 'ERAS)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRAS)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRAS)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N172))
+     )
+    (n93                             ; *** state n93: after (A)
+      (|r| final 
+        (setoutp 'RA)
+        (nxt-state-lex 'N94))
+      (|e| final 
+        (setoutp 'EA)
+        (nxt-state-lex 'STOP))
+     )
+    (n94                             ; *** state n94: after (R A)
+      (|e| final 
+        (setoutp 'ERA)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRA)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRA)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N174))
+     )
+    (n95                             ; *** state n95: after (R O N S)
+      (|e| final 
+        (setoutp 'ERONS)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRONS)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRONS)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N176))
+     )
+    (n96                             ; *** state n96: after (R E Z)
+      (|e| final 
+        (setoutp 'EREZ)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IREZ)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DREZ)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N178))
+     )
+    (n97                             ; *** state n97: after (O N T)
+      (|r| final 
+        (setoutp 'RONT)
+        (nxt-state-lex 'N98))
+     )
+    (n98                             ; *** state n98: after (R O N T)
+      (|e| final 
+        (setoutp 'ERONT)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRONT)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRONT)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N180))
+     )
+    (n99                             ; *** state n99: after (S S E)
+      (|a| final 
+        (setoutp 'ASSE)
+        (nxt-state-lex 'N121))
+      (|i| final 
+        (setoutp 'ISSE)
+        (nxt-state-lex 'N182))
+      (|n| nil 
+        (nxt-state-lex 'N151))
+      (|u| final 
+        (setoutp 'USSE)
+        (nxt-state-lex 'STOP))
+     )
+    (n100                             ; *** state n100: after (S S E S)
+      (|a| final 
+        (setoutp 'ASSES)
+        (nxt-state-lex 'N122))
+      (|i| final 
+        (setoutp 'ISSES)
+        (nxt-state-lex 'N183))
+      (|n| nil 
+        (nxt-state-lex 'N152))
+      (|u| final 
+        (setoutp 'USSES)
+        (nxt-state-lex 'STOP))
+     )
+    (n101                             ; *** state n101: after (S I O N S)
+      (|s| nil 
+        (nxt-state-lex 'N102))
+     )
+    (n102                             ; *** state n102: after (S S I O N S)
+      (|a| final 
+        (setoutp 'ASSIONS)
+        (nxt-state-lex 'N124))
+      (|i| final 
+        (setoutp 'ISSIONS)
+        (nxt-state-lex 'N167))
+      (|n| nil 
+        (nxt-state-lex 'N153))
+      (|u| final 
+        (setoutp 'USSIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n103                             ; *** state n103: after (I E Z)
+      (|s| nil 
+        (nxt-state-lex 'N104))
+      (|r| final 
+        (setoutp 'RIEZ)
+        (nxt-state-lex 'N113))
+     )
+    (n104                             ; *** state n104: after (S I E Z)
+      (|s| nil 
+        (nxt-state-lex 'N105))
+     )
+    (n105                             ; *** state n105: after (S S I E Z)
+      (|a| final 
+        (setoutp 'ASSIEZ)
+        (nxt-state-lex 'N125))
+      (|i| final 
+        (setoutp 'ISSIEZ)
+        (nxt-state-lex 'N168))
+      (|n| nil 
+        (nxt-state-lex 'N154))
+      (|u| final 
+        (setoutp 'USSIEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n106                             ; *** state n106: after (S E N T)
+      (|s| nil 
+        (nxt-state-lex 'N107))
+     )
+    (n107                             ; *** state n107: after (S S E N T)
+      (|a| final 
+        (setoutp 'ASSENT)
+        (nxt-state-lex 'N126))
+      (|i| final 
+        (setoutp 'ISSENT)
+        (nxt-state-lex 'N164))
+      (|n| nil 
+        (nxt-state-lex 'N155))
+      (|u| final 
+        (setoutp 'USSENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n108                             ; *** state n108: after (A I S)
+      (|r| final 
+        (setoutp 'RAIS)
+        (nxt-state-lex 'N109))
+      (|e| final 
+        (setoutp 'EAIS)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N135))
+     )
+    (n109                             ; *** state n109: after (R A I S)
+      (|e| final 
+        (setoutp 'ERAIS)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRAIS)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRAIS)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N184))
+     )
+    (n110                             ; *** state n110: after (A I T)
+      (|r| final 
+        (setoutp 'RAIT)
+        (nxt-state-lex 'N111))
+      (|e| final 
+        (setoutp 'EAIT)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N137))
+     )
+    (n111                             ; *** state n111: after (R A I T)
+      (|e| final 
+        (setoutp 'ERAIT)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRAIT)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRAIT)
+        (nxt-state-lex 'STOP))
+     )
+    (n112                             ; *** state n112: after (R I O N S)
+      (|e| final 
+        (setoutp 'ERIONS)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRIONS)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRIONS)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N186))
+     )
+    (n113                             ; *** state n113: after (R I E Z)
+      (|e| final 
+        (setoutp 'ERIEZ)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRIEZ)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRIEZ)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N188))
+     )
+    (n114                             ; *** state n114: after (A I E N T)
+      (|r| final 
+        (setoutp 'RAIENT)
+        (nxt-state-lex 'N115))
+      (|e| final 
+        (setoutp 'EAIENT)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N139))
+     )
+    (n115                             ; *** state n115: after (R A I E N T)
+      (|e| final 
+        (setoutp 'ERAIENT)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp 'IRAIENT)
+        (nxt-state-lex 'STOP))
+      (|d| final 
+        (setoutp 'DRAIENT)
+        (nxt-state-lex 'STOP))
+      (|t| nil 
+        (nxt-state-lex 'N190))
+     )
+    (n116                             ; *** state n116: after (N T E)
+      (|a| final 
+        (setoutp 'ANTE)
+        (nxt-state-lex 'N128))
+     )
+    (n117                             ; *** state n117: after (N T S)
+      (|a| final 
+        (setoutp 'ANTS)
+        (nxt-state-lex 'N129))
+     )
+    (n118                             ; *** state n118: after (N T E S)
+      (|a| final 
+        (setoutp 'ANTES)
+        (nxt-state-lex 'N130))
+      (|Ó| final 
+        (setoutp 'ÓNTES)
+        (nxt-state-lex 'STOP))
+     )
+    (n119                             ; *** state n119: after (‚ M E S)
+      (|e| final 
+        (setoutp 'E‚MES)
+        (nxt-state-lex 'STOP))
+     )
+    (n120                             ; *** state n120: after (‚ T E S)
+      (|e| final 
+        (setoutp 'E‚TES)
+        (nxt-state-lex 'STOP))
+     )
+    (n121                             ; *** state n121: after (A S S E)
+      (|e| final 
+        (setoutp 'EASSE)
+        (nxt-state-lex 'STOP))
+     )
+    (n122                             ; *** state n122: after (A S S E S)
+      (|e| final 
+        (setoutp 'EASSES)
+        (nxt-state-lex 'STOP))
+     )
+    (n123                             ; *** state n123: after (‚ T)
+      (|e| final 
+        (setoutp 'E‚T)
+        (nxt-state-lex 'STOP))
+     )
+    (n124                             ; *** state n124: after (A S S I O N S)
+      (|e| final 
+        (setoutp 'EASSIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n125                             ; *** state n125: after (A S S I E Z)
+      (|e| final 
+        (setoutp 'EASSIEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n126                             ; *** state n126: after (A S S E N T)
+      (|e| final 
+        (setoutp 'EASSENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n127                             ; *** state n127: after (A N T)
+      (|e| final 
+        (setoutp 'EANT)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N141))
+     )
+    (n128                             ; *** state n128: after (A N T E)
+      (|e| final 
+        (setoutp 'EANTE)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N143))
+     )
+    (n129                             ; *** state n129: after (A N T S)
+      (|e| final 
+        (setoutp 'EANTS)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N145))
+     )
+    (n130                             ; *** state n130: after (A N T E S)
+      (|e| final 
+        (setoutp 'EANTES)
+        (nxt-state-lex 'STOP))
+      (|s| nil 
+        (nxt-state-lex 'N147))
+     )
+    (n131                             ; *** state n131: after (S O N S)
+      (|s| nil 
+        (nxt-state-lex 'N132))
+     )
+    (n132                             ; *** state n132: after (S S O N S)
+      (|i| final 
+        (setoutp 'ISSONS)
+        (nxt-state-lex 'N162))
+     )
+    (n133                             ; *** state n133: after (S E Z)
+      (|s| nil 
+        (nxt-state-lex 'N134))
+     )
+    (n134                             ; *** state n134: after (S S E Z)
+      (|i| final 
+        (setoutp 'ISSEZ)
+        (nxt-state-lex 'N163))
+     )
+    (n135                             ; *** state n135: after (S A I S)
+      (|s| nil 
+        (nxt-state-lex 'N136))
+     )
+    (n136                             ; *** state n136: after (S S A I S)
+      (|i| final 
+        (setoutp 'ISSAIS)
+        (nxt-state-lex 'N165))
+     )
+    (n137                             ; *** state n137: after (S A I T)
+      (|s| nil 
+        (nxt-state-lex 'N138))
+     )
+    (n138                             ; *** state n138: after (S S A I T)
+      (|i| final 
+        (setoutp 'ISSAIT)
+        (nxt-state-lex 'N166))
+     )
+    (n139                             ; *** state n139: after (S A I E N T)
+      (|s| nil 
+        (nxt-state-lex 'N140))
+     )
+    (n140                             ; *** state n140: after (S S A I E N T)
+      (|i| final 
+        (setoutp 'ISSAIENT)
+        (nxt-state-lex 'N169))
+     )
+    (n141                             ; *** state n141: after (S A N T)
+      (|s| nil 
+        (nxt-state-lex 'N142))
+     )
+    (n142                             ; *** state n142: after (S S A N T)
+      (|i| final 
+        (setoutp 'ISSANT)
+        (nxt-state-lex 'N192))
+     )
+    (n143                             ; *** state n143: after (S A N T E)
+      (|s| nil 
+        (nxt-state-lex 'N144))
+     )
+    (n144                             ; *** state n144: after (S S A N T E)
+      (|i| final 
+        (setoutp 'ISSANTE)
+        (nxt-state-lex 'N193))
+     )
+    (n145                             ; *** state n145: after (S A N T S)
+      (|s| nil 
+        (nxt-state-lex 'N146))
+     )
+    (n146                             ; *** state n146: after (S S A N T S)
+      (|i| final 
+        (setoutp 'ISSANTS)
+        (nxt-state-lex 'N194))
+     )
+    (n147                             ; *** state n147: after (S A N T E S)
+      (|s| nil 
+        (nxt-state-lex 'N148))
+     )
+    (n148                             ; *** state n148: after (S S A N T E S)
+      (|i| final 
+        (setoutp 'ISSANTES)
+        (nxt-state-lex 'N195))
+     )
+    (n149                             ; *** state n149: after (N M E S)
+      (|Ó| final 
+        (setoutp 'ÓNMES)
+        (nxt-state-lex 'STOP))
+     )
+    (n150                             ; *** state n150: after (N R E N T)
+      (|i| final 
+        (setoutp 'INRENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n151                             ; *** state n151: after (N S S E)
+      (|i| final 
+        (setoutp 'INSSE)
+        (nxt-state-lex 'STOP))
+     )
+    (n152                             ; *** state n152: after (N S S E S)
+      (|i| final 
+        (setoutp 'INSSES)
+        (nxt-state-lex 'STOP))
+     )
+    (n153                             ; *** state n153: after (N S S I O N S)
+      (|i| final 
+        (setoutp 'INSSIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n154                             ; *** state n154: after (N S S I E Z)
+      (|i| final 
+        (setoutp 'INSSIEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n155                             ; *** state n155: after (N S S E N T)
+      (|i| final 
+        (setoutp 'INSSENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n156                             ; *** state n156: after (R T)
+      (|e| final 
+        (setoutp 'ERT)
+        (nxt-state-lex 'STOP))
+     )
+    (n157                             ; *** state n157: after (R T E)
+      (|e| final 
+        (setoutp 'ERTE)
+        (nxt-state-lex 'STOP))
+     )
+    (n158                             ; *** state n158: after (R T S)
+      (|e| final 
+        (setoutp 'ERTS)
+        (nxt-state-lex 'STOP))
+     )
+    (n159                             ; *** state n159: after (R T E S)
+      (|e| final 
+        (setoutp 'ERTES)
+        (nxt-state-lex 'STOP))
+     )
+    (n160                             ; *** state n160: after (I R)
+      (|o| final 
+        (setoutp 'OIR)
+        (nxt-state-lex 'STOP))
+     )
+    (n161                             ; *** state n161: after (Ó T)
+      (|a| final 
+        (setoutp 'AÓT)
+        (nxt-state-lex 'STOP))
+     )
+    (n162                             ; *** state n162: after (I S S O N S)
+      (|a| final 
+        (setoutp 'AISSONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n163                             ; *** state n163: after (I S S E Z)
+      (|a| final 
+        (setoutp 'AISSEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n164                             ; *** state n164: after (I S S E N T)
+      (|a| final 
+        (setoutp 'AISSENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n165                             ; *** state n165: after (I S S A I S)
+      (|a| final 
+        (setoutp 'AISSAIS)
+        (nxt-state-lex 'STOP))
+     )
+    (n166                             ; *** state n166: after (I S S A I T)
+      (|a| final 
+        (setoutp 'AISSAIT)
+        (nxt-state-lex 'STOP))
+     )
+    (n167                             ; *** state n167: after (I S S I O N S)
+      (|a| final 
+        (setoutp 'AISSIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n168                             ; *** state n168: after (I S S I E Z)
+      (|a| final 
+        (setoutp 'AISSIEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n169                             ; *** state n169: after (I S S A I E N T)
+      (|a| final 
+        (setoutp 'AISSAIENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n170                             ; *** state n170: after (T R A I)
+      (|Ó| nil 
+        (nxt-state-lex 'N171))
+     )
+    (n171                             ; *** state n171: after (Ó T R A I)
+      (|a| final 
+        (setoutp 'AÓTRAI)
+        (nxt-state-lex 'STOP))
+     )
+    (n172                             ; *** state n172: after (T R A S)
+      (|Ó| nil 
+        (nxt-state-lex 'N173))
+     )
+    (n173                             ; *** state n173: after (Ó T R A S)
+      (|a| final 
+        (setoutp 'AÓTRAS)
+        (nxt-state-lex 'STOP))
+     )
+    (n174                             ; *** state n174: after (T R A)
+      (|Ó| nil 
+        (nxt-state-lex 'N175))
+     )
+    (n175                             ; *** state n175: after (Ó T R A)
+      (|a| final 
+        (setoutp 'AÓTRA)
+        (nxt-state-lex 'STOP))
+     )
+    (n176                             ; *** state n176: after (T R O N S)
+      (|Ó| nil 
+        (nxt-state-lex 'N177))
+     )
+    (n177                             ; *** state n177: after (Ó T R O N S)
+      (|a| final 
+        (setoutp 'AÓTRONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n178                             ; *** state n178: after (T R E Z)
+      (|Ó| nil 
+        (nxt-state-lex 'N179))
+     )
+    (n179                             ; *** state n179: after (Ó T R E Z)
+      (|a| final 
+        (setoutp 'AÓTREZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n180                             ; *** state n180: after (T R O N T)
+      (|Ó| nil 
+        (nxt-state-lex 'N181))
+     )
+    (n181                             ; *** state n181: after (Ó T R O N T)
+      (|a| final 
+        (setoutp 'AÓTRONT)
+        (nxt-state-lex 'STOP))
+     )
+    (n182                             ; *** state n182: after (I S S E)
+      (|a| final 
+        (setoutp 'AISSE)
+        (nxt-state-lex 'STOP))
+     )
+    (n183                             ; *** state n183: after (I S S E S)
+      (|a| final 
+        (setoutp 'AISSES)
+        (nxt-state-lex 'STOP))
+     )
+    (n184                             ; *** state n184: after (T R A I S)
+      (|Ó| nil 
+        (nxt-state-lex 'N185))
+     )
+    (n185                             ; *** state n185: after (Ó T R A I S)
+      (|a| final 
+        (setoutp 'AÓTRAIS)
+        (nxt-state-lex 'STOP))
+     )
+    (n186                             ; *** state n186: after (T R I O N S)
+      (|Ó| nil 
+        (nxt-state-lex 'N187))
+     )
+    (n187                             ; *** state n187: after (Ó T R I O N S)
+      (|a| final 
+        (setoutp 'AÓTRIONS)
+        (nxt-state-lex 'STOP))
+     )
+    (n188                             ; *** state n188: after (T R I E Z)
+      (|Ó| nil 
+        (nxt-state-lex 'N189))
+     )
+    (n189                             ; *** state n189: after (Ó T R I E Z)
+      (|a| final 
+        (setoutp 'AÓTRIEZ)
+        (nxt-state-lex 'STOP))
+     )
+    (n190                             ; *** state n190: after (T R A I E N T)
+      (|Ó| nil 
+        (nxt-state-lex 'N191))
+     )
+    (n191                             ; *** state n191: after (Ó T R A I E N T)
+      (|a| final 
+        (setoutp 'AÓTRAIENT)
+        (nxt-state-lex 'STOP))
+     )
+    (n192                             ; *** state n192: after (I S S A N T)
+      (|a| final 
+        (setoutp 'AISSANT)
+        (nxt-state-lex 'STOP))
+     )
+    (n193                             ; *** state n193: after (I S S A N T E)
+      (|a| final 
+        (setoutp 'AISSANTE)
+        (nxt-state-lex 'STOP))
+     )
+    (n194                             ; *** state n194: after (I S S A N T S)
+      (|a| final 
+        (setoutp 'AISSANTS)
+        (nxt-state-lex 'STOP))
+     )
+    (n195                             ; *** state n195: after (I S S A N T E S)
+      (|a| final 
+        (setoutp 'AISSANTES)
+        (nxt-state-lex 'STOP))
+     )
+    (n196                             ; *** state n196: after (T R E)
+      (|Ó| nil 
+        (nxt-state-lex 'N197))
+     )
+    (n197                             ; *** state n197: after (Ó T R E)
+      (|a| final 
+        (setoutp 'AÓTRE)
+        (nxt-state-lex 'STOP))
+     )
+  )) 

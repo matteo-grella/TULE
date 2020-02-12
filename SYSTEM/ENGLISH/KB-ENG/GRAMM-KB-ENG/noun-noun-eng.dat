@@ -1,0 +1,5 @@
+; *** in this file noun-noun modifications admitted in English
+;     Actually used only for Italian
+(setq *NOUN-NOUN*
+   nil)
+

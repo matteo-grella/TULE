@@ -1,0 +1,135 @@
+
+; **** the structure of word meaning info is as follows.
+   ;     1- (biglietto ££ticket)			; standard non-ambiguous meaning
+   ;     2- (what (adj --q-art) (pron ££simple-event))  ; category-controlled ambiguity
+   ;     3- (dirigere ((££conduct ££direct-movie)))     ; Uncontrolled ambiguity
+   ;     4- (number ££number phone ££phone-number)      ; Dep-modified meaning
+; *** The last case applies, for instance to "telephone number"; though, in
+;     principle, it is compositional, it should be resolved as a reference to
+;     the concept ££phone-number. This may be implementation-dependent, since
+;     it is necessary to have the goal-concept of a query "give me the phone
+;     number of ...", which cannot be "number", because it's too general. But
+;     the phenomenon must be handled anyway in order to account for non-
+;     restrictive modifiers as "toy gun", which is not a gun.
+; *** Note that this could be applied also to verb particles (as "take away")
+;     but currently a different mechanism is used, i.e. the interpreter builds
+;     the lemma "take_away" by concatenating the verb and the particle
+
+;(setq *WORD-MEANING*
+;  (append *WORD-MEANING*
+;   '(
+   ; *** nouns ******
+     (addensamento ££clouds)
+     (anno ££year)
+     (aumento ££increase)
+     (corrente ££sea-current)
+     (mare ££sea)
+     (temporale ££temporale)
+     (tempo ££weather-status)
+     (giornata ££day)
+     (giorno ££day)
+     (instabilità ££weather-status-unstable)
+     (media ££average)
+     (mese ££month)
+     (meteo ££meteo-news)
+     (nuvolosità ££clouds)
+     (penisola £Italy)
+     (pioggia ££rain)
+     (previsione ££meteo-status-situation)
+     (precipitazione ££precipitation)
+     (serata ££evening)
+     (variabilità £variabilità)
+     (regione ££it-region)
+     (settore ££it-geogr-area)
+     (sud £south)
+     (temperatura ££temperature)
+     (valore ££prop-value)
+   ; *** weekdays **
+     (lunedì £monday)
+     (martedì £tuesday)
+     (mercoledì £wednesday)
+     (giovedì £thursday)
+     (venerdì £friday)
+     (sabato £saturday)
+     (domenica £sunday)
+     (weekend £weekend)
+   ; *** months **
+     (gennaio £january)
+     (febbraio £february)
+     (marzo £march)
+     (aprile £april)
+     (maggio £may)
+     (giugno £june)
+     (luglio £july)
+     (agosto £august)
+     (settembre £september)
+     (ottobre £october)
+     (novembre £november)
+     (dicembre £december)
+   ; *** greetings **
+     (bentornato £welcome)
+     (buongiorno £goodday)
+     (buonasera £goodevening)
+     (buonanotte £goodnight)
+   ; *** verbs ******
+     (essere ££to-be)
+     (avere ££to-have)
+     (interessare ££meteo-status-situation)
+     (potere ££modal-can)
+     (tornare ££meteo-status-situation)
+     (vedere ££see)
+   ; *** adjectives *
+     (buono £good)
+     (adriatico £adriatic)
+     (tirrenico £tirrenic)
+     (agitato £mare-agitato)
+     (debole £weak-precip)
+     (estremo -dummy-adj)
+     (locale £local-phenomenon)
+     (mosso £mare-agitato)
+     (nostro -dummy-adj)
+     (meridionale £southern)
+     (occidentale £western)
+     (nord-occidentale £northwestern)
+     (nord-orientale £northeastern)
+     (orientale £eastern)
+     (perturbato £tempo-perturbato)
+     (settentrionale £northern)
+     (sud-occidentale £southwestern)
+     (sud-orientale £southeastern)
+     (superiore £greater-than)
+     (ultimo £last)
+   ; *** adverbs ****
+     (ancora --time-anaphoric-continuation)
+     (oggi £today)
+     (domani £tomorrow)
+     (stasera £today-evening)
+     (molto --intensifier-adv)
+     (generalmente ££empty-conc)
+     (poi --time-anaphoric-after)
+   ; *** conjunctions ***
+     (e --and-operator)
+   ; *** prepositions ***
+     (con --with-relation)
+     (di --di-relation)
+     (in --in-relation)
+     (su --on-relation)
+     (a_partire_da &has-time-interv-start)
+   ; *** others *****
+     (altro --deictic-specif-other)
+     (poco --q-little)
+     (il --def-art)
+     (quale (adj --q-art) (pron --q-pron))
+     (qualche --quantif-art)
+     (un --indef-art)
+     (I §speaker)
+     (my §speaker)
+   ; *** proper names *****
+     (Abruzzo £Abruzzo)
+     (Sardegna £Sardegna)
+     (mare_di_Sardegna £Mare_di_Sardegna)
+     (Ionio £Ionio)
+;    )
+;  )
+;)
+

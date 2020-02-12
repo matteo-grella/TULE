@@ -1,0 +1,47 @@
+(in-package "USER")
+
+; *** this converts the meaning of prepositions in terms of ontology concepts
+;     each description has the following form:
+;        (prep-meaning CONC-LIST)
+;     each CONC-LIST is either the value "unambiguous" (in which case the meaning
+;     of the preposition is prep-meaning itself), or:
+;        (SELECTOR concepts)
+;     where a SELECTOR is a pair <upper-concept lower-concept> and "concepts" is
+;        a list of possible ontology concepts corresponding to the preposition
+; *** EXAMPLE:
+;       (--di-relation (
+;	   ((££concert ££person) (££conduct)) 		; concerto di Abbado
+;        ))
+;     Is to be read as:
+;       if the preposition meaning is --di-relation
+;          if the governing concept is a subconcept of ££concert and
+;             the governed concept is a subconcept of ££person
+;          then the ontology concept corresponding to "di" is ££conduct
+(setq *PREP-TEMPLATES*
+  '(
+    (&HAS-TIME-INTERV-START unambiguous)
+    (--a-relation  (
+                   ))
+    (--about-relation (
+                   ))
+    (--in-relation (
+                    ((££weather-event ££geographic-area) (&has-weather-ev-loc))
+                   ))
+    (--da-relation (
+                    ((££evening ££meteo-news) (&greetings))
+                   ))
+    (--di-relation (
+                    ((££day ££month) (££day-month-part-of))
+                    ((££month ££month-description) (££time-interval-description))
+                   ))
+    (--near-relation (
+                   ))
+    (--on-relation (			; this is a merge of "about" and "in" for English "on"
+                   ))
+    (--with-relation (
+                    ((££prop-value ££temperature) (££temperature-has-value))
+                    ((££day ££temperature) (££loctime-has-temperature))
+                   ))
+     ))   
+
+

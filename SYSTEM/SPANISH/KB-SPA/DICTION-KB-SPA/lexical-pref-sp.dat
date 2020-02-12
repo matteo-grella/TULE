@@ -1,0 +1,11 @@
+(in-package "USER")
+
+;*************************************************************************
+;
+;   In this file, pairs of words of the same syntactic category, for which
+;   there seems to be a preference of the first over the second. In case of
+;   ambiguity, the first one should be chosen
+
+(setq *LEXICAL-PREFERENCES*
+  '(
+))

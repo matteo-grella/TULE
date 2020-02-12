@@ -1,0 +1,1428 @@
+; *** (relazione fittizia che identifica la radice dell'albero) &&&&&&&&&&&&&&&
+(TOP
+   (TOP-ADJ TOP-ADV TOP-ART TOP-CONJ TOP-INTERJ TOP-NUM TOP-NOUN TOP-PHRAS TOP-PREP
+    TOP-PRON TOP-VERB))
+
+; *** (dipendente generico)
+(DEPENDENT 
+   (FUNCTION NOFUNCTION))
+
+; *** (dipendente senza funzione semantica specifica) &&&&&&&&&&&&&&&&&&&&&&&&&&
+(NOFUNCTION 
+   (AUX CONTIN COORDINATOR EMPTYCOMPL INTERJECTION SEPARATOR VISITOR VERB-EXPLETIVE))
+
+; *** (ausiliari) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(AUX
+   (AUX+PASSIVE AUX+PROGRESSIVE AUX+TENSE))
+
+; *** (ausiliare per forma passiva)
+(AUX+PASSIVE)
+
+; *** (ausiliare per forma progressiva)
+(AUX+PROGRESSIVE)		;  del quale Stiamo Vedendo i risultati
+
+; *** (ausiliare per modo finito)
+(AUX+TENSE) 			; Il vero problema E' Costituito da ...
+
+; *** (continuazione di un nome o di un numero) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(CONTIN 			; in Auto Bus sto sempre in piedi
+				; 450 Mila lire
+   (CONTIN+ADJC CONTIN+LOCUT CONTIN+DENOM CONTIN+NUM  CONTIN+PREP))
+
+; *** (continuazione di un aggettivo)
+(CONTIN+ADJC) 			; il finanziere americano-UNGHERESE (unico esempio)
+
+; *** (continuazione di una locuzione fissa)
+(CONTIN+LOCUT) 			; In_Via_Di_Sviluppo
+				; Conferenza_Stampa
+
+; *** (continuazione di un nome)
+(CONTIN+DENOM) 			; Mario Rossi
+
+; *** (continuazione di un numero)
+(CONTIN+NUM) 			; 300mila
+
+; *** (preposizione nulla tra PREP POLI e PREP MONO)
+(CONTIN+PREP) 			; Fino A ieri
+				; Attorno A questo episodio
+
+; *** (relazioni di coordinazione) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(COORDINATOR
+   (COORD COORDANTEC COORD2ND))
+
+; *** (primo congiunto) ****************************************************
+(COORD				; mangiava mele E pere
+   (COORD+BASE COORD+ADVERS COORD+COMPAR COORD+CORRELAT COORD+ESPLIC 
+    COORD+RANGE COORD+SYMMETRIC COORD+NEG))
+
+; *** (tra testa del compar. e conj del II termine)
+(COORD+BASE)			; I ragazzi E le ragazze
+
+; *** (come sopra per avversativi)
+(COORD+ADVERS)
+
+; *** (come sopra per comparativi)
+(COORD+COMPAR)			; un test piu' Raffinato Di quello solito
+		; piu' Uno sviluppo di tipo ungherese Che t1 t2 di tipo polacco
+				; Meno Di dieci milioni
+
+; *** (secondo elemento di una congiunzione correlativa, cioè composta da due parti)
+(COORD+CORRELAT) 		; ha rifiutato sia Le mele Che le pere
+				; nè I ragazzi Nè le ragazze
+
+; *** (congiunzione con valore esplicativo)
+(COORD+ESPLIC) 		 ; spedizione ... Con mezzi alternativi, Cioe' per via mare 
+		       ; la provocazione de-Gli altri, In-questo-caso gli integristi
+
+; *** (congiunzione che esprime range)
+(COORD+RANGE) 		; tra I 10 E i 20mila dollari
+
+; *** (congiunzione che esprime relazione tra elementi)
+(COORD+SYMMETRIC) 	; collusione tra Politici E traffici illegali
+
+; *** (congiunzione che esprime negazione)
+(COORD+NEG) 		; nessuno può essere seguito, Nè pedinato
+
+; *** (prima parte di una congiunzione doppia: nè .. nè) *******************
+(COORDANTEC
+   (COORDANTEC+CORRELAT COORDANTEC+COMPAR))
+
+(COORDANTEC+CORRELAT) ; non si era fatta vedere Nè Alla messa nè sul ballatoio
+
+(COORDANTEC+COMPAR)
+
+; *** (secondo congiunto) **************************************************
+(COORD2ND			; tradimento temporaneo anche Se Pericoloso
+   (COORD2ND+BASE COORD2ND+ADVERS COORD2ND+CORRELAT COORD2ND+COMPAR
+    COORD2ND+ESPLIC COORD2ND+RANGE COORD2ND+SYMMETRIC COORD2ND+NEG))
+
+(COORD2ND+BASE)			; i ragazzi E Le ragazze
+
+(COORD2ND+ADVERS)		; non vuole Ma Deve
+
+(COORD2ND+CORRELAT)  ; non si era fatta vedere nè Alla messa Nè sul ballatoio
+
+; *** (Secondo termine di paragone in un compar.)
+(COORD2ND+COMPAR)  		; meno Di dieci Milioni
+		   		; un test piu' raffinato Di Quello solito
+
+; *** (secondo elemento di una congiunzionecon valore esplicativo)
+(COORD2ND+ESPLIC) 		 ; spedizione ... con mezzi alternativi, Cioe' Per via mare 
+		       ; la provocazione degli altri, In-questo-caso Gli integristi
+
+; *** (secondo elemento di un range)
+(COORD2ND+RANGE) 		; tra i 10 E I 20mila dollari
+
+; *** (secondo elemento di una relazione tra elementi)
+(COORD2ND+SYMMETRIC)  	; collusione tra politici E Traffici illegali
+
+; *** (congiunzione che esprime negazione)
+(COORD2ND+NEG) 		; nessuno può essere seguito, nè Pedinato
+
+; *** (complemento vuoto, senza ruolo semantico) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(EMPTYCOMPL)			; Si Accorse che ...
+				; per poter-Si1 Recare T1 al congresso
+				; il Formar-Si di gruppi imprenditoriali
+
+; *** (interiezioni) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(INTERJECTION)
+
+; *** (punteggiatura generica) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(SEPARATOR 		; il Parco-stranieri
+			; Gerard Depardieu / Danton
+   (INITIATOR OPEN CLOSE BEGIN END))
+
+; *** (initial dash)
+(INITIATOR) 		; - this is the first item
+
+; *** (apre)
+(OPEN
+   (OPEN+PARENTHETICAL OPEN+QUOTES))
+
+; *** (apre un inciso)
+(OPEN+PARENTHETICAL) ; oggi , imponendoti le mani, egli Vuole sottolineare ...
+
+; *** (apre un "tra virgolette")
+(OPEN+QUOTES)
+
+; *** (chiude)
+(CLOSE
+   (CLOSE+PARENTHETICAL CLOSE+QUOTES))
+
+; *** (chiude un inciso)
+(CLOSE+PARENTHETICAL) ; oggi, imponendoti le mani , egli Vuole sottolineare ...
+
+; *** (chiude un "tra virgolette")
+(CLOSE+QUOTES)
+
+; *** (fine frase)
+(END)
+
+; *** (start sentence; for spanish inverted question mark)
+(BEGIN)
+
+; *** (relazione derivata da un movimento, non interpretata) %%%%%%%%%%%%%%%%%
+(VISITOR
+    (VISITOR+ROBJ))
+
+; *** il particolare VISITOR che arriva da 'raising-object'
+(VISITOR+ROBJ)
+
+; *** (dipendente con funzione semantica specifica) &&&&&&&&&&&&&&&&&&&&&&&&&&&&
+(FUNCTION 
+   (ARG MODIFIER))
+
+; *** (dipendente con funzione semantica specifica, ma non argomento) &&&&&&&&&&
+(MODIFIER 
+   (RMOD APPOSITION))
+
+; *** (argomenti) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(ARG
+   (ADJC-ARG ADVB-ARG CONJ-ARG DET-ARG NOUN-ARG PREP-ARG VERB-ARG PHRAS-ARG))
+
+; *** (argomenti di aggettivi) *******************************************
+(ADJC-ARG			; mezzi Alternativi A quelli stradali
+   (ADJC-ARG-THEME))
+
+; *** (tema dell'azione)
+(ADJC-ARG-THEME)		; maria e' Interessata Al libro
+
+; *** (argomenti di avverbi) *********************************************
+(ADVB-ARG)			; Contemporaneamente A
+
+; *** (argomento di una congiunzione SUBORD) *****************************
+(CONJ-ARG) 			; Se E' vero che ...
+				; Che la storia non Educa a nulla
+				; visto Che Rispecchia l'importanza della ...
+				; Perche' da soli non ci Rimettiamo in piedi
+				; anche Se Fu quello che ebbe l'interprete
+
+; *** (argomenti dell'articolo, che è testa delle NP) ********************
+(DET-ARG			; che La Storia non educa a nulla
+				; alLe 12 vedo gli albergatori
+                        	; in-vista-de Il '92
+   (DET+DEF-ARG DET+INDEF-ARG DET+QUANTIF-ARG DET+INTERR-ARG DET+GENITIVE-ARG 
+   DET+GENITIVE-RESTR))
+
+(DET+DEF-ARG 			; Il Ragazzo
+				; Questa Rosa
+   (DET+DEF-ARG*LOCUT))  
+
+; *** locuzioni flessibili che includono un Det
+(DET+DEF-ARG*LOCUT) 		; neI Confronti di
+				; vengono aL Mondo
+
+(DET+INDEF-ARG) 		; Un Ragazzo
+				; Delle Rose
+
+(DET+QUANTIF-ARG) 		; Alcuni Ragazzi
+				; Molte Rose
+				; Due Teste
+
+(DET+INTERR-ARG) 		; fino a Che Punto
+
+(DET+GENITIVE-ARG) 		; plato'S Form
+				; the "s" is the head of the construction
+
+(DET+GENITIVE-RESTR) 		; Plato'S form
+
+; *** (argomenti di nomi) *************************************************
+(NOUN-ARG
+   (NOUN-SUBJ NOUN-OBJ NOUN-INDOBJ NOUN-INDCOMPL-THEME))
+
+; *** (soggetto di nomi intransitivi)
+(NOUN-SUBJ)      		; lo Sguardo Delle tricoteuses
+                		; le Parole Di un operatore
+
+; *** (oggetto di nomi transitivi)
+(NOUN-OBJ) 			; Capacita' Di reazione
+               			; Tentativi Di interagire
+               			; Divisione Dei posti
+               			; Speranza Di vedere
+               			; Intervista Di ligaciov
+
+; *** (oggetto indiretto di nomi)
+(NOUN-INDOBJ) 		; l'Applicazione di una parola Ai suoi argomenti
+
+; *** (theme di nomi)
+(NOUN-INDCOMPL-THEME)     	; l'Accusa Di esserne stato complice
+
+; *** (argomenti di numeri) ***********************************************
+(NUM-ARG
+   (NUM-ARG-PERCENT NUM-ARG-PARTITIVE NUM-ARG-RANGE))
+
+; *** (relazione per %)
+(NUM-ARG-PERCENT) 		; l'85 Per cento
+
+; *** (argomento di tipo partitivo = parte di un tutto)
+(NUM-ARG-PARTITIVE) 		; l'85 per cento Delle famiglie
+
+; *** (secondo elemento di un range numerico)
+(NUM-ARG-RANGE) 		; per 50-100 milioni
+
+; *** (argomenti di una preposizione) *************************************
+(PREP-ARG       	; speranza Di Vedere
+			; Dopo aver Visto;
+			; Senza peraltro Mostrare
+			; erano intanti A Scommettere
+               		; Dopo Che era stato fermato
+                	; l'85 Per Cento
+                  	; fino A Ieri
+		  	; Da Lontano
+   (PREP-ARG-RANGE PREP-ARG*LOCUT))
+
+(PREP-ARG-RANGE)	  ; Dalle 9 del mattino A mezzanotte
+
+(PREP-ARG*LOCUT)	  ; venire A Patti
+
+; *** (argomenti verbali, cioè complementi) *******************************
+(VERB-ARG		; la macchina E' Di quelle che ...
+   (VERB-SUBJ VERB-OBJ VERB-OBJ/VERB-SUBJ VERB-SUBJ/VERB-SUBJ+IMPERS VERB-SUBJ/VERB-OBJ
+    VERB-SUBJ/VERB-INDOBJ VERB-SUBJ/VERB-INDCOMPL-AGENT VERB-EXTRAOBJ VERB-INDCOMPL
+    VERB-PREDCOMPL VERB-EXTRAINDOBJ
+
+    VERB-EXPLETIVE/VERB-SUBJ VERB-SUBJ/VERB-SUBJ+EXPLETIVE     ; *** English expletives
+
+    VERB-ARG*LOCUT))
+
+; *** (soggetto) ........................................................
+(VERB-SUBJ)			; Il foglio ufficiale ... Dedica quasi la meta' ...
+				; mi Sembra Che parta domani
+				; mi Sembra Di vederlo
+
+; *** (complemento oggetto) .............................................
+(VERB-OBJ			; Imponendo-ti Le mani
+				; non si Vede Perche' debba essere educata
+				; Dico solo Che riteniamo che ...
+				; Penso Che se ho fatto qualcosa ...
+				; "Sono incomprensibili ritardi" ha Detto ...
+		 		; hanno Tentato Di estrarlo
+   (VERB-OBJ+Q VERB-OBJ+YN))
+
+; *** complemento oggetto che esprime il tema di una richiesta
+(VERB-OBJ+Q) 			; per Vedere Come votano
+				; Vediamo allora Come tradurla in pratica
+
+; *** complemento oggetto che esprime il tema di una richiesta a risposta sì/no
+(VERB-OBJ+YN)			; Vedere Se il rivale
+
+; *** (complemento oggetto sottoposto a passivizzazione) ................
+(VERB-OBJ/VERB-SUBJ)			; Il film è stato Diretto da ...
+
+; *** (soggetto sottoposto a impersonalizzazione) .......................
+(VERB-SUBJ/VERB-SUBJ+IMPERS)		; Si Puo' accennare a qualche scappatella
+
+; *** (soggetto della dipendente nelle costruzioni causative intransitive)
+(VERB-SUBJ/VERB-OBJ)		; Ho fatto correre MARIO
+
+; *** (soggetto della dipendente nelle costruzioni causative transitive)
+(VERB-SUBJ/VERB-INDOBJ)		; Ho fatto mangiare la mela A MARIO
+
+; *** (complemento d'agente, by-compl) ..................................
+(VERB-SUBJ/VERB-INDCOMPL-AGENT)	; sinfonie Registrate Da toscanini
+
+; *** (obj in piu', porta info semantica sull'obj) ......................
+(VERB-EXTRAOBJ)			; Uno lo Vide volare federico
+
+; *** (extra indobj; does not add semantic info; SPANISH ) ..............
+(VERB-EXTRAINDOBJ)		; asì Se lo Comunicò Zapatero al presidente
+
+; *** (complemento indiretto) ...........................................
+(VERB-INDCOMPL
+   (VERB-INDCOMPL-GOAL VERB-INDOBJ VERB-INDCOMPL-LOC 
+    VERB-INDCOMPL-MANNER VERB-INDCOMPL-PROGRESS VERB-INDCOMPL-RESULT
+    VERB-INDCOMPL-THEME VERB-INDCOMPL-TIME VERB-INDCOMPL-TOGETHER
+    VERB-INDCOMPL-FROM VERB-INDCOMPL-TO
+
+    VERB+MODAL-INDCOMPL VERB+CAUS-INDCOMPL))
+
+; *** ("allo scopo di", "con l'obiettivo di")
+(VERB-INDCOMPL-GOAL)		; Spingevano Per la privatizzazione,
+				; non Educa A nulla
+				; saranno Chiamati A manifestare
+
+; *** (a, "nei confronti di")
+(VERB-INDOBJ) 		; ha Tirato una frecciatina ... Ai ... nemici
+				; Gli Domando se vi e' il rischio
+				; Consentire Agli handicappati di andare
+			; l'immagine Consegnata Ai lettori; ha Portato Ai propagandisti
+				; si Offre materia Alla provocazione; potremmo Chieder-Ci
+				; Dedica meta' ... A un'intervista
+
+; *** (complementi di luogo)
+(VERB-INDCOMPL-LOC
+   (VERB-INDCOMPL-LOC+FROM VERB-INDCOMPL-LOC+IN VERB-INDCOMPL-LOC+METAPH 
+    VERB-INDCOMPL-LOC+TO))
+
+; *** (moto da luogo)
+(VERB-INDCOMPL-LOC+FROM)	; Provenienti Dai paesi vicini
+
+; *** (stato in luogo)
+(VERB-INDCOMPL-LOC+IN)		; si trovano A pochi metri da casa
+
+; *** (localizzazione metaforica)
+(VERB-INDCOMPL-LOC+METAPH)	; si Trovarono insieme In un battesimo
+				; Fondata Sull'uguaglianza giuridica
+				; sia da Porre In relazione con
+
+; *** (moto a luogo)
+(VERB-INDCOMPL-LOC+TO		; Inviata A poggibonsi
+				; Recare Al congresso
+				; In italia Arriverà
+   (VERB-INDCOMPL-LOC+TO+METAPH))
+
+; *** (moto a luogo con intrerpretazione metaforica)
+(VERB-INDCOMPL-LOC+TO+METAPH)	; Rimettere In circolazione
+				; Trarre In inganno
+				; Finire Nell'occhio del ciclone
+				; Condusse A grandi tafferugli
+
+; *** (modo/maniera)
+(VERB-INDCOMPL-MANNER)
+
+; *** (progressivo)
+(VERB-INDCOMPL-PROGRESS)	; ... Stava Per esplodere
+
+; *** ("risultato di trasformazione")
+(VERB-INDCOMPL-RESULT)   ; si Mutò In una casa del diavolo
+		; possono poi Degenerare In xenofobia
+
+; *** (tema argomento dell'azione)
+(VERB-INDCOMPL-THEME) ; Parla Di truffa
+		; si Tiene gran conto Dell'intero contesto
+		; Pensare Ai tanti banchieri
+		; Accennare A qualche scappatella
+		; Scommettono Sulle capacita' di reazione
+		; non si Rassegna All'assenza
+		; Procedere Ad una drastica riduzione
+		; posson Manifestarsi In un nazionalismo esasperato
+		; hanno Influito Sullo sviluppo
+		; Diversificarsi Da santa cecilia
+		; Accusa gli amministratori ... Di essere diventati
+		; Erano in tanti A scommettere
+
+; *** (complemento temporale)
+(VERB-INDCOMPL-TIME) 	; Durare 36 mesi; Rimandare Alla gara di adelaide
+
+; *** ("insieme con", "assieme a", interazione)
+(VERB-INDCOMPL-TOGETHER) ; Interagire Con ...  
+			; Discutere Con sgarbi
+			; la roma Vista a san siro Con l'inter
+			; Parla Con uno ...  
+			; E' d'accordo Con ...
+			; il varietà Abbinato Alla lotteria
+
+; *** (spostamento da luogo - figurato - origine)
+(VERB-INDCOMPL-FROM) 	; Innalzare DA 1000 a 2000 Euro al mese
+
+; *** (spostamento da luogo - figurato  - destinazione)
+(VERB-INDCOMPL-TO) 	; Innalzare da 1000 A 2000 Euro al mese
+
+; *** (oggetto di un modale)
+(VERB+MODAL-INDCOMPL) ; e cosi' Deve essere Visto
+		; non si vede perche' Debba Essere ...
+
+; *** (oggetto di un causativo)
+(VERB+CAUS-INDCOMPL) ;  lo Faccio Correre
+
+; *** (predicato/parte nominale delle copule e di altri verbi predicativi)
+(VERB-PREDCOMPL
+   (VERB-PREDCOMPL+SUBJ VERB-PREDCOMPL+OBJ VERB-PREDCOMPL+OBJ/VERB-PREDCOMPL+SUBJ))
+
+; *** (predicato del soggetto)
+(VERB-PREDCOMPL+SUBJ 	; non E' Educato pensare; diciamo che t1 E' Un turner
+			; Sono Incomprensibili i ritardi nel dare seguito ...
+   (VERB-PREDCOMPL+SUBJ-PARTITIVE VERB-PREDCOMPL+SUBJ*CLEFT))
+
+(VERB-PREDCOMPL+SUBJ-PARTITIVE) 	; non Era Di quei preti che
+
+(VERB-PREDCOMPL+SUBJ*CLEFT) 		; Fu Con queste parole che
+
+; *** (predicato del  complemento oggetto)
+(VERB-PREDCOMPL+OBJ)	; lo Considero Un genio
+                    	; Uno, lo ha visto Volare
+
+; *** (predicato del  complemento oggetto, in frasi sottoposte a ........
+;      passivizzazione)
+(VERB-PREDCOMPL+OBJ/PREDCOMPL+SUBJ)
+			; il tuo amico è Considerato Un genio
+
+; *** argomenti verbali che sono locuzioni
+(VERB-ARG*LOCUT
+   (VERB-OBJ*LOCUT VERB-SUBJ*LOCUT VERB-INDCOMPL*LOCUT VERB-PREDCOMPL*LOCUT))
+
+(VERB-OBJ*LOCUT)		; Aver Ragione
+ 				; Dar Segno
+
+(VERB-SUBJ*LOCUT)		; Correre Voce
+
+(VERB-INDCOMPL*LOCUT		; Chiamare In causa
+ 				; Essere In grado
+  (VERB-INDCOMPL-LOC*LOCUT))
+
+(VERB-INDCOMPL-LOC*LOCUT)	; Venire Al mondo
+
+(VERB-PREDCOMPL*LOCUT
+   (VERB-PREDCOMPL+OBJ*LOCUT))	; Vedersela Brutta
+ 				; Tornare Utile
+
+; *** (modificatori restrittivi) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(RMOD
+   (ADJC-RMOD ADVB-RMOD DATE-RMOD NOUN-RMOD NUM-RMOD PREP-RMOD PRON-RMOD VERB-RMOD
+
+    RMODPRED))
+
+; *** (modificatori che sono aggettivi) ***********************************
+(ADJC-RMOD
+   (ADJC+COMPAR-RMOD ADJC+DEITT-RMOD ADJC+DEMONS-RMOD ADJC+EXCLAM-RMOD
+    ADJC+INTERR-RMOD ADJC+ORDIN-RMOD ADJC+POSS-RMOD ADJC+QUALIF-RMOD 
+    ADJC+QUANTIF-RMOD ADJC+STRENG-RMOD))
+
+; *** (tipo comparativo)
+(ADJC+COMPAR-RMOD)  ; le famiglie investono Piu' Aspettative nella sua opera
+
+; *** (tipo deittico)
+(ADJC+DEITT-RMOD)	; il Prossimo Gennaio
+			; l'Altra Sera
+
+(ADJC+DEMONS-RMOD)	; di Questi Ultimi
+                        ; grandi Tafferugli Tali da
+
+(ADJC+EXCLAM-RMOD)	; ho visto un bel film, Che Divertimento, e
+                        ; vede Che strani Corsi e ricorsi
+
+(ADJC+INTERR-RMOD)
+
+; *** (ordinale)
+(ADJC+ORDIN-RMOD) 	; la Quinta Strada; la Seconda Volta
+
+; *** (possesso)
+(ADJC+POSS-RMOD)	; il Suo Sindacato
+
+; *** (qualificativo)
+(ADJC+QUALIF-RMOD	; qualche Bella Carneficina
+   (ADJC+QUALIF+SUPERLREL-RMOD ADJC+QUALIF-RMOD*LOCUT))
+
+; *** (superlativo relativo)
+(ADJC+QUALIF+SUPERLREL-RMOD)
+			; la Parola piu' Radicale della perestroika
+
+; *** (locuzione)
+(ADJC+QUALIF-RMOD*LOCUT) ; in Parole Povere
+
+; *** (quantificatore)
+(ADJC+QUANTIF-RMOD)     ; i Tanti Banchieri; un Certo Gioco illegale
+
+; *** (rafforzativo)
+(ADJC+STRENG-RMOD) 	; Essi Stessi
+
+; ***  (modificatori che sono avverbi) ************************************
+(ADVB-RMOD		; si Presentava Necessariamente
+   (ADVB+ADVERS-RMOD ADVB+COMPAR-RMOD ADVB+CONCESS-RMOD ADVB+INTERR-RMOD
+    ADVB+QUANTIF-RMOD
+
+    ADVB-RMOD-ANAPH
+    ADVB-RMOD-CONJTEXT ADVB-RMOD-DOUBT ADVB-RMOD-LIMIT ADVB-RMOD-LOC
+    ADVB-RMOD-MEANSMANNER ADVB-RMOD-NEG ADVB-RMOD-NEG2ND ADVB-RMOD-REASONCAUSE
+    ADVB-RMOD-STRENG ADVB-RMOD-TIME
+
+    ADVB-RMOD*LOCUT))
+
+; *** avversativi
+(ADVB+ADVERS-RMOD)	; che Però non ha Voluto fare
+			; Ma perchè non Fai quei film lì?
+
+; *** comparativi
+(ADVB+COMPAR-RMOD)	; E' uomo di fascia Più di Sordo
+			; piu'1 uno sviluppo T1 Di tipo ungherese che di tipo polacco
+		 	; un test Piu' Raffinato di quello solito
+		 	; Oltre 100 Mila albanesi
+
+; *** concessivi
+(ADVB+CONCESS-RMOD)	; se ne era occupata Anche la trasmissione
+			; bisognerebbe Anche vedere
+			; è apparsa Anche Come attrice
+                        ; Anche In questo caso
+
+; *** (interrogativo)
+(ADVB+INTERR-RMOD	; Come Vede il pubblico il design italiano?
+    (ADVB+INTERR-RMOD-TIME)	; Quando ci vediamo?
+    (ADVB+INTERR-RMOD-LOC)	; Dove ci vediamo?
+    (ADVB+INTERR-RMOD-REASONCAUSE)	; Perchè ci vediamo?
+    (ADVB+INTERR-RMOD-MEANSMANNER))	; Come ci vediamo?
+
+; *** (quantitativo)
+(ADVB+QUANTIF-RMOD)	; sono Quasi Diventate il 20 per cento
+			; ... E' Soprattutto la vegetazione
+         		; Almeno In parte
+
+; *** anaphoric
+(ADVB-RMOD-ANAPH)	; Such A critique
+
+; *** interiezioni
+(ADVB-RMOD-CONJTEXT	; Dunque il mercato capitalistico
+			; l'azienda Pertanto si e' Vista costretta a ...
+		  	; Tutt'al-piu' si Puo' accennare a ...
+   (ADVB+ADVERS-RMOD-CONJTEXT))
+
+(ADVB+ADVERS-RMOD-CONJTEXT) ; Senza Per_altro mostrare segni
+
+; *** (dubitativo)
+(ADVB-RMOD-DOUBT)	; non Godiamo Forse quando ...
+			; e Forse Anche di quella
+
+; *** (limitativo)
+(ADVB-RMOD-LIMIT)	; Dico Solo che ...
+			; Solo Ieri 
+                        ; hanno influito Solo In parte
+
+; *** (locativo)
+(ADVB-RMOD-LOC		; Qui ci sta a meraviglia
+			; quei Film Lì
+    (ADVB-RMOD-LOC+METAPH))
+
+; *** (locativo metaforico)
+(ADVB-RMOD-LOC+METAPH)		; hanno Tratto In salvo
+
+; *** (di modo)
+(ADVB-RMOD-MEANSMANNER)	; Correva Bene
+			; al papa Particolarmente Care
+
+; *** (negazione)
+(ADVB-RMOD-NEG)		; Non Godiamo forse quando ...
+			; Non si Vede perche' ...
+			; la storia Non Educa
+                        ; Nemmeno Un centimetro
+
+; *** (seconda parte di una negazione)
+(ADVB-RMOD-NEG2ND)	; non raccoglie CHE una parte
+
+; *** (motivazione)
+(ADVB-RMOD-REASONCAUSE)
+
+; *** (rafforzativo)
+(ADVB-RMOD-STRENG)	; E' Certamente interessante
+			; Durare Persino 36 mesi
+
+; *** (temporale)
+(ADVB-RMOD-TIME)	; si Aspetta Sempre di vederlo; hanno Gia' Avviato
+			; la banca ..., Intanto, Insiste nella ...
+			; e' Partito ... Ieri pomeriggio
+			; un dinamismo Mai Visto Finora
+			; il coordinamento Già In atto
+			; Ancora Per qualche giorno
+
+; *** (locuzione)
+(ADVB-RMOD*LOCUT)	; Non Vedi l'ora che
+
+; *** (modificatori che sono date) ***************************************
+(DATE-RMOD
+   (DATE-RMOD-YEAR))
+
+(DATE-RMOD-YEAR)		; nel Gennaio '92
+
+; *** (modificatori che sono nomi) ***************************************
+(NOUN-RMOD	; Ufficio Acquisti; Convegno DC; Castagnetti (Fiatimpresit)
+		; Fine Stagione
+   (NOUN-RMOD-DISTRIB NOUN-RMOD-MONTH NOUN-RMOD-MEANSMANNER NOUN-RMOD-TIME
+    NOUN-RMOD-TYPE NOUN-RMOD-IDENT))
+
+; *** (distributivo)
+(NOUN-RMOD-DISTRIB)	; due Fibbie d'argento di mezza libra L'una
+			; a 320 dollari Il costume
+
+; *** (date)
+(NOUN-RMOD-MONTH)	; il 29 Ottobre
+
+; *** (modo-maniera; sottintesa una preposizione)
+(NOUN-RMOD-MEANSMANNER)	; mentre, Due dita fra i denti, fischia
+
+; *** (temporale)
+(NOUN-RMOD-TIME 	; Ieri Sera
+   (NOUN-RMOD-TIME+DISTRIB))
+		 	; ore 20,30
+			; 29 novembre dello scorso anno
+			; estate '89
+               		; come gli era Apparso La prima volta
+			; che Il prossimo gennaio Dovra' definire ...
+			; scomparso Il 29 novembre
+
+; *** (temporale, distributivo)
+(NOUN-RMOD-TIME+DISTRIB) ; Mille euro L'anno
+
+; *** (tipo)
+(NOUN-RMOD-TYPE)	; Progetti Tipo finind
+			; Registrazioni Radar
+                        ; Ufficio Indagini
+
+; *** (identificatori)
+(NOUN-RMOD-IDENT)	; A312. This rule concerns ...
+
+; *** (modificatori che sono numeri) *************************************
+(NUM-RMOD
+   (NUM-RMOD-DAY NUM-RMOD-MONTH NUM-RMOD-YEAR NUM-RMOD-LISTPOS  NUM-RMOD-DENOM 
+    NUM+CARDIN-RMOD))
+
+; *** (numero cardinale)
+(NUM+CARDIN-RMOD)		; i Tre Banchieri
+
+(NUM-RMOD-DAY)			; Martedì 24 gennaio
+
+(NUM-RMOD-MONTH)		; martedì 24-7-1990 (tra 24 e 7)
+
+(NUM-RMOD-YEAR)			; martedì 24 Gennaio 1990
+
+(NUM-RMOD-LISTPOS)		; 1. Introduzione
+
+(NUM-RMOD-DENOM)		; directive 2000/35/EC (35 to slash)
+
+; *** (modificatori che sono predet) *************************************
+(PDET-RMOD
+   (PDET+QUANTIF-RMOD))
+
+(PDET+QUANTIF-RMOD)  ; Tutti I paesi ; Tutti I mass-media; Tutto Ciò
+
+; *** (modificatori che sono preposizioni) *******************************
+(PREP-RMOD	; Livelli Di produttività; un Nome In più; un Nome In meno
+		; Personaggi In vista ("in vista" locuzione aggettivale?)
+		; Prospettiva Dell'utilizzo
+                ; un Portafoglio Di 35.000 miliardi
+		; i Ritardi Nel dare seguito a ...; Vista Sulla città
+		; Record Di visitatori; Mondo Del sottoproletariato
+		; Sacche Di popolazione; Parte Della mia missione
+		; da ogni Parte D'italia; Strade Del quartiere
+		; una Sorta Di monopolio; Divisione Tra INA e INPS
+		; Scommessa Tra due fratelli; Centenario Della morte
+   (PREP-RMOD-ACTGOAL PREP-RMOD-ADDRESSEE PREP-RMOD-AGE PREP-RMOD-AGTOBJ
+    PREP-RMOD-AHEAD PREP-RMOD-AUTHOR PREP-RMOD-CARRY PREP-RMOD-COMPANY
+    PREP-RMOD-COMPARATIVE PREP-RMOD-COMPOSEDOF PREP-RMOD-CONJTEXT
+    PREP-RMOD-CONTAINS PREP-RMOD-CONTRAST PREP-RMOD-DENOM PREP-RMOD-DESCR
+    PREP-RMOD-DISTRIB PREP-RMOD-EVAL PREP-RMOD-EVENT PREP-RMOD-GOAL
+    PREP-RMOD-HASPART PREP-RMOD-HASPROPERTY PREP-RMOD-INCHARGE 
+    PREP-RMOD-INDOBJ PREP-RMOD-LIMIT PREP-RMOD-LOC PREP-RMOD-MAKER
+    PREP-RMOD-MATERIAL PREP-RMOD-MEANSMANNER PREP-RMOD-MEASORIGIN
+    PREP-RMOD-MEASUREDBY PREP-RMOD-ORGANIZATION PREP-RMOD-OWNER
+    PREP-RMOD-PARTEC PREP-RMOD-PARTECTO PREP-RMOD-PARTITIVE 
+    PREP-RMOD-PERSPECT PREP-RMOD-PRIVATIVE PREP-RMOD-PROPERTYOWNER
+    PREP-RMOD-REASONCAUSE PREP-RMOD-RELATTO PREP-RMOD-ROLEIN
+    PREP-RMOD-SITUATION PREP-RMOD-SOURCE PREP-RMOD-STRENG
+    PREP-RMOD-SUBCLASS PREP-RMOD-SUBDIVISION PREP-RMOD-THEME 
+    PREP-RMOD-TIME PREP-RMOD-TOGETHER PREP-RMOD-TOPIC  
+    PREP-RMOD-TRANSPMEANS PREP-RMOD-TYPE PREP-RMOD-VALUE 
+    PREP-RMOD-WEAR PREP-RMOD-WHOLEOBJ 
+
+    PREP+COND-RMOD PREP+SUPERLREL-RMOD
+
+    PREP-RMOD*LOCUT))
+
+; *** 
+(PREP-RMOD-ACTGOAL)	; non Ho nulla Da nascondere; c'E' molto Da vedere
+			; Ho qualcosa Da fare
+
+; *** ("all'indirizzo di")
+(PREP-RMOD-ADDRESSEE
+			; Rivolto Al pontefice; Arrabbiarsi Con lui
+			; Dichiara guerra Alle cliniche private
+   (PREP-RMOD-ADDRESSEE+BENEFICIARY PREP-RMOD-ADDRESSEE+AGAINST))
+
+; *** ("all'indirizzo di" a favore)
+(PREP-RMOD-ADDRESSEE+BENEFICIARY) ; Aiuti Alle imprese
+			; Riconoscimenti A-favore-di ...
+			; più Capitale Per castagnetti
+			; conviene Lavorare Per lui
+			; ... che Le avrebbe Fruttato ...
+
+; *** ("all'indirizzo di" contro)
+(PREP-RMOD-ADDRESSEE+AGAINST)
+			; Propaganda Anti-aids
+			; i Siluri Contro la promozione
+			; Scontrandosi Con la polizia
+
+; *** (specifica l'eta' della testa)
+(PREP-RMOD-AGE)		; Monsignore Di 69 anni
+
+; *** (testa:pred+agt; dip:obj)
+(PREP-RMOD-AGTOBJ) 		; Cantori Di samba
+				; Difensore Dell'indiziato
+				; Datore Di lavoro
+                                ; Testimone Della battaglia
+
+; *** ("in vista di")
+(PREP-RMOD-AHEAD) 		; Attacchi ai radicali In-vista-delle elezioni
+			; hanno gia' Avviato In-vista-del '92
+			; Apportare In-vista-del ...
+
+; *** (dipendente "autore" dell'oggetto testa)
+(PREP-RMOD-AUTHOR) 		; Romanzo Di camus
+				; Orestea Di peter stein
+				; Sinfonie Di Beethoven
+                                ; Provvedimento Dell'autorità
+
+; *** ("portando")
+(PREP-RMOD-CARRY)		; la vide Venire Col fiasco in mano
+
+; *** ("in compagnia di")
+(PREP-RMOD-COMPANY) 		; Signora de mita Con la figlia
+				; Giunto In-compagnia-di ...
+
+; *** (confronto, similitudine)
+(PREP-RMOD-COMPARATIVE) 	; Intese Come queste; Idea Come quelle
+				; Rispetto al passato, sono stati fatti passi avanti
+				; Vestirsi Da batman
+
+; *** (testa insieme, dipendente membri)
+(PREP-RMOD-COMPOSEDOF) 		; Esercito Di quindicimila sfollati
+				; Lista Di blasonati
+				; Banda Di balordi
+				; Collezione Delle sinfonie
+				; Corte Di pittori popolari
+				; Albero Di costituenti
+				; Raggruppamenti Di parole
+				; Castelli di Cuori, picche, fiori e quadri
+
+; *** (congiunzione di tipo testuale)
+(PREP-RMOD-CONJTEXT)		; In parole povere, il blocco Impedisce ...
+
+; *** ("contenuto")
+(PREP-RMOD-CONTAINS) 		; Scaffali Di libri preziosi
+
+; *** ("in contrasto con")
+(PREP-RMOD-CONTRAST) 		; Orientamenti In contrasto con ...
+				; Sono ... Nonostante alla brummel
+				; Sono ... Nonostante la sua opposizione
+                        	; E' interessante, Malgrado tutto
+
+; *** ("denominazione")
+(PREP-RMOD-DENOM) 		; l'Isola Di manhattan
+
+; *** ("X di Y" stessa funzione di "X e' Y", predicativo)
+(PREP-RMOD-DESCR)		; Caso di Interbanca
+				; Problema Della divisione
+				; Affare Della mula
+				; nell'Ora del Vespero
+				; Quello Del lanternone
+				; le Figure Del pianista Lennie Tristano e ...
+				; Struttura Di frase
+				; la Condizione Di proiettività
+				; il Ruolo Di partner
+
+; *** (distributivo della testa sul dipendente)
+(PREP-RMOD-DISTRIB) 		; dieci Milioni Al metro quadro
+				; una Sedia Per ragazzo
+				; Crea esaltazione Tra i patiti; Svolger-si Tra DC e PSI
+
+; *** (valutazione dell'entita' testa)
+(PREP-RMOD-EVAL)		; Dottori Di gran nome
+				; Gruppi Di livello adeguato
+				; Contento Da morire
+				; Capitale Di 10 miliardi
+                                ; Progetto Di ampia portata
+		 		; Accuse Di una pesantezza mai vista (proprieta' PESO)
+				; compagna di nome Jutta (proprieta' NOME)
+				; Sviluppo Di tipo ungherese (proprieta' TIPO)
+				; Prodotto D'elite (proprieta' DESTINAZIONE)
+				; era un Uomo Di proposito (proprietà CARATTERE)
+				; due Fibbie Di mezza libra l'una (proprieta' PESO)
+				; Galoppo Di alta scuola (proprietà QUALITA')
+				; Offerti bot Per 3.000.000.000
+
+; *** (evento)
+(PREP-RMOD-EVENT)		; Alla conferenza stampa il capo ... Parla
+
+; *** (obiettivo della testa, "con lo scopo di", "che consente/obbliga di")
+(PREP-RMOD-GOAL)		; Strumento Per affossare
+				; Modi Per superare
+				; Termine riduttivo Per indicare
+				; il Visto D'uscita
+				; Mandato Di comparizione
+				; Macchina Da divertimento
+				; Messa Da requiem
+				; Scarpe Da calcio
+				; Tavolo Da bridge
+				; Sala da te
+				; Sistemi Di elaborazione del linguaggio
+				; Assetti Da gara
+				; Misure Di sicurezza
+				; Punto Di appoggio
+				; Per avere una misura ... ho Voluto vedere ...
+				; Impegna tempo e denaro Per vedere i miei film
+				; i soldi Spesi Per ottenere un'istruzione
+				; Scesi in spiaggia Per manifestare contro ...
+				; ci Saranno ... Per consentire ...
+				; Lavorare Per l'alternativa
+                       	 ; Vede reviglio candidato alla cee, In sostituzione di
+
+ ; *** (il dipendente e' una parte della testa)
+(PREP-RMOD-HASPART) 		; la Casa Con le porte rosse
+				; Prodotto Con spiccate caratteristiche
+
+; *** (il dipendente e' una feature della testa)
+(PREP-RMOD-HASPROPERTY) 	; Attici Con bella vista
+				; Paesi Ad alto rischio
+
+; *** ("che ha in carico")
+(PREP-RMOD-INCHARGE)  		; Commissione Di inchiesta
+				; Ministro Della pubblica istruzione
+
+; *** ("a", "nei confronti di")
+(PREP-RMOD-INDOBJ)		; come Gli era Apparso la prima volta
+				; Imponendo-Ti le mani
+				; Lascia spazio A tutti
+				; e Si sarebbe tagliati i capelli
+
+; *** ("in quanto", "quanto a", limitativo)
+(PREP-RMOD-LIMIT)		; l'ho Fatto Come parte della mia missione
+				; nel quale è Apparsa anche Come attrice
+				; Per quanto uno può capire, ... mostrano ...
+
+; *** (locativo)
+(PREP-RMOD-LOC
+   (PREP-RMOD-LOC+APPROX PREP-RMOD-LOC+BEHIND  PREP-RMOD-LOC+BEYOND 
+    PREP-RMOD-LOC+FROM PREP-RMOD-LOC+IN PREP-RMOD-LOC+METAPH 
+    PREP-RMOD-LOC+ON PREP-RMOD-LOC+ORIGIN PREP-RMOD-LOC+PARTOF
+    PREP-RMOD-LOC+SPEC PREP-RMOD-LOC+TO PREP-RMOD-LOC+UNDER
+    PREP-RMOD-LOC+WHOLEOBJ))
+
+; *** (luogo approssimato)
+(PREP-RMOD-LOC+APPROX)		; Quello Vicino a san giovanni
+				; ho Pranzato Vicino a milano
+
+; *** (dietro)
+(PREP-RMOD-LOC+BEHIND)		; Dormiva Dietro la siepe
+
+; *** (oltre)
+(PREP-RMOD-LOC+BEYOND)		; Spuntare Oltre la prua
+
+; *** (moto da luogo)
+(PREP-RMOD-LOC+FROM)		; Travaso Dal cassonetto
+				; Partito Da praga per vienna
+				; Uscire Dalla finestra
+				; Estrarlo Dalla morsa
+
+; *** (stato in luogo)
+(PREP-RMOD-LOC+IN)		; Ambasciata d'italia A praga
+				; Palazzo Lontano dal parlamento
+				; due dita Fra i denti
+				; Nelle strade ho Visto
+				; Reggendo In braccio
+				; In polonia Governo io
+
+; *** (locativo metaforico)
+(PREP-RMOD-LOC+METAPH)		; La situazione Attorno a questo episodio
+				; De michelis In testa
+				; Docente All'università di
+				; Cifre Alla mano
+				; Prendendo le distanze Da
+				; Vedono la luce In una famiglia
+				; Nel teatro noi li Vogliamo tenere a distanza
+				; Tiene saldamente In mano
+				; Riporta Ne-il lessico politico
+				; Cadere mozzata Sotto lo sguardo
+				; Nasce Da matrimoni religiosi
+				; Proiettata Verso il futuro
+
+; *** (stato in luogo e moto a luogo dall'alto)
+(PREP-RMOD-LOC+ON)		; si Schiantavano Sul selciato
+
+; *** (origine, provenienza)
+(PREP-RMOD-LOC+ORIGIN) 		; Cattolici Della tua terra
+				; Vecchi Di bruxelles
+				; i Democratici Del nord
+
+; *** (testa-luogo fa parte del dip-luogo)
+(PREP-RMOD-LOC+PARTOF)  	; Piazze Di roma
+				; il Nord Del paese
+
+; *** (specifica di un luogo)
+(PREP-RMOD-LOC+SPEC) 		; area di san Francisco
+				; tribunali di Parigi
+
+; *** (moto a luogo)
+(PREP-RMOD-LOC+TO) 		; un Passo Verso la chiusura
+				; Partito da praga Per vienna
+
+; *** ("sotto")
+(PREP-RMOD-LOC+UNDER)		; il gatto Cammina Sotto il tavolo
+
+; *** ("parte di un luogo")
+(PREP-RMOD-LOC+WHOLEOBJ)	; ogni parte D'Italia
+
+; *** ("fatto da") ??? simile a PREP-RMOD-AUTHOR !!!
+(PREP-RMOD-MAKER)		; i Biscottini Della maison dandoy
+				; il Gol Di kim
+
+; *** ("fatto di")
+(PREP-RMOD-MATERIAL)		; Tavolo Di vetro 
+				; Soffitto Di travi
+
+; *** (mezzo/strumento "per mezzo di", modo/maniera, "in che modo")
+(PREP-RMOD-MEANSMANNER) 	; Lavorazione A ciniglia
+				; Sguardo D'infernale distanza
+				; Spedizione Con mezzi alternativi
+				; lo Prenderebbe In regalo
+				; Parla Da energico uomo di stato
+				; Aiutar-lo Con strane tattiche
+				; Con questo ... il club Sostiene
+				; esposto ... Con cui Denunciavano ...
+
+; *** (punto di partenza di una misurazione)
+(PREP-RMOD-MEASORIGIN)		; a Una settimana Dal crack
+				; a Cento metri Dall'arrivo
+
+(PREP-RMOD-MEASUREDBY)		; Calice Di bianco
+				; Bicchiere Di vino
+				; Barile Di birra
+				; Litro Di birra
+				; due Settimane Di programmazione
+				; tre Giorni Di relazioni
+				; Centinaia di chiamate
+				; tre Milioni Di albanesi
+				; il Numero Di acquirenti
+
+; *** (appartenenza a organizzazione)
+(PREP-RMOD-ORGANIZATION) 	; Consiglio d'amministrazione Della bnl
+		    		; Propagandisti Del pcus
+				; Agente Del consolato francese
+				; Europa Dell'est
+				; l'Olio Della lucerna
+				; la Terminologia Delle grammatiche categoriali
+				; Docenti Di varie università
+				; si analizza come Fenomeno Di una cultura
+				; Banca D'italia
+				; Gergo Del basket
+				; il Sismi Di santovito
+
+; *** (puro possesso)
+(PREP-RMOD-OWNER)		; capitale della BNL; cattedra di Pietro
+
+; *** (partecipazione del dipendente a evento testa)
+(PREP-RMOD-PARTEC)		; Film Con henry fonda
+				; Festa Con molte ragazze;
+				; Pestaggio Fra tifosi
+				; Colloqui Con i governanti
+
+; *** (partecipazione della testa a evento dipendente)
+(PREP-RMOD-PARTECTO)		; Protagonisti Dei "faraoni"
+
+; *** (partitivo)
+(PREP-RMOD-PARTITIVE)		; qualcosa Di strano
+				; alcuni Tra i piu' vecchi
+				; niente Di nuovo
+				; Uno Di quei quartieri
+                   		; Tra cui c'E' anche
+
+; *** (prospettiva, punto di vista)
+(PREP-RMOD-PERSPECT)		; un parser Plausibile Dal punto di vista psicologico
+				; Dal-punto-di-vista storico non si Presentava,
+				; Supera Dal-punto-di-vista dell'influenza
+
+; *** ("senza")
+(PREP-RMOD-PRIVATIVE)		; Coppie Senza figli; Nuclei Senza zii
+				; Tentato Senza successo
+				; E' contagioso Senza mostrare i segni
+
+; *** (entita' testa proprieta' dell'entita' dipendente)
+(PREP-RMOD-PROPERTYOWNER)	; Solidità Dello stato
+				; Capacita' di reazione Del mercato
+				; Struttura De-il partito
+				; Nomi Di viezzoli e di
+				; Ostinazione Di andreotti
+				; Tasso Di sconto
+				; Coefficienti Di aggiornamento
+				; nel fosco Chiarore Dell'alba
+				; Orario Del treno
+				; il Valore Del suolo
+
+; *** (motivazione o causa)
+(PREP-RMOD-REASONCAUSE)		; l'Incriminazione Per responsabilità nelle violenze
+				; Accorsi Di propria iniziativa
+				; Per quanto posso vedere, la ddr e' ...
+				; Da quanto abbiamo Vissuto e visto 
+				; Morire Di paura
+				; Sara' costretto a ... Per la squalifica ...
+				; squalifica Rimediata A-causa-del gesto
+				; Allarmar-si Alla vista di ... 
+				; Perduto Grazie a lui
+				; sono Perseguite Per le proprie idee
+
+; *** ("secondo", opinione)
+(PREP-RMOD-RELATTO)		; Secondo cui avrebbe Rilasciato
+				; è Stato un orso o un toro, A seconda dei punti di vista
+				; Secondo me, è Andato via
+
+; *** (ruolo ricoperto in qualcosa)
+(PREP-RMOD-ROLEIN)		; il Leader incontrastato Della IG Metall
+				; il Capo Dell'esecutivo
+				; che, Come leggera staffetta Apre il programma
+
+; *** (situazione)
+(PREP-RMOD-SITUATION)		; si Presentava In contraddizione con
+				; qualche preoccupazione è Spuntata Alla vista di
+				; le Vittorie Nei rally
+				; Visto Nel ruolo di
+				; Rappresentata da ..., Col tifoso avversario visto
+				; e Al primo dribbling Riconquisterà napoli
+				; Quanto alle possibilità ..., Occorrerà ...
+				; Sta lì Con la Banca d'Italia che interviene
+				; il vicino In tal caso Deve pagare
+
+; *** (fonte, sorgente)
+(PREP-RMOD-SOURCE)		; c'è un elemento che Rimane Dalla lettura di
+				; i siluri Piovuti Da de mita
+
+; *** (testa sottoinsieme dell'insieme dipendente)
+(PREP-RMOD-SUBCLASS)  		; Categoria Di professionisti
+				; Compagni D'arme
+				; Tipi Di rhum
+				; la Varietà Delle coordinazioni
+				; Livelli Di descrizione grammaticale
+				; Studentessa In lettere
+				; Forme Di impiego
+
+; *** (testa indicante spartizione nell'insieme dipendente)
+(PREP-RMOD-SUBDIVISION)  	; Divisione dei posti Tra ina e inps
+
+; *** ("riguardo a", dipendente tema azione della testa)
+(PREP-RMOD-THEME)		; Soluzione in vista Per il problema
+				; Speranze Per le riforme
+				; Modifiche Per la struttura
+				; Contatto Con degli sconosciuti
+				; Parentela Con le monoposto
+				; Preferenza Verso i viaggi
+				; Ragioni Di flessibilità
+				; Voci Di un possibile riallineamento
+				; Mondo Del cinema
+				; lo Stendardo Di santa margherita
+				; Elementi Di diversità
+				; Fonte Di ricchezza
+				; Libere Da contesto
+				; Sorgenti Di conoscenza
+				; Posizioni Di potere
+				; Atti Di un convegno
+				; Sociologia Della famiglia
+				; Libertà Di stampa
+				; la Volta Del ministro degli esteri
+                        	; Esigenze di sicurezza
+				; Richiama l'attenzione Sul nodo ...
+				; Dimensionando-lo Alla possibilita' di ...
+				; Invocherà una vetrina Per questa automobile
+				; Insiste Con questo ritornello
+				; Isolare Da
+
+; *** (temporale)
+(PREP-RMOD-TIME 		; voto di domenica
+				; polemiche dei giorni scorsi
+				; Fino a ieri non si Comprava
+				; Sono-in-corso Da giovedi'
+				; Questa mattina Prenderà provvedimenti
+				; coloro che Vengono Dopo ... 
+				; e' Atteso Nelle prossime ore
+				; Accorsi Dopo aver visto la televisione
+				; Alle 12 Vedo gli albergatori
+   (PREP-RMOD-TIME+APPROX PREP-RMOD-TIME+DATE PREP-RMOD-TIME+DAY 
+    PREP-RMOD-TIME+DAYTIME PREP-RMOD-TIME+DIST PREP-RMOD-TIME+DISTRIB
+    PREP-RMOD-TIME+DUR PREP-RMOD-TIME+OF PREP-RMOD-TIME+FROM
+    PREP-RMOD-TIME+MONTH PREP-RMOD-TIME+YEAR))
+
+; ***a (temporale con specificazione approssimata)
+(PREP-RMOD-TIME+APPROX)		; è Rientrata Verso le 18
+
+; *** (temporale con specificazione data assoluta)
+(PREP-RMOD-TIME+DATE) 		; Sfida Del 1992; Febbraio Del 1998
+
+; *** (temporale con spec. del giorno)
+(PREP-RMOD-TIME+DAY)		; dalle Nove Di domani
+
+; *** (temporale con spec. parte/ora del giorno)
+(PREP-RMOD-TIME+DAYTIME)	; dalle Nove Del mattino
+
+; *** (distanza temporale)
+(PREP-RMOD-TIME+DIST) 		; Rimandare la sfida Tra 15 giorni
+				; Sono in corso Da giovedì
+
+; *** (distribuzione temporale)
+(PREP-RMOD-TIME+DISTRIB) 	; il 50% All'anno
+
+; *** (durata temporale, "per quanto tempo?")
+(PREP-RMOD-TIME+DUR)		; Per sei ore hanno Tentato di ...
+				; Per oltre un anno ha Portato a ...
+
+; *** (temporale: inizio di un evento)
+(PREP-RMOD-TIME+FROM)		; ha effetto DAL giorno in cui
+
+; *** (temporale: tempo di un evento)
+(PREP-RMOD-TIME+OF)		; secondo centenario Della morte
+				; data Della partenza
+
+; *** (temporale con spec. di mese)
+(PREP-RMOD-TIME+MONTH)		; il Nove Dello scorso novembre
+
+; *** (temporale con spec. di anno)
+(PREP-RMOD-TIME+YEAR)		; il Nove novembre Dello scorso anno
+
+; *** ("insieme con", "assieme a")
+(PREP-RMOD-TOGETHER)		; Danzato Col demonio
+				; Fece la civetta Col compare
+				; prima di Fare i conti Col padrone
+
+; *** (come THEME, ma piu' circoscritto, definito)
+(PREP-RMOD-TOPIC)		; Giudizio Sulla situazione
+				; Seminario Sul tema
+				; Salone Dell'automobile
+				; dal Punto di vista Della rappresentazione sintattica
+
+; *** (mezzo di trasporto)
+(PREP-RMOD-TRANSPMEANS) 	; Partito ... In aereo
+				; Giunto In aereo a nagoia
+
+; *** (specifica di tipo dell'entita' testa)
+(PREP-RMOD-TYPE) 		; uno Sviluppo Di tipo ungherese
+				; il Metodo Di base
+				; un Disegno Di retroguardia
+				; Batman In versione inglese
+				; Titoli A largo mercato
+                        	; Scommessa Ad alto rischio
+                        	; Difetti Di organizzazione
+
+; *** (valore in denaro dell'entita' testa)
+(PREP-RMOD-VALUE) 		; un Anello Da 3 milioni
+				; si Comprava Per meno di dieci milioni
+				; Vestiti da batman A 320 dollari il costume
+
+; *** (cio' che si indossa)
+(PREP-RMOD-WEAR)		; Profugo In giacca e cravatta
+                        	; Uomini armati In abiti civili
+
+; *** (oggetto testa parte di oggetto dipendente)
+(PREP-RMOD-WHOLEOBJ)		; la Percentuale Dei nuclei
+				; Finestra Della sua bella casa
+				; Selciato Della v strada
+				; ogni Parte D'italia
+				; il Testo Del ddl 
+				; l'ho fatto come Parte Della mia missione
+				; la Colonna sonora Di
+				; la Faccia Dell'onorevole
+				; i Sassi infuocati Delle viottole
+				; le Stoppie riarse Dei campi immensi
+				; l'Inizio Delle indagini
+
+; *** (locuzione)
+(PREP-RMOD*LOCUT)		; non ho mai visto una Cosa Del genere
+
+; *** ("condizione")
+(PREP+COND-RMOD)		; E' valida, Previo avviso di garanzia
+
+; *** (superlativo relativo)
+(PREP+SUPERLREL-RMOD)		; la Parola piu' radicale Della perestroika
+
+; *** (modificatore che è un pronome) *************************************
+(PRON-RMOD 			; i Cui Impiegati
+    (PRON-RMOD-LOC PRON-RMOD-PARTITIVE PRON-RMOD-TIME PRON+QUANTIF-RMOD
+     PRON-RMOD*LOCUT))
+
+; *** (locativo)
+(PRON-RMOD-LOC			; a graz Dove le assise ... Sono in corso
+    (PRON-RMOD-LOC+METAPH))
+
+; *** (particelle 'ci','vi' metaforiche)
+(PRON-RMOD-LOC+METAPH)		; C'E molto da riflettere
+				; Ci Sono molte cose da dire
+
+; *** (partitivi)
+(PRON-RMOD-PARTITIVE)     	; se Ne vedano Molti (con traccia di Ne su Molti)
+
+; *** (di tempo; per le tracce)
+(PRON-RMOD-TIME)		; da quando li ha Raccolti T
+
+; *** (di quantificazione)
+(PRON+QUANTIF-RMOD)		; Missoni li ha Raccolti Tutti
+
+; *** (locuzione)
+(PRON-RMOD*LOCUT)		; Me La Sono vista brutta
+
+; *** (modificatore che è un verbo) ***************************************
+(VERB-RMOD
+   (VERB-RMOD+RELCL
+
+    VERB+FIN-RMOD VERB+INF-RMOD))
+
+; *** (relativa standard)
+(VERB-RMOD+RELCL		; Banchieri che si Schiantavano
+				; ho cenato Dove mi avevi Consigliato
+   (VERB-RMOD+RELCL+REDUC))
+
+; *** (relativa ridotta)
+(VERB-RMOD+RELCL+REDUC)		; Sinfonie Registrate da toscanini
+				; un Orso Sbadigliante
+
+; *** (subordinate esplicite)
+(VERB+FIN-RMOD
+   (VERB+FIN-RMOD-CONJTEXT VERB+FIN-RMOD-GOAL VERB+FIN-RMOD-LOC
+    VERB+FIN-RMOD-REASONCAUSE VERB+FIN-RMOD-SITDESCR VERB+FIN-RMOD-TIME
+
+    VERB+FIN+COMPAR-RMOD VERB+FIN+CONCESS-RMOD VERB+FIN+COND-RMOD
+    VERB+FIN+CONSEQ-RMOD VERB+FIN+CORRELAT-RMOD))
+
+; *** (congiunzione di tipo testuale, spesso incisi)
+(VERB+FIN-RMOD-CONJTEXT) 	; ... Come visto sopra, l'analisi non E' certa
+
+; *** (subordinata che esprime scopo)
+(VERB+FIN-RMOD-GOAL) 		; le caratteristiche che Sono essenziali Affinchè ...
+
+; *** (subordinata che esprime luogo)
+(VERB+FIN-RMOD-LOC) 		; mi Ronzano attorno Dovunque metta piede
+
+; *** (motivaz., causa, NO goal)
+(VERB+FIN-RMOD-REASONCAUSE) 	; Ho il coraggio ... Perche' non ho nulla ...
+				; Devono aiutarci Perche' da soli non ...
+				; Visti esclusi ... Perche' la loro nomina ...
+				; Considerata scorretta In quanto ...
+
+; *** (descrizione di situazione)
+(VERB+FIN-RMOD-SITDESCR)	; era un Pezzo Che non vi vedevo
+				; Ora Che ho visto la mia vecchia
+				; la Notizia Che nella notte erano arrivati i compagni
+				; e i seminati Alti, Che i mezzadri si godevano la vista
+				; si chiamano luci, quando permettono di
+
+; *** (subordinata temporale)
+(VERB+FIN-RMOD-TIME)		; non abbiamo Goduto Quando abbiamo visto ...
+
+; *** (subordinata comparativa)
+(VERB+FIN+COMPAR-RMOD)		; Come i saggi fanno ... così noi Dobbiamo ...
+
+; *** (subordinata concessiva)
+(VERB+FIN+CONCESS-RMOD)		; non abbiamo Goduto Quando abbiamo visto ...
+
+; *** (subordinata condizionale)
+(VERB+FIN+COND-RMOD) 		; Se ho fatto qualcosa ... l'ho Fatto ...
+				; Ma Se e' vero che ... non si Vede
+
+; *** (subordinata consequenziale)
+(VERB+FIN+CONSEQ-RMOD)		; Per cui mobili alti appaiono
+
+; *** (subordinata di similitudine)
+(VERB+FIN+CORRELAT-RMOD) 	; Veder-lo cosi' Come gli era apparso
+				; Rappresenta le frasi Come composte da ...
+
+; *** (subordinate implicite)
+(VERB+INF-RMOD			; i Mutamenti Da apportare
+				; non hanno Altro Da fare
+				; Uscire Reggendo in mano
+				; Procedere a ..., Dimensionando-lo
+				; il foglio ufficiale ... Vedendo salire ... Dedica ...
+   (VERB+INF-RMOD-MEANSMANNER VERB+INF-RMOD-REASONCAUSE VERB+INF-RMOD-SITDESCR
+    VERB+INF-RMOD-MOD VERB+INF-RMOD-THEME VERB+INF-RMOD-TIME VERB+INF-RMOD-GOAL
+
+    VERB+INF-RMODPRED
+
+    VERB+INF+COND-RMOD))
+
+; *** (mezzo, modo/maniera)
+(VERB+INF-RMOD-MEANSMANNER) 	; Usando un test piu' raffinato, si e' Visto
+				; Drammatizzando la sit. ..., si Da' vita a ...
+				; Imponendoti le mani egli Vuole sottolineare
+				; non Trovano marito neanche A regalarle
+				; Rompersi la schiena A zappare
+
+; *** (motivaz., causa, "dal momento che", "poiche'")
+(VERB+INF-RMOD-REASONCAUSE) 	; un tradimento ... Pericoloso, Visto che
+				; risultati Scontati, Visto che
+				; non ha mai Trovato ... Vista la difficolta'
+				; Scommettono sulle ... Viste le gravi ferite
+				; Serve Per pagare
+
+; *** (descrizione di situazione)
+(VERB+INF-RMOD-SITDESCR)	; col Pretesto Di governare il pollaio
+				; il Tempo Per inserirsi
+
+; *** (tema)
+(VERB+INF-RMOD-THEME) 		; Coraggio Di dire
+				; Avevano tutte le ragioni Di condannare la schiavitù;
+
+; *** ('mentre')
+(VERB+INF-RMOD-TIME) 		; Parlando della situazione, ha Detto
+
+; *** (subordinata predicativa)
+(VERB+INF-RMODPRED) 		; uno lo Vide Volare
+				; si e' Vista Costretta a ... 
+				; Vedendo Salire
+
+; *** (modificatori predicativi) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+(RMODPRED
+  (VERB+INF-RMODPRED ADJC-RMODPRED PREP-RMODPRED PRON-RMODPRED))
+
+; *** (modificatore predicativo che è un verbo all'infinito) ***************
+(VERB+INF-RMODPRED 
+   (VERB+INF-RMODPRED+SUBJ VERB+INF-RMODPRED+OBJ))
+
+(VERB+INF-RMODPRED+SUBJ)	; la polizia è Scomparsa, Rintanata nelle caserme
+				; Tornò Terrorizzato
+
+(VERB+INF-RMODPRED+OBJ)		; Passandosi la bara in spalla, Avvolta in un drappo
+				; glielo avevavo Visto Nascosto sotto il letto.
+
+; *** (modificatore predicativo che è un aggettivo) ************************
+(ADJC-RMODPRED
+   (ADJC-RMODPRED+SUBJ ADJC-RMODPRED+OBJ ADJC-RMODPRED*LOCUT))
+
+(ADJC-RMODPRED+SUBJ)		; gli era Apparso a bahia, Luminoso
+
+(ADJC-RMODPRED+OBJ)		; la Vedevano passare, Sola come una cagnaccia
+				; la Vedeva tornare dai campi, Pallida e muta
+
+(ADJC-RMODPRED*LOCUT)		; aveva Tenuto Duro
+
+; *** (modificatore predicativo che è una preposizione) *********************
+(PREP-RMODPRED
+   (PREP-RMODPRED+SUBJ PREP-RMODPRED+OBJ))
+
+(PREP-RMODPRED+SUBJ)		; gli Andò incontro Con le mani piene di manipoli
+
+(PREP-RMODPRED+OBJ)		; la classifica Vedeva In testa sacharov
+				; Eccole lì, Con le vernici luccicanti
+
+; *** (modificatore predicativo che è un pronome) *********************
+(PRON-RMODPRED
+   (PRON-RMODPRED+SUBJ))
+
+(PRON-RMODPRED+SUBJ)		; i connazionali Sono quasi Tutti concentrati
+
+; *** (modificatore non restrittivo di un nome) *****************************
+(APPOSITION
+   (NUM-APPOSITION NOUN-APPOSITION APPOSITION-DENOM))
+	 	; Strategia di alleanze operative, Strategia che ...
+		; Sacche di popolazione, Vedi i tossici ...
+
+; *** (modificatore appositivo che è un numero) *****************************
+(NUM-APPOSITION
+   (NUM-APPOSITION-AGE NUM-APPOSITION-DENOM))
+
+; *** (modificatore appositivo che è un numero) *****************************
+(NUM-APPOSITION-AGE)		; Artur rustemi, 30 anni
+				; Alessandro noccioli, 19 anni
+
+(NUM-APPOSITION-DENOM)		; rivoluzionario degli anni 20
+				; servizi a Pag. 14
+
+; *** (modificatore appositivo che è un nome) *******************************
+(NOUN-APPOSITION
+   (NOUN-APPOSITION-DENOM NOUN-APPOSITION-VOCATIVE NOUN-APPOSITION-VERBAL))
+
+(NOUN-APPOSITION-DENOM)		; del Cancelliere Vranitzsky
+				; Ministro della p.i. Sergio mattarella
+
+; *** (modificatore appositivo di un'evento)
+(NOUN-APPOSITION-VOCATIVE)		; ha ucciso 10 civili, cosa che non stupisce
+
+; *** (altri modificatori appositivi di denominazione - es. titoli)
+   ;   Il concorso "Prendere o lasciare"
+(APPOSITION-DENOM)
+
+; $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;     DA QUI IN POI, RIMASTI FUORI
+; $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+; *** (relativa comparativa)
+; (RELCL-COMPAR)		; un Esercito ... Quale il mondo non aveva mai visto prima
+

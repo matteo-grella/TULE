@@ -1,0 +1,66 @@
+; ************************************************************************
+; *** in this file, definition of the 'preposizioni articolate' (prep+art
+;     forms). They are simply added to the 'inverdef' property of the
+;     corresponding form.
+(mapcar 
+
+#'(lambda (x) (add-prop-val (first x) 'prepartdef (second x)))
+
+'((ai ((a cat prep type mono) (il cat art type def gender m number pl)))
+  (al ((a cat prep type mono) (il cat art type def gender m number sing)))
+  (alla ((a cat prep type mono) (il cat art type def gender f number sing)))
+  (alle ((a cat prep type mono) (il cat art type def gender f number pl)))
+  (agli ((a cat prep type mono) (il cat art type def gender m number pl)))
+  (allo ((a cat prep type mono) (il cat art type def gender m number sing)))
+  (|all'| ((a cat prep type mono) (il cat art type def gender f number sing)))
+  (|all'| ((a cat prep type mono) (il cat art type def gender m number sing)))
+
+  (coi ((con cat prep type mono) (il cat art type def gender m number pl)))
+  (col ((con cat prep type mono) (il cat art type def gender m number sing)))
+  (colla ((con cat prep type mono) (il cat art type def gender f number sing)))
+  (colle ((con cat prep type mono) (il cat art type def gender f number pl)))
+  (cogli ((con cat prep type mono) (il cat art type def gender m number pl)))
+  (collo ((con cat prep type mono) (il cat art type def gender m number sing)))
+  (|coll'| ((con cat prep type mono) (il cat art type def gender f number sing)))
+  (|coll'| ((con cat prep type mono) (il cat art type def gender m number sing)))
+
+  (dai ((da cat prep type mono) (il cat art type def gender m number pl)))
+  (dal ((da cat prep type mono) (il cat art type def gender m number sing)))
+  (dalla ((da cat prep type mono) (il cat art type def gender f number sing)))
+  (dalle ((da cat prep type mono) (il cat art type def gender f number pl)))
+  (dagli ((da cat prep type mono) (il cat art type def gender m number pl)))
+  (dallo ((da cat prep type mono) (il cat art type def gender m number sing)))
+  (|dall'| ((da cat prep type mono) (il cat art type def gender f number sing)))
+  (|dall'| ((da cat prep type mono) (il cat art type def gender m number sing)))
+
+  (dei ((di cat prep type mono) (il cat art type def gender m number pl)))
+  (del ((di cat prep type mono) (il cat art type def gender m number sing)))
+  (della ((di cat prep type mono) (il cat art type def gender f number sing)))
+  (delle ((di cat prep type mono) (il cat art type def gender f number pl)))
+  (degli ((di cat prep type mono) (il cat art type def gender m number pl)))
+  (dello ((di cat prep type mono) (il cat art type def gender m number sing)))
+  (|dell'| ((di cat prep type mono) (il cat art type def gender f number sing)))
+  (|dell'| ((di cat prep type mono) (il cat art type def gender m number sing)))
+
+  (nei ((in cat prep type mono) (il cat art type def gender m number pl)))
+  (nel ((in cat prep type mono) (il cat art type def gender m number sing)))
+  (nella ((in cat prep type mono) (il cat art type def gender f number sing)))
+  (nelle ((in cat prep type mono) (il cat art type def gender f number pl)))
+  (negli ((in cat prep type mono) (il cat art type def gender m number pl)))
+  (nello ((in cat prep type mono) (il cat art type def gender m number sing)))
+  (|nell'| ((in cat prep type mono) (il cat art type def gender f number sing)))
+  (|nell'| ((in cat prep type mono) (il cat art type def gender m number sing)))
+
+  (pei ((per cat prep type mono) (il cat art type def gender m number pl)))
+  (pel ((per cat prep type mono) (il cat art type def gender m number sing)))
+  (sui ((su cat prep type mono) (il cat art type def gender m number pl)))
+  (sul ((su cat prep type mono) (il cat art type def gender m number sing)))
+  (sulla ((su cat prep type mono) (il cat art type def gender f number sing)))
+  (sulle ((su cat prep type mono) (il cat art type def gender f number pl)))
+  (sugli ((su cat prep type mono) (il cat art type def gender m number pl)))
+  (sullo ((su cat prep type mono) (il cat art type def gender m number sing)))
+  (|sull'| ((su cat prep type mono) (il cat art type def gender f number sing)))
+  (|sull'| ((su cat prep type mono) (il cat art type def gender m number sing)))
+		))
+
+

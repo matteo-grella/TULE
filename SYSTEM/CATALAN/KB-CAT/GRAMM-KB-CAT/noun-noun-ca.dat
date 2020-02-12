@@ -1,0 +1,3 @@
+; *** in this file noun-noun modifications admitted in Italian
+(setq *NOUN-NOUN* nil)
+

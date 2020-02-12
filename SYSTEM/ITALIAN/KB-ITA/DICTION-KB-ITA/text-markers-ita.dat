@@ -1,0 +1,66 @@
+(in-package "USER")
+
+; *** Questo file contiene sequenze che possono essere considerate come
+;     "simboli di formattazione" del testo. Possono essere, in linea di
+;     principio, comandi Latex o Html.
+;     Per ora, ci sono gli indicatori di testo trovati nei file di
+;     articoli giornalistici.
+; *** I dati sono rappresentati in forma di albero and-or. Il primo livello di
+;     parentesi rappresenta un or e poi, ogni livello successivo e' una
+;     alternanza di and e di or.
+; *** Nel nostro caso, abbiamo che un marker di testo e' costituito da
+;     il simbolo < and (seguito da):
+;     - o il carattere T seguito da "Articolo" o "Occhiello o ecc.
+;     - o il carattere P seguito da "Prosa" o "Domanda" o ecc.
+;     - ...
+;     i quali, a loro volta, sono seguiti dal carattere >.
+; *** Il doppio asterisco (|**|) e' usato per indicare un "or" intensionale
+;     e cioe' non dato come elenco di alternative
+(setq *MARKERS*
+    '((" < " 
+       ((" T "
+	 (" Articolo " " Occhiello " " Titolo " " Sottotitolo " " Lettera "
+	  " Sommario " " Notizia " " Agenzia " " Critica " " Catenaccio "
+	  " Risposta " " Riassunto ")
+	 " > ")
+        (" P "
+	 (" Prosa " " Domanda " " Citazione " " Discorso " " Risposta "
+	  " Lettera ")
+	 " > ")
+        (" Z "
+	 (|**| cat noun proper yes)
+	 " > ")
+        (" E " 
+	 (|**| cat num)
+	 " > ")
+        (" S "
+	 ((" Estero " " > ")
+          (" Spettacolo " " > ")
+          (" Mondo " " > ")
+          (" Spettacoli " " > ")
+          (" Motori "" > ")
+	  (" Economia " " > ")
+          (" Commenti " " > ")
+          (" Cronaca " " > ")
+          (" Cronache " " Italiane " " > ")
+          (" Pagina " " Prima " " > ")))
+        (" A "
+	 ((" firmato " " > ")
+	  (" Non " " firmato " " > ")
+	  (" Redazione " " > ")))
+        (" N "
+	 (|**| cat noun proper yes)
+	 (|**| cat noun proper yes)
+	 " > ")
+        (" C "
+	 (" TAA13 " " TAA04 " " TAA05 " " TAB31 " " AP35 " " APB22 " " SPB08 "
+	  " TAB24 " " TAB19 " " BAA11 " " SP10 " " APB10 " " SP31 " " AP17 "
+          " AP11 " " AP31 " " APB01 ")
+	 " > ")
+        (" G "
+	 (" Engl " " Ital ")
+	 " > ")))
+      (" [ " 
+       ((" J " (" = " (" sol ")))
+        (" M " (" = " (" gen ")))))
+	))

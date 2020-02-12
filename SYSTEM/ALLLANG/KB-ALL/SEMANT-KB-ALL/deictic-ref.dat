@@ -1,0 +1,12 @@
+; *** In this file, the default deictic reference of some terms;
+;     Currently, the only example is "the city", which is fixed to "Torino".
+;     This should be made context-dependent; if HOPS is used in Barcelona, then
+;     "the city" should refer to Barcelona!
+(setq *DEICTIC-REFERENCE*
+   '(
+      (££city £Torino)
+      (££moment £now)
+      (££day-descr %neutral)
+          ; *** the previous one is for "this monday",  "this saturday",
+          ;     where "this monday" is interpreted the same as "monday"
+    ))

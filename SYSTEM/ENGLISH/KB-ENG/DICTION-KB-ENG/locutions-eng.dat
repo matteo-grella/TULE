@@ -1,0 +1,185 @@
+(in-package "USER")
+
+; **************************************************************************
+; *** the locutions in this file are of two types: fixed and flexible.
+;     - fixed: they are sequences of words that are not subject to morphological
+;              analysis, and that are strictly adjacent to each other
+;     - flexible: as above, but with the possibility of morphological variations.
+;              ex "conferenza stampa" --> "conferenze stampa"
+;                 "da solo" --> "da soli"
+;     They are stored as pairs <form infos>, but in a single sequence, so the
+;     actual internal structure is <form1 infos1 form2 infos2 .... formN infosN>
+; *** the sequences are linked via a double mechanism:
+;     1. The "normalized form" must be the same for all component forms (as
+;        "of_course" in the following example:
+;             ( ...
+;               of      <of_course ...>
+;               course  <of_course ...>
+;               ... )
+;     2. The "root", "next", "prev" features in the "infos", which implement
+;        a doubly-linked list structure
+;             ( ...
+;               of      <.. prev nil root of next course ...>
+;               course  <.. prev or root course next nil ...>
+;               ... )
+; *** In general, the organization of each info-i is as follows:
+;     ( info-locut-1 info-locut-2 ... info-locut-N )
+;     This is due to the fact that eac form can belong to more than one locution
+;     In its turn, each info-locut-i includes the following:
+;     ( normalized-form CAT category TYPE synt-type LOCUT YES LOCTYPE fixed/flex
+;          PREV prev-form ROOT this-form NEXT next-form other-syntinfo)
+
+; ----------------------- List of locutions -------------
+; a_posteriori
+; a_priori
+; according_to
+; ad_hoc
+; all_the_more
+; all_too
+; as_soon_as
+; as_soon_as_possible
+; as_well_as
+; at_any_rate
+; at_best
+; because_of
+; by_and_out
+; by_means_of
+; by_no_means
+; by_no_way
+; drinking_water
+; due_to
+; electrical_appliances
+; for_example
+; if_and_only_if
+; in_case
+; in_front_of
+; in_full
+; in_general
+; in_one_way_or_other
+; in_order_to
+; in_particular
+; in_the_light_of
+; inter_alia
+; interest_rate
+; ipso_facto
+; more_and_more
+; of_course
+; settembre_musica
+; so_that
+; that_is
+; ticket_counter
+; whether_or_not
+; ---------------------------------------------------------------
+
+(loadinvar 'locutdef
+'(
+  |a| ((a_posteriori cat adj type qualif locut yes root a loctype fixed prev nil next posteriori)
+       (a_priori cat adj type qualif locut yes root a loctype fixed prev nil next priori))
+  |according| ((according_to cat prep type poli locut yes root according loctype fixed prev nil next to))
+  |ad| ((ad_hoc cat adj type qualif locut yes root ad loctype fixed prev nil next hoc))
+  |alia| ((inter_alia cat adv type manner locut yes root alia loctype fixed prev inter next nil))
+  |all| ((all_the_more cat adv type compar locut yes root all loctype fixed prev nil next the)
+         (all_too cat adv type quant locut yes root all loctype fixed prev nil next too))
+  |agenda| ((cultural_agenda cat noun classe (0) gender n number sing locut yes root agenda loctype fixed prev cultural next nil))
+  |and| ((by_and_out cat prep type poli locut yes root and loctype fixed prev by next out)
+         (if_and_only_if cat conj type subord semtype cond locut yes root and loctype fixed prev if1 next only)
+         (more_and_more cat adv type compar locut yes root and loctype fixed prev more1 next more2))
+  |any| ((at_any_rate cat adv type interj locut yes root any loctype fixed prev at next rate))
+  |appliances| ((electrical_appliance cat noun classe (0) gender n number pl locut yes root appliances loctype fixed prev electrical next nil))
+  |as| ((as_soon_as cat conj type subord semtype time locut yes root as1 loctype fixed prev nil next soon)
+        (as_soon_as cat conj type subord semtype time locut yes root as2 loctype fixed prev soon next nil)
+        (as_soon_as_possible cat adv type time locut yes root as1 loctype fixed prev nil next soon)
+        (as_soon_as_possible cat adv type time locut yes root as2 loctype fixed prev soon next possible)
+        (as_well_as cat conj type coord semtype coord locut yes root as1 loctype fixed prev nil next well)
+        (as_well_as cat conj type coord semtype coord locut yes root as2 loctype fixed prev well next nil)
+        (such_as cat prep type poli semtype compar locut yes root as loctype fixed prev such next nil))
+  |at| ((at_best cat adv type manner locut yes root at loctype fixed prev nil next best)
+        (at_any_rate cat adv type interj locut yes root at loctype fixed prev nil next any))
+  |because| ((because_of cat prep type poli locut yes root because loctype fixed prev nil next of))
+  |best| ((at_best cat adv type manner locut yes root best loctype fixed prev at next nil))
+  |by| ((by_and_out cat prep type poli locut yes root by loctype fixed prev nil next and)
+        (by_means_of cat prep type poli locut yes root by loctype fixed prev nil next means)
+        (by_no_means cat adv type neg locut yes root by loctype fixed prev nil next no)
+        (by_no_way cat adv type neg locut yes root by loctype fixed prev nil next no))
+  |case| ((in_case cat conj type subord semtype cond locut yes root case loctype fixed prev in next nil))
+  |collection| ((large_things_collection cat noun classe (0) gender n number sing locut yes root collection loctype fixed prev things next nil))
+  |counter| ((ticket_counter cat noun classe (0) gender m number sing locut yes root counter loctype fixed prev ticket next nil))
+  |course| ((of_course cat adv type manner locut yes root course loctype fixed prev of next nil))
+  |cultural| ((cultural_agenda cat noun classe (0) gender n number sing locut yes root cultural loctype fixed prev nil next agenda))
+  |drinking| ((drinking_water cat noun locut yes root drinking loctype flex prev nil next water))
+  |due| ((due_to cat prep type poli locut yes root due loctype fixed prev nil next to))
+  |electrical| ((electrical_appliance cat noun classe (0) gender n number pl locut yes root electrical loctype fixed prev nil next appliances))
+  |example| ((for_example cat adv type interj locut yes root example loctype fixed prev for next nil))
+  |facto| ((ipso_facto cat adv type manner locut yes root facto loctype fixed prev ipso next nil))
+  |for| ((for_example cat adv type interj locut yes root for loctype fixed prev nil next example))
+  |front| ((in_front_of cat prep type poli locut yes root front loctype fixed prev in next of))
+  |full| ((in_full cat adv type manner locut yes root full loctype fixed prev in next nil))
+  |general| ((in_general cat adv type manner locut yes root general loctype fixed prev in next nil))
+  |hoc| ((ad_hoc cat adj type qualif locut yes root hoc loctype fixed prev ad next nil))
+  |if| ((if_and_only_if cat conj type subord semtype cond locut yes root if1 loctype fixed prev nil next and)
+        (if_and_only_if cat conj type subord semtype cond locut yes root if2 loctype fixed prev only next nil))
+  |in| ((in_case cat conj type subord semtype cond locut yes root in loctype fixed prev nil next case)
+        (in_front_of cat prep type poli locut yes root in loctype fixed prev nil next front)
+        (in_full cat adv type manner locut yes root in loctype fixed prev nil next full)
+        (in_general cat adv type manner locut yes root in loctype fixed prev nil next general)
+        (in_one_way_or_other cat adv type manner locut yes root in loctype fixed prev nil next one)
+        (in_order_to cat conj type subord semtype goal locut yes root in loctype fixed prev nil next order)
+        (in_toto cat adv type manner locut yes root in loctype fixed prev nil next toto)
+        (in_particular cat adv type manner locut yes root in loctype fixed prev nil next particular)
+        (in_the_light_of cat prep type poli locut yes root in loctype fixed prev nil next the))
+  |inter| ((inter_alia cat adv type manner locut yes root inter loctype fixed prev nil next alia))
+  |interest| ((interest_rate cat noun classe (0) gender n number sing locut yes root interest loctype flex prev nil next rate))
+  |ipso| ((ipso_facto cat adv type manner locut yes root ipso loctype fixed prev nil next facto))
+  |is| ((that_is cat adv type explic locut yes root is loctype fixed prev that next nil))
+  |large| ((large_things_collection cat noun classe (0) gender n number sing locut yes root large loctype fixed prev nil next things))
+  |light| ((in_the_light_of cat prep type poli locut yes root light loctype fixed prev the next of))
+  |means| ((by_means_of cat prep type poli locut yes root means loctype fixed prev by next of)
+           (by_no_means cat adv type neg locut yes root means loctype fixed prev no next nil))
+  |more| ((all_the_more cat adv type compar locut yes root more loctype fixed prev the next nil)
+          (more_and_more cat adv type compar locut yes root more1 loctype fixed prev nil next and)
+          (more_and_more cat adv type compar locut yes root more2 loctype fixed prev and next nil))
+  |musica| ((settembre_musica cat noun locut yes gender m number sing root musica loctype fixed prev settembre next nil))
+  |no| ((by_no_means cat adv type neg locut yes root no loctype fixed prev by next means)
+        (by_no_way cat adv type neg locut yes root no loctype fixed prev by next way))
+  |not| ((whether_or_not cat conj type subord semtype doubt locut yes root not loctype fixed prev or next nil))
+  |of| ((of_course cat adv type manner locut yes root of loctype fixed prev nil next course)
+        (because_of cat prep type poli locut yes root of loctype fixed prev because next nil)
+        (by_means_of cat prep type poli locut yes root of loctype fixed prev means next nil)
+        (in_front_of cat prep type poli locut yes root of loctype fixed prev front next nil)
+        (in_the_light_of cat prep type poli locut yes root of loctype fixed prev light next nil))
+  |one| ((in_one_way_or_other cat adv type manner locut yes root one loctype fixed prev in next way))
+  |only| ((if_and_only_if cat conj type subord semtype cond locut yes root only loctype fixed prev and next if2))
+  |or| ((whether_or_not cat conj type subord semtype doubt locut yes root or loctype fixed prev whether next not)
+        (in_one_way_or_other cat adv type manner locut yes root or loctype fixed prev way next other))
+  |order| ((in_order_to cat conj type subord semtype goal locut yes root order loctype fixed prev in next to))
+  |other| ((in_one_way_or_other cat adv type manner locut yes root other loctype fixed prev or next nil))
+  |out| ((by_and_out cat prep type poli locut yes root out loctype fixed prev and next nil))
+  |particular|  ((in_particular cat adv type manner locut yes root particular loctype fixed prev in next nil))
+  |possible| ((as_soon_as_possible cat adv type time locut yes root possible loctype fixed prev as2 next nil))
+  |posteriori| ((a_posteriori cat adj type qualif locut yes root posteriori loctype fixed prev a next nil))
+  |priori| ((a_priori cat adj type qualif locut yes root priori loctype fixed prev a next nil))
+  |rate| ((interest_rate cat noun morphcat noun classe (3) locut yes root rate loctype flex prev interest next nil)
+          (at_any_rate cat adv type interj locut yes root rate loctype fixed prev any next nil))
+  |settembre| ((settembre_musica cat noun locut yes gender m number sing root settembre loctype fixed prev nil next musica))
+  |so| ((so_that cat conj type subord semtype concl locut yes root so loctype fixed prev nil next that))
+  |soon| ((as_soon_as_possible cat adv type time locut yes root soon loctype fixed prev as1 next as2)
+          (as_soon_as cat conj type subord semtype time locut yes root soon loctype fixed prev as1 next as2))
+  |such| ((such_as cat prep type poli semtype compar locut yes root such loctype fixed prev nil next as))
+  |that| ((so_that cat conj type subord semtype concl locut yes root that loctype fixed prev so next nil) (that_is cat adv type explic locut yes root that loctype fixed prev nil next is))
+  |the| ((in_the_light_of cat prep type poli locut yes root the loctype fixed prev in next light)
+         (all_the_more cat adv type compar locut yes root the loctype fixed prev all next more))
+  |thing| ((large_things_collection cat noun classe (0) gender n number sing locut yes root things loctype fixed prev large next collection))
+  |things| ((large_things_collection cat noun classe (0) gender n number sing locut yes root things loctype fixed prev large next collection))
+  |ticket| ((ticket_counter cat noun classe (0) gender m number sing locut yes root ticket loctype fixed prev nil next counter))
+  |to| ((in_order_to cat conj type subord semtype goal locut yes root to loctype fixed prev order next nil)
+        (according_to cat prep type poli locut yes root to loctype fixed prev according next nil)
+        (due_to cat prep type poli locut yes root to loctype fixed prev due next nil))
+  |too| ((all_too cat adv type quant locut yes root too loctype fixed prev all next nil))
+  |toto| ((in_toto cat adv type manner locut yes root toto loctype fixed prev in next nil))
+  |water| ((drinking_water cat noun morphcat noun classe (3) locut yes root water loctype flex prev drinking next nil))
+  |way| ((by_no_way cat adv type neg locut yes root way loctype fixed prev no next nil)
+         (in_one_way_or_other cat adv type manner locut yes root way loctype fixed prev one next or))
+  |well| ((as_well_as cat conj type coord semtype coord locut yes root well loctype fixed prev as1 next as2))
+  |whether| ((whether_or_not cat conj type subord semtype doubt locut yes root whether loctype fixed prev nil next or))
+				))
+

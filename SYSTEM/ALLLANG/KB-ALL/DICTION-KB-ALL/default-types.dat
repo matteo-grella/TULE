@@ -1,0 +1,11 @@
+(setq *DEFAULT-TYPES*
+  '((verb main)
+    (noun common)
+    (adj qualif)
+    (prep mono)
+    (adv manner)
+    (pron pers)))
+
+(setq *CATEG-INVAR*
+   '(adv conj num interj phras prep))
+

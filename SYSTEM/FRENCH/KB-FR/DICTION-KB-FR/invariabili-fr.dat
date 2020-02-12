@@ -1,0 +1,8 @@
+(in-package "USER")
+
+(loadinvar 'invardef
+'(
+  la ((le cat art type def classe (0) gender f number sing)
+      (le cat pron type pers classe (0) gender f number sing case (lobj)))
+	  ))
+

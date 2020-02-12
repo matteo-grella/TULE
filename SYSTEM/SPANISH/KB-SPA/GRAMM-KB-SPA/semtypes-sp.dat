@@ -1,0 +1,149 @@
+
+(in-package "USER")
+
+;************************************************************************
+; *** In this file, definition of some semantic properties
+;     of lexical items. This info should more properly be part of the KB
+;************************************************************************
+
+; *** until now in the rules there are the following semtypes: daytime, time,
+;     text, person, month, time-period, predicative, reason (for conj, 
+;     equivalent to the type reason for adverbs)
+; ***	V. gramrul-eval-arg
+; **** Currently, I define them here, but this is clearly redundant with
+;      respect to the KB
+; *** a ££ prefix means that the key is not used directly in the rules, but
+;     just through inheritance
+
+(put-semtype '(
+; ---- Times ---
+   (£weekday (monday tuesday wednesday thursday friday saturday sunday tomorrow))
+
+   (£day (dia))
+   (£month ())
+   (£season ())
+   (£daytime-period ())
+   (£time-period ())
+   (£time-adv ())
+   (£other-time-adv ())
+   (££timemeasure ())
+   (£time-limit ())
+   (£adv-conj-time ())
+; ---- Places --
+   (£place1 ())
+   (£place2 ())
+   (£place3 ())
+   (£cardin-dir ())
+   (£body-place ())
+   (£other-posit ())
+   (£tv-channel ())
+; ---- Events ----
+   (£event-situat ())
+; ---- Measures ----
+   (£money-measure ())
+   (£gen-measure ())
+   (£approx-measure ())
+   (£measure-unit ())
+; --------------
+   (£agent ())
+   (£attitude ())
+   (£auth-work (concierto))
+   (£body-part ())
+   (£change ())
+   (£clothing ())
+   (£colour ())
+   (£competition ())
+   (£container ())
+   (£employee ())
+   (£geogr (catalano polaco holandes))
+   (£goal ())
+   (£group ())
+   (£house-annex ())
+   (£house-type ())
+   (£institution ())
+   (£luggage ())
+   (£material ())
+   (£numbident ())
+   (£office ())
+   (£pers ())
+   (£pers-tract ())
+   (£perspective ())
+   (£portion ())
+   (£property ())
+   (£relation ())
+   (£role ())
+   (£title ())
+   (£situat ())
+   ; *** situation nouns governing verbs
+   (£sit-vgov ())
+   (£sport ())
+   (£status ())
+   (£type ())
+   (£vehicle ())
+   (£objectpart ())
+   (£dress ())
+; ---- conj and prep ----------
+   (£reason ())
+; ---- ADJ -----
+   (£manner-adj ())  ; per 'in positivo'
+   (£ease-adj ()) ; per 'facile da fare'
+; ---- VERB ----
+   (£communic ())
+   (£predicative ())
+    ; *** predic2 used in PARSER/chunk-parser
+   (£predic2 ())
+    ; *** predic3 used in PARSER/chunk-parser; they are the verbs that
+    ;     prefer the INDOBJ case over OBJ for first and second person
+    ;     pronouns (dim-mi, spiega-mi ...)
+   (£predic3 ())
+    ; *** interr-obj-verb used in postagger for disambiguating words as "dove"
+    ;     (where) which should be adv and not conj after these verbs
+   (£interr-obj-verb ())
+  ))
+
+(put-semsubcl '(
+   (£daytime £weekday)
+   (£daytime £day)
+   (£time-ref £daytime)
+   (£time-ref £time-period)
+   (£time-ref2 £time-ref)
+   (£time-ref2 £season)
+   (£time-period £daytime-period)
+   (£time-loc £month)
+   (£time-loc £season)
+   (£time-loc £time-period)
+   (£time-loc ££timemeasure)
+   (£time £month)
+   (£time £season)
+   (£time £time-ref)
+   (£time ££timemeasure)
+   (£time £adv-conj-time)
+   (£time £time-adv)
+   (£time-adv £other-time-adv)
+   (£gen-loc £geogr-loc)
+   (£gen-loc £container)
+   (£gen-loc £house-type)
+   (£gen-loc £house-annex)
+   (£gen-loc £place1)
+   (£gen-loc £place2)
+   (£gen-loc £place3)
+   (£gen-loc £other-posit)
+   (£gen-loc £event-situat)	; per loc metaph: si trovarono in un battesimo
+   (£geogr-loc £city)
+   (£geogr-loc £continent)
+   (£geogr-loc £state)
+   (£geogr-loc £region)
+   (£geogr-loc £cardin-dir)
+   (£attitude £pers-tract)
+   (£measure £money-measure)
+   (£measure £gen-measure)
+   (£position £place1)		; £position per la preposizione 'su'
+   (£position £place2)
+   (£position £container)
+   (£position £material)
+   (£position £house-type)
+   (£position £house-annex)
+   (£position £tv-channel)
+   (£position £other-posit)
+				))
+

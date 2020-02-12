@@ -1,0 +1,8 @@
+(in-package "USER")
+
+(setq *ADJ-GOVERN*
+ '(
+   (coherente con)  
+   (interesado en)
+   (limitado a)
+   ))

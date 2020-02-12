@@ -1,0 +1,2093 @@
+; *** This table associates with each suffix the categories, class codes, and features that it identifies
+( 
+MENTE 
+  ( 
+  ADV 
+    (1)
+  ) 
+AMENTE 
+  ( 
+  ADV 
+    (2)
+  ) 
+IAMENTE 
+  ( 
+  ADV 
+    (3)
+  ) 
+EMENTE 
+  ( 
+  ADV 
+    (4)
+  ) 
+O 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER M NUMBER SING) 
+     4 (GENDER M NUMBER SING) 
+     5 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     2 (GENDER M NUMBER SING) 
+     3 (GENDER M NUMBER SING) 
+     5 (GENDER M NUMBER SING) 
+     14 (GENDER M NUMBER SING) 
+     19 (GENDER M NUMBER SING) 
+     20 (GENDER M NUMBER SING) 
+     36 (GENDER M NUMBER SING) 
+     38 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (A (1) )
+     2 (A (1) )
+     3 (A (1) )
+     4 (A (1) )
+     6 (A (1) )
+     7 (A (1) )
+     8 (A (1) I (GENDER M NUMBER SING) )
+     10 (B (1) )
+     12 (A (1) I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+A 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER F NUMBER SING) 
+     4 (GENDER F NUMBER SING) 
+     5 (GENDER F NUMBER SING) 
+     7 (GENDER ALLVAL NUMBER SING) 
+     8 (GENDER ALLVAL NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     1 (GENDER F NUMBER SING) 
+     3 (GENDER F NUMBER SING) 
+     4 (GENDER F NUMBER SING) 
+     9 (GENDER ALLVAL NUMBER SING) 
+     12 (GENDER M NUMBER SING) 
+     14 (GENDER F NUMBER PL) 
+     15 (GENDER M NUMBER SING) 
+     16 (GENDER ALLVAL NUMBER SING) 
+     18 (GENDER F NUMBER SING) 
+     19 (GENDER F NUMBER SING) 
+     20 (GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (A (3) N (2) )
+     2 (E (1 2 3) N (3) )
+     3 (E (1 2 3) N (3) )
+     4 (A (3) N (2) )
+     7 (E (1 2 3) N (3) )
+     8 (E (1 2 3) I (GENDER F NUMBER SING) N (3) )
+     10 (B (3) )
+     12 (E (1 2 3) I (GENDER F NUMBER SING) N (3) )
+    ) 
+  ) 
+I 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER M NUMBER PL) 
+     2 (GENDER ALLVAL NUMBER PL) 
+     3 (GENDER M NUMBER PL) 
+     5 (GENDER M NUMBER PL) 
+     6 (GENDER M NUMBER PL) 
+     7 (GENDER M NUMBER PL) 
+     8 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     2 (GENDER M NUMBER PL) 
+     3 (GENDER M NUMBER PL) 
+     6 (GENDER M NUMBER PL) 
+     8 (GENDER F NUMBER PL) 
+     9 (GENDER M NUMBER PL) 
+     10 (GENDER M NUMBER PL) 
+     11 (GENDER F NUMBER PL) 
+     13 (GENDER F NUMBER PL) 
+     15 (GENDER M NUMBER PL) 
+     17 (GENDER ALLVAL NUMBER PL) 
+     18 (GENDER M NUMBER PL) 
+     19 (GENDER M NUMBER PL) 
+     36 (GENDER M NUMBER PL) 
+     37 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     1 (A (2) E (1 2 3) N (3) )
+     2 (A (2) N (2) )
+     3 (A (2) N (2) )
+     5 (A (2) E (1 2 3) N (3) )
+     6 (C (1) )
+     7 (A (2) C (1) N (2) )
+     8 (A (2) C (1) I (GENDER M NUMBER PL) N (2) )
+     10 (B (2) C (1) )
+     11 (A (2) E (1 2 3) N (3) )
+     12 (A (2) C (1) I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+E 
+  ( 
+  ADJ 
+    ( 
+     1 (GENDER F NUMBER PL) 
+     2 (GENDER ALLVAL NUMBER SING) 
+     3 (GENDER F NUMBER PL) 
+     7 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     1 (GENDER F NUMBER PL) 
+     3 (GENDER F NUMBER PL) 
+     7 (GENDER F NUMBER PL) 
+     8 (GENDER M NUMBER SING) 
+     9 (GENDER F NUMBER PL) 
+     10 (GENDER M NUMBER SING) 
+     11 (GENDER F NUMBER SING) 
+     17 (GENDER ALLVAL NUMBER SING) 
+     18 ((GENDER F NUMBER PL) (GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     2 (A (3) )
+     3 (A (3) )
+     6 (C (3) )
+     7 (A (3) C (3) )
+     8 (A (3) C (3) I (GENDER F NUMBER PL) )
+     12 (A (3) C (3) I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+IO 
+  ( 
+  ADJ 
+    ( 
+     3 (GENDER M NUMBER SING) 
+     6 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     6 (GENDER M NUMBER SING) 
+     37 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     5 (A (1) )
+     11 (A (1) )
+    ) 
+  ) 
+IA 
+  ( 
+  ADJ 
+    ( 
+     3 (GENDER F NUMBER SING) 
+     6 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     7 (GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     5 (A (3) N (2) )
+     6 (E (1 2 3) N (3) )
+     10 (E (1 2 3) N (3) )
+     11 (A (3) N (2) )
+    ) 
+  ) 
+HI 
+  ( 
+  ADJ 
+    ( 
+     4 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     5 (GENDER M NUMBER PL) 
+     12 (GENDER M NUMBER PL) 
+     16 (GENDER M NUMBER PL) 
+     20 (GENDER M NUMBER PL) 
+     38 (GENDER M NUMBER PL) 
+    ) 
+  VERB 
+    ( 
+     4 (A (2) E (1 2 3) N (3) )
+    ) 
+  ) 
+HE 
+  ( 
+  ADJ 
+    ( 
+     4 (GENDER F NUMBER PL) 
+     5 (GENDER F NUMBER PL) 
+     8 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     4 (GENDER F NUMBER PL) 
+     16 (GENDER F NUMBER PL) 
+     19 (GENDER F NUMBER PL) 
+     20 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+IE 
+  ( 
+  ADJ 
+    ( 
+     6 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     13 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+TORE 
+  ( 
+  ADJ 
+    ( 
+     9 (GENDER M NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+TRICE 
+  ( 
+  ADJ 
+    ( 
+     9 (GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+TORI 
+  ( 
+  ADJ 
+    ( 
+     9 (GENDER M NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+TRICI 
+  ( 
+  ADJ 
+    ( 
+     9 (GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     21 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+ISSIMO 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     3 (F (4) )
+     9 (F (4) )
+    ) 
+  ) 
+ISSIMA 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+ISSIMI 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ISSIME 
+  ( 
+  ADJ 
+    ( 
+     20 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+HISSIMO 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+HISSIMA 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+HISSIMI 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+HISSIME 
+  ( 
+  ADJ 
+    ( 
+     21 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+AZIONE 
+  ( 
+  NOUN 
+    ( 
+     30 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+AZIONI 
+  ( 
+  NOUN 
+    ( 
+     30 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+IZIONE 
+  ( 
+  NOUN 
+    ( 
+     31 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+IZIONI 
+  ( 
+  NOUN 
+    ( 
+     31 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+IAZIONE 
+  ( 
+  NOUN 
+    ( 
+     32 (GENDER F NUMBER SING) 
+    ) 
+  ) 
+IAZIONI 
+  ( 
+  NOUN 
+    ( 
+     32 (GENDER F NUMBER PL) 
+    ) 
+  ) 
+AMENTO 
+  ( 
+  NOUN 
+    ( 
+     33 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+AMENTI 
+  ( 
+  NOUN 
+    ( 
+     33 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+IMENTO 
+  ( 
+  NOUN 
+    ( 
+     34 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+IMENTI 
+  ( 
+  NOUN 
+    ( 
+     34 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+IAMENTO 
+  ( 
+  NOUN 
+    ( 
+     35 (GENDER M NUMBER SING) 
+    ) 
+  ) 
+IAMENTI 
+  ( 
+  NOUN 
+    ( 
+     35 (GENDER M NUMBER PL) 
+    ) 
+  ) 
+ITà 
+  ( 
+  NOUN 
+    ( 
+     40 (NUMBER ALLVAL GENDER F) 
+    ) 
+  ) 
+IETà 
+  ( 
+  NOUN 
+    ( 
+     41 (NUMBER ALLVAL GENDER F) 
+    ) 
+  ) 
+IAMO 
+  ( 
+  VERB 
+    ( 
+     1 (A (4) E (4) N (4) )
+     2 (A (4) E (4) N (4) )
+     3 (A (4) E (4) N (4) )
+     5 (A (4) E (4) N (4) )
+     6 (A (4) E (4) N (4) )
+     7 (A (4) E (4) N (4) )
+     8 (A (4) E (4) N (4) )
+     9 (A (4) E (4) N (4) )
+     10 (A (4) E (4) N (4) )
+     11 (A (4) E (4) N (4) )
+     12 (A (4) E (4) N (4) )
+    ) 
+  ) 
+ATE 
+  ( 
+  VERB 
+    ( 
+     1 (A (5) I (GENDER F NUMBER PL) N (5) )
+     4 (A (5) I (GENDER F NUMBER PL) N (5) )
+     6 (A (5) I (GENDER F NUMBER PL) N (5) )
+     10 (I (GENDER F NUMBER PL) N (5) )
+    ) 
+  ) 
+ANO 
+  ( 
+  VERB 
+    ( 
+     1 (A (6) )
+     2 (E (6) N (6) )
+     3 (E (6) N (6) )
+     4 (A (6) )
+     7 (E (6) N (6) )
+     8 (E (6) N (6) )
+     10 (B (6) )
+     12 (E (6) N (6) )
+    ) 
+  ) 
+AVO 
+  ( 
+  VERB 
+    ( 
+     1 (B (1) )
+     4 (B (1) )
+     6 (B (1) )
+    ) 
+  ) 
+AVI 
+  ( 
+  VERB 
+    ( 
+     1 (B (2) )
+     4 (B (2) )
+     6 (B (2) )
+    ) 
+  ) 
+AVA 
+  ( 
+  VERB 
+    ( 
+     1 (B (3) )
+     4 (B (3) )
+     6 (B (3) )
+    ) 
+  ) 
+AVAMO 
+  ( 
+  VERB 
+    ( 
+     1 (B (4) )
+     4 (B (4) )
+     6 (B (4) )
+     10 (B (4) )
+    ) 
+  ) 
+AVATE 
+  ( 
+  VERB 
+    ( 
+     1 (B (5) )
+     4 (B (5) )
+     6 (B (5) )
+     10 (B (5) )
+    ) 
+  ) 
+AVANO 
+  ( 
+  VERB 
+    ( 
+     1 (B (6) )
+     4 (B (6) )
+     6 (B (6) )
+    ) 
+  ) 
+AI 
+  ( 
+  VERB 
+    ( 
+     1 (C (1) )
+     4 (C (1) )
+     6 (A (2) N (2) )
+    ) 
+  ) 
+ASTI 
+  ( 
+  VERB 
+    ( 
+     1 (C (2) )
+     4 (C (2) )
+    ) 
+  ) 
+ò 
+  ( 
+  VERB 
+    ( 
+     1 (C (3) )
+     4 (C (3) )
+    ) 
+  ) 
+AMMO 
+  ( 
+  VERB 
+    ( 
+     1 (C (4) )
+     4 (C (4) )
+    ) 
+  ) 
+ASTE 
+  ( 
+  VERB 
+    ( 
+     1 (C (5) F (5) )
+     4 (C (5) F (5) )
+    ) 
+  ) 
+ARONO 
+  ( 
+  VERB 
+    ( 
+     1 (C (6) )
+     4 (C (6) )
+    ) 
+  ) 
+ERò 
+  ( 
+  VERB 
+    ( 
+     1 (D (1) )
+     2 (D (1) )
+     5 (D (1) )
+     8 (D (1) )
+    ) 
+  ) 
+ERAI 
+  ( 
+  VERB 
+    ( 
+     1 (D (2) )
+     2 (D (2) )
+     5 (D (2) )
+     8 (D (2) )
+    ) 
+  ) 
+ERà 
+  ( 
+  VERB 
+    ( 
+     1 (D (3) )
+     2 (D (3) )
+     5 (D (3) )
+     8 (D (3) )
+    ) 
+  ) 
+EREMO 
+  ( 
+  VERB 
+    ( 
+     1 (D (4) )
+     2 (D (4) )
+     5 (D (4) )
+     8 (D (4) )
+    ) 
+  ) 
+ERETE 
+  ( 
+  VERB 
+    ( 
+     1 (D (5) )
+     2 (D (5) )
+     5 (D (5) )
+     8 (D (5) )
+    ) 
+  ) 
+ERANNO 
+  ( 
+  VERB 
+    ( 
+     1 (D (6) )
+     2 (D (6) )
+     5 (D (6) )
+     8 (D (6) )
+    ) 
+  ) 
+IATE 
+  ( 
+  VERB 
+    ( 
+     1 (E (5) )
+     2 (E (5) )
+     3 (E (5) )
+     5 (A (5) E (5) I (GENDER F NUMBER PL) N (5) )
+     6 (E (5) )
+     7 (E (5) )
+     8 (E (5) )
+     9 (E (5) )
+     10 (E (5) )
+     11 (A (5) E (5) I (GENDER F NUMBER PL) N (5) )
+     12 (E (5) )
+    ) 
+  ) 
+INO 
+  ( 
+  VERB 
+    ( 
+     1 (E (6) N (6) )
+     5 (E (6) N (6) )
+     11 (E (6) N (6) )
+    ) 
+  ) 
+ASSI 
+  ( 
+  VERB 
+    ( 
+     1 (F (1 2) )
+     4 (F (1 2) )
+    ) 
+  ) 
+ASSE 
+  ( 
+  VERB 
+    ( 
+     1 (F (3) )
+     4 (F (3) )
+    ) 
+  ) 
+ASSIMO 
+  ( 
+  VERB 
+    ( 
+     1 (F (4) )
+     4 (F (4) )
+    ) 
+  ) 
+ASSERO 
+  ( 
+  VERB 
+    ( 
+     1 (F (6) )
+     4 (F (6) )
+    ) 
+  ) 
+EREI 
+  ( 
+  VERB 
+    ( 
+     1 (G (1) )
+     2 (G (1) )
+     5 (G (1) )
+     8 (G (1) )
+    ) 
+  ) 
+ERESTI 
+  ( 
+  VERB 
+    ( 
+     1 (G (2) )
+     2 (G (2) )
+     5 (G (2) )
+     8 (G (2) )
+    ) 
+  ) 
+EREBBE 
+  ( 
+  VERB 
+    ( 
+     1 (G (3) )
+     2 (G (3) )
+     5 (G (3) )
+     8 (G (3) )
+    ) 
+  ) 
+EREMMO 
+  ( 
+  VERB 
+    ( 
+     1 (G (4) )
+     2 (G (4) )
+     5 (G (4) )
+     8 (G (4) )
+    ) 
+  ) 
+ERESTE 
+  ( 
+  VERB 
+    ( 
+     1 (G (5) )
+     2 (G (5) )
+     5 (G (5) )
+     8 (G (5) )
+    ) 
+  ) 
+EREBBERO 
+  ( 
+  VERB 
+    ( 
+     1 (G (6) )
+     2 (G (6) )
+     5 (G (6) )
+     8 (G (6) )
+    ) 
+  ) 
+ANTE 
+  ( 
+  VERB 
+    ( 
+     1 (H (GENDER ALLVAL NUMBER SING) )
+     4 (H (GENDER ALLVAL NUMBER SING) )
+     6 (H (GENDER ALLVAL NUMBER SING) )
+    ) 
+  ) 
+ANTI 
+  ( 
+  VERB 
+    ( 
+     1 (H (GENDER ALLVAL NUMBER PL) )
+     4 (H (GENDER ALLVAL NUMBER PL) )
+     6 (H (GENDER ALLVAL NUMBER PL) )
+    ) 
+  ) 
+ATO 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER SING) )
+     4 (I (GENDER M NUMBER SING) )
+     6 (I (GENDER M NUMBER SING) )
+     10 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ATA 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER F NUMBER SING) )
+     4 (I (GENDER F NUMBER SING) )
+     6 (I (GENDER F NUMBER SING) )
+     10 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ATI 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER PL) )
+     4 (I (GENDER M NUMBER PL) )
+     6 (I (GENDER M NUMBER PL) )
+     10 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+ANDO 
+  ( 
+  VERB 
+    ( 
+     1 (L )
+     4 (L )
+     6 (L )
+    ) 
+  ) 
+ARE 
+  ( 
+  VERB 
+    ( 
+     1 (M )
+     4 (M )
+     6 (M )
+    ) 
+  ) 
+ETE 
+  ( 
+  VERB 
+    ( 
+     2 (A (5) N (5) )
+     7 (A (5) N (5) )
+     8 (A (5) N (5) )
+    ) 
+  ) 
+ONO 
+  ( 
+  VERB 
+    ( 
+     2 (A (6) )
+     3 (A (6) )
+     7 (A (6) )
+     8 (A (6) )
+     10 (A (1 6) )
+     12 (A (6) )
+    ) 
+  ) 
+EVO 
+  ( 
+  VERB 
+    ( 
+     2 (B (1) )
+     7 (B (1) )
+     8 (B (1) )
+     12 (B (1) )
+    ) 
+  ) 
+EVI 
+  ( 
+  VERB 
+    ( 
+     2 (B (2) )
+     7 (B (2) )
+     8 (B (2) )
+     12 (B (2) )
+    ) 
+  ) 
+EVA 
+  ( 
+  VERB 
+    ( 
+     2 (B (3) )
+     7 (B (3) )
+     8 (B (3) )
+     12 (B (3) )
+    ) 
+  ) 
+EVAMO 
+  ( 
+  VERB 
+    ( 
+     2 (B (4) )
+     7 (B (4) )
+     8 (B (4) )
+     12 (B (4) )
+    ) 
+  ) 
+EVATE 
+  ( 
+  VERB 
+    ( 
+     2 (B (5) )
+     7 (B (5) )
+     8 (B (5) )
+     12 (B (5) )
+    ) 
+  ) 
+EVANO 
+  ( 
+  VERB 
+    ( 
+     2 (B (6) )
+     7 (B (6) )
+     8 (B (6) )
+     12 (B (6) )
+    ) 
+  ) 
+EI 
+  ( 
+  VERB 
+    ( 
+     2 (C (1) )
+     10 (A (2) )
+    ) 
+  ) 
+ETTI 
+  ( 
+  VERB 
+    ( 
+     2 (C (1) )
+    ) 
+  ) 
+ESTI 
+  ( 
+  VERB 
+    ( 
+     2 (C (2) )
+     6 (C (2) )
+     7 (C (2) )
+     8 (C (2) )
+     12 (C (2) )
+    ) 
+  ) 
+è 
+  ( 
+  VERB 
+    ( 
+     2 (C (3) )
+    ) 
+  ) 
+ETTE 
+  ( 
+  VERB 
+    ( 
+     2 (C (3) )
+    ) 
+  ) 
+EMMO 
+  ( 
+  VERB 
+    ( 
+     2 (C (4) )
+     6 (C (4) )
+     7 (C (4) )
+     8 (C (4) )
+     12 (C (4) )
+    ) 
+  ) 
+ESTE 
+  ( 
+  VERB 
+    ( 
+     2 (C (5) F (5) )
+     6 (C (5) F (5) )
+     7 (C (5) F (5) )
+     8 (C (5) F (5) )
+     12 (C (5) F (5) )
+    ) 
+  ) 
+ERONO 
+  ( 
+  VERB 
+    ( 
+     2 (C (6) )
+    ) 
+  ) 
+ETTERO 
+  ( 
+  VERB 
+    ( 
+     2 (C (6) )
+    ) 
+  ) 
+ESSI 
+  ( 
+  VERB 
+    ( 
+     2 (F (1 2) )
+     6 (F (1 2) )
+     7 (F (1 2) )
+     8 (F (1 2) )
+     12 (F (1 2) )
+    ) 
+  ) 
+ESSE 
+  ( 
+  VERB 
+    ( 
+     2 (F (3) )
+     6 (F (3) )
+     7 (F (3) )
+     8 (F (3) )
+     12 (F (3) )
+    ) 
+  ) 
+ESSIMO 
+  ( 
+  VERB 
+    ( 
+     2 (F (4) )
+     6 (F (4) )
+     7 (F (4) )
+     8 (F (4) )
+     12 (F (4) )
+    ) 
+  ) 
+ESSERO 
+  ( 
+  VERB 
+    ( 
+     2 (F (6) )
+     6 (F (6) )
+     7 (F (6) )
+     8 (F (6) )
+     12 (F (6) )
+    ) 
+  ) 
+ENTE 
+  ( 
+  VERB 
+    ( 
+     2 (H (GENDER ALLVAL NUMBER SING) )
+     3 (H (GENDER ALLVAL NUMBER SING) )
+     7 (H (GENDER ALLVAL NUMBER SING) )
+     8 (H (GENDER ALLVAL NUMBER SING) )
+     9 (H (GENDER ALLVAL NUMBER SING) )
+     10 (H (GENDER ALLVAL NUMBER SING) )
+     12 (H (GENDER ALLVAL NUMBER SING) )
+    ) 
+  ) 
+ENTI 
+  ( 
+  VERB 
+    ( 
+     2 (H (GENDER ALLVAL NUMBER PL) )
+     3 (H (GENDER ALLVAL NUMBER PL) )
+     7 (H (GENDER ALLVAL NUMBER PL) )
+     8 (H (GENDER ALLVAL NUMBER PL) )
+     9 (H (GENDER ALLVAL NUMBER PL) )
+     10 (H (GENDER ALLVAL NUMBER PL) )
+     12 (H (GENDER ALLVAL NUMBER PL) )
+    ) 
+  ) 
+UTO 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER M NUMBER SING) )
+     7 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+UTA 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER F NUMBER SING) )
+     7 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+UTI 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER M NUMBER PL) )
+     7 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+UTE 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER F NUMBER PL) )
+     7 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+ENDO 
+  ( 
+  VERB 
+    ( 
+     2 (L )
+     3 (L )
+     7 (L )
+     8 (L )
+     9 (L )
+     10 (L )
+     12 (L )
+    ) 
+  ) 
+ERE 
+  ( 
+  VERB 
+    ( 
+     2 (M )
+     8 (M )
+     10 (M )
+    ) 
+  ) 
+ITE 
+  ( 
+  VERB 
+    ( 
+     3 (A (5) I (GENDER F NUMBER PL) N (5) )
+     9 (A (5) I (GENDER F NUMBER PL) N (5) )
+     12 (A (5) N (5) )
+    ) 
+  ) 
+IVO 
+  ( 
+  VERB 
+    ( 
+     3 (B (1) )
+     9 (B (1) )
+    ) 
+  ) 
+IVI 
+  ( 
+  VERB 
+    ( 
+     3 (B (2) )
+     9 (B (2) )
+    ) 
+  ) 
+IVA 
+  ( 
+  VERB 
+    ( 
+     3 (B (3) )
+     9 (B (3) )
+    ) 
+  ) 
+IVAMO 
+  ( 
+  VERB 
+    ( 
+     3 (B (4) )
+     9 (B (4) )
+    ) 
+  ) 
+IVATE 
+  ( 
+  VERB 
+    ( 
+     3 (B (5) )
+     9 (B (5) )
+    ) 
+  ) 
+IVANO 
+  ( 
+  VERB 
+    ( 
+     3 (B (6) )
+     9 (B (6) )
+    ) 
+  ) 
+II 
+  ( 
+  VERB 
+    ( 
+     3 (C (1) )
+     9 (C (1) )
+     10 (N (2) )
+    ) 
+  ) 
+ISTI 
+  ( 
+  VERB 
+    ( 
+     3 (C (2) )
+     9 (C (2) )
+    ) 
+  ) 
+ì 
+  ( 
+  VERB 
+    ( 
+     3 (C (3) )
+     9 (C (3) )
+     12 (N (2) )
+    ) 
+  ) 
+IMMO 
+  ( 
+  VERB 
+    ( 
+     3 (C (4) )
+     9 (C (4) )
+    ) 
+  ) 
+ISTE 
+  ( 
+  VERB 
+    ( 
+     3 (C (5) F (5) )
+     9 (C (5) F (5) )
+    ) 
+  ) 
+IRONO 
+  ( 
+  VERB 
+    ( 
+     3 (C (6) )
+     9 (C (6) )
+    ) 
+  ) 
+IRò 
+  ( 
+  VERB 
+    ( 
+     3 (D (1) )
+     9 (D (1) )
+     12 (D (1) )
+    ) 
+  ) 
+IRAI 
+  ( 
+  VERB 
+    ( 
+     3 (D (2) )
+     9 (D (2) )
+     12 (D (2) )
+    ) 
+  ) 
+IRà 
+  ( 
+  VERB 
+    ( 
+     3 (D (3) )
+     9 (D (3) )
+     12 (D (3) )
+    ) 
+  ) 
+IREMO 
+  ( 
+  VERB 
+    ( 
+     3 (D (4) )
+     9 (D (4) )
+     12 (D (4) )
+    ) 
+  ) 
+IRETE 
+  ( 
+  VERB 
+    ( 
+     3 (D (5) )
+     9 (D (5) )
+     12 (D (5) )
+    ) 
+  ) 
+IRANNO 
+  ( 
+  VERB 
+    ( 
+     3 (D (6) )
+     9 (D (6) )
+     12 (D (6) )
+    ) 
+  ) 
+ISSI 
+  ( 
+  VERB 
+    ( 
+     3 (F (1 2) )
+     9 (F (1 2) )
+    ) 
+  ) 
+ISSE 
+  ( 
+  VERB 
+    ( 
+     3 (F (3) )
+     9 (F (3) )
+    ) 
+  ) 
+ISSERO 
+  ( 
+  VERB 
+    ( 
+     3 (F (6) )
+     9 (F (6) )
+    ) 
+  ) 
+IREI 
+  ( 
+  VERB 
+    ( 
+     3 (G (1) )
+     9 (G (1) )
+     12 (G (1) )
+    ) 
+  ) 
+IRESTI 
+  ( 
+  VERB 
+    ( 
+     3 (G (2) )
+     9 (G (2) )
+     12 (G (2) )
+    ) 
+  ) 
+IREBBE 
+  ( 
+  VERB 
+    ( 
+     3 (G (3) )
+     9 (G (3) )
+     12 (G (3) )
+    ) 
+  ) 
+IREMMO 
+  ( 
+  VERB 
+    ( 
+     3 (G (4) )
+     9 (G (4) )
+     12 (G (4) )
+    ) 
+  ) 
+IRESTE 
+  ( 
+  VERB 
+    ( 
+     3 (G (5) )
+     9 (G (5) )
+     12 (G (5) )
+    ) 
+  ) 
+IREBBERO 
+  ( 
+  VERB 
+    ( 
+     3 (G (6) )
+     9 (G (6) )
+     12 (G (6) )
+    ) 
+  ) 
+ITO 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER SING) )
+     9 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+ITA 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER F NUMBER SING) )
+     9 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+ITI 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER PL) )
+     9 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+IRE 
+  ( 
+  VERB 
+    ( 
+     3 (M )
+     9 (M )
+     12 (M )
+    ) 
+  ) 
+HIAMO 
+  ( 
+  VERB 
+    ( 
+     4 (A (4) E (4) N (4) )
+    ) 
+  ) 
+HERò 
+  ( 
+  VERB 
+    ( 
+     4 (D (1) )
+    ) 
+  ) 
+HERAI 
+  ( 
+  VERB 
+    ( 
+     4 (D (2) )
+    ) 
+  ) 
+HERà 
+  ( 
+  VERB 
+    ( 
+     4 (D (3) )
+    ) 
+  ) 
+HEREMO 
+  ( 
+  VERB 
+    ( 
+     4 (D (4) )
+    ) 
+  ) 
+HERETE 
+  ( 
+  VERB 
+    ( 
+     4 (D (5) )
+    ) 
+  ) 
+HERANNO 
+  ( 
+  VERB 
+    ( 
+     4 (D (6) )
+    ) 
+  ) 
+HIATE 
+  ( 
+  VERB 
+    ( 
+     4 (E (5) )
+    ) 
+  ) 
+HINO 
+  ( 
+  VERB 
+    ( 
+     4 (E (6) N (6) )
+    ) 
+  ) 
+HEREI 
+  ( 
+  VERB 
+    ( 
+     4 (G (1) )
+    ) 
+  ) 
+HERESTI 
+  ( 
+  VERB 
+    ( 
+     4 (G (2) )
+    ) 
+  ) 
+HEREBBE 
+  ( 
+  VERB 
+    ( 
+     4 (G (3) )
+    ) 
+  ) 
+HEREMMO 
+  ( 
+  VERB 
+    ( 
+     4 (G (4) )
+    ) 
+  ) 
+HERESTE 
+  ( 
+  VERB 
+    ( 
+     4 (G (5) )
+    ) 
+  ) 
+HEREBBERO 
+  ( 
+  VERB 
+    ( 
+     4 (G (6) )
+    ) 
+  ) 
+IANO 
+  ( 
+  VERB 
+    ( 
+     5 (A (6) )
+     6 (E (6) N (6) )
+     10 (E (6) N (6) )
+     11 (A (6) )
+    ) 
+  ) 
+IAVO 
+  ( 
+  VERB 
+    ( 
+     5 (B (1) )
+     11 (B (1) )
+    ) 
+  ) 
+IAVI 
+  ( 
+  VERB 
+    ( 
+     5 (B (2) )
+     11 (B (2) )
+    ) 
+  ) 
+IAVA 
+  ( 
+  VERB 
+    ( 
+     5 (B (3) )
+     11 (B (3) )
+    ) 
+  ) 
+IAVAMO 
+  ( 
+  VERB 
+    ( 
+     5 (B (4) )
+     11 (B (4) )
+    ) 
+  ) 
+IAVATE 
+  ( 
+  VERB 
+    ( 
+     5 (B (5) )
+     11 (B (5) )
+    ) 
+  ) 
+IAVANO 
+  ( 
+  VERB 
+    ( 
+     5 (B (6) )
+     11 (B (6) )
+    ) 
+  ) 
+IAI 
+  ( 
+  VERB 
+    ( 
+     5 (C (1) )
+     11 (C (1) )
+    ) 
+  ) 
+IASTI 
+  ( 
+  VERB 
+    ( 
+     5 (C (2) )
+     11 (C (2) )
+    ) 
+  ) 
+Iò 
+  ( 
+  VERB 
+    ( 
+     5 (C (3) )
+     11 (C (3) )
+    ) 
+  ) 
+IAMMO 
+  ( 
+  VERB 
+    ( 
+     5 (C (4) )
+     11 (C (4) )
+    ) 
+  ) 
+IASTE 
+  ( 
+  VERB 
+    ( 
+     5 (C (5) F (5) )
+     11 (C (5) F (5) )
+    ) 
+  ) 
+IARONO 
+  ( 
+  VERB 
+    ( 
+     5 (C (6) )
+     11 (C (6) )
+    ) 
+  ) 
+IASSI 
+  ( 
+  VERB 
+    ( 
+     5 (F (1 2) )
+     11 (F (1 2) )
+    ) 
+  ) 
+IASSE 
+  ( 
+  VERB 
+    ( 
+     5 (F (3) )
+     11 (F (3) )
+    ) 
+  ) 
+IASSIMO 
+  ( 
+  VERB 
+    ( 
+     5 (F (4) )
+     11 (F (4) )
+    ) 
+  ) 
+IASSERO 
+  ( 
+  VERB 
+    ( 
+     5 (F (6) )
+     11 (F (6) )
+    ) 
+  ) 
+IANTE 
+  ( 
+  VERB 
+    ( 
+     5 (H (GENDER ALLVAL NUMBER SING) )
+     11 (H (GENDER ALLVAL NUMBER SING) )
+    ) 
+  ) 
+IANTI 
+  ( 
+  VERB 
+    ( 
+     5 (H (GENDER ALLVAL NUMBER PL) )
+     11 (H (GENDER ALLVAL NUMBER PL) )
+    ) 
+  ) 
+IATO 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER M NUMBER SING) )
+     11 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+IATA 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER F NUMBER SING) )
+     11 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+IATI 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER M NUMBER PL) )
+     11 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+IANDO 
+  ( 
+  VERB 
+    ( 
+     5 (L )
+     11 (L )
+    ) 
+  ) 
+IARE 
+  ( 
+  VERB 
+    ( 
+     5 (M )
+     11 (M )
+    ) 
+  ) 
+à 
+  ( 
+  VERB 
+    ( 
+     6 (A (3) N (2) )
+    ) 
+  ) 
+ANNO 
+  ( 
+  VERB 
+    ( 
+     6 (A (6) )
+    ) 
+  ) 
+ERO 
+  ( 
+  VERB 
+    ( 
+     6 (C (6) )
+     7 (C (6) )
+     8 (C (6) )
+     12 (C (6) )
+    ) 
+  ) 
+ARò 
+  ( 
+  VERB 
+    ( 
+     6 (D (1) )
+     10 (D (1) )
+    ) 
+  ) 
+ARAI 
+  ( 
+  VERB 
+    ( 
+     6 (D (2) )
+     10 (D (2) )
+    ) 
+  ) 
+ARà 
+  ( 
+  VERB 
+    ( 
+     6 (D (3) )
+     10 (D (3) )
+    ) 
+  ) 
+AREMO 
+  ( 
+  VERB 
+    ( 
+     6 (D (4) )
+     10 (D (4) )
+    ) 
+  ) 
+ARETE 
+  ( 
+  VERB 
+    ( 
+     6 (D (5) )
+     10 (D (5) )
+    ) 
+  ) 
+ARANNO 
+  ( 
+  VERB 
+    ( 
+     6 (D (6) )
+     10 (D (6) )
+    ) 
+  ) 
+AREI 
+  ( 
+  VERB 
+    ( 
+     6 (G (1) )
+     10 (G (1) )
+    ) 
+  ) 
+ARESTI 
+  ( 
+  VERB 
+    ( 
+     6 (G (2) )
+     10 (G (2) )
+    ) 
+  ) 
+AREBBE 
+  ( 
+  VERB 
+    ( 
+     6 (G (3) )
+     10 (G (3) )
+    ) 
+  ) 
+AREMMO 
+  ( 
+  VERB 
+    ( 
+     6 (G (4) )
+     10 (G (4) )
+    ) 
+  ) 
+ARESTE 
+  ( 
+  VERB 
+    ( 
+     6 (G (5) )
+     10 (G (5) )
+    ) 
+  ) 
+AREBBERO 
+  ( 
+  VERB 
+    ( 
+     6 (G (6) )
+     10 (G (6) )
+    ) 
+  ) 
+Rò 
+  ( 
+  VERB 
+    ( 
+     7 (D (1) )
+    ) 
+  ) 
+RAI 
+  ( 
+  VERB 
+    ( 
+     7 (D (2) )
+    ) 
+  ) 
+Rà 
+  ( 
+  VERB 
+    ( 
+     7 (D (3) )
+    ) 
+  ) 
+REMO 
+  ( 
+  VERB 
+    ( 
+     7 (D (4) )
+    ) 
+  ) 
+RETE 
+  ( 
+  VERB 
+    ( 
+     7 (D (5) )
+    ) 
+  ) 
+RANNO 
+  ( 
+  VERB 
+    ( 
+     7 (D (6) )
+    ) 
+  ) 
+REI 
+  ( 
+  VERB 
+    ( 
+     7 (G (1) )
+    ) 
+  ) 
+RESTI 
+  ( 
+  VERB 
+    ( 
+     7 (G (2) )
+    ) 
+  ) 
+REBBE 
+  ( 
+  VERB 
+    ( 
+     7 (G (3) )
+    ) 
+  ) 
+REMMO 
+  ( 
+  VERB 
+    ( 
+     7 (G (4) )
+    ) 
+  ) 
+RESTE 
+  ( 
+  VERB 
+    ( 
+     7 (G (5) )
+    ) 
+  ) 
+REBBERO 
+  ( 
+  VERB 
+    ( 
+     7 (G (6) )
+    ) 
+  ) 
+RE 
+  ( 
+  VERB 
+    ( 
+     7 (M )
+    ) 
+  ) 
+ISCO 
+  ( 
+  VERB 
+    ( 
+     9 (A (1) )
+    ) 
+  ) 
+ISCI 
+  ( 
+  VERB 
+    ( 
+     9 (A (2) N (2) )
+    ) 
+  ) 
+ISCE 
+  ( 
+  VERB 
+    ( 
+     9 (A (3) )
+    ) 
+  ) 
+ISCONO 
+  ( 
+  VERB 
+    ( 
+     9 (A (6) )
+    ) 
+  ) 
+ISCA 
+  ( 
+  VERB 
+    ( 
+     9 (E (1 2 3) N (3) )
+    ) 
+  ) 
+ISCANO 
+  ( 
+  VERB 
+    ( 
+     9 (E (6) N (6) )
+    ) 
+  ) 
+IETE 
+  ( 
+  VERB 
+    ( 
+     10 (A (5) )
+    ) 
+  ) 
+STI 
+  ( 
+  VERB 
+    ( 
+     10 (C (2) )
+    ) 
+  ) 
+MMO 
+  ( 
+  VERB 
+    ( 
+     10 (C (4) )
+    ) 
+  ) 
+STE 
+  ( 
+  VERB 
+    ( 
+     10 (C (5) F (5) )
+    ) 
+  ) 
+RONO 
+  ( 
+  VERB 
+    ( 
+     10 (C (6) )
+    ) 
+  ) 
+SSI 
+  ( 
+  VERB 
+    ( 
+     10 (F (1 2) )
+    ) 
+  ) 
+SSE 
+  ( 
+  VERB 
+    ( 
+     10 (F (3) )
+    ) 
+  ) 
+SSIMO 
+  ( 
+  VERB 
+    ( 
+     10 (F (4) )
+    ) 
+  ) 
+SSERO 
+  ( 
+  VERB 
+    ( 
+     10 (F (6) )
+    ) 
+  ) 
+IERò 
+  ( 
+  VERB 
+    ( 
+     11 (D (1) )
+    ) 
+  ) 
+IERAI 
+  ( 
+  VERB 
+    ( 
+     11 (D (2) )
+    ) 
+  ) 
+IERà 
+  ( 
+  VERB 
+    ( 
+     11 (D (3) )
+    ) 
+  ) 
+IEREMO 
+  ( 
+  VERB 
+    ( 
+     11 (D (4) )
+    ) 
+  ) 
+IERETE 
+  ( 
+  VERB 
+    ( 
+     11 (D (5) )
+    ) 
+  ) 
+IERANNO 
+  ( 
+  VERB 
+    ( 
+     11 (D (6) )
+    ) 
+  ) 
+IEREI 
+  ( 
+  VERB 
+    ( 
+     11 (G (1) )
+    ) 
+  ) 
+IERESTI 
+  ( 
+  VERB 
+    ( 
+     11 (G (2) )
+    ) 
+  ) 
+IEREBBE 
+  ( 
+  VERB 
+    ( 
+     11 (G (3) )
+    ) 
+  ) 
+IEREMMO 
+  ( 
+  VERB 
+    ( 
+     11 (G (4) )
+    ) 
+  ) 
+IERESTE 
+  ( 
+  VERB 
+    ( 
+     11 (G (5) )
+    ) 
+  ) 
+IEREBBERO 
+  ( 
+  VERB 
+    ( 
+     11 (G (6) )
+    ) 
+  ) 
+) 

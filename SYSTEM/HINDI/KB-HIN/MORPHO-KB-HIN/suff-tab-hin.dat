@@ -1,0 +1,1482 @@
+; *** This table associates with each suffix the categories, class codes, and features that it identifies
+( 
+@EMPT 
+  ( 
+  ADJ 
+    ( 
+     1 (CASE ALLVAL GENDER ALLVAL NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     1 (CASE ALLVAL GENDER M NUMBER ALLVAL) 
+     3 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+        (CASE OBLIQUE GENDER M NUMBER SING)) 
+     12 (CASE ALLVAL GENDER F NUMBER ALLVAL) 
+     16 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+     17 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+     19 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+     20 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+    ) 
+  VERB 
+    ( 
+     8 (C (2) )
+    ) 
+  ) 
+A 
+  ( 
+  ADJ 
+    ( 
+     2 (CASE DIRECT GENDER M NUMBER SING) 
+     3 (GENDER ALLVAL CASE DIRECT NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     2 (CASE DIRECT GENDER M NUMBER SING) 
+     4 (CASE DIRECT GENDER M NUMBER SING) 
+     14 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+     15 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+    ) 
+  VERB 
+    ( 
+     7 (A (GENDER M NUMBER SING) )
+    ) 
+  ) 
+I 
+  ( 
+  ADJ 
+    ( 
+     2 (CASE ALLVAL GENDER F NUMBER ALLVAL) 
+     3 (CASE OBLIQUE GENDER F NUMBER SING) 
+     4 (CASE ALLVAL GENDER F NUMBER SING) 
+    ) 
+  NOUN 
+    ( 
+     2 (CASE ALLVAL GENDER F NUMBER SING) 
+     9 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+        (CASE OBLIQUE GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     2 (A (GENDER M NUMBER PL) )
+     3 (A (GENDER M NUMBER PL) )
+     5 (A (GENDER M NUMBER PL) )
+     7 (A (GENDER M NUMBER PL) )
+     8 (A (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|e| 
+  ( 
+  ADJ 
+    ( 
+     2 ((NUMBER ALLVAL CASE OBLIQUE GENDER M)
+        (CASE DIRECT GENDER M NUMBER PL)) 
+     3 ((NUMBER ALLVAL CASE OBLIQUE GENDER M)
+        (CASE DIRECT GENDER M NUMBER PL)) 
+     4 (CASE ALLVAL GENDER M NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     2 ((CASE OBLIQUE GENDER M NUMBER SING)
+        (CASE DIRECT GENDER M NUMBER PL)) 
+     4 ((NUMBER ALLVAL CASE OBLIQUE GENDER M)
+        (CASE DIRECT GENDER M NUMBER PL)) 
+     5 (CASE OBLIQUE GENDER M NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (A (GENDER F NUMBER SING) C (2 4) )
+     3 (C (2 4) )
+     7 (A (GENDER F NUMBER SING) C (2 4) )
+     8 (A (GENDER F NUMBER SING) C (4) )
+    ) 
+  ) 
+|i| 
+  ( 
+  ADJ 
+    ( 
+     3 (CASE ALLVAL GENDER F NUMBER PL) 
+     4 (CASE ALLVAL GENDER F NUMBER PL) 
+    ) 
+  NOUN 
+    ( 
+     8 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+        (CASE OBLIQUE GENDER M NUMBER SING)) 
+    ) 
+  ) 
+|a| 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER ALLVAL CASE DIRECT NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     5 (NUMBER ALLVAL CASE DIRECT GENDER M) 
+     7 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+        (CASE OBLIQUE GENDER M NUMBER SING)) 
+     13 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+    ) 
+  ) 
+|oM| 
+  ( 
+  ADJ 
+    ( 
+     5 (GENDER ALLVAL CASE OBLIQUE NUMBER ALLVAL) 
+    ) 
+  NOUN 
+    ( 
+     2 (CASE OBLIQUE GENDER M NUMBER PL) 
+     3 (CASE OBLIQUE GENDER M NUMBER PL) 
+     5 (CASE OBLIQUE GENDER M NUMBER PL) 
+     6 (CASE OBLIQUE GENDER M NUMBER PL) 
+     7 (CASE OBLIQUE GENDER M NUMBER PL) 
+     13 (CASE OBLIQUE GENDER F NUMBER PL) 
+     14 (CASE OBLIQUE GENDER F NUMBER PL) 
+     15 (CASE OBLIQUE GENDER F NUMBER PL) 
+     17 (CASE OBLIQUE GENDER F NUMBER PL) 
+     20 (CASE OBLIQUE GENDER F NUMBER PL) 
+    ) 
+  ) 
+|iyAz| 
+  ( 
+  NOUN 
+    ( 
+     2 (CASE DIRECT GENDER F NUMBER PL) 
+    ) 
+  ) 
+|iyoM| 
+  ( 
+  NOUN 
+    ( 
+     2 (CASE OBLIQUE GENDER F NUMBER PL) 
+    ) 
+  ) 
+|Az| 
+  ( 
+  NOUN 
+    ( 
+     6 (CASE ALLVAL GENDER M NUMBER SING) 
+     14 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  ) 
+|Ez| 
+  ( 
+  NOUN 
+    ( 
+     6 (CASE DIRECT GENDER M NUMBER PL) 
+    ) 
+  ) 
+|iYoM| 
+  ( 
+  NOUN 
+    ( 
+     8 (CASE OBLIQUE GENDER M NUMBER PL) 
+     9 (CASE OBLIQUE GENDER M NUMBER PL) 
+    ) 
+  ) 
+U 
+  ( 
+  NOUN 
+    ( 
+     10 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+         (CASE OBLIQUE GENDER M NUMBER SING)) 
+     18 (NUMBER ALLVAL CASE DIRECT GENDER F) 
+    ) 
+  ) 
+|uoM| 
+  ( 
+  NOUN 
+    ( 
+     10 (CASE OBLIQUE GENDER M NUMBER PL) 
+     18 (CASE OBLIQUE GENDER F NUMBER PL) 
+    ) 
+  ) 
+|Uz| 
+  ( 
+  NOUN 
+    ( 
+     11 ((NUMBER ALLVAL CASE DIRECT GENDER M)
+         (CASE OBLIQUE GENDER M NUMBER SING)) 
+    ) 
+  VERB 
+    ( 
+     1 (C (1) )
+     3 (C (1) )
+     7 (C (1) )
+     8 (C (1) )
+    ) 
+  ) 
+|uzoM| 
+  ( 
+  NOUN 
+    ( 
+     11 (CASE OBLIQUE GENDER M NUMBER PL) 
+    ) 
+  ) 
+|eM| 
+  ( 
+  NOUN 
+    ( 
+     13 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     3 (C (5 8) )
+     7 (C (8) )
+    ) 
+  ) 
+|AyeM| 
+  ( 
+  NOUN 
+    ( 
+     15 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  ) 
+|Aez| 
+  ( 
+  NOUN 
+    ( 
+     15 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  ) 
+|yAz| 
+  ( 
+  NOUN 
+    ( 
+     16 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  ) 
+|yoM| 
+  ( 
+  NOUN 
+    ( 
+     16 (CASE OBLIQUE GENDER F NUMBER PL) 
+    ) 
+  ) 
+|ez| 
+  ( 
+  NOUN 
+    ( 
+     17 (CASE OBLIQUE GENDER F NUMBER SING) 
+     19 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (C (5 8) )
+     7 (C (5) )
+     8 (C (5 8) )
+    ) 
+  ) 
+|uyeM| 
+  ( 
+  NOUN 
+    ( 
+     18 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     6 (C (5 8) )
+    ) 
+  ) 
+|uez| 
+  ( 
+  NOUN 
+    ( 
+     18 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     6 (C (5 8) )
+    ) 
+  ) 
+|voM| 
+  ( 
+  NOUN 
+    ( 
+     19 (CASE OBLIQUE GENDER F NUMBER PL) 
+    ) 
+  ) 
+|yeM| 
+  ( 
+  NOUN 
+    ( 
+     20 (CASE OBLIQUE GENDER F NUMBER SING) 
+    ) 
+  VERB 
+    ( 
+     1 (C (5 8) )
+     7 (C (5) )
+     8 (C (5 8) )
+    ) 
+  ) 
+|yA| 
+  ( 
+  VERB 
+    ( 
+     1 (A (NUMBER ALLVAL GENDER M) )
+     8 (A (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|ye| 
+  ( 
+  VERB 
+    ( 
+     1 (A (GENDER F NUMBER SING) C (2 4) )
+     8 (A (GENDER F NUMBER SING) )
+    ) 
+  ) 
+IM 
+  ( 
+  VERB 
+    ( 
+     1 (A (GENDER F NUMBER PL) )
+     2 (A (GENDER F NUMBER PL) )
+     3 (A (GENDER F NUMBER PL) )
+     5 (A (GENDER F NUMBER PL) )
+     7 (A (GENDER F NUMBER PL) )
+     8 (A (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|yIM| 
+  ( 
+  VERB 
+    ( 
+     1 (A (GENDER F NUMBER PL) )
+     8 (A (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|UzgA| 
+  ( 
+  VERB 
+    ( 
+     1 (B (1) )
+     3 (B (1) )
+     7 (B (1) )
+     8 (B (1) )
+    ) 
+  ) 
+|egA| 
+  ( 
+  VERB 
+    ( 
+     1 (B (2 4) )
+     3 (B (2 4) )
+     7 (B (2 4) )
+     8 (B (2 4) )
+    ) 
+  ) 
+|yegA| 
+  ( 
+  VERB 
+    ( 
+     1 (B (2 4) )
+     8 (B (2) )
+    ) 
+  ) 
+|iegA| 
+  ( 
+  VERB 
+    ( 
+     1 (B (3 7 11 15) )
+     5 (B (2 4) )
+     7 (B (3 7 11 15) )
+     8 (B (3 7 11 15) )
+    ) 
+  ) 
+|iyegA| 
+  ( 
+  VERB 
+    ( 
+     1 (B (3 7 11 15) )
+     5 (B (2) )
+     7 (B (3 7 11 15) )
+     8 (B (3 7 11 15) )
+    ) 
+  ) 
+|ezge| 
+  ( 
+  VERB 
+    ( 
+     1 (B (5 8) )
+    ) 
+  ) 
+|yeMge| 
+  ( 
+  VERB 
+    ( 
+     1 (B (5 8) )
+     8 (B (5 8) )
+    ) 
+  ) 
+|oge| 
+  ( 
+  VERB 
+    ( 
+     1 (B (6) )
+     3 (B (6) )
+     4 (B (6) )
+     7 (B (6) )
+     8 (B (6) )
+    ) 
+  ) 
+|UzgI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (9) )
+     3 (B (9) )
+     7 (B (9) )
+     8 (B (9) )
+    ) 
+  ) 
+|egI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (10 12) )
+     3 (B (10 12) )
+     7 (B (10 12) )
+    ) 
+  ) 
+|yegI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (10 12) )
+     8 (B (10 12) )
+    ) 
+  ) 
+|ezgI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (13 16) )
+    ) 
+  ) 
+|yeMgI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (13 16) )
+     8 (B (13 16) )
+    ) 
+  ) 
+|ogI| 
+  ( 
+  VERB 
+    ( 
+     1 (B (14) )
+     3 (B (14) )
+     4 (B (10 12) )
+     7 (B (14) )
+     8 (B (14) )
+    ) 
+  ) 
+|ie| 
+  ( 
+  VERB 
+    ( 
+     1 (C (3 7) )
+     2 (A (GENDER F NUMBER SING) )
+     3 (A (GENDER F NUMBER SING) )
+     5 (A (GENDER F NUMBER SING) C (2 4) )
+     7 (C (3 7) )
+     8 (C (3 7) )
+    ) 
+  ) 
+|iye| 
+  ( 
+  VERB 
+    ( 
+     1 (C (3 7) )
+     2 (A (GENDER F NUMBER SING) )
+     3 (A (GENDER F NUMBER SING) )
+     5 (A (GENDER F NUMBER SING) C (2 4) )
+     7 (C (3 7) )
+     8 (C (3 7) )
+    ) 
+  ) 
+|o| 
+  ( 
+  VERB 
+    ( 
+     1 (C (6) )
+     3 (C (6) )
+     4 (C (2 4) )
+     7 (C (6) )
+     8 (C (6) )
+    ) 
+  ) 
+|kara| 
+  ( 
+  VERB 
+    ( 
+     1 (H )
+     7 (H )
+     8 (H )
+    ) 
+  ) 
+|wA| 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER SING) )
+     7 (I (GENDER M NUMBER SING) )
+     8 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|wI| 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER F NUMBER SING) )
+     7 (I (GENDER F NUMBER SING) )
+     8 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|we| 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER M NUMBER PL) )
+     7 (I (GENDER M NUMBER PL) )
+     8 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|wIM| 
+  ( 
+  VERB 
+    ( 
+     1 (I (GENDER F NUMBER PL) )
+     7 (I (GENDER F NUMBER PL) )
+     8 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|nA| 
+  ( 
+  VERB 
+    ( 
+     1 (L M (GENDER M NUMBER SING) )
+     7 (L M (GENDER M NUMBER SING) )
+     8 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|nI| 
+  ( 
+  VERB 
+    ( 
+     1 (M (GENDER F NUMBER SING) )
+     7 (M (GENDER F NUMBER SING) )
+     8 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|ne| 
+  ( 
+  VERB 
+    ( 
+     1 (M (GENDER M NUMBER PL) )
+     7 (M (GENDER M NUMBER PL) )
+     8 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|nIM| 
+  ( 
+  VERB 
+    ( 
+     1 (M (GENDER F NUMBER PL) )
+     7 (M (GENDER F NUMBER PL) )
+     8 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|iyA| 
+  ( 
+  VERB 
+    ( 
+     2 (A (GENDER M NUMBER SING) )
+     3 (A (GENDER M NUMBER SING) )
+     5 (A (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|arUzgA| 
+  ( 
+  VERB 
+    ( 
+     2 (B (1) )
+    ) 
+  ) 
+|aregA| 
+  ( 
+  VERB 
+    ( 
+     2 (B (2 4) )
+    ) 
+  ) 
+|ariegA| 
+  ( 
+  VERB 
+    ( 
+     2 (B (3 7 11 15) )
+    ) 
+  ) 
+|IjiyegA| 
+  ( 
+  VERB 
+    ( 
+     2 (B (3 7 11 15) )
+     3 (B (3 7 11 15) )
+     5 (B (3 7 11 15) )
+    ) 
+  ) 
+|areMge| 
+  ( 
+  VERB 
+    ( 
+     2 (B (5 8) )
+    ) 
+  ) 
+|aroge| 
+  ( 
+  VERB 
+    ( 
+     2 (B (6) )
+    ) 
+  ) 
+|arUzgI| 
+  ( 
+  VERB 
+    ( 
+     2 (B (9) )
+    ) 
+  ) 
+|aregI| 
+  ( 
+  VERB 
+    ( 
+     2 (B (10 12) )
+    ) 
+  ) 
+|areMgI| 
+  ( 
+  VERB 
+    ( 
+     2 (B (13 16) )
+    ) 
+  ) 
+|arogI| 
+  ( 
+  VERB 
+    ( 
+     2 (B (14) )
+    ) 
+  ) 
+|arUz| 
+  ( 
+  VERB 
+    ( 
+     2 (C (1) )
+    ) 
+  ) 
+|are| 
+  ( 
+  VERB 
+    ( 
+     2 (C (2 4) )
+    ) 
+  ) 
+|arie| 
+  ( 
+  VERB 
+    ( 
+     2 (C (3 8) )
+    ) 
+  ) 
+|Ijiye| 
+  ( 
+  VERB 
+    ( 
+     2 (C (3) )
+     3 (C (3 7) )
+     5 (C (3 7) )
+    ) 
+  ) 
+|areM| 
+  ( 
+  VERB 
+    ( 
+     2 (C (5 7) )
+    ) 
+  ) 
+|aro| 
+  ( 
+  VERB 
+    ( 
+     2 (C (6) )
+    ) 
+  ) 
+|arara| 
+  ( 
+  VERB 
+    ( 
+     2 (H )
+    ) 
+  ) 
+|arawA| 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|arawI| 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|arawe| 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|arawIM| 
+  ( 
+  VERB 
+    ( 
+     2 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|aranA| 
+  ( 
+  VERB 
+    ( 
+     2 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|aranI| 
+  ( 
+  VERB 
+    ( 
+     2 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|arane| 
+  ( 
+  VERB 
+    ( 
+     2 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|aranIM| 
+  ( 
+  VERB 
+    ( 
+     2 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|IjiegA| 
+  ( 
+  VERB 
+    ( 
+     3 (B (3 7 11 15) )
+     5 (B (3 7 11 15) )
+    ) 
+  ) 
+|eMge| 
+  ( 
+  VERB 
+    ( 
+     3 (B (5 8) )
+     7 (B (5 8) )
+    ) 
+  ) 
+|eMgI| 
+  ( 
+  VERB 
+    ( 
+     3 (B (13 16) )
+     7 (B (13 16) )
+    ) 
+  ) 
+|Ijie| 
+  ( 
+  VERB 
+    ( 
+     3 (C (3 7) )
+     5 (C (3 7) )
+    ) 
+  ) 
+|ekara| 
+  ( 
+  VERB 
+    ( 
+     3 (H )
+    ) 
+  ) 
+|ewA| 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|ewI| 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|ewe| 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|ewIM| 
+  ( 
+  VERB 
+    ( 
+     3 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|enA| 
+  ( 
+  VERB 
+    ( 
+     3 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|enI| 
+  ( 
+  VERB 
+    ( 
+     3 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|ene| 
+  ( 
+  VERB 
+    ( 
+     3 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|enIM| 
+  ( 
+  VERB 
+    ( 
+     3 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|uA| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER M NUMBER SING) )
+     6 (A (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|ue| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER F NUMBER SING) )
+     6 (A (GENDER F NUMBER SING) C (2 4) )
+    ) 
+  ) 
+|uye| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER F NUMBER SING) )
+     6 (A (GENDER F NUMBER SING) C (2 4) )
+    ) 
+  ) 
+|uI| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER M NUMBER PL) )
+     6 (A (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|uyI| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER M NUMBER PL) )
+     6 (A (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|uIM| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER F NUMBER PL) )
+     6 (A (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|uyIM| 
+  ( 
+  VERB 
+    ( 
+     4 (A (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|oUzgA| 
+  ( 
+  VERB 
+    ( 
+     4 (B (1) )
+    ) 
+  ) 
+|ogA| 
+  ( 
+  VERB 
+    ( 
+     4 (B (2 4) )
+    ) 
+  ) 
+|oiyegA| 
+  ( 
+  VERB 
+    ( 
+     4 (B (3 7 11 15) )
+    ) 
+  ) 
+|oiegA| 
+  ( 
+  VERB 
+    ( 
+     4 (B (3 7 11 15) )
+    ) 
+  ) 
+|oMge| 
+  ( 
+  VERB 
+    ( 
+     4 (B (5 8) )
+    ) 
+  ) 
+|oUzgI| 
+  ( 
+  VERB 
+    ( 
+     4 (B (9) )
+    ) 
+  ) 
+|oMgI| 
+  ( 
+  VERB 
+    ( 
+     4 (B (13 16) )
+    ) 
+  ) 
+|oogI| 
+  ( 
+  VERB 
+    ( 
+     4 (B (14) )
+    ) 
+  ) 
+|oUz| 
+  ( 
+  VERB 
+    ( 
+     4 (C (1) )
+    ) 
+  ) 
+|oiye| 
+  ( 
+  VERB 
+    ( 
+     4 (C (3 7) )
+    ) 
+  ) 
+|oie| 
+  ( 
+  VERB 
+    ( 
+     4 (C (3 7) )
+    ) 
+  ) 
+|oyeM| 
+  ( 
+  VERB 
+    ( 
+     4 (C (5 8) )
+    ) 
+  ) 
+|oez| 
+  ( 
+  VERB 
+    ( 
+     4 (C (5 8) )
+    ) 
+  ) 
+|oo| 
+  ( 
+  VERB 
+    ( 
+     4 (C (6) )
+    ) 
+  ) 
+|okara| 
+  ( 
+  VERB 
+    ( 
+     4 (H )
+    ) 
+  ) 
+|owA| 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|owI| 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|owe| 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|owIM| 
+  ( 
+  VERB 
+    ( 
+     4 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|onA| 
+  ( 
+  VERB 
+    ( 
+     4 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|onI| 
+  ( 
+  VERB 
+    ( 
+     4 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|one| 
+  ( 
+  VERB 
+    ( 
+     4 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|onIM| 
+  ( 
+  VERB 
+    ( 
+     4 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|iyUzgA| 
+  ( 
+  VERB 
+    ( 
+     5 (B (1) )
+    ) 
+  ) 
+|iUzgA| 
+  ( 
+  VERB 
+    ( 
+     5 (B (1) )
+    ) 
+  ) 
+|iyeMgA| 
+  ( 
+  VERB 
+    ( 
+     5 (B (4) )
+    ) 
+  ) 
+|iyeMge| 
+  ( 
+  VERB 
+    ( 
+     5 (B (5 8) )
+    ) 
+  ) 
+|iezge| 
+  ( 
+  VERB 
+    ( 
+     5 (B (5 8) )
+    ) 
+  ) 
+|ioge| 
+  ( 
+  VERB 
+    ( 
+     5 (B (6) )
+    ) 
+  ) 
+|iyUzgI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (9) )
+    ) 
+  ) 
+|iuzgI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (9) )
+    ) 
+  ) 
+|iyegI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (10 12) )
+    ) 
+  ) 
+|iegI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (10 12) )
+    ) 
+  ) 
+|iyeMgI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (13 16) )
+    ) 
+  ) 
+|iezgI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (13 16) )
+    ) 
+  ) 
+|iogI| 
+  ( 
+  VERB 
+    ( 
+     5 (B (14) )
+    ) 
+  ) 
+|iUz| 
+  ( 
+  VERB 
+    ( 
+     5 (C (1) )
+    ) 
+  ) 
+|iyeM| 
+  ( 
+  VERB 
+    ( 
+     5 (C (5 8) )
+    ) 
+  ) 
+|iez| 
+  ( 
+  VERB 
+    ( 
+     5 (C (5 8) )
+    ) 
+  ) 
+|io| 
+  ( 
+  VERB 
+    ( 
+     5 (C (6) )
+    ) 
+  ) 
+|ikara| 
+  ( 
+  VERB 
+    ( 
+     5 (H )
+    ) 
+  ) 
+|iwA| 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|iwI| 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|iwe| 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|iwIM| 
+  ( 
+  VERB 
+    ( 
+     5 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|inA| 
+  ( 
+  VERB 
+    ( 
+     5 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|inI| 
+  ( 
+  VERB 
+    ( 
+     5 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|ine| 
+  ( 
+  VERB 
+    ( 
+     5 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|inIM| 
+  ( 
+  VERB 
+    ( 
+     5 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|uYiM| 
+  ( 
+  VERB 
+    ( 
+     6 (A (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|uUzgA| 
+  ( 
+  VERB 
+    ( 
+     6 (B (1) )
+    ) 
+  ) 
+|uyegA| 
+  ( 
+  VERB 
+    ( 
+     6 (B (2 4) )
+    ) 
+  ) 
+|uegA| 
+  ( 
+  VERB 
+    ( 
+     6 (B (2 4) )
+    ) 
+  ) 
+|uiyegA| 
+  ( 
+  VERB 
+    ( 
+     6 (B (3 7 11 15) )
+    ) 
+  ) 
+|uiegA| 
+  ( 
+  VERB 
+    ( 
+     6 (B (3 7 11 15) )
+    ) 
+  ) 
+|uyeMge| 
+  ( 
+  VERB 
+    ( 
+     6 (B (5 8) )
+    ) 
+  ) 
+|uezge| 
+  ( 
+  VERB 
+    ( 
+     6 (B (5 8) )
+    ) 
+  ) 
+|uoge| 
+  ( 
+  VERB 
+    ( 
+     6 (B (6) )
+    ) 
+  ) 
+|uUzgI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (9) )
+    ) 
+  ) 
+|uyegI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (10 12) )
+    ) 
+  ) 
+|uegI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (10 12) )
+    ) 
+  ) 
+|uyeMgI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (13 16) )
+    ) 
+  ) 
+|uezgI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (13 16) )
+    ) 
+  ) 
+|uogI| 
+  ( 
+  VERB 
+    ( 
+     6 (B (14) )
+    ) 
+  ) 
+|uUz| 
+  ( 
+  VERB 
+    ( 
+     6 (C (1) )
+    ) 
+  ) 
+|uiye| 
+  ( 
+  VERB 
+    ( 
+     6 (C (3 7) )
+    ) 
+  ) 
+|uie| 
+  ( 
+  VERB 
+    ( 
+     6 (C (3 7) )
+    ) 
+  ) 
+|uo| 
+  ( 
+  VERB 
+    ( 
+     6 (C (6) )
+    ) 
+  ) 
+|ukara| 
+  ( 
+  VERB 
+    ( 
+     6 (H )
+    ) 
+  ) 
+|uwA| 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|uwI| 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|uwe| 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|uwIM| 
+  ( 
+  VERB 
+    ( 
+     6 (I (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|unA| 
+  ( 
+  VERB 
+    ( 
+     6 (L M (GENDER M NUMBER SING) )
+    ) 
+  ) 
+|unI| 
+  ( 
+  VERB 
+    ( 
+     6 (M (GENDER F NUMBER SING) )
+    ) 
+  ) 
+|une| 
+  ( 
+  VERB 
+    ( 
+     6 (M (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|unIM| 
+  ( 
+  VERB 
+    ( 
+     6 (M (GENDER F NUMBER PL) )
+    ) 
+  ) 
+|yI| 
+  ( 
+  VERB 
+    ( 
+     8 (A (GENDER M NUMBER PL) )
+    ) 
+  ) 
+|yega| 
+  ( 
+  VERB 
+    ( 
+     8 (B (4) )
+    ) 
+  ) 
+) 

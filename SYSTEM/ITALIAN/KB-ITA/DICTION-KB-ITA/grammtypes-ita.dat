@@ -1,0 +1,241 @@
+	(in-package "USER")
+
+;*************************************************************************
+;
+;   In this file, some classes of words used in the parsing rules (file
+; *** "KB/GRAMM/parserules". They are not semantic classes, and often include
+;     single words that have some particular syntactic behaviour
+; *** They were added to the parser, to avoid reference to words of a
+;     particular language from inside the parse rules
+
+;(setq *GRAMMTYPES*
+(load-grammtypes 
+  '(
+    (&about (di))			; parlare 'di' (topic argument)
+    (&action-noun (raccolta))		; raccolta di mobili; TAGGER per HOPS
+    (&address-prep (per contro))	; ringraziare (subc-hier)
+    (&address-conj (contro))		; ringraziare (subc-hier)
+    (&adjectival-prep (previo salvo))	; Previa Separazione; Salve le disposizioni
+    (&adj-after (fa))	                ; un mese Fa; TAGGER
+    (&adj-pref-noun (somma terreno combustibile meridiano fondo direttiva ottava))  ; TAGGER
+    (&adj-pref-verb (basato contenuto deciso disposto fondato incluso limitato munito
+                     obbligato subordinato compreso interessato))
+    (&advers-prep (piuttosto))		; TAGGER
+    (&adv-conj-pref (appena quando))	; TAGGER
+    (&adv-prep-head (ancora sempre già)) ; ancora in vigore
+    (&advgov-prep (da))			; da lontano
+    (&advgov-prep2 (di))		; di lì
+    (&spec-loc-adv (lì))		; di lì
+    (&agent-compl-prep (da))		; fatto da me
+    (&aj-av-n-neo (neo))		; TAGGER
+    (&aj-av-n-plan (piano))		; TAGGER
+    (&all-pron (tutto))                 ; TAGGER
+    (&and (e))			; 
+    (&and-foll (|ss.|))			; §7 ss. (means "and the following")
+    (&art-pron (uno))			; "uni" in "gli uni e gli altri"
+    (&art-relat (quale))		; l'attuazione della Quale
+    (&art-relat-or-base (quale))	; l'attuazione della Quale
+          ; the previous one added for compatibility with Spanish
+    (&art-mid-relat (cui quale))	; TAGGER
+    (&artic-law-1 (articolo))		; Art. 99 L. dir. autore
+    (&artic-law-2 (legge))		; Art. 99 L. dir. autore
+    (&atlas-ambig-locut (|UN_PO'| |un_po'|))	; un po' di variabilità
+    (&as (come))			; è come se (subc-hier)
+    (&as-far-as (in_quanto))		; PARSER
+    (&base-conj (e o))			; TAGGER
+    (&base-mid-relat (cui che))		; TAGGER
+    (&base-relat (che))			; TAGGER
+    (&base-subord-conj (che))		; ha detto che ..
+    (&base-subord-prep (di))		; ha detto di ..
+    (&before-prep (di che))		; TAGGER; prima di, che
+    (&beyond (oltre))			; Torino e oltre
+    (&both (sia))			; TAGGER
+    (&both-2 (sia che))			; TAGGER; second conj of a correlation
+    (&card (tessera))			; TAGGER
+    (&citation-al (alii))		; Jones e al. 1984
+    (&citation-and (e))			; Jones e Smith 1984
+    (&code (codice))			; Cod. civ. 854
+    (&comma (comma))			; TAGGER
+    (&compar-adj (maggiore minore))
+    (&compar-adv (altrettanto meno più)) ; TAGGER
+    (&compar-prep (di))			; più alto Di Marco
+    (&compar-prep-2 (di che))		; TAGGER; più alto Di Marco
+    (&compar-prep-3 (piuttosto))	; TAGGER; piuttosto che
+    (&compar-pron (meno più))		; also TAGGER
+    (&conj-adv-pref (infatti))	        ; TAGGER
+    (&conj-governing-subjunctive (purché affinché))	; TAGGER
+    (&conj-sub-g-inf (dopo anzichè anziché se))		; PARSER
+    (&concert (concerto))		; TAGGER
+    (&continue-prep (a))		; TAGGER; continuare a; iniziare a
+    (&currency (euro dollaro sterlina))	; PARSER
+    (&current-proper (golfo corriere camera))	; TAGGER
+    (&dat-pron (mi))			; TAGGER
+    (&distance-adj (vicino lontano))	; TAGGER
+    (&dots (|...|))			; PARSER
+    (&double-who (chi quanto))	
+    (&enter-prep (in))			; TAGGER
+    (&event (concerto mostra))		; TAGGER
+    (&far-prep (da))			; TAGGER; 
+    (&far-fuori-1 (fare))		; TAGGER
+    (&far-fuori-2 (fuori))		; TAGGER
+    (&first-pers-pron (io))		; TAGGER
+    (&follow (seguente))		; PARSER
+    (&general (generale))		; TAGGER
+    (&goal-prep (per))			; spingere (subc-hier)
+    (&greetings (buongiorno buonasera buonanotte))   ; PARSER
+    (&greeting-adj (buono))             ; PARSER
+    (&has-to (avere))			; TAGGER
+    (&how-much (quanto))		; TAGGER
+    (&indef-adj (certo))		; TAGGER
+    (&indef-adj-2 (certo tale qualsiasi))	; PARSER
+    (&indobj-prep (a))			; (subc-hier)
+    (&institutional (governo parlamento organizzazione
+              commissione comitato esercito aviazione
+              protocollo convenzione estero stato dio
+              borsa tesoreria fisco finanza tesoro
+              sanità progetto imperatore zar principe))
+                                        ; TAGGER
+    (&interr-conj (come dove perché))	; dimmi dove vai ..
+    (&interr-sent-pron (che_cosa))	; for questions of sentential subj verbs
+    (&list (elenco))			; TAGGER
+    (&loc-adv (su giù))			; pesare (subc-hier)
+    (&loc-from-prep (da))		; (subc-hier)
+    (&loc-from-pron (ne))		; (subc-hier)
+    (&loc-prep (su))			; pesare (subc-hier)
+    (&loc-prep-1 (in))			; (subc-hier)
+    (&loc-prep-2 (a davanti dietro oltre))	; (subc-hier)
+    (&loc-to-prep (a))			; inviare (subc-hier)
+    (&loc-to-prep-2 (a in verso oltre davanti dietro su sopra sotto fino))
+					; (subc-hier)
+    (&loc-metaph-prep (in))		; consistere, imbattersi (subc-hier)
+    (&loc-pron (ci vi))			; TAGGER
+    (&long (lungo))			; ha parlato 'a lungo' (subc-hier)
+    (&mid-relat (cui))			; la Cui attuazione
+    (&month (gennaio febbraio marzo aprile maggio giugno
+             luglio agosto settembre ottobre novembre dicembre))  ; TAGGER
+    (&money-item (banconota moneta))	; PARSER
+    (&more (più))			; TAGGER
+    (&moreov (inoltre))			; PARSER
+    (&music (musica))			; TAGGER; for HOPS
+    (&near-prep (a))			; TAGGER; vicino a, insieme a, ...
+    (&neg-adv (non))
+    (&neutral-prep (di))                ; the type of an event
+    (&noun-agt-compl (da_parte_di))	; la cancellazione da parte di Mario
+    (&noun-govern-subord (fatto))	; il fatto CHE non sei partito
+    (&noun-noun-head (legge brevetto))	; sia "legge" che "brevetto" in: l. brev. invenzioni
+    (&noun-noun-head-2 (codice))		; "codice" in: Cod. Proc. Civ.
+    (&noun-noun-dep-2 (procedura))	; "procedura" in: Cod. Proc. Civ.
+    (&noun-noun-head-3 (diritto))	; "diritto" in: l. dir. autore
+    (&noun-noun-dep-3 (autore))		; "autore" in: l. dir. autore
+    (&noun-pref-adv (anche))		; TAGGER 
+    (&noun-pref-adj (presente simile doppio))	; TAGGER platani e SIMILI.
+    (&noun-pref-prep (di))		; la casa dei ragazzi; quella degli amici
+    (&noun-verb-pref-verb (era stato considerando))	; 
+    (&number (numero))			; Decreto n.127
+    (&obj-vlocut (diritto))		; "aver diritto" treated as a locution
+    (&one (uno))			; TAGGER
+    (&only (solo))			; TAGGER
+    (&onorevole (onorevole))		; TAGGER
+    (&operator-prep (per))		; dividere (subc-hier)
+    (&ordin-adj (primo ultimo))		; ... EVALITA !!!!!!
+    (&other (altro))			; TAGGER
+    (&other-aux (andare venire vedere))	; TAGGER
+    (&own (proprio))			; TAGGER ; il proprio diritto
+    (&partitive-art (del))		; dammi del pane (TAGGER)
+    ;(&partitive-prep (di))		; il 45% del totale  + TAGGER
+    (&partitive-prep (di tra))		; essere [di quelli] (subc-hier)
+    (&partitive-pron (ne))		; TAGGER
+    (&polit-name (Prode Salvo))		; TAGGER	(Prodi, Salvi)
+    (&speed-noun (chilometro))		; PARSER
+    (&speed-noun-2 (ora))		; PARSER
+    (&strong-pass-aux (venire andare))  ; va considerato, viene considerato
+    (&past-adj (scorso))		; TAGGER; sabato scorso
+    (&past-adj-2 (fa))			; TAGGER; tre anni fa
+    (&percent-1 (per))			; l'85 Per cento
+    (&percent-2 (cento mille))		; l'85 per Cento
+    (&pre--adj (ex mini maxi))		; it: ex, mini, maxi un Maxi-emendamento
+    (&predverb (essere risultare sembrare diventare ritenere considerare
+                tenere rendere))           ; "tenere presente che"
+    (&pred-prep (a))			; è marco a parlare
+    (&pref-not-noun (il neo dio era	; TAGGER
+             resta))
+    (&pref-not-noun-1 (il neo dio bene))	; TAGGER
+    (&prep-prep-dep (di))		; "di" in "su di loro" "tra di noi"
+    (&prep-prep-head (su tra fra))	; "su, tra, fra" in "su di loro" "tra di noi"
+    (&prep-subord-dep (che))		; "che" in "dopo che era partito" + TAGGER
+    (&prep-subord-head (dopo prima senza salvo))	; "dopo" in "dopo che era partito"
+    (&program (programma))		; TAGGER
+    (&progressive-aux (stare))		; TAGGER
+    (&progressive-prep (per))		; stava per partire (subc-hier)
+    (&pron-adj (stesso))			; "stessi" in "essi stessi"
+    (&pron-not-obl (io tu egli ella essi esse))  ; TAGGER
+    (&pron-with-prep ())                ; parserules: Spanish el (personal
+                                        ;   pronoun accepting a prep modifier)
+    (&proper-prep (di de |d'|))		; items that, if capitalized and followed by a proper
+                                        ; are part of the noun
+    (&range-prep (da))			; 
+    (&refl-pron (si))			; TAGGER
+    (&refl-pron-2 (se si))		; TAGGER
+    (&refl-pron-3 (se))			; TAGGER
+    (&relat-head-pron (coloro uno ciò quello più))  ; TAGGER
+    (&rel-time-prep (dopo prima))	; PARSER: for "subito dopo", "subito prima"
+    (&right (diritto))			; TAGGER
+    (&saint (santo))			; TAGGER
+    (&second-ordin (secondo))		; TAGGER
+    (&second-pers-pron (tu))		; TAGGER
+    (&section (articolo capitolo sezione figura paragrafo capo titolo comma))	;TAGGER 
+    (&so (così))			; TAGGER
+    (&special-neg (che))		; "che" in "non occupa che una parte"
+    (&stuff-made-prep (in))		; "in": "banconote in euro", "statua in bronzo"
+    (&superl-prep (di))			; i Più simpatici Del mondo
+    (&subj-in (in))			; in molti hanno visto ... (subc-hier)
+    (&subord-verb (imporre specificare prevedere))
+    (&system-op (selezionare mostrare stampare trovare visualizzare))
+    (&tense-aux (avere))
+    (&that (quello))			; TAGGER; quello che serve
+    (&theme-prep (in su con))		; insistere (subc-hier)
+    (&theme-prep-1 (a))			;  (subc-hier)
+    (&theme-prep-2 (su))		; influire, pronunciarsi (subc-hier)
+    (&theme-prep-3 (di))		; parlare (subc-hier)
+    (&theme-prep-4 (a con))		; collegare (subc-hier)
+    (&theme-prep-5 (da))		; (subc-hier)
+    (&theme-prep-6 (in))		; risultare (subc-hier)
+    (&this (ciò))			; TAGGER; tutto cio'
+    (&through (attraverso))		; TAGGER; tutto cio'
+    (&thousand (mila))			; 35mila
+    (&time-noun (anno mese settimana giorno ora minuto tempo)) ; TAGGER
+    (&time-prep (a))			; essere [alle 3] (subc-hier)
+    (&time-prep-2 (a))			; anticipare [alle 3] (subc-hier)
+    (&time-ref-noun (gennaio febbraio marzo aprile maggio giugno
+                          luglio agosto settembre ottobre novembre
+                          dicembre lunedì martedì mercoledì giovedì venerdì sabato domenica)) ; TAGGER
+    (&time-verb (decorrere trascorrere passare))	; decorsi 12 mesi da; TAGGER
+    (&title (ministro presidente signore commissione dottore commendatore))  ; TAGGER
+    (&together-prep (con))		; discutere, scontrarsi (subc-hier)
+    (&together-prep-2 (a))		; unirsi (subc-hier)
+    (&to-be (essere))			; TAGGER
+    (&to-be-want (essere volere))	; TAGGER
+    (&to-continue (continuare))		; TAGGER
+    (&to-do (fare))			; TAGGER
+    (&to-give (dare))			; TAGGER
+    (&to-go (andare))			; TAGGER
+    (&to-have (avere))
+    (&to-know-tell (sapere dire spiegare))	; TAGGER
+    (&to-tell (dire spiegare))		; TAGGER
+    (&to-see (vedere))			; TAGGER
+    (&toward (verso))			; TAGGER
+    (&true (vero))			; TAGGER
+    (&until-prep (a))			; TAGGER; fino a
+    (&verb-governing-inf (lasciare fare))    ; TAGGER
+    (&verb-prep-ambig (dire dare))	; TAGGER
+    (&vgov-prep (di))			; il diritto Di andare
+    (&vgov-prep-2 (da))			; una cosa Da fare
+    (&vprefer-conj-prep ()) 	       ; TAGGER (English "until")
+    (&what (cosa))			; TAGGER
+    (&where (dove))			; TAGGER
+    (&who-2 (che chi))			; TAGGER
+    (&word-ref (parola termine))        ; parserules
+    (&yes-no (sì no))			; parserules
+    (&yes-no-conj (se))			; dimmi se ..	(subc-class)
+
+))

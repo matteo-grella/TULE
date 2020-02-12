@@ -1,0 +1,94 @@
+
+(in-package "USER")
+
+(defvar *HOME-DIR* "/home/lesmo/TULE/DOWNL/2010-FEB-TULE/SYSTEM/")
+; !!! NOTE THE SLASH AFTER THE PATHNAME !!! IT IS REQUIRED !!!!!
+
+(defvar *LISP-CHAR-SET-ID* 'UTF-8)
+; *** this encodes the character encoding scheme used by the Lisp machine
+
+; (defvar *CHAR-SET-ID* 'ISO-8859-1) ; Iso Latin 1: ISO/IEC 8859-1
+  (defvar *CHAR-SET-ID* 'UTF-8)
+; *** this encodes the character encoding scheme of the input data
+
+(defvar *SYSTEM-CONTEXT* 'tule)
+         ; other possible values are hops and hops-dial
+
+; *** the next few functions are needed for "build-file-name", which is in
+;     turn needed for loading all files, among which "utilities"
+
+(defun uconcat (&rest x)
+  (cond (x (format nil "~{~a~}" x)) ))
+
+(defun concat (&rest x) (identity (intern (string (apply #'uconcat x)))))
+
+(defun build-file-name (filen) (string (concat *HOME-DIR* filen)))
+
+(defun build-subdir-file-name (filen sub) (string (concat *HOME-DIR* sub filen)))
+
+;********* General utilities ***************************************
+(load (build-file-name "ALLLANG/PROC-ALL/utilities.lisp"))
+
+(defvar loadresult)	         ; for testing the correct loading of knowledge bases
+(defvar *LANGUAGE*)
+(defvar *TEMP*)
+
+     ; *** the three next variables hold the name of the lisp properties associated
+     ;     with the dictionary entries
+(defvar *MAIN-DICT*)
+(defvar *PROPER-DICT*)
+(defvar *SIGLE-DICT*)
+(defvar *PRINT-LEV*)
+(defvar *TREE-FORMAT*)	; may be "tut" or "avm"; set in main or in chunk-parser
+
+;********* The variable associated with the ontology cache *********************
+(defvar *ONTO-CACHE-FILE* (build-file-name "ALLLANG/KB-ALL/SEMANT-KB-ALL/onto-cache.dat"))
+
+ (format t "Which language do you want to use (Italian: i; English: e; Hindi: h; French: f; Spanish: s; Catalan: c)? ~%")
+(setq *TEMP* (check_risp '(i e h f s c) 0))
+(cond ((eq *TEMP* 'i)
+         (setq *LANGUAGE* 'italian)
+         (setq *MAIN-DICT* 'diz-gw)
+         (setq *PROPER-DICT* 'diz-pn)
+         (setq *SIGLE-DICT* 'diz-sig)
+         (load "load-ita-debug"))
+      ((eq *TEMP* 'e)
+         (setq *LANGUAGE* 'english)
+         (setq *MAIN-DICT* 'diz-gw-eng)
+         (setq *PROPER-DICT* 'diz-pn-eng)
+         (setq *SIGLE-DICT* 'diz-sig-eng)
+         (load "load-eng"))
+      ((eq *TEMP* 'f)
+         (setq *LANGUAGE* 'french)
+         (setq *MAIN-DICT* 'diz-gw-fr)
+         (setq *PROPER-DICT* 'diz-pn-fr)
+         (setq *SIGLE-DICT* 'diz-sig-fr)
+         (load "load-fre"))
+      ((eq *TEMP* 's)
+         (setq *LANGUAGE* 'spanish)
+         (setq *MAIN-DICT* 'diz-gw-sp)
+         (setq *PROPER-DICT* 'diz-pn-sp)
+         (setq *SIGLE-DICT* 'diz-sig-sp)
+         (load "load-spa"))
+      ((eq *TEMP* 'h)
+         (setq *LANGUAGE* 'hindi)
+         (setq *MAIN-DICT* 'diz-gw-hi)
+         (setq *PROPER-DICT* 'diz-pn-hi)
+         (setq *SIGLE-DICT* 'diz-sig-hi)
+         (load "load-hin"))
+      (t (setq *LANGUAGE* 'catalan)
+         (setq *MAIN-DICT* 'diz-gw-ca)
+         (setq *PROPER-DICT* 'diz-pn-ca)
+         (setq *SIGLE-DICT* 'diz-sig-ca)
+         (load "load-ca")))
+
+(break "")
+
+(format t "Result = ~s ~%" (go-main))
+
+(with-open-file (iport *ONTO-CACHE-FILE*
+                      :direction :output :if-exists :overwrite)
+    (setq *print-level* nil)
+    (setq *print-length* nil)
+    (format iport "~a~%" *ONTOLOGY-CACHE*))
+

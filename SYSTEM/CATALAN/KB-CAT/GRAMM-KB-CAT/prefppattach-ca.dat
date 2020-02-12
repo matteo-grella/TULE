@@ -1,0 +1,12 @@
+(in-package "USER")
+
+; *** the preference data have the following structure:
+;     (PREP (NOUNUP NOUNDOWN)))
+;     this has to be read as follows:
+;     in case the linking preposition is PREP, then
+;     the attach of NOUNDOWN to NOUNUP is specially strong,
+;     (a pseudo-locution), so that any modifier of NOUNDOWN
+;     should rather be attached to NOUNUP
+; *** see examples for Italian
+(setq *PREFER-PP-ATTACH* nil)
+

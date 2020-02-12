@@ -1,0 +1,875 @@
+(in-package "USER") 
+ 
+;**********************************************************
+; *** The global variable *SUFF-NET* holds the suffix ATN network
+(setq *SUFF-NET* 
+  '(
+    (n1                             ; *** state n1: after NIL
+      (|A| final 
+        (setoutp '|A|)
+        (nxt-state-lex 'N13))
+      (|I| final 
+        (setoutp '|I|)
+        (nxt-state-lex 'N24))
+      (|e| final 
+        (setoutp '|e|)
+        (nxt-state-lex 'N14))
+      (|i| final 
+        (setoutp '|i|)
+        (nxt-state-lex 'STOP))
+      (|a| final 
+        (setoutp '|a|)
+        (nxt-state-lex 'N31))
+      (|M| nil 
+        (nxt-state-lex 'N2))
+      (|z| nil 
+        (nxt-state-lex 'N3))
+      (|U| final 
+        (setoutp '|U|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|o|)
+        (nxt-state-lex 'N59))
+     )
+    (n2                             ; *** state n2: after M
+      (|o| final 
+        (setoutp '|oM|)
+        (nxt-state-lex 'N6))
+      (|e| final 
+        (setoutp '|eM|)
+        (nxt-state-lex 'N10))
+      (|I| final 
+        (setoutp '|IM|)
+        (nxt-state-lex 'N15))
+      (|i| nil 
+        (nxt-state-lex 'N102))
+     )
+    (n3                             ; *** state n3: after z
+      (|A| final 
+        (setoutp '|Az|)
+        (nxt-state-lex 'N4))
+      (|E| final 
+        (setoutp '|Ez|)
+        (nxt-state-lex 'STOP))
+      (|U| final 
+        (setoutp '|Uz|)
+        (nxt-state-lex 'N51))
+      (|e| final 
+        (setoutp '|ez|)
+        (nxt-state-lex 'N12))
+     )
+    (n4                             ; *** state n4: after Az
+      (|y| final 
+        (setoutp '|yAz|)
+        (nxt-state-lex 'N5))
+     )
+    (n5                             ; *** state n5: after yAz
+      (|i| final 
+        (setoutp '|iyAz|)
+        (nxt-state-lex 'STOP))
+     )
+    (n6                             ; *** state n6: after oM
+      (|y| final 
+        (setoutp '|yoM|)
+        (nxt-state-lex 'N7))
+      (|Y| nil 
+        (nxt-state-lex 'N8))
+      (|u| final 
+        (setoutp '|uoM|)
+        (nxt-state-lex 'STOP))
+      (|z| nil 
+        (nxt-state-lex 'N9))
+      (|v| final 
+        (setoutp '|voM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n7                             ; *** state n7: after yoM
+      (|i| final 
+        (setoutp '|iyoM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n8                             ; *** state n8: after YoM
+      (|i| final 
+        (setoutp '|iYoM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n9                             ; *** state n9: after zoM
+      (|u| final 
+        (setoutp '|uzoM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n10                             ; *** state n10: after eM
+      (|y| final 
+        (setoutp '|yeM|)
+        (nxt-state-lex 'N11))
+      (|r| nil 
+        (nxt-state-lex 'N58))
+     )
+    (n11                             ; *** state n11: after yeM
+      (|A| final 
+        (setoutp '|AyeM|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uyeM|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|oyeM|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iyeM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n12                             ; *** state n12: after ez
+      (|A| final 
+        (setoutp '|Aez|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uez|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|oez|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iez|)
+        (nxt-state-lex 'STOP))
+     )
+    (n13                             ; *** state n13: after A
+      (|y| final 
+        (setoutp '|yA|)
+        (nxt-state-lex 'N34))
+      (|g| nil 
+        (nxt-state-lex 'N16))
+      (|w| final 
+        (setoutp '|wA|)
+        (nxt-state-lex 'N62))
+      (|n| final 
+        (setoutp '|nA|)
+        (nxt-state-lex 'N74))
+      (|u| final 
+        (setoutp '|uA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n14                             ; *** state n14: after e
+      (|y| final 
+        (setoutp '|ye|)
+        (nxt-state-lex 'N30))
+      (|g| nil 
+        (nxt-state-lex 'N20))
+      (|i| final 
+        (setoutp '|ie|)
+        (nxt-state-lex 'N54))
+      (|w| final 
+        (setoutp '|we|)
+        (nxt-state-lex 'N68))
+      (|n| final 
+        (setoutp '|ne|)
+        (nxt-state-lex 'N80))
+      (|r| nil 
+        (nxt-state-lex 'N53))
+      (|u| final 
+        (setoutp '|ue|)
+        (nxt-state-lex 'STOP))
+     )
+    (n15                             ; *** state n15: after IM
+      (|y| final 
+        (setoutp '|yIM|)
+        (nxt-state-lex 'N90))
+      (|w| final 
+        (setoutp '|wIM|)
+        (nxt-state-lex 'N71))
+      (|n| final 
+        (setoutp '|nIM|)
+        (nxt-state-lex 'N83))
+      (|u| final 
+        (setoutp '|uIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n16                             ; *** state n16: after gA
+      (|z| nil 
+        (nxt-state-lex 'N17))
+      (|e| final 
+        (setoutp '|egA|)
+        (nxt-state-lex 'N18))
+      (|o| final 
+        (setoutp '|ogA|)
+        (nxt-state-lex 'STOP))
+      (|M| nil 
+        (nxt-state-lex 'N92))
+     )
+    (n17                             ; *** state n17: after zgA
+      (|U| final 
+        (setoutp '|UzgA|)
+        (nxt-state-lex 'N35))
+     )
+    (n18                             ; *** state n18: after egA
+      (|y| final 
+        (setoutp '|yegA|)
+        (nxt-state-lex 'N19))
+      (|i| final 
+        (setoutp '|iegA|)
+        (nxt-state-lex 'N38))
+      (|r| nil 
+        (nxt-state-lex 'N37))
+      (|u| final 
+        (setoutp '|uegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n19                             ; *** state n19: after yegA
+      (|i| final 
+        (setoutp '|iyegA|)
+        (nxt-state-lex 'N40))
+      (|u| final 
+        (setoutp '|uyegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n20                             ; *** state n20: after ge
+      (|z| nil 
+        (nxt-state-lex 'N21))
+      (|M| nil 
+        (nxt-state-lex 'N22))
+      (|o| final 
+        (setoutp '|oge|)
+        (nxt-state-lex 'N43))
+     )
+    (n21                             ; *** state n21: after zge
+      (|e| final 
+        (setoutp '|ezge|)
+        (nxt-state-lex 'N96))
+     )
+    (n22                             ; *** state n22: after Mge
+      (|e| final 
+        (setoutp '|eMge|)
+        (nxt-state-lex 'N23))
+      (|o| final 
+        (setoutp '|oMge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n23                             ; *** state n23: after eMge
+      (|y| final 
+        (setoutp '|yeMge|)
+        (nxt-state-lex 'N95))
+      (|r| nil 
+        (nxt-state-lex 'N42))
+     )
+    (n24                             ; *** state n24: after I
+      (|g| nil 
+        (nxt-state-lex 'N25))
+      (|w| final 
+        (setoutp '|wI|)
+        (nxt-state-lex 'N65))
+      (|n| final 
+        (setoutp '|nI|)
+        (nxt-state-lex 'N77))
+      (|u| final 
+        (setoutp '|uI|)
+        (nxt-state-lex 'STOP))
+      (|y| final 
+        (setoutp '|yI|)
+        (nxt-state-lex 'N89))
+     )
+    (n25                             ; *** state n25: after gI
+      (|z| nil 
+        (nxt-state-lex 'N26))
+      (|e| final 
+        (setoutp '|egI|)
+        (nxt-state-lex 'N27))
+      (|M| nil 
+        (nxt-state-lex 'N28))
+      (|o| final 
+        (setoutp '|ogI|)
+        (nxt-state-lex 'N49))
+     )
+    (n26                             ; *** state n26: after zgI
+      (|U| final 
+        (setoutp '|UzgI|)
+        (nxt-state-lex 'N45))
+      (|e| final 
+        (setoutp '|ezgI|)
+        (nxt-state-lex 'N101))
+      (|u| nil 
+        (nxt-state-lex 'N98))
+     )
+    (n27                             ; *** state n27: after egI
+      (|y| final 
+        (setoutp '|yegI|)
+        (nxt-state-lex 'N99))
+      (|r| nil 
+        (nxt-state-lex 'N47))
+      (|i| final 
+        (setoutp '|iegI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uegI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n28                             ; *** state n28: after MgI
+      (|e| final 
+        (setoutp '|eMgI|)
+        (nxt-state-lex 'N29))
+      (|o| final 
+        (setoutp '|oMgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n29                             ; *** state n29: after eMgI
+      (|y| final 
+        (setoutp '|yeMgI|)
+        (nxt-state-lex 'N100))
+      (|r| nil 
+        (nxt-state-lex 'N48))
+     )
+    (n30                             ; *** state n30: after ye
+      (|i| final 
+        (setoutp '|iye|)
+        (nxt-state-lex 'N56))
+      (|u| final 
+        (setoutp '|uye|)
+        (nxt-state-lex 'STOP))
+     )
+    (n31                             ; *** state n31: after a
+      (|r| nil 
+        (nxt-state-lex 'N32))
+      (|g| nil 
+        (nxt-state-lex 'N104))
+     )
+    (n32                             ; *** state n32: after ra
+      (|a| nil 
+        (nxt-state-lex 'N33))
+     )
+    (n33                             ; *** state n33: after ara
+      (|k| final 
+        (setoutp '|kara|)
+        (nxt-state-lex 'N88))
+      (|r| nil 
+        (nxt-state-lex 'N61))
+     )
+    (n34                             ; *** state n34: after yA
+      (|i| final 
+        (setoutp '|iyA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n35                             ; *** state n35: after UzgA
+      (|r| nil 
+        (nxt-state-lex 'N36))
+      (|o| final 
+        (setoutp '|oUzgA|)
+        (nxt-state-lex 'STOP))
+      (|y| nil 
+        (nxt-state-lex 'N91))
+      (|i| final 
+        (setoutp '|iUzgA|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uUzgA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n36                             ; *** state n36: after rUzgA
+      (|a| final 
+        (setoutp '|arUzgA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n37                             ; *** state n37: after regA
+      (|a| final 
+        (setoutp '|aregA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n38                             ; *** state n38: after iegA
+      (|r| nil 
+        (nxt-state-lex 'N39))
+      (|j| nil 
+        (nxt-state-lex 'N86))
+      (|o| final 
+        (setoutp '|oiegA|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uiegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n39                             ; *** state n39: after riegA
+      (|a| final 
+        (setoutp '|ariegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n40                             ; *** state n40: after iyegA
+      (|j| nil 
+        (nxt-state-lex 'N41))
+      (|o| final 
+        (setoutp '|oiyegA|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uiyegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n41                             ; *** state n41: after jiyegA
+      (|I| final 
+        (setoutp '|IjiyegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n42                             ; *** state n42: after reMge
+      (|a| final 
+        (setoutp '|areMge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n43                             ; *** state n43: after oge
+      (|r| nil 
+        (nxt-state-lex 'N44))
+      (|i| final 
+        (setoutp '|ioge|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uoge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n44                             ; *** state n44: after roge
+      (|a| final 
+        (setoutp '|aroge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n45                             ; *** state n45: after UzgI
+      (|r| nil 
+        (nxt-state-lex 'N46))
+      (|o| final 
+        (setoutp '|oUzgI|)
+        (nxt-state-lex 'STOP))
+      (|y| nil 
+        (nxt-state-lex 'N97))
+      (|u| final 
+        (setoutp '|uUzgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n46                             ; *** state n46: after rUzgI
+      (|a| final 
+        (setoutp '|arUzgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n47                             ; *** state n47: after regI
+      (|a| final 
+        (setoutp '|aregI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n48                             ; *** state n48: after reMgI
+      (|a| final 
+        (setoutp '|areMgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n49                             ; *** state n49: after ogI
+      (|r| nil 
+        (nxt-state-lex 'N50))
+      (|o| final 
+        (setoutp '|oogI|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iogI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uogI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n50                             ; *** state n50: after rogI
+      (|a| final 
+        (setoutp '|arogI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n51                             ; *** state n51: after Uz
+      (|r| nil 
+        (nxt-state-lex 'N52))
+      (|o| final 
+        (setoutp '|oUz|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iUz|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uUz|)
+        (nxt-state-lex 'STOP))
+     )
+    (n52                             ; *** state n52: after rUz
+      (|a| final 
+        (setoutp '|arUz|)
+        (nxt-state-lex 'STOP))
+     )
+    (n53                             ; *** state n53: after re
+      (|a| final 
+        (setoutp '|are|)
+        (nxt-state-lex 'STOP))
+     )
+    (n54                             ; *** state n54: after ie
+      (|r| nil 
+        (nxt-state-lex 'N55))
+      (|j| nil 
+        (nxt-state-lex 'N87))
+      (|o| final 
+        (setoutp '|oie|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uie|)
+        (nxt-state-lex 'STOP))
+     )
+    (n55                             ; *** state n55: after rie
+      (|a| final 
+        (setoutp '|arie|)
+        (nxt-state-lex 'STOP))
+     )
+    (n56                             ; *** state n56: after iye
+      (|j| nil 
+        (nxt-state-lex 'N57))
+      (|o| final 
+        (setoutp '|oiye|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uiye|)
+        (nxt-state-lex 'STOP))
+     )
+    (n57                             ; *** state n57: after jiye
+      (|I| final 
+        (setoutp '|Ijiye|)
+        (nxt-state-lex 'STOP))
+     )
+    (n58                             ; *** state n58: after reM
+      (|a| final 
+        (setoutp '|areM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n59                             ; *** state n59: after o
+      (|r| nil 
+        (nxt-state-lex 'N60))
+      (|o| final 
+        (setoutp '|oo|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|io|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uo|)
+        (nxt-state-lex 'STOP))
+     )
+    (n60                             ; *** state n60: after ro
+      (|a| final 
+        (setoutp '|aro|)
+        (nxt-state-lex 'STOP))
+     )
+    (n61                             ; *** state n61: after rara
+      (|a| final 
+        (setoutp '|arara|)
+        (nxt-state-lex 'STOP))
+     )
+    (n62                             ; *** state n62: after wA
+      (|a| nil 
+        (nxt-state-lex 'N63))
+      (|e| final 
+        (setoutp '|ewA|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|owA|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iwA|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uwA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n63                             ; *** state n63: after awA
+      (|r| nil 
+        (nxt-state-lex 'N64))
+     )
+    (n64                             ; *** state n64: after rawA
+      (|a| final 
+        (setoutp '|arawA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n65                             ; *** state n65: after wI
+      (|a| nil 
+        (nxt-state-lex 'N66))
+      (|e| final 
+        (setoutp '|ewI|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|owI|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iwI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uwI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n66                             ; *** state n66: after awI
+      (|r| nil 
+        (nxt-state-lex 'N67))
+     )
+    (n67                             ; *** state n67: after rawI
+      (|a| final 
+        (setoutp '|arawI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n68                             ; *** state n68: after we
+      (|a| nil 
+        (nxt-state-lex 'N69))
+      (|e| final 
+        (setoutp '|ewe|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|owe|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iwe|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uwe|)
+        (nxt-state-lex 'STOP))
+     )
+    (n69                             ; *** state n69: after awe
+      (|r| nil 
+        (nxt-state-lex 'N70))
+     )
+    (n70                             ; *** state n70: after rawe
+      (|a| final 
+        (setoutp '|arawe|)
+        (nxt-state-lex 'STOP))
+     )
+    (n71                             ; *** state n71: after wIM
+      (|a| nil 
+        (nxt-state-lex 'N72))
+      (|e| final 
+        (setoutp '|ewIM|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|owIM|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|iwIM|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uwIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n72                             ; *** state n72: after awIM
+      (|r| nil 
+        (nxt-state-lex 'N73))
+     )
+    (n73                             ; *** state n73: after rawIM
+      (|a| final 
+        (setoutp '|arawIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n74                             ; *** state n74: after nA
+      (|a| nil 
+        (nxt-state-lex 'N75))
+      (|e| final 
+        (setoutp '|enA|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|onA|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|inA|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|unA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n75                             ; *** state n75: after anA
+      (|r| nil 
+        (nxt-state-lex 'N76))
+     )
+    (n76                             ; *** state n76: after ranA
+      (|a| final 
+        (setoutp '|aranA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n77                             ; *** state n77: after nI
+      (|a| nil 
+        (nxt-state-lex 'N78))
+      (|e| final 
+        (setoutp '|enI|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|onI|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|inI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|unI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n78                             ; *** state n78: after anI
+      (|r| nil 
+        (nxt-state-lex 'N79))
+     )
+    (n79                             ; *** state n79: after ranI
+      (|a| final 
+        (setoutp '|aranI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n80                             ; *** state n80: after ne
+      (|a| nil 
+        (nxt-state-lex 'N81))
+      (|e| final 
+        (setoutp '|ene|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|one|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|ine|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|une|)
+        (nxt-state-lex 'STOP))
+     )
+    (n81                             ; *** state n81: after ane
+      (|r| nil 
+        (nxt-state-lex 'N82))
+     )
+    (n82                             ; *** state n82: after rane
+      (|a| final 
+        (setoutp '|arane|)
+        (nxt-state-lex 'STOP))
+     )
+    (n83                             ; *** state n83: after nIM
+      (|a| nil 
+        (nxt-state-lex 'N84))
+      (|e| final 
+        (setoutp '|enIM|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|onIM|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|inIM|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|unIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n84                             ; *** state n84: after anIM
+      (|r| nil 
+        (nxt-state-lex 'N85))
+     )
+    (n85                             ; *** state n85: after ranIM
+      (|a| final 
+        (setoutp '|aranIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n86                             ; *** state n86: after jiegA
+      (|I| final 
+        (setoutp '|IjiegA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n87                             ; *** state n87: after jie
+      (|I| final 
+        (setoutp '|Ijie|)
+        (nxt-state-lex 'STOP))
+     )
+    (n88                             ; *** state n88: after kara
+      (|e| final 
+        (setoutp '|ekara|)
+        (nxt-state-lex 'STOP))
+      (|o| final 
+        (setoutp '|okara|)
+        (nxt-state-lex 'STOP))
+      (|i| final 
+        (setoutp '|ikara|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|ukara|)
+        (nxt-state-lex 'STOP))
+     )
+    (n89                             ; *** state n89: after yI
+      (|u| final 
+        (setoutp '|uyI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n90                             ; *** state n90: after yIM
+      (|u| final 
+        (setoutp '|uyIM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n91                             ; *** state n91: after yUzgA
+      (|i| final 
+        (setoutp '|iyUzgA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n92                             ; *** state n92: after MgA
+      (|e| nil 
+        (nxt-state-lex 'N93))
+     )
+    (n93                             ; *** state n93: after eMgA
+      (|y| nil 
+        (nxt-state-lex 'N94))
+     )
+    (n94                             ; *** state n94: after yeMgA
+      (|i| final 
+        (setoutp '|iyeMgA|)
+        (nxt-state-lex 'STOP))
+     )
+    (n95                             ; *** state n95: after yeMge
+      (|i| final 
+        (setoutp '|iyeMge|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uyeMge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n96                             ; *** state n96: after ezge
+      (|i| final 
+        (setoutp '|iezge|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uezge|)
+        (nxt-state-lex 'STOP))
+     )
+    (n97                             ; *** state n97: after yUzgI
+      (|i| final 
+        (setoutp '|iyUzgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n98                             ; *** state n98: after uzgI
+      (|i| final 
+        (setoutp '|iuzgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n99                             ; *** state n99: after yegI
+      (|i| final 
+        (setoutp '|iyegI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uyegI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n100                             ; *** state n100: after yeMgI
+      (|i| final 
+        (setoutp '|iyeMgI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uyeMgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n101                             ; *** state n101: after ezgI
+      (|i| final 
+        (setoutp '|iezgI|)
+        (nxt-state-lex 'STOP))
+      (|u| final 
+        (setoutp '|uezgI|)
+        (nxt-state-lex 'STOP))
+     )
+    (n102                             ; *** state n102: after iM
+      (|Y| nil 
+        (nxt-state-lex 'N103))
+     )
+    (n103                             ; *** state n103: after YiM
+      (|u| final 
+        (setoutp '|uYiM|)
+        (nxt-state-lex 'STOP))
+     )
+    (n104                             ; *** state n104: after ga
+      (|e| nil 
+        (nxt-state-lex 'N105))
+     )
+    (n105                             ; *** state n105: after ega
+      (|y| final 
+        (setoutp '|yega|)
+        (nxt-state-lex 'STOP))
+     )
+  )) 

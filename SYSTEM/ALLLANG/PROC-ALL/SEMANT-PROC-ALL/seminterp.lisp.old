@@ -1,0 +1,1394 @@
+
+(in-package "USER")
+
+; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;       OVERALL STRATEGY
+; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;   1. Standard syntactic analysis (POS tagger + parser)
+;      --- this step is carried out by various functions; the main function
+;          basically depends on the way of interaction. Usually, it is
+;          " "hops-ana-text+tag"
+;          "parse-sentences", and "mergeresult". The three functions are
+;          called in "start-hops" (file "main"); "hops-ana-text+tag" and
+;          mergeresult are defined in the file "main"; "parse-sentences"
+;          is defined in the file "chunk-parser".
+;      --- output: the syntactic tree, having the following structure:
+;          (line1 line2 ... lineN)
+;          Where each line contains the info on a word (or syntactic
+;          component of a word, e.g. an enclitic):
+;          ((posit P) (form F) (syn SY) (sem SE) (coref C) (tree T))
+;          Where, in turn:
+;          ++ P is an integer or a pair of integers (subcomponent)
+;          ++ F is the input form (keeping capitalization)
+;          ++ SY is a structure of lexical-syntactic information, including,
+;             among others, the lemma, the syntactic category, the syntactic
+;             subtype, gender, number, tense, etc.
+;          ++ SE is a list including semantic features. Now, it's usually
+;             empty, except for some particles (e.g. some conjunctions and
+;             adverbs) that get some semantic information from the lexicon
+;          ++ C is the coreference index, currently appearing just for
+;             traces. Its value may be EMPTY, or a pair ((line LI) (ctype CT))
+;             where LI is the "posit" of the referent, while CT is the
+;             type of reference (full, partial, or word)
+;          ++ T is a pair: ((parent PA) (label L)), where PA is the line
+;             number (see P) above identifying the line of the parent, and
+;             L is the label of the arc connecting this line to the parent
+;       !! All data can be extracted from this representation by using the
+;       !! get-flatavm-XXX functions appearing in the "tb-functions" file.
+;       !! for instance, get-flatavm-numb returns the value of the feature "posit"
+;       !! of a line, while get-flatavm-categ returns the value of the feature
+;       !! categ of the feature syn of a line. These functions are applied
+;       !! to a single line
+;       ??? Note that the names of the functions are not very readable (e.g.
+;       ??? "numb" instead of "posit") in order to keep some backward reference
+;       ??? to the get-newtb-XXX functions used in the full system for text
+;       ??? analysis
+;             
+;   2. Reorganization of the parse tree, which is converted into a standard
+;      tree format.
+;      --- this step is carried out by the function "reshuffle-tree", called
+;          and defined in the file "main"
+;      --- output: the syntactic tree, having the following structure:
+;          ((head HEADINFO) (dependents (subtree1 subtree2 ... subtreeN)))
+;          Each subtree is, in its turn, a tree, but it could also be the
+;          special form (#\#), which simply marks the position of the head
+;          within the sequence of dependents
+;          HEADINFO contains all relevant data about the head. They are:
+;          ((form F) (position P) (syn SY) (coref C) (link L) (sem SE))
+;          No new information is added in this step, so that all data
+;          are the same as in the previous format. Note that the "position"
+;          information is now less relevant, but it has been kept for
+;          coreference purposes.          
+;       !! All data can be extracted from this representation by using the
+;       !! get-actavm-XXX functions appearing in this file.
+;       !! For instance, get-actavm-head returns the value of the feature "head"
+;       !! (see HEADINFO above), get-actavm-headsyn return the value of the
+;       !! feature "syn" of the feature "head", and get-actavm-headcateg
+;       !! returns the value of the feature "cat" of the feature "syn" of
+;       !! the feature "head"
+
+;   3. Actual semantic interpretation.
+;          --- this step is carried out by the function "semantic-interpretation",
+;              called by "start-hops" (file "main") and is split into three substeps:
+;      3.1 Annotate the tree with semantic information. This aims at filling
+;          the "sem" features of the tree. The information is obtained from
+;          the lexicon (actually, the file KB/word-meaning.dat) for standard
+;          words (e.g. noun and verbs) and from the context for deictic
+;          pronouns (I, you) and for some traces coming from pro-drop.
+;          --- this step is carried out by the function "add-actavm-headmeaning",
+;              called by the function "annotate" (defined in this file); "annotate"
+;              is called by "semantic-interpretation" and is defined in this file
+;          --- output: the tree is the same as before, but the "sem" feature
+;              should have a value for each node (except for coreference traces
+;              which get their value in the next substep)
+;      3.2 Solve coreferences. This applies to traces coming from sharing
+;          (e.g. equi), and involves, for each trace, a search in the whole
+;          tree for its referent. 
+;          --- this step is carried out by the function "solve-coreferences", also
+;              called by "annotate".
+;          --- output: see above
+;      3.3 If needed, insertion, at the top of the tree, of some extra nodes.
+;          this is done for cases where the root is a noun (N), so that the
+;          sentence should be interpreted as "I want to know some information
+;          about N"
+;          --- this step is carried out inside the function "annotate".
+;          --- output: as above, but with some possible extra nodes
+;      3.4 Construction of the actual "ontologic" query. This involves the
+;          access to the ontology and to some sort of default info, in order
+;          to express, in terms of a path in the ontology, what need be found.
+;          --- this step is carried out by the function "build-sem-query", called
+;              by "semantic-interpretation" and defined in the file "buildquery"
+;          --- output: an ontologic query, having the form:
+;              SELECT path1 FROM node WHERE pathtree
+;       !! Apart from the final query, all data can be extracted from the various
+;       !! annotated trees using the same functions (get-actavm-XXX) mentioned above.
+;
+; *** To summarize:
+;     start-hops [0] ("main")
+;      |--- hops-ana-text+tag [1] ("main")
+;      |--- parse-sentences [1] ("chunk-parser")
+;      |--- mergeresult [1] ("main")
+;      |--- reshuffle-tree [2] ("main")
+;      |--- semantic-intepretation [3] ("seminterp")
+;            |--- annotate [3.3] ("seminterp")
+;                  |--- add-actavm-headmeaning [3.1] ("seminterp")
+;                  |--- solve-coreferences [3.2] ("seminterp")
+;            |--- build-sem-query [3.4] ("buildquery")
+
+; ***************************************************************************
+(defun semantic-interpretation (synt-trees &optional file-outp)
+    (mapcar #'(lambda (x) (singsent-sem-interp x file-outp)) synt-trees))
+
+; ***************************************************************************
+(defun singsent-sem-interp (synt-tree &optional file-outp)
+  (declare (special *PRINT-LEV* *ANAPHORIC-CONTEXT* *SYSTEM-CONTEXT* *TURN-TO-TALK*))
+; *** 
+  ;   (format t "Turn-to-talk: ~a~%" *TURN-TO-TALK*)
+  (let ((*full-tree* nil) ontorepr)
+    (declare (special *full-tree*))
+     (setq *full-tree* (annotate synt-tree))
+     (cond ((or (and (eq *SYSTEM-CONTEXT* 'hops-dial)
+                     (>= *PRINT-LEV* 3))
+                (and (memq *SYSTEM-CONTEXT* '(tule tocai atlas))
+                     (>= *PRINT-LEV* 1)))
+             (format t "Albero annotato: ~s ~%" *full-tree*)
+             (break "")))
+     (cond ((not (null file-outp))
+             (with-open-file (outsemport file-outp
+                                :direction :output :if-exists :overwrite 
+                                :if-does-not-exist :create)
+                        (print-actavm-readable *full-tree* outsemport)
+          ; *** print-actavm-readable in PARSER-PROC-ALL/avm-transf
+                       ; (format outsemport "~a~%" *full-tree*)
+              )))
+     (setq ontorepr (build-sem-query *full-tree*))
+     (setq *ANAPHORIC-CONTEXT* 
+          (cons (list '§speaker *full-tree* ontorepr)
+                 *ANAPHORIC-CONTEXT*))
+     ontorepr))
+
+; ***************************************************************************
+(defun annotate (synt-tree)
+ (declare (special *DIALOGUE-CONTEXT* *ALL-DIAL-CONTEXTS* *SYSTEM-CONTEXT*
+                   *TURN-TO-TALK*))
+ (let* ((temp-annot-tree (add-actavm-headmeaning synt-tree nil))
+            ; *** the first parameter is used for recursion, the second will get the
+            ;     tree one level up with respect to the current one
+        (annotated-tree (solve-coreferences temp-annot-tree temp-annot-tree nil))
+            ; *** the first parameter is used for recursion, the second keeps the full tree,
+            ;     for searching the referents, the third will keep the parent for possible
+            ;     semantic checks
+        (headcateg (get-actavm-headcateg annotated-tree))
+        (headmeaning (get-actavm-headlexmean annotated-tree))
+        obj-sentobj)
+    (cond ((memq headcateg '(art pron num))
+             (add-givinfo annotated-tree *TURN-TO-TALK*))
+          ((eq 'noun headcateg)
+            (cond ((eq '££information headmeaning)
+                      (add-want-obj annotated-tree))
+                  ((eq *SYSTEM-CONTEXT* 'tocai)
+                     (add-getinfo annotated-tree))
+                  (t (add-givinfo annotated-tree *TURN-TO-TALK*))))
+          ((eq 'verb headcateg)
+            (let ((person (find-verb-person-or-number annotated-tree 'person))
+                  (number (find-verb-person-or-number annotated-tree 'number)))
+                (cond ((eq 1 person)
+                        (cond ((eq *TURN-TO-TALK* '§speaker)
+   ; *** if the verb is in first person, I assume the sentence expresses
+   ;     a thing the user wants to know.
+   ; *** "Vorrei sapere quali concerti ...."
+   ;     "Voglio vedere un film ..."
+   ;     "Vorrei un'informazione"
+   ;     "Vorrei delle informazioni su ..."
+   ;     "Vorrei il programma di ..."
+   ;     "Quali spettacoli posso trovare ..."
+   ;     "Posso sapere ..."
+                                (cond ((eq '££want headmeaning)
+                 ; *** "Vorrei sapere quali concerti ...."
+                 ;     "Voglio vedere un film ..."
+                 ;     "Vorrei un'informazione"
+                 ;     "Vorrei delle informazioni su ..."
+                                        (let ((sentobj (get-sentential-object annotated-tree))
+                                               adjoin-label-up adjoin-label-down adjoin-path 
+                                               attach-path)
+                                            (cond ((null sentobj)
+                         ; *** "Voglio un'informazione ..."
+                         ;     in this case, the tree is left unchanges
+                                                      annotated-tree)
+                                                  ((eq '££know (get-actavm-headlexmean sentobj))
+                         ; *** "Vorrei sapere quali concerti ...." 
+                         ;     the tree is left unchanged
+                                                     annotated-tree)
+                                                  ((eq '££obtain (get-actavm-ext-headlexmean sentobj))
+                         ; *** I would like to get ...
+                                                    (setq obj-sentobj
+                                                        (find-actavm-dep 'VERB-OBJ sentobj))
+					            (cond ((null obj-sentobj)
+                                                             (exception 'semantic-error
+                                                               "PROC/seminterp: no obj for get in I would like to get"))
+                                                          ((eq '££information
+                                                              (get-actavm-ext-headlexmean obj-sentobj))
+                                        ; *** I would like to get information ...
+                                        ;     The tree is left unchanged
+                                                             nil)
+                                                          (t (exception 'semantic-error
+                                                                 "PROC/seminterp: the obj for get in I would like to get is not 'information'"))))
+                                                  (t (cond ((eq 'mod 
+                                                               (get-actavm-headtype annotated-tree))
+                                 ; *** the verb associated with ££want is a modal
+                                 ;     e.g. Italian "vorrei andare ..."
+                                                             (setq adjoin-label-up 
+                                                                   'verb+modal-indcompl)
+                                                             (setq adjoin-label-down 'verb-obj)
+                                                             (setq adjoin-path 
+                                                                   '(verb+modal-indcompl))
+                                                             (setq attach-path 
+                                                                   '(verb+modal-indcompl 
+                                                                     verb-obj)))
+                                 ; *** the verb associated with ££want is not a modal
+                                 ;     e.g. English "I want to go ..."
+                                                           (t (setq adjoin-label-up 'prep-arg)
+                                                             (setq adjoin-label-down 'verb-obj)
+                                                             (setq adjoin-path 
+                                                                   '(verb-obj prep-arg))
+                                                             (setq attach-path 
+                                                                   '(verb-obj prep-arg 
+                                                                     verb-obj))))
+                                                     (setq annotated-tree
+                         ; *** "Voglio vedere un film ..."
+                         ;     in this case, I assume it may be interpreted as 
+                         ;     I want [to know where] see a movie ...
+                                                          (adjoin-subtree annotated-tree
+                                                             `(,adjoin-path
+                                                               (££know
+                                                                  ,adjoin-label-up
+                                                                   ((#\#)
+                                                                    (§speaker verb-subj
+                                                                      ((#\#)))
+                                                                    (*)))
+                                                               ,adjoin-label-down)))
+                                                     (attach-subtree annotated-tree
+                                                           `(,attach-path
+                                                              (££event
+                                                               advb+interr-rmod ((#\#)))
+                                                            ))))))
+                                      ((eq '££can headmeaning)
+               ; *** the main verb is "can"
+               ;     "Quali spettacoli posso trovare ..."
+               ; *** this is expressed by inserting in the tree lexically empty
+               ;     elements the can be interpreted as "I want to know"
+                                         (let ((sentobj (get-sentential-object annotated-tree)))
+                                             (cond ((eq '££get-info
+                                                        (get-actavm-ext-headlexmean sentobj))
+                     ; *** "Can I speak to somebody about ..."
+                                                      annotated-tree)
+                                                   (t (add-want-know annotated-tree)))))
+                                      ((eq '££know headmeaning)
+               ; *** the main verb is "cercare"
+               ;     "Sto cercando ..."
+               ; *** this is expressed by inserting in the tree lexically empty
+               ;     elements the can be interpreted as "I want"
+                                          (add-want annotated-tree))
+                                      ((eq '££to-be headmeaning)
+               ; *** the main verb is "to-be":
+               ;     "I am interested in XXX"
+               ; *** this is expressed as "I'm getting info about XXX"
+                                        (let ((predcompl
+                                                (find-actavm-dep 'VERB-PREDCOMPL+SUBJ annotated-tree))
+                                              predmean)
+                                            (cond ((null predcompl)
+               ; *** there is no predicative complement. Try with a location (I'm in Rome Street)
+               ;     The search is made by checking if there is an RMOD whose head has as
+               ;     meaning "--in-relation" or "--on-relation"
+                                                     (setq predcompl
+                                                          (find-actavm-dep 'RMOD annotated-tree))
+                                                     (cond ((null predcompl) annotated-tree)
+                                                           (t (setq predmean
+                                                                 (get-actavm-headlexmean predcompl))
+                                                              (cond ((member predmean
+                                                                        '(--in-relation --on-relation))
+                                                                       (add-givinfo annotated-tree *TURN-TO-TALK*))
+                                                                    (t annotated-tree)))))
+                                                  ((eq '£interested
+               ; *** the actual argument of "to be" actually is "interested"
+                                                           (get-actavm-headlexmean predcompl))
+                                                    (let ((preposit
+                                                            (find-actavm-dep 'ADJC-ARG predcompl)))
+                                                        (cond ((not (null preposit))
+                    ; *** "interested" really has an adjectival argument (interested in)
+                                                                 (add-givinfo preposit *TURN-TO-TALK*))
+                                                              (t (exception 'semantic-error
+                                                                    "PROC/seminterp: 'interested' without specification")))))
+               ; *** the actual argument of "to be" is not "interested"
+                                                  (t annotated-tree))))
+               ; *** the top meaning is none of ££want, ££can, ££know, ££to-be
+               ; *** "Ho visto ...": annotated-tree is left unchanged
+                                      (t annotated-tree)))
+   ; ---------- The sentence is in the first person ----------------
+   ;            Here closes the case where the *TURN-TO-TALK* is the user
+   ;            From now on the *TURN-TO-TALK* is of the system (§myself)
+   ;            This also applies to ATLAS, where it is the system that plays the role of
+   ;            the meteo speaker
+   ;            - headmeaning: the lexmean of the root verb
+                              ((eq *TURN-TO-TALK* '§myself)
+                                (cond ((eq number 'sing)
+              ; *** I will show you, I greet you, ...
+              ; ???????????? this case must be examined ???????????????????????????????
+                                         annotated-tree)
+                                      ((eq number 'pl)
+                                        (cond ((eq headmeaning '££to-have)
+                                                 (add-givinfo annotated-tree *TURN-TO-TALK*))))))
+                              (t (break "seminterp: Who is speaking?"))))
+              ; *** We see, we have
+                      ((eq 2 person)
+                        (cond ((and (eq 'imper (get-actavm-headmood annotated-tree))
+                                    (one-is-subclass-of headmeaning '££system-operation))
+                                 (add-want annotated-tree))
+   ; *** if the verb is imperative, I assume the form "dimmi" or "puoi dirmi"
+                              ((eq '££can headmeaning)   ; could you tell me
+                                 annotated-tree)
+                              ((is-sem-interrogative annotated-tree)   ; sem --> seminterp
+                                 (add-want-know annotated-tree))
+                              (t annotated-tree)))
+                      ((eq 3 person)
+                        (cond ((eq '££can headmeaning)
+   ; *** Here, I assume a form of polite question (Puo' dirmi ...?)
+                                 annotated-tree)
+                              ((eq '££want headmeaning)
+   ; *** Here, for Italian "mi servono", annotated as "I want"
+                                 annotated-tree)
+                              ((is-sem-interrogative annotated-tree)   ; sem --> seminterp
+   ; *** It is a direct question if the sentence has a question mark or includes some
+   ;     question element
+   ;     "Dove è la biglietteria di Settembre musica?"
+   ;     "Quali spettacoli ci sono domani sera a Torino?"
+                                 (add-want-know annotated-tree))
+   ; *** The next for "My address is ..."
+                              (t (add-givinfo annotated-tree *TURN-TO-TALK*))))
+                      ((and (eq 'infinite (get-actavm-headmood annotated-tree))
+                            (one-is-subclass-of headmeaning '££system-operation))
+                         (setq annotated-tree (add-want annotated-tree)))
+                      (t (exception 'semantic-error
+                                  "PROC/seminterp: Unknown 'person' value for a verb")))))
+          ((memq headcateg '(prep adv phras adj interj))
+              (add-givinfo annotated-tree *TURN-TO-TALK*))
+          (t (exception 'semantic-error
+                     "PROC/seminterp: the root of the tree is of a wrong category"
+                      headcateg)))))
+
+; *****************************************************************************
+; *** this gets the verbal object subtree, in case the main verb is a modal
+;     or has a verbal object
+; *** It works only after the initial annotation, since it uses the meaning
+;     of the top verb, in order to know if it is an English tense marker
+(defun get-sentential-object (tree)
+   (setq tree (skip-question-tense-marker tree))
+   (cond ((or (eq 'MOD (get-actavm-headtype tree))
+              (null (get-actavm-headsyn tree)))
+    ; *** the second disjunct, because this is used also on the semantic
+    ;     tree to get the sentential object of the dummy "££want" node, 
+    ;     which is syntactically empty
+           (find-actavm-dep 'VERB+MODAL-INDCOMPL tree))
+         (t (let* ((verb-obj (find-actavm-dep 'VERB-OBJ tree))
+                   (verb-obj-cat (get-actavm-headcateg verb-obj)))
+               (cond ((eq 'PREP verb-obj-cat)
+                       (let ((prep-arg (find-actavm-dep 'PREP-ARG verb-obj)))
+                           (cond ((or (eq 'VERB (get-actavm-headcateg prep-arg))
+                                      (null (get-actavm-headsyn prep-arg)))
+          ; *** in the second case, it is a trace adjoined in the annotation phase
+                                    prep-arg)
+                                 (t nil))))
+                     ((eq 'CONJ verb-obj-cat)
+                       (let ((conj-arg (find-actavm-dep 'CONJ-ARG verb-obj)))
+                           (cond ((eq 'VERB (get-actavm-headcateg conj-arg))
+                                    conj-arg)
+                                 (t nil))))
+                     ((eq 'VERB verb-obj-cat)
+                        verb-obj)
+                     (t nil))))))
+
+; *****************************************************************************
+; *** this gets the object subtree, in standard cases 
+;     However, it also handles verbal locutions (as "aver bisogno"), by taking
+;     the argument of the locution
+; *** This covers only the case when the actual object is the argument of a 
+;     preposition (as in "Aver bisogno di OBJECT")
+; *** Used in buildquery
+(defun get-standard-object (tree)
+   (let ((obj (find-actavm-dep 'VERB-OBJ tree)) locut locut-arg)
+      (cond ((not (null obj)) obj)
+            (t (setq locut (find-actavm-dep 'VERB-OBJ*LOCUT tree))
+               (cond ((null locut) nil)
+                     (t (setq locut-arg (find-actavm-dep 'PREP-RMOD locut))
+                        (find-actavm-dep 'PREP-ARG locut-arg)))))))
+
+; *****************************************************************************
+; *** this gets the argument of a preposition
+;     It is its 'prep-arg, unless the preposition has a continuation ("riguardo a")
+;     in which case, one must go down two levels
+(defun get-preposition-arg (tree)
+   (let ((prep-arg (find-actavm-dep 'PREP-ARG tree)) down-prep)
+      (cond ((not (null prep-arg)) prep-arg)
+            (t (setq down-prep (find-actavm-dep 'CONTIN+PREP tree))
+               (cond ((null down-prep) nil)
+                     (t (find-actavm-dep 'PREP-ARG down-prep)))))))
+
+; *****************************************************************************
+(defun make-lexmean (loc-name)
+    `((lexmean ,loc-name)))
+
+; *****************************************************************************
+; *** functions for extending the tree
+;     The first ones are based on the "adjoin-subtree" function defined below
+(defun add-givinfo (tree agent)
+   (adjoin-subtree tree
+               `(nil
+                 (££give-info top-verb
+                   ((#\#)
+                    (,agent verb-subj
+                        ((#\#)))
+                    (--about-relation verb-indcompl-theme
+                        ((#\#)
+                         (*)))))
+                 prep-arg)))
+
+(defun add-getinfo (tree)
+   (adjoin-subtree tree
+          `(nil
+            (££get-info top-verb
+               ((#\#)
+                (§speaker verb-subj
+                   ((#\#)))
+                    (*)))
+          verb-indcompl-theme)))
+
+(defun add-want-know (tree)
+   (adjoin-subtree tree
+          `(nil
+            (££want top-verb
+              ((#\#)
+               (§speaker verb-subj
+                  ((#\#)))
+               (££know verb+modal-indcompl
+                  ((#\#)
+                  (££speaker verb-subj
+                     ((#\#)))
+                      (*)))))
+            verb-obj)))
+
+(defun add-want (tree)
+   (adjoin-subtree tree
+          `(nil
+            (££want top-verb
+              ((#\#)
+               (§speaker verb-subj
+                  ((#\#)))
+                   (*)))
+            verb+modal-indcompl)))
+
+(defun add-want-obj (tree)
+   (adjoin-subtree tree
+          `(nil
+            (££want top-verb
+              ((#\#)
+               (§speaker verb-subj
+                  ((#\#)))
+                   (*)))
+            verb-obj)))
+
+; *****************************************************************************
+; *** this function inserts new (lexically empty) elements
+;     in an existing tree.
+; *** operations specify what to do on the tree
+;     They are specified as follows:
+;     - insertion path: how to reach the node which has to be detached and
+;       reattached below the new elements that have to be inserted. It is a
+;       sequence of arc labels. It is nil, in case the new elements appear as root
+;     - elements to insert
+;       They are described in a compact form, since most material is always empty:
+;       <lexmean linkup-label position dependents>
+;       where dependents is a list of analogous structures or the head position #\#
+;       e.g. (££know top-verb (0 10) ((#\#) (§speaker verb-subj (0 11)) (*)))
+;      The * marks the position where the insertion has to be made
+;     - new link of the detached subtree to the lowest inserted element
+(defun adjoin-subtree (tree operations)
+  (let ((path (first operations))
+        (tree-to-adjoin (second operations))
+        (link (third operations)))
+    (cond ((null path)		; *** insertion point found
+            (first (expand-adjoin-tree (list tree-to-adjoin) tree link 0 9)))
+        ; *** go down on the dependents
+        ;     The last argument of the call (9) signals that we have not yet
+        ;     found any trace within the dependent list
+          (t (list 
+                (list 'head (get-actavm-head tree))
+                (list 'dependents
+                      (replace-dependent 
+                              (get-actavm-dependents tree)
+                              path tree-to-adjoin link
+                              (get-actavm-headnumb tree)
+                              9)))))))
+
+; *****************************************************************************
+; *** this takes a list of dependents and inspects them in order to match
+;     the first link on "path" with the arc linking the dependent to its parent
+;   INPUT:
+;     - deps: the dependents among which there must be one that includes the
+;       tree to detach
+;     - path: the remaining path (downward sequence of link labels)  to follow 
+;       to find the tree to detach
+;     - tree-to-adjoin: the compact description of the tree to adjoin
+;     - newlinklab: the label of the link which connects the detached tree to
+;       the foot of the detached subtree
+;     - parentpos: the input string position of the node to which the adjoined
+;       subtree must be attached
+(defun replace-dependent (deps path tree-to-adjoin newlinklab parentpos lasttrace)
+  (cond ((null deps)
+          (exception 'semantic-error
+                     "PROC/seminterp: Dependent not found in replace-dependent"))
+        ((or (eq (first (first deps)) '#\#)
+                 (neq (first path) (get-actavm-headlink (first deps))))
+     ; *** the next dependent is not on the insertion path: leave it unchanged
+           (cons 
+              (first deps)
+              (replace-dependent (rest deps) path tree-to-adjoin newlinklab
+                       parentpos
+                       (cond ((is-a-actavm-trace? (first deps))
+                                (second (get-actavm-headnumb (first deps))))
+                             (t 9)))))
+        ((null (rest path))		; *** insertion point found
+     ; *** we are on the right path, and the path is terminated:
+     ;     we have found the subtree to detach
+           (append	; *** append, since the next works on lists of trees
+              (expand-adjoin-tree
+                    (list tree-to-adjoin) 
+                    (first deps) newlinklab parentpos lasttrace)
+              (rest deps)))
+        (t (cons
+     ; *** we are on the right path, but the path is not terminated:
+     ; *** go down on the first dependent
+     ;     The last argument of the recursive call signals that we have not yet
+     ;     found any trace within the dependent list
+              (list 
+                (list 'head (get-actavm-head (first deps)))
+                (list 'dependents
+                     (replace-dependent 
+                            (get-actavm-dependents (first deps))
+                            (rest path) tree-to-adjoin newlinklab parentpos 9)))
+       ; *** and leave other dependents unchanged
+              (rest deps)))))
+
+; *****************************************************************************
+; *** expands a compact tree representation including a foot
+; *** INPUT:
+;   - compact-tree-def: a list of trees to expand
+;   - detached-tree: the tree that has been detached and that must be reattached
+;     to the foot of compact-tree-def
+;   - newlinklab: the label of the link of the detached tree to the foot
+;   - pos: the input string position of the parent
+;   - lasttraceind: the initial trace sequence number
+(defun expand-adjoin-tree 
+           (compact-tree-def detached-tree newlinklab pos lasttraceind)
+   (declare (special lasttraceind)) 
+   (cond ((numberp pos)
+            (int-expand-adjoin-tree compact-tree-def detached-tree newlinklab pos))
+         (t (exception 'semantic-error
+                 "PROC/seminterp: Adjoining under a trace or subcomponent" pos))))
+
+; *****************************************************************************
+; *** tree-to-adjoin is a list of compact tree descriptions, in the form described
+;    above. Initially, it contains a single element, i.e. the whole subtree, but
+;    in further steps, it contains the list of dependents.
+; *** so, we have a horizontal recursion (on the list of trees) and a vertical
+;     recursion, going downward in the subtrees
+; *** tree is the part of the original tree that was detached and has to be
+;     reattached below the adjoined tree
+(defun int-expand-adjoin-tree (tree-to-adjoin detached-tree newlinklab pos)
+  (declare (special lasttraceind)) 
+  (cond ((null tree-to-adjoin) nil) 
+     ; *** end of horizontal recursion on dependents list
+        (t (let ((firstdep (first tree-to-adjoin)))
+             (cond ((equal firstdep '(#\#))
+                     (cons firstdep 
+                          (int-expand-adjoin-tree (rest tree-to-adjoin)
+                                                  detached-tree newlinklab pos)))
+                   ((equal firstdep '(*))
+     ; *** end of vertical recursion: here, we must place the old subtree (tree)
+                     (cons `((head ,(subst-head-val
+                                      (get-actavm-head detached-tree)
+                                      'link newlinklab))
+                             (dependents ,(get-actavm-dependents detached-tree)))
+                           (int-expand-adjoin-tree 
+                              (rest tree-to-adjoin) detached-tree newlinklab pos)))
+                   (t (setq lasttraceind (1+ lasttraceind))
+     ; *** actual expansion of the compact form of the tree
+                      (cons
+                        `((head
+                           ((form #\^)
+                            (syn nil)
+                            (sem ((lexmean ,(first firstdep))))
+                            (link ,(second firstdep))
+                            (position ,(list pos lasttraceind))))
+                          (dependents
+                            ,(int-expand-adjoin-tree 
+                                   (third firstdep) detached-tree newlinklab pos)))
+                       (int-expand-adjoin-tree 
+                             (rest tree-to-adjoin) detached-tree newlinklab pos))))))))
+
+; *****************************************************************************
+; *** this function inserts new elements below some node of an existing tree.
+; *** operations specify what to do on the tree
+;     They are specified as follows:
+;     - insertion path: how to reach the node below which the
+;       new elements have to be inserted. Note that this is different from the
+;       adjoin-subtree: in that case the node found at the end of the path must
+;       be detached and substituted by the new tree. Here, the node found
+;       is unaffected, but it gets a new dependent substructure must
+;       be detached and substituted by the new tree. Here, the node found
+;       is unaffected, but it gets a new dependent substructure
+;       In particular, here the path cannot be nil!!!
+;     - elements to insert (the same as above, but without the * marker)
+;       They are described in a compact form, since most material is always empty:
+;       <lexmean linkup-label position dependents>
+;       where dependents is a list of analogous structures or the head position #\#
+;       e.g. (§speaker verb-subj (0 11))
+;        (attach-subtree annotated-tree
+;                   `((verb+modal-indcompl verb+modal-indcompl)
+;                     (££location rmod (1 12) ((#\#)))))
+(defun attach-subtree (tree operations)
+  (let ((path (first operations))
+        (tree-to-attach (second operations)))
+    (cond ((null path)	
+            (exception 'semantic-error
+                       "PROC/seminterp: Null path in attach-subtree"))
+        ; *** go down on the dependents
+          (t (list 
+                (list 'head (get-actavm-head tree))
+                (list 'dependents
+                      (attach-dependent 
+                              (get-actavm-dependents tree)
+                              path tree-to-attach
+                              (get-actavm-headnumb tree))))))))
+
+; *****************************************************************************
+; *** attaches a tree inside one of the trees in "deps"
+; *** INPUT:
+;      deps: list of dependents of a node along the path
+;      path: the remaining path to be traveled to arrive to the insertion point
+;      tree-to-attach: a compact tree representation of the material to attach
+;      pos: the position of the parent in the input string; this is needed to
+;           produce the correct trace position
+(defun attach-dependent (deps path tree-to-attach pos)
+  (cond ((null deps)
+          (exception 'semantic-error 
+                     "PROC/seminterp: Dependent not found in attach-dependent"))
+        (t (let ((firstdep (first deps)))
+             (cond ((null path)
+     ; *** we have found the node under which the new material has to be put
+                      (cond ((eq (first firstdep) '#\#)
+                               (cons firstdep
+                                  (skip-traces-and-expand
+                                       (rest deps) tree-to-attach pos 9)))
+                            (t (cons firstdep
+                                     (attach-dependent 
+                                         (rest deps) nil tree-to-attach pos)))))
+     ; *** the next dependent is not on the path: leave it unchanged
+                   ((or (eq (first firstdep) '#\#)
+                            (neq (first path) (get-actavm-headlink firstdep)))
+                     (cons 
+                        firstdep
+                        (attach-dependent (rest deps) path tree-to-attach pos)))
+                   (t (cons
+     ; *** the next dependent is on the path: go down on it
+                         (list 
+                            (list 'head (get-actavm-head firstdep))
+                            (list 'dependents
+                                  (attach-dependent 
+                                         (get-actavm-dependents firstdep)
+                                         (rest path)
+                                         tree-to-attach 
+                                         (get-actavm-headnumb firstdep))))
+       ; *** and leave other dependents unchanged
+                         (rest deps))))))))
+
+; *****************************************************************************
+; *** this skips all existing traces before inserting the new material
+;     INPUT:
+;       - deps: the list of dependents (the first of which could be traces)
+;       - tree-to-attach: the tree to insert after the traces
+;       - parentpos: the input string position of the parent
+;       - traceind: the last trace index found (initialized to 9 and incremented
+;         by 1 before inserting the new tree)
+(defun skip-traces-and-expand (deps tree-to-attach parentpos traceind)
+  (cond ((null deps)
+  ; *** the list of dependents finishes with a trace, or with the head: add the
+  ;     new tree at the end
+          (expand-tree (list tree-to-attach) parentpos traceind))
+        ((is-a-actavm-trace? (first deps))
+  ; *** if the next dependent is a head, go ahead
+          (cons (first deps)
+                (skip-traces-and-expand 
+                      (rest deps) tree-to-attach parentpos 
+                      (second (get-actavm-headnumb (first deps))))))
+  ; *** otherwise, insert the tree here
+        (t (cons (expand-tree tree-to-attach parentpos traceind)
+                 deps))))
+
+; *****************************************************************************
+; *** expands a compact tree representation
+; *** INPUT:
+;     compact-tree-def: a list of trees to expand
+;     pos: the input string position of the parent
+;     seq: the trace sequence number, starting from 10
+(defun expand-tree (compact-tree-def pos lasttraceind)
+   (declare (special lasttraceind)) 
+   (cond ((numberp pos)
+            (first (int-expand-tree (list compact-tree-def) pos)))
+         (t (exception 'semantic-error
+                       "PROC/seminterp: Attachment under a trace or subcomponent" pos))))
+
+; *****************************************************************************
+; *** this actually expands the compact representation in a subtree
+;     the new trace indices are automatically determined on the basis of
+;     the last traces found
+(defun int-expand-tree  (compact-tree-def pos)
+  (declare (special lasttraceind))
+  (cond ((null compact-tree-def) nil)
+        (t (let ((firstdep (first compact-tree-def)))
+              (cond ((equal firstdep '(#\#))
+   ; *** this is just the head position: insert it unchanged and go on with the
+   ;     other trees
+                       (cons firstdep
+                             (int-expand-tree (rest compact-tree-def) pos)))
+                    (t (setq lasttraceind (1+ lasttraceind))
+   ; *** expand the head and go on with the other trees
+                       (cons
+                           `((head
+                               ((form #\^)
+                                (syn nil)
+                                (sem ((lexmean ,(first firstdep))))
+                                (link ,(second firstdep))
+                                (position ,(list pos lasttraceind))))
+                                (dependents
+                                  ,(int-expand-tree (third firstdep) pos)))
+                             (int-expand-tree (rest compact-tree-def) pos))))))))
+
+; ***************************************************************************
+; *** tree-up is the tree one-level up, with respect to the one being annotated
+;     it is used to find the number of the possible governing verb for traces
+; *** note that the parent is not enough, because of the presence of auxiliaries
+;     (sono andato vs. sei andato)
+(defun add-actavm-headmeaning (tree tree-up)
+   (cond ((equal tree '(#\#)) tree)
+         (t (let* ((newhead (add-head-wordmeaning 
+                             tree
+                             (get-actavm-headlemma tree)
+                             (get-actavm-headlink tree)
+                             tree-up))
+                   (newtree (append1 newhead
+                                (list 'dependents (get-actavm-dependents tree)))))
+    ; *** this is made in two steps, in order to have available the 
+    ;     interpretation of the root in the recursive call
+                 (append newhead
+                    `((dependents 
+                        ,(mapcar #'(lambda (x) (add-actavm-headmeaning x newtree))
+                                 (get-actavm-dependents tree)))))))))
+
+; ***************************************************************************
+; *** returns true if the first and the last dependent are quotes
+(defun enclosed-in-quotes (tree)
+  (let ((deps (get-actavm-dependents tree)))
+      (and (not (equal (first deps) '(#\#)))
+           (member (get-actavm-headlemma (first deps)) '(#\" #\'))   ; "
+           (not (equal (ult deps) '(#\#)))
+           (member (get-actavm-headlemma (ult deps)) '(#\" #\')))))   ; "
+
+; ***************************************************************************
+; *** adds to a node the semantic information got either from the semantic
+;     dictionary, or, for some pronouns and traces, from the anaphoric context
+(defun add-head-wordmeaning (tree lemma link tree-up)
+  (declare (special *LANGUAGE* *ANAPHORIC-CONTEXT*))
+  (let* ((head (get-actavm-head tree))
+         (role (get-actavm-headlink tree))
+         (categ (get-actavm-headcateg tree))
+         (hperson (get-actavm-headperson tree))
+         (hnumber (get-actavm-headnumber tree))
+         (up-categ (get-actavm-headcateg tree-up))
+         (up-person (cond ((eq up-categ 'verb) 
+                              (find-verb-person-or-number tree-up 'person))
+                          (t nil)))
+         newsem coref-ident anaph newnumb 
+         (wmean (get-word-meaning lemma categ tree)))
+  (cond ((enclosed-in-quotes tree)
+   ; *** a tree surrounded (having as first and last dependent) by quotes
+   ;     must refer to an individual insance: either it is recognized as such, or
+   ;     it is simply interpreted as the event having the sentence covered
+   ;     by the tree as its name (ident)
+          (let ((inst-class (get-instance-class (first wmean))))
+                  (cond ((null inst-class)
+                           (setq newsem `((lexmean '££event)
+                                          (ident ,(read-actavm-sent tree 0 t)))))
+                        (t (setq newsem `((lexmean ,inst-class)
+                                          (ident ,(first wmean))))))))
+      ;  ((and (eq categ 'prep)
+      ;        (lab-subsumes 'ARG link))
+      ;    (setq newsem '((lexmean --dummy-prep))))
+        ((eq categ 'PRON)
+          (cond ((and (eq link 'VERB-SUBJ)
+                      (eq (get-actavm-headtype tree-up) 'MOD)
+                      (not (memq hperson '(1 2)))
+                      (not (and (eq hperson 'allval)
+                                (memq up-person '(1 2)))))
+   ; *** the subjects of modal "Does IT go" are not interpreted, since
+   ;     the actual referent depends on the governed verb
+                   (setq newsem '((lexmean nil))))
+                ((eq (first wmean) '--anaph-ref)
+   ; *** anaphoric references are resolved looking in *ANAPHORIC-CONTEXT*
+   ;     which is loaded in buildparam (works only for parameters, i.e.
+   ;     dialogue)
+   ; *** note that first and second person pronoun are not --anaph-ref
+   ; *** anaph has the form (seminfo synt-number)
+                  (setq newsem (make-lexmean '§indef-ref)))
+                ((eq hperson 1)
+                  (setq newsem (make-lexmean '§speaker)))
+                ((eq hperson 2)
+                  (setq newsem (make-lexmean '§myself)))
+                ((eq hperson 'allval)
+           ; *** pronouns without a person should be traces
+                  (cond ((eq (get-actavm-headform tree) #\t)
+         ; *** check that it actually is a trace
+                          (setq coref-ident (get-actavm-headcoref tree))
+                          (cond ((eq coref-ident 'empty)
+          ; *** empty coreferences refer to deictics or generics. What need to be
+          ;     be done here is to check if the parent of the trace is a verb in
+          ;     the first or second person
+                                  (cond ((null tree-up)
+              ; *** this should happen just in case the trace is the root of the
+              ;     tree (i.e. never)
+                                          (setq newsem '((lexmean nil))))
+                                        ((eq 'verb (get-actavm-headcateg tree-up))
+                                          (cond ((eq link 'verb-subj)
+                                                  (cond ((eq 1 up-person)
+                                                          (setq newsem 
+                                                             (make-lexmean '§speaker)))
+                                                        ((eq 2 up-person)
+                                                          (setq newsem 
+                                                             (make-lexmean '§myself)))
+                                                        ((and (eq 3 up-person)
+                                                              (eq 'pl hnumber))
+                                                          (setq newsem 
+                                                             (make-lexmean '§generic-ag)))
+                                                        ((eq 'infinite 
+                                                            (get-actavm-headmood tree-up))
+     		; *** This is for expressions as "salir (spanish)"
+                                                          (setq newsem 
+                                                             (make-lexmean '§speaker)))
+                                                        (t (setq anaph 
+                                                               (get-last-anaph-ref 
+                                                                  tree-up role))
+                                                           (setq newsem (first anaph))
+              ; *** anaph has the form (seminfo synt-number)
+                                                           (setq newnumb 
+                                                                   (second anaph)))))
+                                                ((eq link 'verb-subj/verb-indcompl-agent)
+                                                   (cond ((eq 'generic-t 
+                                                                  (get-actavm-headlemma tree))
+                                                            (setq newsem 
+                                                               (make-lexmean '§generic-ag)))
+                                                         (t (setq newsem '((lexmean nil))))))
+                     ; *** the link up is neither 'verb-subj nor 'verb-subj/verb-indcompl-agent
+                                                (t (setq newsem '((lexmean nil))))))
+              ; *** the parent is not a verb
+                                        (t (setq newsem '((lexmean nil))))))
+              ; *** the coreference is not empty: it must be solved afterwards
+                                (t (setq newsem '((lexmean nil))))))
+                        (t (exception 'semantic-error
+                               "PROC/seminterp: A pronoun with person allval, but not a trace"))))
+         ; *** this is a pronoun not anaphoric, and without person: standard
+                (t (setq newsem `((lexmean ,(first wmean)))))))
+        ((eq categ 'num)
+   ; *** the meaning of numbers is the value of the number
+           (let ((month (find-actavm-dep 'NOUN-RMOD-MONTH tree)))
+                      ; *** if month is null, try to check if the structure is
+                      ;     num of month
+               (cond ((null month)
+                        (let ((prep-dep (find-actavm-dep 'PREP-RMOD tree)))
+                            (cond ((not (null prep-dep))
+                                    (setq month (find-actavm-dep 'PREP-ARG prep-dep))
+                                    (cond ((and (not (null month))
+                                                (not (memq '££month-descr
+                			  	           (get-instance-class
+                                                              (first
+                                                               (get-word-meaning 
+                                                                  (get-actavm-headlemma month)
+                                                                  (get-actavm-headcateg month)
+                                                                  tree))))))
+                                              (setq month nil))))))))
+               (cond ((and (null month) (eq *LANGUAGE* 'english))
+                        (setq month (eq link 'NUM-RMOD-DAY))))
+               (cond ((null month)
+                        (setq newsem `((lexmean ,(get-actavm-headvalue tree)))))
+      ; *** if the number has a month dependent, then interpret it as a day
+      ;     description
+                     (t (setq newsem (make-lexmean '££day-numb-descr))))))
+        ((and (eq categ 'adj)
+              (eq (get-actavm-headtype tree) 'ordin)
+              (eq *LANGUAGE* 'english)
+              (not (null (find-actavm-dep 'NOUN-RMOD-MONTH tree))))
+      ; *** if the ordinal has a month dependent, then interpret it as a day description
+           (setq newsem (make-lexmean '££day-numb-descr)))
+        ((eq categ 'verb)
+          (cond ((neq (get-actavm-headtype tree) 'AUX)
+   ; *** verbs deserve a special treatment, since they can govern a particle,
+   ;     which contribute to determine their meaning
+                  (let ((particle (find-actavm-dep 'PARTICLE tree))
+                        (locut-obj (find-actavm-dep 'VERB-OBJ*LOCUT tree))
+                        verbexpr inst-class)
+   ; *** in verbexpr the actual access key to the word meaning table
+                      (cond ((and (null particle) (null locut-obj))
+                               (setq verbexpr lemma))
+                            ((null particle)		; verb-locut is not null
+                               (setq verbexpr
+                                   (concatl 
+                                       (put-separator '_ 
+                                           (list lemma (get-actavm-headlemma locut-obj))))))
+                            (t (setq verbexpr
+                                   (concatl 
+                                       (put-separator '_ 
+                                           (list lemma (get-actavm-headlemma particle)))))))
+                      (setq wmean (get-word-meaning verbexpr 'verb tree))
+                      (setq inst-class (get-instance-class (first wmean)))
+   ; *** the meaning of a verb is an instance in case of "exit" (£continue-no, in this
+   ;     implementation)
+                      (cond ((null inst-class)
+                               (setq newsem `((lexmean ,(first wmean)))))
+                            (t (setq newsem `((lexmean ,inst-class)
+                                              (ident ,(first wmean))))))))
+                (t (setq newsem '((lexmean nil))))))	; *** it is an auxiliary
+        ((and (eq categ 'noun)
+              (eq 'verb-obj*locut (get-actavm-headlink tree)))
+           (setq newsem '((lexmean verbal-locut))))	; *** it is a component of a locution
+   ; *** neither a pronoun nor a number nor a verb
+      ; *** wmean can be a pair <ident category> in case of proper names
+      ;     in this case, the category is taken as the meaning (which is
+      ;     needed to travel the ontology) and the identifier is stored
+      ;     in the sem attribute 'ident'
+        (t (cond ((null (rest wmean))
+                   (let ((inst-class (get-instance-class (first wmean))))
+                       (cond ((null inst-class)
+                                (setq newsem `((lexmean ,(first wmean)))))
+                             (t (setq newsem `((lexmean ,inst-class)
+                                               (ident ,(first wmean))))))))
+                 (t (setq newsem `((lexmean ,wmean)))))))
+; *** we have determined the new value for SEM, substitute it
+     (cond ((null (get-flatavm-feat-val head 'coref))
+             (list 
+               (list 'head
+                    (list (assoc 'form head)
+                          (assoc 'position head)
+                          (cond ((null newnumb) (assoc 'syn head))
+                                (t (list 'syn
+                                      (subst-syn-val 
+                                          (second (assoc 'syn head))
+                                          'number newnumb))))
+                          (assoc 'link head)
+                          (list 'sem (append
+                                        (first (leggi head 'sem)) newsem))))))
+           (t (list 
+               (list 'head
+                    (list (assoc 'form head)
+                          (assoc 'position head)
+                          (cond ((null newnumb) (assoc 'syn head))
+                                (t (list 'syn
+                                      (subst-syn-val 
+                                          (second (assoc 'syn head))
+                                          'number newnumb))))
+                          (assoc 'coref head)
+                          (assoc 'link head)
+                          (list 'sem (append
+                                        (first (leggi head 'sem)) newsem)))))))))
+
+; ***************************************************************************
+; *** this takes from *ANAPHORIC-REFERENCE* the last reference.
+;     the form of *ANAPHORIC-REFERENCE* is as follows:
+;     <turn-n turn-(n-1) turn-(n-2) ...>
+;     Each turn may have the following form:
+;     <§myself prompt-text prompt-parameters>
+;       for system's turns, where "prompt-parameters" may be NIL
+;     <§speaker annotated-tree ontological-repr parameters>
+;       for user's turns
+; *** returns a list including the concept followed by the possible cardinality
+;     infos (e.g. (CONCERT (CARDINALITY SING)))
+(defun get-last-anaph-ref (tree-up dep-role)
+  (declare (special *ANAPHORIC-CONTEXT*))
+  (let (found)
+      (do ((nextturn (first *ANAPHORIC-CONTEXT*) (first remturns))
+           (remturns (rest *ANAPHORIC-CONTEXT*) (rest remturns)))
+          ((or (null nextturn) found)
+            (cond ((null nextturn)
+                    ;(exception 'semantic-error
+                    ;          "PROC/seminterp: No anaphoric reference available")
+                    nil
+                     )
+                  (t found)))
+          (setq found (check-anaph-last-turn nextturn tree-up dep-role)))
+             ))
+
+; ***************************************************************************
+(defun check-anaph-last-turn (turn tree-up dep-role)
+   (cond ((eq (first turn) '§myself) nil)
+  ; *** currently, the system's turns do not provide anaphoric referents
+         (t (find-anaph-in-tree (second turn) 
+                          (skip-question-tense-marker tree-up) dep-role nil))))
+
+; ***************************************************************************
+; *** tree is the tree within which the referent must be found
+; *** target-tree is the tree whose "dep-role" dependent is the anaphor
+; *** up-categ is the category of the governor of the possible referent (tree)
+;     The trees must be travelled backwards, since the best referent is the
+;     last "nominal" (i.e. noun or pronoun) node; note that the list of trees
+;     is already given in reverse order (right to left)
+; *** returns a list includig the concept followed by the possible cardinality
+;     infos (e.g. (CONCERT (CARDINALITY SING)))
+(defun find-anaph-in-tree (tree target-tree dep-role up-categ)
+ (let (found)
+    (cond ((not (equal tree '(#\#)))
+            (let ((nextupcat (get-actavm-headcateg tree))
+                  (deps (reverse (get-actavm-dependents tree))))
+                (do ((nxtdep (first deps) (first deps))
+                     (deps (rest deps) (rest deps)))
+                   ((or (null nxtdep) found) found)
+                  (cond ((equal nxtdep '(#\#))
+   ; *** this is the position of the current tree head. Perform the actual checks
+                      (cond ((memq (get-actavm-headcateg tree) '(noun pron))
+       ; *** if this is a nominal node, take it as referent, unless the current
+       ;     governor (in the sentence currently analyzed, not in the anaphoric
+       ;     context) is a verb, so that the role compatibility must be checked
+       ;     first
+                              (cond ((eq 'noun up-categ) nil)
+          ; *** in case of noun-noun modification, I assume that the lower noun
+          ;     cannot be the referent (locutions and telegraphic forms)
+                                    ((or (null target-tree)
+                                         (neq 'verb (get-actavm-headcateg target-tree)))
+                                       (setq found 
+                                         (list
+                                             (get-actavm-headsem tree)
+                                             (get-actavm-headnumber tree))))
+          ; *** check-complem-compatib in onto-reasoning.lisp
+                                    ((check-complem-compatib
+                                                  (get-actavm-headsem tree)
+                                                  (get-actavm-headsem target-tree)
+                                                  dep-role)
+                                       (setq found 
+                                         (list
+                                             (get-actavm-headsem tree)
+                                             (get-actavm-headnumber tree))))))
+                            (t nil)))	; *** it is not a nominal node
+                    (t	; *** it is not the position of the head: downward recursion
+                      (setq found (find-anaph-in-tree 
+                                     nxtdep target-tree dep-role nextupcat))))))))))
+
+; ***************************************************************************
+; *** this function has two tasks;
+; *** the first is to includes in the tree the meaning of the co-referring traces.
+;     It travels across the tree, and for each coreferential trace searches
+;     the tree for its co-referent, picks its meaning and adds it to the
+;     trace
+;     N.B. It is assumed that the meaning of the coreferent already exists
+;          this could not be the case for traces referring to other traces
+; *** the second goal is to solve deictic references, both explicit (this moment)
+;     and implicit (the city)
+(defun solve-coreferences (tree wholetree governor)
+  (cond ((equal tree '(#\#)) tree)
+        (t (let ((thead (get-actavm-head tree)))
+              (cond ((and (is-a-coref-trace? tree)
+                          (null (get-actavm-headlexmean tree)))
+            ; *** the meaning could be non-null in case this is a trace
+            ;     coming from a modal. In this case, ("He will go t") the
+            ;     solution of the anaphora is based on the verb governing
+            ;     the trace, so that the trace has a meaning, while the
+            ;     pronoun has an empty meaning
+                      (cond ((eq #\p (get-actavm-headcoreftype tree))
+                              (list
+                                (list 'head
+                                  (list (assoc 'form thead)
+                                    (assoc 'position thead)
+                                    (assoc 'syn thead)
+                                    (assoc 'coref thead)
+                                    (assoc 'link thead)
+                                    (list 'sem 
+                                         (subst-sem-val
+                                             (first (leggi thead 'sem))
+                                             (get-actavm-headlexmean
+                                                 (find-coreferent
+                                                     (get-actavm-headcorefline tree)
+                                                     (list wholetree)))))))
+                              '(dependents ((#\#)))))
+                            ((eq #\f (get-actavm-headcoreftype tree))
+                               (let ((coreferent 
+                                        (find-coreferent
+                                              (get-actavm-headcorefline tree)
+                                              (list wholetree))))
+                              (list
+                                (list 'head
+                                  (list (assoc 'form thead)
+                                    (assoc 'position thead)
+                                    (assoc 'syn thead)
+                                    (assoc 'coref thead)
+                                    (assoc 'link thead)
+                                    (list 'sem 
+                                         (subst-sem-val
+                                             (first (leggi thead 'sem))
+                                             (get-actavm-headlexmean coreferent)))))
+                               `(dependents ,(get-actavm-dependents coreferent)))))
+                             (t (exception 'semantic-error 
+				         "PROC/seminterp: Word trace in seminterp"))))
+                    ((and (eq 'pron (get-actavm-headcateg tree))
+                          (eq 'relat (get-actavm-headtype tree)))
+            ; *** this is a relative pronoun. The meaning is the same of the
+            ;     referent of the pronoun, which is the element governing the verb
+            ;     which governs the pronoun. This work should be made by the syntax, but
+            ;     currently, the dependency tree does not include co-referents of
+            ;     relative pronouns
+                       (let* ((pron-up (find-actavm-parent tree (list wholetree)))
+                              (pron-up-up (find-actavm-parent pron-up (list wholetree)))
+                              relat-sem)
+                 ; *** in pron-up the tree rooted in the governor of the pronoun
+                 ; *** in pron-up-up the same, but two levels up
+                           (cond ((eq 'verb (get-actavm-headcateg pron-up))
+                                    (setq relat-sem
+                                        (get-actavm-headlexmean pron-up-up)))
+                                 ((eq 'prep (get-actavm-headcateg pron-up))
+                      ; *** the theatres IN which ...
+                                    (cond ((eq 'verb (get-actavm-headcateg pron-up-up))
+                                             (setq relat-sem
+                                                 (get-actavm-headlexmean
+                                                      (find-actavm-parent pron-up-up
+                                                                     (list wholetree)))))
+                                          (t (exception 'semantic-error 
+				               "PROC/seminterp: Rel Pron governed by a prep not governed by a verb"))))
+                                 ((eq 'art (get-actavm-headcateg pron-up))
+                                    (cond ((eq 'verb (get-actavm-headcateg pron-up-up))
+                                             (setq relat-sem
+                                                 (get-actavm-headlexmean pron-up-up)))
+                                          ((eq 'prep (get-actavm-headcateg pron-up-up))
+                                             (let ((pron-up-up-up
+                                                    (find-actavm-parent pron-up-up (list wholetree))))
+                                ; *** le componenti per LE quali ...
+                                                (cond ((eq 'verb 
+                                                           (get-actavm-headcateg pron-up-up-up))
+                                                         (setq relat-sem
+                                                             (get-actavm-headlexmean
+                                                                  (find-actavm-parent pron-up-up-up
+                                                                             (list wholetree)))))
+                                                      (t (exception 'semantic-error 
+				                              "PROC/seminterp: Rel Pron governed by an art and then a prep not governed by a verb")))))
+                                          (t (exception 'semantic-error 
+				               "PROC/seminterp: Rel Pron governed by a prep not governed by a prep or a verb"))))
+                                 (t (exception 'semantic-error 
+				          "PROC/seminterp: Rel Pron not governed by a prep, verb or art")))
+                          (list
+                             (list 'head
+                                 (list (assoc 'form thead)
+                                       (assoc 'position thead)
+                                       (assoc 'syn thead)
+                                       (assoc 'coref thead)
+                                       (assoc 'link thead)
+                                       (list 'sem 
+                                            (subst-sem-val
+                                                (first (leggi thead 'sem)) relat-sem))))
+              ; *** the next assumes that traces and rel prons do not have dependents
+                            '(dependents ((#\#))))))
+         ; *** not a trace and not a relative pronoun
+                    (t (let ((treehead (get-actavm-head tree)))
+                          (list (list 'head treehead)
+                                `(dependents 
+                                   ,(mapcar #'(lambda (x)
+                                                (solve-coreferences x wholetree treehead))
+                                            (get-actavm-deps-with-traces tree)))))))))))
+
+; ***************************************************************************
+; *** looks for a subtree whose head has the line number equal to linenumb
+(defun find-coreferent (linenumb treeset)
+   (cond ((null treeset) nil)
+         ((equal (first treeset) '(#\#))
+            (find-coreferent linenumb (rest treeset)))
+         ((equal (get-actavm-headnumb (first treeset)) linenumb)
+            (first treeset))
+         (t (let ((firstcoref 
+                     (find-coreferent linenumb
+                          (get-actavm-deps-with-traces (first treeset)))))
+               (cond ((null firstcoref)
+                         (find-coreferent linenumb (rest treeset)))
+                     (t firstcoref))))))
+
+; ***************************************************************************
+; *** replaces a semantic value
+;     If it is new, it creates the "lexmean" feature
+(defun subst-sem-val (semvals newval)
+  (cond ((null semvals) `((lexmean ,newval)))
+        ((eq (first (first semvals)) 'lexmean)
+            (cons (list 'lexmean newval) (rest semvals)))
+        (t (cons (first semvals) (subst-sem-val (rest semvals) newval)))))
+
+; ***************************************************************************
+; *** replaces the syntactic value of the syntactic feature "feature"
+(defun subst-syn-val (synvals feature newval)
+  (cond ((null synvals) (list (list feature newval)))
+        ((eq (first (first synvals)) feature)
+            (cons (list feature newval) (rest synvals)))
+        (t (cons (first synvals) 
+                 (subst-syn-val (rest synvals) feature newval)))))
+
+; ***************************************************************************
+; *** changes the value of a feature of a syntactico-semantic head
+(defun subst-head-val (head feat newval)
+  (cond ((null head) (list (list feat newval)))
+        ((eq (first (first head)) feat) (cons (list feat newval) (rest head)))
+        (t (cons (first head) (subst-head-val (rest head) feat newval)))))
+
+; *******************************************************************
+; *** it traverses the tree looking for the leftmost item (i.e. the last word)
+(defun get-leftmost-item (tree)
+   (let ((deps (get-actavm-dependents tree)))
+      (cond ((equal (ult deps) '(#\#)) tree)
+            (t (get-leftmost-item (ult deps))))))
+
+; *******************************************************************
+(defun find-verb-person-or-number (tree selector)
+  (let ((featureval 
+          (cond ((eq selector 'person) (get-actavm-headperson tree))
+                ((eq selector 'number) (get-actavm-headnumber tree)))))
+      (cond ((null featureval)
+           (let ((headmood (get-actavm-headmood tree)))
+  ; *** if the person or the number is not in the verbal head, then the latter must
+  ;     be a participle or a gerund and the person or the number must be found in a
+  ;     depending auxiliary
+              (cond ((eq headmood 'INFINITE) nil)
+                    ((memq headmood '(PARTICIPLE GERUND))
+                       (let ((auxiliary (find-actavm-dep 'AUX tree)))
+                           (cond ((null auxiliary) nil)
+                                 (t (let ((actfeatval 
+                                           (cond ((eq selector 'person)
+                                                     (get-actavm-headperson auxiliary))
+                                                 ((eq selector 'number) 
+                                                     (get-actavm-headnumber auxiliary))))
+                                          vsubj)
+                                      (cond ((null actfeatval)
+                                              (exception 'semantic-error
+                                                 "PROC/seminterp: Auxiliary without person or number"
+                                                 actfeatval))
+                                            ((eq actfeatval 'ALLVAL)
+                                              (setq vsubj (find-actavm-dep 'VERB-SUBJ tree))
+                                              (cond ((not (null vsubj))
+                                                      (cond ((eq selector 'number) 
+                                                               (get-actavm-headnumber vsubj))
+                                                            ((eq selector 'person)
+                                                               (cond ((eq 'pron (get-actavm-headcateg vsubj))
+                                                                        (get-actavm-headperson vsubj))
+                                                                     (t 3)))))
+                                                    (t nil)))
+                                            (t actfeatval)))))))
+                    (t (exception 'semantic-error
+                                 "PROC/seminterp: Verb without person, but not participle")))))
+            ((eq featureval 'allval)
+  ; *** for instance, English modals
+               (let ((vsubj (find-actavm-dep 'VERB-SUBJ tree)))
+                  (cond ((null vsubj)
+                          (exception 'semantic-error
+                                 "PROC/seminterp: verb without a subject"))
+                        ((eq selector 'number) 
+                            (get-actavm-headnumber vsubj))
+                        ((eq selector 'person)
+                           (cond ((eq 'pron (get-actavm-headcateg vsubj))
+                                    (get-actavm-headperson vsubj))
+                                 (t 3))))))
+            (t featureval))))
+ 
+; *******************************************************************
+; *** this functions goes down one level if the head of the tree
+;     is an article or a non-qualificative adjective
+; *** the optional "multiple" specifies that the input is a forest
+;     and not a single tree
+(defun skip-determiner (tree &optional multiple)
+ (cond (multiple (mapcar #'single-skip-determiner tree))
+       (t (single-skip-determiner tree))))
+
+(defun single-skip-determiner (tree)
+ (let ((down-cat (get-actavm-headcateg tree)))
+  (cond ((or (eq 'ART down-cat)
+             (and (eq 'ADJ down-cat)
+                  (not (memq (get-actavm-headtype tree) '(DEITT QUALIF DEMONS ORDIN)))))
+          (let* ((down-type (get-actavm-headtype tree))
+                 (arclab (case down-type
+                            (def 'DET+DEF-ARG)
+                            (indef (cond ((eq 'art down-cat) 'DET+INDEF-ARG)
+                                         ((eq 'adj down-cat) 'DET+QUANTIF-ARG)))
+                            (poss 'DET+DEF-ARG)
+                            (quantif 'DET+QUANTIF-ARG)
+                            (interr 'DET+INTERR-ARG))))
+             (find-actavm-dep arclab tree)))
+        (t tree))))
+
+; *******************************************************************
+; *** Takes care of modals in English. In case the root is a
+;     "tense marker" (i.e. "will", "would", "shall")
+;     or a "question or negative" marker ("do"), it returns the
+;     its verbal dependent
+; *** it returns two values: the remaining tree and some semantic infos associated
+;     with the marker
+(defun skip-question-tense-marker (tree)
+  (let ((headmean (get-actavm-headlexmean tree)))
+   (cond ((eq headmean '--question-or-neg-marker)
+            (values (find-actavm-dep 'VERB+MODAL-INDCOMPL tree)
+                    'eng-question-or-neg))
+         ((eq headmean '--tense-marker)
+            (values (find-actavm-dep 'VERB+MODAL-INDCOMPL tree)
+                    'eng-future))
+  ; *** the next in case we are working on a tree which has not   ???
+  ;     been fully annotated					  ???
+        ;      (memq (first (get-word-meaning 
+        ;                         (get-actavm-headlemma tree)
+        ;                         (get-actavm-headcateg tree)
+        ;                         tree))
+        ;              '(--question-or-neg-marker --tense-marker))
+         (t tree))))
+
+; *******************************************************************
+(defun is-sem-interrogative (annotated-tree)
+  (declare (special *LANGUAGE*))
+  (let ((tree-deps (get-actavm-dependents annotated-tree)))
+     (or (eq (get-actavm-headlemma (get-leftmost-item annotated-tree)) #\?)
+             (eq '--question-or-neg-marker (get-actavm-headlexmean annotated-tree))
+             (find-interr-adv tree-deps)
+             (find-interr-pron tree-deps)
+             (find-interr-adjec tree-deps)
+             (and (eq *LANGUAGE* 'english)
+                  (there-inversion tree-deps)))))
+
+; *******************************************************************
+; *** assumption that an English sentence where there is a "there"
+;     occurring after the verb is interrogative also in absence of 
+;     question mark
+(defun there-inversion (tree-deps)
+   (let (found-head result)
+       (dolist (dep tree-deps result)
+           (cond ((equal dep '(#\#))
+                    (setq found-head t))
+                 ((and found-head
+                       (eq (get-actavm-headlink dep) 'PRON-RMOD-LOC+METAPH))
+                    (setq result t))))))
+
+; *******************************************************************
+; +++ it gets a tree and returns a string representing the sentence
+;     If the tree includes a first and last quote, they are removed
+; *** the external function just to delete the trailing blank
+(defun read-actavm-sent (tree level noquotes)
+   (string (implode (rest (explode (read-t-s-int tree level noquotes))))))
+
+(defun read-t-s-int (tree level noquotes)
+  (let ((deps (get-actavm-dependents tree))
+        (head (get-actavm-headform tree))
+        (subword (not (numberp (get-actavm-headnumb tree))))
+        (sentence ""))
+    (cond ((and noquotes
+                (= level 1)
+                (eq head '|"|))    ; "
+            "")
+          (t (dolist (nxtdep deps sentence)
+               (cond ((equal nxtdep '(#\#))
+                       (cond ((not subword)
+                                (setq sentence 
+                                   (concatenate 
+                                     'string sentence " " 
+                                     (get-printable-tree-form head))))))
+                     (t (setq sentence 
+                            (concatenate 'string sentence 
+                                (read-t-s-int 
+                                      nxtdep (1+ level) noquotes))))))))))
+
+; *******************************************************************
+(defun get-printable-tree-form (form)
+  (cond ((eq form #\t) "")
+        (t (coerce (symbol-name form) 'string))))
+

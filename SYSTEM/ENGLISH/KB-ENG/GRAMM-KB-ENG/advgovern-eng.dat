@@ -1,0 +1,8 @@
+(in-package "USER")
+
+(setq *ADV-GOVERN*
+ '(
+   (independently of)
+   (due to)
+  ))
+

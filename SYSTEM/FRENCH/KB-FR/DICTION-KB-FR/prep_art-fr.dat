@@ -1,0 +1,16 @@
+; ************************************************************************
+; *** in this file, definition of the 'preposizioni articolate' (prep+art
+;     forms). They are simply added to the 'inverdef' property of the
+;     corresponding form.
+(mapcar 
+
+#'(lambda (x) (add-prop-val (first x) 'prepartdef (second x)))
+
+'(
+(au ((|à| cat prep type mono) (le cat art type def gender allval number sing)))
+(aux ((|à| cat prep type mono) (le cat art type def gender allval number pl)))
+(des ((de cat prep type mono) (le cat art type def gender allval number pl)))
+(du ((de cat prep type mono) (le cat art type def gender allval number sing)))
+))
+
+

@@ -1,0 +1,853 @@
+; ££££££££££££££££££££ 
+; This file includes the
+;	DEFINITION OF THE CLASSES (HIERARCHY NODES)
+; ££££££££££££££££££££ 
+
+(in-package "USER")
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+; *** the next simply specifies which, among all classes defined below, are abstract
+;     The actual definition of the abstract classes is given together with the one
+;     of concrete classes
+(setq *ABSTRACT-SUBCAT-CLASSES*
+      '(topic-verbs theme-verbs in-loc-verbs to-loc-verbs from-loc-verbs
+        indobj-verbs result-verbs scompl-a-verbs predsubj-verbs predobj-verbs
+        sentobj-verbs scompl-che-verbs scompl-di-verbs scompl-inf-verbs
+        scompl-yn-verbs scompl-q-verbs sentsubj-verbs ssubj-che-verbs
+        ssubj-di-verbs ssubj-inf-verbs))
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			DEFINITION OF THE CLASSES (HIERARCHY NODES)
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+(setq *SUBCAT-CLASSES*
+'(
+; ---------------------------------------------------------------------------
+  (verbs () nil)
+    ; *** 'verbs' is the top of the hierarchy. No father and no properties.
+; ---------------------------------------------------------------------------
+	(no-subj-verbs (grempty) (verbs))
+	  ; *** verbs without subject. 
+	  ; *** synonym for verbs with no dependent --- ok, si', no
+; ---------------------------------------------------------------------------
+	   (empty-modal () (no-subj-verbs)
+		; *** modals without subject
+		; --- bisognare, occorrere
+		(((verb (mood infinite) (notmyaux))))
+		 (verb+modal-indcompl))
+; ---------------------------------------------------------------------------
+	   (empty-refl () (no-subj-verbs)
+		     (((pron (clitic) (refl-agr))))
+		     (emptycompl))
+; ---------------------------------------------------------------------------
+		(empty-refl-of-theme () (empty-refl)
+	       	  ; *** no subj reflexive verbs with a theme
+                  ;         (governed by "with" - English - or "di" - Italian)
+                             (((prep (word-typ &theme-prep-3)		; di
+                                     (not (down (cat verb))))
+                               (pron (word-typ &partitive-pron) 	; ne
+                                     (precedes-adjacent))))
+                             (verb-indcompl-theme))
+			  ; --- trattarsi
+; ---------------------------------------------------------------------------
+	(doubt-be-verbs () (verbs)
+	        (((conj (type subord) (word-typ &yes-no-conj)))
+	         ((adv (type neg)))
+	         (adj))
+	        (verb-subj advb-rmod-neg verb-predcompl+subj))
+	     ; --- essere (non è chiaro se ...)
+; ---------------------------------------------------------------------------
+	(obj-verbs () (verbs)
+	 ; *** verbs with an object. Definition of object
+            ((noun
+              (art (not (is-a-date)))
+              (adj (semtype £geogr) (number pl))
+              (adj (type (indef demons deitt interr poss)) (nc-head))
+; *** the last condition (nc-head) requires that the adjective is the head
+;     of a noun-complex; notice that it assumes that the structure of
+;     non-verbal chunks is already available
+; prenderà ALCUNI provvedimenti; vedere QUESTI rari esemplari
+; sentire ALTRE proteste ; QUALI domande hai fatto? Vide Suo fratello
+              (pron (not (type refl-impers)) (case lobj))
+	      num))
+            (verb-obj))
+; ---------------------------------------------------------------------------
+		(obj-che-verbs () (obj-verbs sobj-that-verbs) ((NIL)) (verb-obj))
+		  ; *** 'ecco'
+		  ; --- ecco
+; ---------------------------------------------------------------------------
+		(indobj-that-to () (ssubj-that-to-verbs indobj-verbs)
+		  ; *** this has a sentential subject
+		  ; --- sembrare, parere
+		     (((verb (mood cong))))	; pare non distinguano
+		     (verb-subj))
+; ---------------------------------------------------------------------------
+	(subj-verbs () (verbs)
+	  ; *** verbs with a subject. Definition of subject
+	     (((noun (agree))
+	       (art (agree) (not (is-a-date)))
+	       (pron (not (word-typ &art-relat) (type relat))
+                     (not (type refl-impers)) (case lsubj) (agree))
+	       (adj (semtype £geogr) (agree))
+	       (adj (type (indef demons deitt interr poss)) (agree) 
+                    (not (is-a-date)) (nc-head))
+; *** the last condition (nc-head) requires that the adjective is the head
+;     of a noun-complex; notice that it assumes that the structure of
+;     non-verbal chunks is already available
+; ALCUNI provvedimenti sono assurdi; QUESTI rari esemplari valgono molto
+; ALTRE proteste sono sorte ; QUALI domande sono permesse?
+	       (num (agree))			; 3 medici hanno tentato
+	       (prep (word-typ &subj-in) (down (cat pron) (type indef)) (agree))))
+						; per 'in molti scommettono'
+	     (verb-subj))
+; ---------------------------------------------------------------------------
+; *** contrary to what stated in the manual, the "intrans" subclass is
+;     defined separately from subj-verbs. This is for inheritance: if a 
+;     transformation can only be applied to intransitives, then it should
+;     not be applied to transitives. But in the original version, trans
+;     is a subclass of intrans (i.e subj-verbs). Here, it is not.
+             (intrans () (subj-verbs) ())
+; ---------------------------------------------------------------------------
+		(colour-pred () (subj-verbs ssubj-that-inf-verbs)
+		     ((NIL) ((adj (semtype £colour))))
+		     (verb-subj verb-predcompl+subj))
+		  ; *** for the single example 
+		  ; --- 'gli italiani vedono rosa'
+; ---------------------------------------------------------------------------
+		(modal () (empty-modal subj-verbs ssubj-inf-verbs) ())
+	       	  ; --- dovere, intendere, potere, sapere, volere, sembrare
+; ---------------------------------------------------------------------------
+	        (intrans-caus () (intrans)
+		  ; *** intransitives with an inf-verb causal predcompl
+		  ; --- fare, lasciare
+	           (((verb (mood infinite))))
+	           (verb+caus-indcompl))
+; ---------------------------------------------------------------------------
+		(intrans-compar () (intrans)
+		     (((prep (word-typ &as)			; come
+                             (not (down (cat verb))))))
+		     (verb-indcompl-theme))
+	  	    ; --- sembra, look
+; ---------------------------------------------------------------------------
+		(intrans-for () (intrans)
+		     (((prep (word-typ &address-prep))))
+		     (verb-indcompl-theme))
+		    ; --- argue (for)
+; ---------------------------------------------------------------------------
+		(intrans-from-theme () (intrans theme-from-verbs))
+	      	    ; --- dipendere, suffer (from)
+; ---------------------------------------------------------------------------
+		(intrans-goal () (intrans)
+		    ; *** intransitive verbs with a goal
+                    ;         (governed by "to, at" - English - or "per" - Italian)
+		     (((prep (word-typ &goal-prep))))
+		      (verb-indcompl-goal))
+	      	    ; --- spingere
+; ---------------------------------------------------------------------------
+		(intrans-in-on-theme () (intrans)
+                     (((prep (word-typ &theme-prep) 	; su in con
+                             (not (down (cat verb))))))
+                      (verb-indcompl-theme))
+	      	    ; --- insistere
+; ---------------------------------------------------------------------------
+		(intrans-indobj () (intrans indobj-verbs))
+	       	    ; --- appartenere, arrivare, contribuire, credere,
+		    ; --- parlare, passare, pensare, spettare
+		    ; --- dare seguito, provvedere
+; ---------------------------------------------------------------------------
+	              (intrans-indobj-pred () (intrans-pred intrans-indobj))
+		          ; *** this has a sentential subject, a subject predicate
+		          ;     and an indirect object
+		          ; --- sembrare, parere	; la casa gli sembra bella
+		          ; --- stare			; ci stanno strette
+; ---------------------------------------------------------------------------
+		      (intrans-indobj-q () (intrans-indobj sobj-q-verbs))
+	      	           ; --- chiedere, dire, domandare, precisare
+; ---------------------------------------------------------------------------
+		      (intrans-indobj-ssubj () (intrans-indobj intrans-ssubj))
+		           ; --- apparire, bastare, capitare, interessare,
+		  	   ; --- piacere, rincrescere, succedere
+; ---------------------------------------------------------------------------
+		      (intrans-indobj-that-to () (intrans-indobj intrans-that-to))
+	       		   ; *** intransitives with both a sentential object
+	       		   ;     and an indirect object
+			   ; --- avvertire, consentire, domandare,
+			   ; --- impedire, permettere,
+			   ; --- rispondere
+; ---------------------------------------------------------------------------
+      	              (intrans-indobj-yn () (intrans-indobj sobj-yn-verbs))
+	       		   ; --- chiedere, dire, domandare, precisare 
+			   ; --- accertare
+; ---------------------------------------------------------------------------
+		(intrans-loc () (intrans loc-in-verbs))
+	       	    ; --- essere, stare, restare, rimanere
+; ---------------------------------------------------------------------------
+		(intrans-loc-from () (intrans loc-from-verbs))
+		    ; --- arrivare, giungere, venire, tornare, ritornare
+		    ; --- provenire
+; ---------------------------------------------------------------------------
+		(intrans-loc-indef () (intrans)
+		     (((pron (word-typ &loc-pron))))		; ci vi (I), there (E)
+		     (pron-rmod-loc+metaph))
+	            ; --- essere, volere, stare
+; ---------------------------------------------------------------------------
+		(intrans-loc-metaph () (intrans)
+		     (((prep (word-typ &loc-metaph-prep)	; in
+                             (down (not (semtype £gen-loc))))))
+		     (verb-indcompl-loc+metaph))
+	      	    ; --- essere, investire, cadere, consistere
+; ---------------------------------------------------------------------------
+		(intrans-loc-to () (intrans loc-to-verbs))
+		    ; --- andare, arrivare, condurre, correre, fuggire, giungere,
+		    ; --- portare, venire, tornare, ritornare, penetrare,
+		    ; --- scendere, salire
+; ---------------------------------------------------------------------------
+		(intrans-num () (intrans)
+		    ; --- essere, diventare, parere, sembrare
+		     ((num
+                      (pron (type indef))
+; le due linee successive per 'sono il 20%'; le ho tolte, perchè altrimenti
+; c'è ambiguità con 'intrans-pred' e bisognerebbe mettere la corrispondente
+; negazione in intrans-pred. Inoltre, si dovrebbe allora coprire anche il
+; caso di 'sono il 20 per cento'
+              ;                 (art (gender m) (number sing)
+              ;                      (down (cat num) (down (word #\%))))
+				))
+			     (verb-predcompl+subj))
+; ---------------------------------------------------------------------------
+		(intrans-obj () (intrans)
+	       	    ; *** intrans with an object, but not a dir. obj.
+	       	    ; --- approfittare, aver bisogno, consistere, 
+		    ; --- rispondere
+		     (((prep (word-typ &about))
+                       (pron (word-typ &partitive-pron)                 ; ne
+                             (precedes-adjacent))))
+		     (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+		(intrans-on () (intrans)
+		    ; --- essere, pesare
+		     (((prep (word-typ &loc-prep)		; su (I), on (E)
+                             (not (down (cat verb))))))
+		     (verb-indcompl-loc))
+; ---------------------------------------------------------------------------
+		(intrans-on-theme () (intrans)
+		    ; *** intransitive verbs with a theme
+                    ;         (governed by "in, on, about" - English - or "su" - Italian)
+                     (((prep (word-typ &theme-prep-2) 	; su
+                             (not (down (cat verb))))))
+                      (verb-indcompl-theme))
+	      	    ; --- influire, gravare
+; ---------------------------------------------------------------------------
+	        (intrans-partitive () (intrans)
+		     (((prep (word-typ &partitive-prep)		; di tra
+                             (not (down (cat verb))))))
+		     (verb-predcompl+subj-partitive))
+		    ; --- essere (di quelli)
+; ---------------------------------------------------------------------------
+		(intrans-poss () (intrans)
+		    ; *** intransitive verbs with a non-sentential theme
+                    ;     (governed by "with" - English - or "di" - Italian)
+		     (((prep (word-typ &theme-prep-3)
+                             (not (down (cat verb))))
+		       (adj (type poss))))
+		     (verb-indcompl-theme))
+		    ; --- essere, restare, rimanere, sembrare
+; ---------------------------------------------------------------------------
+		(intrans-pred () (intrans predsubj-verbs ssubj-that-inf-verbs))
+		    ; --- apparire, considerare, credere, divenire,
+		    ; --- diventare, parere, restare, rimanere, sembrare
+; ---------------------------------------------------------------------------
+		     (intrans-pred-ssubj () (predsubj-verbs ssubj-that-to-inf-verbs))
+		         ; --- to be (this class needed for the transformation
+                         ;     concerning the insertion of expletives)
+; ---------------------------------------------------------------------------
+		     (intrans-pred-no-ssubj () (intrans predsubj-verbs))
+		         ; --- to be (this class the complement of the previous 
+                         ;     one with respect to intrans-pred)
+; ---------------------------------------------------------------------------
+		(intrans-pred-che () (intrans ssubj-inf-verbs)
+		     (((pron (type relat) (word-typ &base-relat))	; che
+		       (prep (word-typ &pred-prep) (down (cat verb))))) ; a
+		     (verb-predcompl+subj))
+		    ; --- essere; è una costruzione molto particolare:
+		    ;     'è Marco che è partito', 'è andare al mare che
+		    ;     mi secca". Bisognerebbe aggiungere la
+		    ; 	condizione che il soggetto segua il verbo
+		    ;     Ma per questo non sono attrezzato!
+		    ;     Aggiunto anche 'è lui a crederci', 'è stato
+		    ;	Luigi a volerlo'
+; ---------------------------------------------------------------------------
+		(intrans-pred-prep () (intrans pred-prep-subj-verbs ssubj-that-inf-verbs))
+                    ; *** this is the same as intrans-pred, but it also admits any preposition as
+                    ;     predicative complement of the subj
+		    ; --- essere
+; ---------------------------------------------------------------------------
+	        (intrans-progress () (intrans)
+		     (((prep (word-typ &progressive-prep) 	; per
+                             (down (cat verb)))))
+		     (verb-indcompl-progress))
+		    ; --- stare per
+; ---------------------------------------------------------------------------
+		(intrans-q () (intrans sobj-q-verbs))
+	  	    ; --- sentire, vedere, capire, sapere
+; ---------------------------------------------------------------------------
+	        (intrans-result () (intrans result-verbs))
+		    ; --- degenerare, risultare
+; ---------------------------------------------------------------------------
+		(intrans-so () (intrans)
+      	 	    ; --- essere
+		     (((adv (word-typ &so))	; così
+		       (prep (word-typ &as))))	; è come se
+		     (verb-indcompl-manner))
+; ---------------------------------------------------------------------------
+		(intrans-sobjinf () (intrans sobj-inf-verbs))
+	      	     ; --- amare, preferire, comportare
+; ---------------------------------------------------------------------------
+		(intrans-ssubj () 
+			(intrans ssubj-that-to-inf-verbs))
+	       	    ; *** intrans with a possible sentential subject
+		    ; --- conseguire
+; ---------------------------------------------------------------------------
+		     (intrans-ssubj-sobjinf () (intrans-ssubj sobj-inf-verbs) ())
+	      	        ; --- significare, implicare
+; ---------------------------------------------------------------------------
+		(intrans-that () (intrans sobj-that-verbs))
+	      	     ; --- immaginare, osservare, sentire, volere, essere
+		     ; --- correre-voce, comportare, desumere
+; ---------------------------------------------------------------------------
+		(intrans-that-to () (intrans sobj-that-to-verbs))
+	 	     ; *** most verbs in this class included under the more specific 
+	 	     ;     full-basic-trans
+	      	     ; --- calcolare, convenire, decidere, esclamare,
+		     ; --- escludere, meritare, porre, presumere,
+		     ; --- procurare, ricordare, rischiare, provare
+		     ; --- sostenere, sottolineare, sperare, spiegare
+; ---------------------------------------------------------------------------
+		(intrans-theme () (intrans theme-in-verbs))
+	      	    ; --- pensare, accennare, corrispondere, procedere
+	      	    ; --- tornare, rinunciare, assistere, derogare
+		    ; --- ritornare, assomigliare, rassomigliare
+		    ; --- resistere, far-posto, ricorrere, partecipare
+		    ; --- sopravvivere
+		    ; --- insist (on, in, about)
+; ---------------------------------------------------------------------------
+		(intrans-time () (intrans)
+                     (((prep (word-typ &time-prep-2)		; a (I), at (E)
+                             (down (cat art)
+                                   (gender f)
+                                   (number pl)
+                                   (down (cat num))))))
+		     (verb-indcompl-time))
+	      	   ; --- essere (alle 3)
+; ---------------------------------------------------------------------------
+		(intrans-time-2 () (intrans)
+                     (((prep (word-typ &time-prep)		; a (I), to (E)
+                             (not (down (cat verb))))))
+		     (verb-indcompl-time))
+	      	   ; --- risalire
+; ---------------------------------------------------------------------------
+		(intrans-time-dur () (intrans)
+                     (((prep (word-typ &time-prep)		; a
+                             (down (word-typ &long)))		; lungo
+		       (num (down (semtype ££timemeasure)))
+		       (art (down (semtype ££timemeasure)))
+		       (adj (type indef) (down (semtype ££timemeasure)))
+		       (noun (semtype ££timemeasure))
+		       (adv (type quant))))
+		     (verb-indcompl-time))
+	      	    ; --- durare
+; ---------------------------------------------------------------------------
+		(intrans-to () (intrans stheme-to-verbs))	; di (I), to (E)
+	      	     ; --- cercare, finire, tentare, begin
+; ---------------------------------------------------------------------------
+		(intrans-to-2 () (intrans stheme-to2-verbs))	; a (I), in (E)
+	      	     ; --- andare, arrivare, badare, cominciare, condurre, 
+		     ; --- continuare, contribuire, essere, giungere,
+		     ; --- incominciare, iniziare, occupare???, portare,
+		     ; --- mirare, prendere, procedere, provare,
+		     ; --- provvedere, riuscire, seguitare, servire,
+		     ; --- tendere, venire, obbligare, tornare
+; ---------------------------------------------------------------------------
+		(intrans-topic () (intrans topic-verbs))	; di (I), about, on (E)
+	       	    ; --- parlare, ricordare, riferire, trattare,
+		    ; --- tenere-conto, godere
+; ---------------------------------------------------------------------------
+		(intrans-with () (intrans)
+	      	    ; --- parlare, chiacchierare, discutere, conversare,
+		    ; --- collaborare, essere, interagire
+		     (((prep (word-typ &together-prep))))	; con (I), with (E)
+		      (verb-indcompl-together))
+; ---------------------------------------------------------------------------
+		(intrans-yn () (intrans sobj-yn-verbs))
+	      	    ; --- sapere, sentire, vedere
+; ---------------------------------------------------------------------------
+		(trans-neg-che () (subj-verbs)
+		     (((adv (type neg)))
+		      ((conj (word-typ &special-neg))))			; che
+		     (advb-rmod-neg verb-obj))
+		  ; --- fare, potere
+; ---------------------------------------------------------------------------
+		(trans-dir-disc () (subj-verbs)
+		     ((phras
+		       (verb (not (mood infinite))
+		;	     (not (mood participle))
+; la precedente commentata, perchè nelle versione attuale, i verbi principali
+; governano gli ausiliari; di conseguenza, in "Ho visto - ha detto Mario - un
+; bel film", "visto" dipende da "detto", ma non potrebbe essere usato come
+; complemento di un discorso diretto, perchè al participio
+			     (not (mood gerund)))))
+		     (verb-obj))
+		  ; --- affermare, aggiungere, ammettere, avvertire, 
+		  ; --- commentare, consentire, credere, 
+		  ; --- esclamare, escludere, esordire, giudicare,
+		  ; --- imprecare, ironizzare, minacciare, notare,
+		  ; --- osservare, pensare, proclamare, 
+		  ; --- ritenere, scommettere,
+		  ; --- sostenere, sottolineare, titolare
+; ---------------------------------------------------------------------------
+		     (trans-dir-disc-indobj () (trans-dir-disc indobj-verbs))
+		       ; --- chiedere, consigliare, dire, domandare, 
+		       ; --- gridare, precisare, promettere, ripetere, rispondere
+		       ; --- spiegare
+; ---------------------------------------------------------------------------
+		(basic-trans () (subj-verbs obj-verbs))
+		  ; *** Verbs with direct object; no inf-verb subject
+		  ; --- consultare, dovere, intendere, preferire, sapere
+		  ; --- vedere, volere
+; ---------------------------------------------------------------------------
+			(full-basic-trans () (basic-trans sobj-that-to-verbs) ())
+	       		  ; *** basic transitives admitting a sentential object
+	      	 	  ; --- affermare, aggiungere, ammettere, apprendere,
+                          ; --- aspettare, badare, constatare, credere, esigere,
+                          ; --- fingere, giudicare,
+			  ; --- immaginare, ironizzare, negare, pensare,
+			  ; --- proclamare, ripetere, rispondere, ritenere,
+			  ; --- sapere, scommettere, sussurrare, vedere, temere
+; ---------------------------------------------------------------------------
+		              (trans-full-indobj () (full-basic-trans indobj-verbs))
+	       		        ; *** transitives with indirect object and che-di
+			        ;     sentential object
+			        ; --- chiedere, concedere, consigliare, dimostrare,
+			        ; --- dichiarare, dire, mostrare, precisare, raccomandare
+			        ; --- promettere, richiedere, scrivere
+; ---------------------------------------------------------------------------
+			      (trans-full-topic () (full-basic-trans)
+			        ; *** transitive verbs with a theme
+                                ;         (governed by "in, on, about" - English - or "su" - Italian)
+			           (((prep (word-typ &theme-prep-2))))	; su (I), in, on, about (E)
+			           (verb-indcompl-theme))
+			        ; --- scommettere
+; ---------------------------------------------------------------------------
+			      (trans-full-topic-2 () (full-basic-trans topic-verbs))	; di (I), with (E)
+			        ; this is different from the previous one, because
+			        ; the topic complement (verb-indcompl-theme) is introduced
+			        ; by 'di' (with), and not by 'su' (on)
+			        ; --- dotare, dare segno
+                                ; --- contrast (with)
+; ---------------------------------------------------------------------------
+			(trans () (basic-trans ssubj-inf-verbs) ())
+	       		  ; *** transitives admitting a inf-verb subject
+			  ; ---  'a lot of verbs'
+; ---------------------------------------------------------------------------
+		             (trans-from-theme () (trans stheme-from-verbs))
+			    ; --- prevent
+; ---------------------------------------------------------------------------
+			     (trans-pred () (trans predobj-verbs ssubj-that-verbs))
+	       		    ; *** transitives admitting a predicative complement
+			    ; --- lasciare, mantenere, rendere, vedere, dire
+			    ; --- considerare, tenere
+			    ; $$$ il parlamentare si è detto favorevole $$$
+; ---------------------------------------------------------------------------
+		             (trans-result () (trans result-verbs))
+			    ; --- mutare, trasformare
+; ---------------------------------------------------------------------------
+		             (trans-topic () (trans topic-verbs))
+			    ; --- riempire
+; ---------------------------------------------------------------------------
+		             (trans-separ () (trans theme-from-verbs))
+			    ; --- separare, distinguere, dividere, staccare
+			    ; --- diversificare, preservare
+; ---------------------------------------------------------------------------
+			     (trans-to-with-theme () (trans)
+	       	               ; *** verbs with a theme 
+		               ;    (governed by "to, with" - English - or "a, con" - Italian)
+                                  (((prep (word-typ &theme-prep-4)
+                                          (not (down (cat verb))))))
+                                  (verb-indcompl-theme))
+	      	 	       ; --- abbinare, collegare, confrontare, connettere,
+			       ; --- paragonare, unire
+; ---------------------------------------------------------------------------
+			     (trans-in-theme () (trans theme-in-verbs))
+	      	 	       ; --- educare, convincere, condannare, dimensionare
+			       ; --- dedicare, chiamare, assimilare, opporre, adeguare
+; ---------------------------------------------------------------------------
+			(btrans-compar () (basic-trans)
+			     (((prep (word-typ &as)			; come
+                                     (not (down (cat verb))))))
+			     (verb-indcompl-theme))
+			  ; --- vedere
+; ---------------------------------------------------------------------------
+			(btrans-for () (basic-trans)
+			     (((prep (word-typ &address-prep))		; per contro
+			       (conj (word-typ &address-conj))))	; contro
+			     (verb-indcompl-theme))
+			  ; --- ringraziare
+; ---------------------------------------------------------------------------
+		        (btrans-indobj () (basic-trans indobj-verbs))
+	       		  ; *** transitives admitting a indirect object
+			  ; --- adattare, apportare, affidare, associare,
+			  ; --- consegnare, dare, destinare,
+			  ; --- domandare, gridare, inviare,
+			  ; --- mandare, portare, procurare,
+			  ; --- recare, regalare, rendere,
+			  ; --- rifiutare, spedire, stropicciare???
+; ---------------------------------------------------------------------------
+		        (btrans-loc-dest () (basic-trans)
+			     (((prep (word-typ &loc-to-prep) 		; a (I), to (E)
+                                     (down (lexsemtype £city)))))
+			     (verb-indcompl-loc+to))
+			  ; --- inviare, mandare, spedire
+; ---------------------------------------------------------------------------
+			(btrans-loc-from () (basic-trans loc-from-verbs))
+			  ; --- ricevere
+; ---------------------------------------------------------------------------
+			(btrans-loc-indef () (basic-trans)
+			     (((pron (word-typ &loc-pron))))		; ci vi
+			     (pron-rmod-loc+metaph))
+	      	 	  ; --- rimetterci
+; ---------------------------------------------------------------------------
+			(btrans-loc-metaph () (basic-trans)
+			     (((prep (word-typ &theme-prep-2)		; su
+                                    (down (not (semtype £gen-loc))))))
+			     (verb-indcompl-loc+metaph))
+	      	 	  ; --- basare, fondare
+; ---------------------------------------------------------------------------
+		        (btrans-loc-to () (basic-trans loc-to-verbs))
+			  ; --- condurre, immettere, infilare, mettere, portare
+			  ; --- appoggiare, scaricare, chiamare
+; ---------------------------------------------------------------------------
+			(btrans-multdiv () (basic-trans)
+			     (((prep (word-typ &operator-prep) 		; per (I), by (E)
+                                     (not (down (cat verb))))))
+			     (verb-indcompl-theme))
+			  ; --- dividere, moltiplicare
+; ---------------------------------------------------------------------------
+			(btrans-pred-objinf () (basic-trans sobj-inf-verbs predobj-verbs)
+					())
+	       		  ; *** transitives admitting a predicative complement
+	       		  ; *** and a verb-infinite object
+			  ; --- chiamare, definire, giudicare, ritenere
+; ---------------------------------------------------------------------------
+		        (btrans-pred-sinf () (basic-trans predobj-verbs)
+	       		  ; *** basic transitives with a predication for the object,
+                          ;     licensing an inf-verb predicative complement
+			  ; --- vedere, sentire
+		           (((verb (mood infinite))))
+		           (verb-predcompl+obj))
+; ---------------------------------------------------------------------------
+		        (btrans-that-to-theme () (basic-trans stheme-that-to-verbs))
+	       		  ; *** transitives with sentential theme
+			  ; --- accusare, avvertire, avvisare, convincere,
+			  ; --- minacciare, scommettere
+; ---------------------------------------------------------------------------
+		        (btrans-to-2 () (basic-trans stheme-to2-verbs theme-in-verbs))
+	       		  ; *** transitives with a sentential object	; a (I), in (E)
+			  ; --- aiutare, autorizzare, condannare, convincere,
+			  ; --- costringere, destinare, indurre, dedicare,
+			  ; --- mandare, spingere, tenere (ma solo al passivo)
+; ---------------------------------------------------------------------------
+			(btrans-to-time () (basic-trans)
+			     (((prep (word-typ &time-prep)		; a (I), / (E)
+                                     (not (down (cat verb))))))
+			     (verb-indcompl-time))
+			  ; --- rimandare, rinviare, anticipare
+			  ; l'argomento dovrebbe essere di tipo temporale
+			  ; (rinviare a domani), ma un evento può
+			  ; identificare un tempo (rimandare alla gara di
+			  ; Adelaide)
+; ---------------------------------------------------------------------------
+		(refl () (subj-verbs)
+		     (((pron (clitic) (refl-agr))))
+		     (emptycompl))
+			  ; --- affermarsi, disputarsi, estinguersi,
+			  ; --- evolversi, rassegnarsi, rifiutarsi, risvegliarsi,
+			  ; --- delinearsi, sedersi, svolgersi, tenersi, esibirsi
+; ---------------------------------------------------------------------------
+			(refl-btrans () (refl basic-trans))	; Mi ricordo Luigi
+			  ; --- ricordarsi, aspettarsi, attendersi
+; ---------------------------------------------------------------------------
+			(refl-from-theme () (refl theme-from-verbs))
+			  ; --- guardarsi
+; ---------------------------------------------------------------------------
+			(refl-in-obj () (refl)
+			     (((prep (word-typ &loc-metaph-prep))))	; in (I) in (E)
+			     (verb-obj))
+			  ; --- imbattersi, manifestarsi
+; ---------------------------------------------------------------------------
+			(refl-in-theme () (refl theme-in-verbs))
+                          ; *** verbs admitting a theme governed by 'in' (E) or 'a' (I)
+                          ;     both sentential and not sentential
+			  ; --- accingere, rassegnare, limitarsi, opporsi
+			  ; --- restringersi, aggrapparsi, impegnarsi
+; ---------------------------------------------------------------------------
+			(refl-loc-in () (refl loc-in-verbs))
+			  ; --- trovarsi
+; ---------------------------------------------------------------------------
+			(refl-loc-to () (refl loc-to-verbs))
+			  ; --- recarsi, riversarsi, evolversi
+; ---------------------------------------------------------------------------
+			(refl-manner () (refl)		; Mi sono sentito male
+			     (((adv (type manner))))
+			     (verb-indcompl-manner))
+			  ; --- sentire, comportare
+; ---------------------------------------------------------------------------
+			(refl-name () (refl)		; Mi chiamo Luigi
+			  (((art (type def)) noun))
+			  (verb-predcompl+subj))
+			  ; --- chiamarsi
+; ---------------------------------------------------------------------------
+			(refl-of-theme () (refl)
+	       	  ; *** reflexive verbs with a theme
+                  ;         (governed by "with" - English - or "di" - Italian)
+                             (((prep (word-typ &theme-prep-3)		; di
+                                     (not (down (cat verb))))
+                               (pron (word-typ &partitive-pron) 	; ne
+                                     (precedes-adjacent))))
+                             (verb-indcompl-theme))
+			  ; --- innamorare, riempire, disinteressare
+; ---------------------------------------------------------------------------
+			(refl-of-topic () (refl topic-verbs))
+			  ; --- accorgersi, occuparsi, preoccuparsi, ricordarsi
+			  ; --- servirsi, valersi
+; ---------------------------------------------------------------------------
+			(refl-on-topic () (refl)
+			  ; *** reflexive verbs with a theme
+                          ;         (governed by "in, on, about" - English - or "su" - Italian)
+			     (((prep (word-typ &theme-prep-2))))	; su
+			     (verb-indcompl-theme))
+			  ; --- pronunciarsi, concentrarsi
+; ---------------------------------------------------------------------------
+			(refl-pred () (refl predsubj-verbs))
+			  ; --- dimostrarsi, mostrarsi, rivelarsi
+; ---------------------------------------------------------------------------
+	 		(refl-result () (refl result-verbs))
+			  ; --- trasformarsi
+; ---------------------------------------------------------------------------
+		        (refl-that-to () (refl sobj-that-to-verbs))
+			  ; --- accorgersi, aspettarsi, preoccuparsi, ricordarsi
+; ---------------------------------------------------------------------------
+			(refl-to-obj () (refl sobj-to-verbs))
+			  ; --- riservarsi
+; ---------------------------------------------------------------------------
+			(refl-to2 () (refl stheme-to2-verbs))
+			  ; --- accingere, rassegnare, trovare, preparare
+			  ; --- limitare
+; ---------------------------------------------------------------------------
+			(refl-with () (refl)
+			     (((prep (word-typ &together-prep))))	; con
+			     (verb-indcompl-together))
+			  ; --- congratularsi, scontrarsi
+; ---------------------------------------------------------------------------
+			    (refl-to-with () (refl-with)
+                              ; *** the prepositions 'con' (I) and 'with', 'against' (E)
+                              ;     are inherited from refl-with
+			         (((prep (word-typ &together-prep-2))))	; a (I), to (E)
+			         (verb-indcompl-together))
+			      ; --- unirsi
+
+; &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+;  ABSTRACT CLASSESS
+; &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+; ---------------------------------------------------------------------------
+	 	(topic-verbs () (verbs) 
+	       	  ; *** verbs with a topic
+                  ;         (governed by "with" - English - or "di" - Italian)
+		     (((prep (word-typ &theme-prep-3)			; di ; with (deal)
+                             (not (down (cat verb))))
+                       (pron (word-typ &partitive-pron) 		; ne
+                             (precedes-adjacent))))
+		     (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+		(loc-in-verbs () (verbs)
+	       	  ; *** verbs with a 'in' location (static)
+                  ;        (governed by "before, behind, beyond" - English - 
+                  ;         or "a, davanti, dietro, oltre" - Italian,
+                  ;         but also by "in" followed by a location term)
+		     (((prep (word-typ &loc-prep-2)	; a davanti dietro oltre
+			     (not (down (cat verb)))
+			     (not (down (cat art)
+				        (gender f)
+                                        (number pl)
+                                        (down (cat num)))))
+                       (prep (word-typ &loc-prep-1)			; in
+                             (down (semtype £gen-loc)))
+                       (prep (word-typ &loc-prep-1)			; in
+                             (down (down (semtype £gen-loc))))
+                       (adv (type loc))
+                       (adv (type interr) (lexsemtype loc))
+		       (pron (lexsemtype loc))))
+		     (verb-indcompl-loc+in))
+; ---------------------------------------------------------------------------
+		(loc-to-verbs () (verbs)
+	       	  ; *** verbs with a 'to' location (movement)
+		     (((prep (word-typ &loc-to-prep-2)  ; a in verso oltre davanti
+                                                        ; dietro su sopra sotto fino
+			     (not (down (cat verb))))
+		      (adv (type loc))))
+		     (verb-indcompl-loc+to))
+; ---------------------------------------------------------------------------
+		(loc-from-verbs () (verbs)
+	       	  ; *** verbs with a 'from' location (movement)
+		     (((prep (word-typ &loc-from-prep)			; da
+			     (not (down (cat verb))))
+		      (pron (type loc) (word-typ &loc-from-pron)))) 	; ne
+		     (verb-indcompl-loc+from))
+; ---------------------------------------------------------------------------
+		(indobj-verbs () (verbs)
+	       	  ; *** verbs with an indirect object
+		     (((prep (word-typ &indobj-prep)			; a ; to
+                             (not (down (cat verb))))
+		       (pron (case liobj))))
+		     (verb-indobj))
+; ---------------------------------------------------------------------------
+	        (result-verbs () (verbs)
+		  ; *** verbs with a result (mutare, trasformarsi, risultare)
+                  ;        (governed by "in, into" - English - or "in" - Italian)
+		     (((prep (word-typ &theme-prep-6)			; in ; in into
+                             (not (down (cat verb))))))
+		     (verb-indcompl-result))
+; ---------------------------------------------------------------------------
+		(predsubj-verbs () (verbs)
+	       	  ; *** verbs with a predication applied to subject; the predicator is unmarked
+		     ((adj noun art
+		       (pron (not (clitic)))
+		       (verb (mood participle)) 
+		       (adv (type compar)))) ; 'tra poco sara' peggio'
+		     (verb-predcompl+subj))
+; ---------------------------------------------------------------------------
+		(pred-prep-subj-verbs () (predsubj-verbs)
+	       	  ; *** verbs with a predication, but it can be expressed via any prep
+		     ((prep))
+		     (verb-predcompl+subj))
+; ---------------------------------------------------------------------------
+		(predobj-verbs () (verbs)
+	       	  ; *** verbs with a predication applied to direct object
+		     ((adj noun art
+		       ;(pron (not (clitic)))
+		       (verb (mood participle)) ; li Vede Favoriti
+		       (adv (type compar))
+                       (prep (word-typ &as)))) 	; he regards them as
+		     (verb-predcompl+obj))
+; ---------------------------------------------------------------------------
+; *** this covers all verbs with a sentential object, and it is needed to
+;     constrain the applicability of some transformations
+		(sent-obj-verbs () (verbs) () (verb-obj))
+ 	      	  ; *** verbs with a sentential object
+; ---------------------------------------------------------------------------
+		   (sobj-that-verbs () (sent-obj-verbs)
+	       	     ; *** verbs with sentential object governed by 'che' (I), 'that' (E)
+		        (((conj (word-typ &base-subord-conj))))
+		        (verb-obj))
+; ---------------------------------------------------------------------------
+		   (sobj-to-verbs () (sent-obj-verbs)
+	       	     ; *** verbs with sentential object governed by 'di' (I), 'to' (E)
+		        (((prep (word-typ &base-subord-prep)
+                                (down (cat verb)))))
+		        (verb-obj))
+; ---------------------------------------------------------------------------
+		       (sobj-that-to-verbs () (sobj-that-verbs sobj-to-verbs) ())
+	       	         ; *** verbs with sentential object governed by 'di' or 'che' (I),
+                         ;     'to' or 'that' (E)
+; ---------------------------------------------------------------------------
+		   (sobj-inf-verbs () (sent-obj-verbs)
+	       	     ; *** verbs with an inf-verb sentential object
+		        (((verb (mood infinite) (notmyaux))))
+		        (verb-obj))
+; ---------------------------------------------------------------------------
+		   (sobj-yn-verbs () (sent-obj-verbs)
+	       	     ; *** verbs governing yes/no questions
+		        (((conj (word-typ &yes-no-conj))))		; se
+		        (verb-obj+yn))
+; ---------------------------------------------------------------------------
+		   (sobj-q-verbs () (sent-obj-verbs)
+	       	     ; *** verbs with an interrogative sentential object
+                        (((verb (mood (ind cong condiz)) (has-interr))
+                          (conj (word-typ &interr-conj))))	; come dove perché
+		        (verb-obj+q))
+; ---------------------------------------------------------------------------
+; *** this covers all verbs with a sentential subject
+		(sent-subj-verbs () (verbs)
+		     (((pron (word-typ &interr-sent-pron))))	; che_cosa
+		     (verb-subj))
+ 	      	  ; *** verbs with a sentential subject
+; ---------------------------------------------------------------------------
+		   (ssubj-that-verbs () (sent-subj-verbs)
+	       	     ; *** verbs with sentential subject governed by 'che' (that)
+		        (((conj (word-typ &base-subord-conj))))
+		        (verb-subj))
+; ---------------------------------------------------------------------------
+		      (ssubj-that-to-verbs () (ssubj-that-verbs)
+	       	        ; *** verbs with sentential subject governed by 'che' (that) or 'di' (to)
+		        (((prep (word-typ &base-subord-prep)
+                                (down (cat verb)))))
+		        (verb-subj))
+; ---------------------------------------------------------------------------
+		   (ssubj-inf-verbs () (sent-subj-verbs)
+	       	     ; *** verbs with an inf-verb sentential subject
+		        (((verb (mood infinite) (notmyaux))))
+		        (verb-subj))
+; ---------------------------------------------------------------------------
+		      (ssubj-that-inf-verbs () (ssubj-that-verbs ssubj-inf-verbs))
+	       	        ; *** verbs with sentential subject governed by 'che' (that) or 
+                        ;     nothing (verb in the infinite)
+; ---------------------------------------------------------------------------
+		         (ssubj-that-to-inf-verbs () (ssubj-that-to-verbs ssubj-inf-verbs))
+	       	           ; *** verbs with sentential subject governed by 'che' (that) or 
+                           ;     nothing (verb in the infinite)
+; ---------------------------------------------------------------------------
+; *** this covers all verbs with a theme
+		(theme-verbs () (verbs) () (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+		     (stheme-to2-verbs () (theme-verbs)
+	       	       ; *** verbs with a sentential theme governed by 'a' (It) or 'in' (En)
+		          (((prep (word-typ &theme-prep-1)
+                                  (down (cat verb)))))
+		          (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+		     (stheme-to-verbs () (theme-verbs)
+	       	       ; *** verbs with a sentential theme governed by 'di' (It) or 'to' (En)
+		          (((prep (word-typ &base-subord-prep)	
+                                  (down (cat verb)))))
+		          (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+		          (stheme-that-to-verbs () (stheme-to-verbs)
+	       	             ; *** verbs with a sentential theme governed by 'che' or 'di' (It),
+                             ;     'that' or 'to' (En)
+		                (((conj (word-typ &base-subord-conj))))
+		                (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+                     (stheme-from-verbs () (theme-verbs)
+	       	       ; *** verbs with a sentential theme governed by 'da' (It) or "from" (En)
+                          (((prep (word-typ &theme-prep-5)			; from
+                                  (down (cat verb)))))
+	                  (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+	 	     (theme-in-verbs () (theme-verbs) 
+	       	       ; *** verbs with a theme (both sentential and not sentential)
+		       ;         governed by "in" (En) or "a" (It)
+		          (((prep (word-typ &theme-prep-1)
+                             (not (down (cat verb))))
+		            (prep (word-typ &theme-prep-1)
+                                  (down (mood gerund)))			; for English
+		            (pron (case liobj))))
+		          (verb-indcompl-theme))
+; ---------------------------------------------------------------------------
+; *** the next for a non-sentential theme
+                (theme-from-verbs () (theme-verbs)
+	       	  ; *** verbs with a theme governed by 'da' (It) or "from" (En)
+                     (((prep (word-typ &theme-prep-5)			; da
+                             (not (down (cat verb))))))
+	             (verb-indcompl-theme))
+))
+

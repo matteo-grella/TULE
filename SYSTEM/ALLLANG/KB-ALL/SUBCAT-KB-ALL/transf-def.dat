@@ -1,0 +1,525 @@
+
+; ££££££££££££££££££££ 
+; This file includes:
+;	THE TRANSFORMATIONS
+;	PREFERENCES AND CONSTRAINTS
+; ££££££££££££££££££££ 
+
+(in-package "USER")
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			THE TRANSFORMATIONS
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+; *** I assume that "replacing" rules are obligatory, while "extending" rules
+;     are applied just in case the base rules fail
+; !!!! !!!!! if some feature must be get from the verb (in the applicability
+; !!!!       conditions), then the argument must be "*tr-verb", which is a
+; !!!! 	     special variable set to the correct value in the interpreter !!!!
+(setq *VERB-CF-TRANSFORM*
+	'((passivization	; ++++++++++++++++++++++++++++++++++++++++++++
+		replacing
+		(basic-trans sent-obj-verbs)
+;     they are set in GULL/SUBCATS/gr-interp: apply-verbal-rules
+		(is-passive)
+		t
+; *** WARNING !!! when the surface label is changed, it is replaced in the old
+; 	list. So, changing the s-verb-obj to s-verb-subj first would not work,
+;       since after the first change, the list would be (s-verb-subj s-verb-subj)
+		(modif-case (s-verb-subj s-verb-indcompl-agent)
+			((cancel verb)
+			 (cancel (conj (word-typ &base-subord-conj)))
+			 (cancel prep)
+			 (change (pron (case lsubj))
+				(include prep &agent-compl-prep)
+                                (upd case obl) (erase agree))
+			 (change art
+				(include prep &agent-compl-prep) (erase agree))
+			 (change adj
+				(include prep &agent-compl-prep) (erase agree))
+			 (change num
+				(include prep &agent-compl-prep) (erase agree))
+			 (change noun
+				(include prep &agent-compl-prep) (erase agree))))
+		(modif-case (s-verb-obj s-verb-subj)
+			((change pron (upd case lsubj) (add (agree)))
+			 (change noun (add (agree)))
+			 (change art (add (agree)))
+			 (change adj (add (agree)))
+			 (change verb (add (agree)))
+			 (change (conj (word &base-subord-conj)) (add (agree))))))
+	  (insert-expletive
+; *** for: "It is interesting to go" 
+   ; *** this is inserted in this prominent position, since it must be applied
+   ;     before infinitivization: infinitivization, in fact, must apply to the
+   ;     "surface" subject: "It is important to go" --> "It can t be important to go"
+		extending
+		(intrans-pred-ssubj)
+		(and (language (english))
+                     (not (is-passive)))
+		(and (head-precedes verb-subj)  ; the head comes before the subject
+		     (head-follows verb-expletive))
+                (modif-case (s-verb-subj s-verb-subj+expletive)
+                        ((cancel all-spec)
+                         (add 
+                            ((conj (word-typ &base-subord-conj))
+                             (prep (word-typ &base-subord-prep)
+                                   (down (cat verb)))
+                             (verb (mood infinite) (notmyaux))))))
+		(add-case ((pron (word-typ &pron-neuter)))
+		       s-verb-subj verb-expletive))
+	  (infinitivization 	; ++++++++++++++++++++++++++++++++++++++++++++
+		replacing
+		(subj-verbs intrans-pred-ssubj)
+		(is-inf-form)
+		t
+		(cancel-case s-verb-subj))
+  ; *** the !overcomes keyword that appears in the condition specifies that the
+  ;     associated predicate must ignore its negated counterpart (if it present)
+  ; *** this is used to "overcome" the effect of "replacing" transformations.
+  ;     "infinitivization" is replacing and requires "is-inf-form", but the next
+  ;     three transformations must apply as alternatives to "infinitivization"
+  ;     This is because "infinitivization" cancels the subject, while the causal
+  ;     transfs need the subject to move it in the right way
+ 	  (causal-infinitivization-intrans ; ++++++++++++++++++++++++++++++++++++++++++++
+ 		replacing
+ 		(intrans)
+ 		(and (!overcomes (is-inf-form))
+                     (governed-as VERB+CAUS-INDCOMPL))
+                 t
+ 		(modif-case (s-verb-subj s-verb-obj)))
+ 	  (causal-infinitivization-trans ; ++++++++++++++++++++++++++++++++++++++++++++
+     ; *** the subject becomes the indirect object in all transitives that do not 
+     ;     already have an indirect object
+ 		replacing
+ 		(full-basic-trans trans btrans-caus btrans-compar btrans-for 
+                 btrans-loc-dest btrans-loc-from btrans-loc-indef btrans-loc-metaph 
+                 btrans-loc-to btrans-multdiv btrans-pred-objinf btrans-pred-sinf 
+                 btrans-that-to-theme btrans-to-2 btrans-to-time)
+ 		(and (!overcomes (is-inf-form))
+                     (governed-as VERB+CAUS-INDCOMPL))
+                 t
+ 		(modif-case (s-verb-subj s-verb-indobj)
+                        ((cancel all-spec)
+                         (add 
+			    ((prep (word-typ &indobj-prep)                    ; a ; to
+                                   (not (down (cat verb)))))))))
+ 	  (causal-infinitivization-indobj ; ++++++++++++++++++++++++++++++++++++++++++++
+     ; *** In all trans (both with and without an indobj), the subject can become
+     ;     the complement agent
+ 		replacing
+ 		(basic-trans)
+ 		(and (!overcomes (is-inf-form))
+                     (governed-as VERB+CAUS-INDCOMPL))
+                 t
+		(modif-case (s-verb-subj s-verb-indcompl-agent)
+			((cancel verb)
+			 (cancel (conj (word-typ &base-subord-conj)))
+			 (cancel prep)
+			 (change (pron (case lsubj))
+				(include prep &agent-compl-prep)
+                                (upd case obl) (erase agree))
+			 (change art
+				(include prep &agent-compl-prep) (erase agree))
+			 (change adj
+				(include prep &agent-compl-prep) (erase agree))
+			 (change num
+				(include prep &agent-compl-prep) (erase agree))
+			 (change noun
+				(include prep &agent-compl-prep) (erase agree)))))
+ ; *** the next is a rather tricky case!!! After the application of the preceding
+;     transformation, the 'trans' pattern includes the condition 'not
+;     is-inf-form ...', since it actually stands for 'transitives without
+;     infinitivization'. So, da-infinitivization cannot apply to it (since it
+;     requires the verb in the infinitive). Actually, da-infinitivization
+;     works as a second-level transformation, to be applied just to patterns
+;     which already underwent infinitivization. However, infinitivization
+;     has already cancelled the s-verb-subj, so that this operation must be
+;     omitted here (even if it is logically present!!!)
+          (da-infinitivization 	; ++++++++++++++++++++++++++++++++++++++++++++
+	                        ; --------> le cose da fare
+                replacing
+		(basic-trans sent-obj-verbs)
+                (and (is-inf-form)
+                     (has-gramm-type governor &vgov-prep-2)
+                     (or (up-up-cat noun)
+; *** the next condition for 'sono difficili da analizzare'
+                         (up-up-cat adj)
+; *** the next condition for 'non ho nulla da nascondere', 'ho un mucchio
+;     di cose da fare'. Bisognerebbe anche mettere qualche condizione per
+;     'c'è molto da vedere'
+                         (and (up-up-cat verb)
+                              (has-gramm-type gov-gov &to-have))))
+                t
+                (cancel-case s-verb-obj))
+	  (null-subj		; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(subj-verbs intrans-pred-ssubj)
+		(and (not (language english))
+                     (not (is-inf-form)))
+		t
+		(cancel-case s-verb-subj))
+	  (null-agt-compl	; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(basic-trans sent-obj-verbs)
+		(is-passive)
+		t
+		(cancel-case s-verb-indcompl-agent))
+	  (null-indobj		; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(indobj-verbs)
+		t
+		t
+		(cancel-case s-verb-indobj))
+	  (null-obj		; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(intrans-indobj-that-to
+		 intrans-indobj-yn
+		 intrans-indobj-q
+		 trans-full-topic		; per 'scommettere su'
+		 btrans-pred-sinf		; per 'vedo ridere', 'si vede affidare'
+				)
+		t
+		t
+		(cancel-case s-verb-obj))
+	  (object-raising	; ++++++++++++++++++++++++++++++++++++++++++++
+		replacing
+; *** the fact that this transformation is declared as replacing means that
+;     if the verb is governed by a modal with a visitor, then object-raising
+;     is obligatory! This and the next two transformations are mutually exclusive:
+;     either there is a single unmarked visitor in the governing modal (so that
+;     either object-raising or ind-object-raising are applied), or there are
+;     two of them, in which case the third transformation of the group is applied.
+;     raising must have a different label!!! (VISITOR-R-OBJ)
+		(basic-trans sent-obj-verbs refl)
+		(gov-by-modal-with-lobj-visitor)
+		t
+		(cancel-case (s-verb-obj s-verb-obj+yn s-verb-obj+q
+		 s-emptycompl)))
+; *** emptycompl per 'volerSi arrabbiare'
+	  (ind-object-raising	; ++++++++++++++++++++++++++++++++++++++++++++
+		replacing
+; *** the fact that this transformation is declared as replacing means that
+;     if the verb is governed by a modal with a visitor, then object-raising
+;     is obligatory! However, if there is a single unmarked visitor, this is
+;     alternative to the previous one, while if there are two of them ("glielo
+;     devi dare") they are both obligatory
+		(indobj-verbs)
+		(gov-by-modal-with-liobj-visitor)
+		t
+		(cancel-case (s-verb-indobj)))
+	  (object-and-ind-object-raising	; ++++++++++++++++++++++++++++
+		replacing
+; *** the fact that this transformation is declared as replacing means that
+;     if the verb is governed by a modal with a visitor, then object-raising
+;     is obligatory! However, if there is a single unmarked visitor, this is
+;     alternative to the previous one, while if there are two of them ("glielo
+;     devi dare") they are both obligatory
+		(indobj-verbs)
+		(gov-by-modal-with-lobj-and-liobj-visitor)
+		t
+		(cancel-case (s-verb-obj s-verb-indobj)))
+	  (impersonalization	; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(subj-verbs)
+                (not (language (english)))
+		(head-precedes verb-obj)  ; the head comes before the object
+; *** the previous condition is coupled with the inverse condition appearing
+;     in reflexivization. They are not real constraints, but rather a way to
+;     choose one transformed pattern instead of the other
+			  ; (not (is-passive))
+; *** actually, it must not be passive, but the condition blocks the
+;     the application to cases such as "si e' visto che", where the verbal
+;     form appears to be passive, although it is not: Unfortunately, this
+;     licences "si e' stato visto", which is incorrect
+                (modif-case (s-verb-subj s-verb-subj+impers)
+                        ((cancel all-spec)
+                         (add ((pron (type refl-impers))))))
+; *** conditional-modif-case is as modif-case, but does not produce an error
+;     (simply it does nothing) if the referred case does not exist. This has
+;     been done to enable the application of impersonalization to intransitives
+	 	(conditional-modif-case (s-verb-obj s-verb-obj)
+	 		((change pron (add (agree)))
+	 		 (change noun (add (agree)))
+	 		 (change adj (add (agree)))
+	 		 (change art (add (agree))))))
+	  (reflexivization	; ++++++++++++++++++++++++++++++++++++++++++++
+		extending
+		(basic-trans)
+		t
+		(head-follows verb-obj)  ; the head comes after the object
+; *** actually, it must not be passive, but the condition blocks the
+;     the application to cases such as "si e' lavato", where the verbal
+;     form appears to be passive, although it is not: Unfortunately, this
+;     licences "si e' stato visto", which is incorrect
+                (modif-case (s-verb-obj s-verb-obj)
+                        ((cancel all-spec)
+                         (add ((pron (type refl-impers)))))))
+	  (inf-reflex
+; *** this rule shoud not exist; it should occur as a combination of the 
+;     rules of Infinitivization and Reflexivization. However, this raises the
+;     problem of the reflexivization order constraint that the reflexivized
+;     object precedes the verb (Giorgio si lava; incidentally, this is not the
+;     case for 'Giorgio lava se stesso'); however, this is not true for
+;     infinitives (Giorgio odia lavarsi). There are various solutions, but the
+;     simplest is to introduce a new rule where the ordering constraint is
+;     omitted.
+		extending
+		(basic-trans)
+		(is-inf-form)
+		t 
+                (modif-case (s-verb-obj s-verb-obj)
+                        ((cancel all-spec)
+                         (add ((pron (type refl-impers)))))))
+          (cliticization
+                replacing
+; *** this is for "I ragazzi lo hanno visto nel parco"
+		(basic-trans sent-obj-verbs)
+                (and (not (language (english)))
+                     (has-a-lobj-clitic))
+                t
+                (modif-case (s-verb-obj s-verb-obj)
+                        ((cancel all-spec)
+                         (add ((pron (case lobj) (clitic)
+                                     (precedes-adjacent) (type pers)))))))
+         (clit-impers
+                extending
+; *** this is for "Lo si e' visto nel parco". As for inf-reflex, this should
+;     be produced by a combination of cliticization and impersonalization.
+;     On the other hand, impersonalization sets the constraint that the
+;     object follows the verb (to keep impersonalization apart from
+;     reflexivization), which is not true in this case. As for
+;     da-infinitivization and for fronting-doubled-obj, this is a second
+;     level transformation with respect to cliticization. See the
+;     comments in da-infinitivization for the rationale for this
+		(basic-trans sent-obj-verbs)
+                (and (not (language (english)))
+                     (has-a-lobj-clitic))
+                t
+                (modif-case (s-verb-subj s-verb-subj+impers)
+                        ((cancel all-spec)
+                         (add ((pron (type refl-impers)))))))
+	  (fronting-doubled-obj 
+		extending
+; *** this is for "Luigi, molti lo hanno visto nel parco"
+;     "Luigi, molti li ha visti nel parco"
+;     "I funghi li ho trovati nel bosco"
+; *** the extraobj is not necessarily 'fronted':
+;     "non lo Conosceva neanche di vista Quel cristiano"
+		(basic-trans sent-obj-verbs)
+		(and (not (is-passive))
+		     (not (is-inf-form))
+                     (has-a-lobj-clitic))
+		t
+		(add-case (noun 
+			art
+			(pron (not (type refl-impers)) (case lobj))
+			(adj (semtype £geogr) (number pl))
+	       	        (adj (type (indef demons deitt interr poss)))
+; ALCUNI provvedimenti sono assurdi; QUESTI rari esemplari valgono molto
+; ALTRE proteste sono sorte ; QUALI domande sono permesse?
+		 	(conj (word-typ &base-subord-conj))
+			(prep (word-typ &base-subord-prep) (down (cat verb)))
+			(verb (mood infinite) (notmyaux)))
+		       s-verb-extraobj verb-extraobj))
+	  (dative
+		extending
+; *** this is for the English dative, i.e. for double-object constructions
+;     She gave the book to him ---> she gave him the book
+		(btrans-indobj trans-full-indobj)
+		(language (english))
+		t
+		(modif-case (s-verb-indobj s-verb-indobj)
+                        ((cancel all-spec)
+                         (add (noun
+                               (art (not (is-a-date)))
+                               (adj (semtype £geogr) (number pl))
+                               (adj (type (indef demons deitt interr poss)))
+                               (pron (not (type refl-impers)) (case lobj))
+                               num)))))
+					))
+
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+;			PREFERENCES AND CONSTRAINTS
+;$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+; *** the transformation in the pairs exclude each other. Stored both orders
+;     for simplicity. Check made by function 'check-tr-compatibility' in
+;     'SUBCATS/gr-interp'
+(setq *INCOMPATIBLE-TRANSF* 
+        '(
+          (causal-infinitivization-intrans (impersonalization reflexivization
+                          inf-reflex clit-impers infinitivization null-subj object-raising
+                          da-infinitivization causal-infinitivization-trans
+                          causal-infinitivization-indobj))
+          (causal-infinitivization-trans (passivization impersonalization reflexivization
+                          fronting-doubled-obj inf-reflex clit-impers infinitivization 
+                          null-subj object-raising da-infinitivization
+                          causal-infinitivization-indobj))
+          (causal-infinitivization-indobj (passivization impersonalization reflexivization
+                          fronting-doubled-obj inf-reflex clit-impers infinitivization 
+                          null-subj object-raising da-infinitivization
+                          causal-infinitivization-intrans causal-infinitivization-trans))
+          (clit-impers (impersonalization passivization reflexivization
+                        inf-reflex fronting-doubled-obj null-subj object-raising
+		        causal-infinitivization-intrans
+		        causal-infinitivization-trans causal-infinitivization-indobj))
+          (cliticization (passivization impersonalization reflexivization
+                          inf-reflex null-obj object-raising
+                          da-infinitivization))
+          (da-infinitivization (reflexivization passivization null-agt-compl ind-object-raising
+			null-obj object-raising cliticization causal-infinitivization-intrans
+		        causal-infinitivization-trans causal-infinitivization-indobj))
+          (fronting-doubled-obj (reflexivization clit-impers object-raising null-obj
+		      causal-infinitivization-trans causal-infinitivization-indobj))
+          (impersonalization (passivization reflexivization inf-reflex
+                          cliticization clit-impers null-subj causal-infinitivization-intrans
+			  causal-infinitivization-trans causal-infinitivization-indobj
+                          object-raising ind-object-raising))
+	  (ind-object-raising (cliticization clit-impers impersonalization
+			   fronting-doubled-obj null-agt-compl null-indobj
+			   da-infinitivization object-raising 
+                           object-and-ind-object-raising))
+          (inf-reflex (reflexivization passivization impersonalization
+                       cliticization clit-impers causal-infinitivization-intrans
+		       causal-infinitivization-trans causal-infinitivization-indobj))
+          (infinitivization (reflexivization null-subj causal-infinitivization-intrans
+		       causal-infinitivization-trans causal-infinitivization-indobj))
+          (null-agt-compl (da-infinitivization object-raising))
+          (null-subj (infinitivization impersonalization
+		      causal-infinitivization-intrans
+		      causal-infinitivization-trans causal-infinitivization-indobj))
+          (null-obj (cliticization da-infinitivization clit-impers fronting-doubled-obj
+		     object-raising passivization reflexivization))
+          (null-indobj (cliticization clit-impers ind-object-raising 
+                        object-and-ind-object-raising))
+	  (object-and-ind-object-raising (cliticization clit-impers impersonalization
+			   fronting-doubled-obj null-agt-compl null-obj null-indobj
+			   da-infinitivization object-raising ind-object-raising))
+	  (object-raising (passivization cliticization clit-impers impersonalization
+			   fronting-doubled-obj null-agt-compl null-obj
+			   da-infinitivization ind-object-raising 
+                           object-and-ind-object-raising))
+          (passivization (impersonalization reflexivization inf-reflex
+                          cliticization clit-impers da-infinitivization
+			  object-raising null-obj 
+			  causal-infinitivization-trans causal-infinitivization-indobj))
+          (reflexivization (passivization impersonalization infinitivization
+                        inf-reflex fronting-doubled-obj cliticization
+                        clit-impers da-infinitivization null-obj causal-infinitivization-intrans
+			causal-infinitivization-trans causal-infinitivization-indobj))
+                   ))
+
+; *** the following says that that t is possible that just one of the two 
+;     transformations, declared as obligatory (replacing), or both can be applied 
+;     They are both required if the applicability condition is satisfied
+;     separately (two unmarked items in the governing verb), and just one of 
+;     them can (and must) be applied if just one unmarked item exists above
+(setq *COMPLEMENTARY-TRANSF* 
+        '(
+          (object-raising ind-object-raising)))
+
+; *** the following are preferences on transformations. Used in
+;     SUBCATS/gr-interp/pattern-precedes
+
+(setq *TRANSF-PREFERENCES*
+        '((impersonalization (reflexivization null-subj))
+          (clit-impers (null-subj))
+          (reflexivization (null-subj))))
+
+; *** the following are preferences on classes. Used in 
+;     SUBCATS/gr-interp/pattern-precedes
+(setq *CLASS-PREFERENCES* 
+	'((basic-trans (modal intrans intrans-che-di intrans-yn))
+; ... trans ..........
+	  (trans (intrans intrans-che-di intrans-a intrans-sinf 
+		  trans-dir-disc intrans-pred refl-1 intrans-con
+		  trans-num-per refl-manner intrans-che intrans-yn
+		  intrans-q))
+	  (trans-a (trans))
+	  (trans-in (trans))
+	  (trans-per (trans))
+	  (trans-to-loc (trans intrans-to-loc intrans-a))
+	  (trans-theme (trans-a trans))
+	  (trans-dir-disc (intrans))
+	  (trans-sinf (trans intrans-sinf refl-manner intrans-che intrans-yn
+		       intrans-q trans-pred trans-compar basic-trans intrans-che-di
+		       colour-pred intrans))
+	  (trans-pred (trans basic-trans intrans-che-di intrans-yn
+		       intrans-q colour-pred intrans))
+	  (trans-su (trans trans-theme intrans-che-di trans-dir-disc))
+	  (trans-compar (basic-trans intrans-che-di intrans-yn intrans-q colour-pred
+			 intrans trans-pred))
+	  (trans2 (trans trans-a trsub2-yn trsub2-q trans-dir-disc trans-dest
+	  	   trans-pred))
+	  (trans-2 (trans))
+	  (intrans-indobj-che-di (trans trans2 trans-dir-disc))
+; ... refl ...........
+	  (refl (trans intrans))
+	  (refl-1 (trans trans2))
+	  (refl-a (refl))
+	  (refl-loc (trans))
+	  (refl-manner (intrans-che intrans-yn intrans-q))
+; ... intrans ........
+	  (intrans-to-loc (intrans-a intrans))
+	  (intrans-loc (intrans-loc-metaph))
+	  (intrans-topic (intrans-con intrans-indobj))
+	  (intrans-a (intrans))
+	  (intrans-a-che (intrans-ssubj))
+	  (intrans-indobj (intrans-a))
+	  (intrans-che-di (intrans-topic refl-1 refl-trans trans))
+; ... intrans-pred ...........
+	  (intrans-pred (intrans))
+; ... modal ..........
+	  (modal (basic-trans intrans-che))
+; ... locutions ......
+	  (aver-ragione (trans))
+	  (aver-bisogno (trans))
+	  (essere-da (intrans-time intrans-pred
+                           indef-loc intrans-loc intrans-su intrans-con
+                           intrans-num intrans-cosi intrans-che intrans-a
+                           intrans-loc-metaph))
+	  (essere-in-grado (intrans-time intrans-pred
+                           indef-loc intrans-loc intrans-su intrans-con
+                           intrans-num intrans-cosi intrans-che intrans-a
+                           intrans-loc-metaph))
+	  (trans-neg-che (trans-sinf trans intrans-sinf farsi-avanti))
+	  (trans-in-pratica (trans-to-loc trans intrans-che-di))
+	  (perdere-di-vista (trans))
+	  (prendere-parte (trans))
+	  (tenere-presente (trans))
+	  (trans-num-per (trans))
+	  (intrans-far-si (trans-sinf trans intrans-sinf))
+	  (venir-meno (intrans-to-loc intrans-a intrans))
+	  (farsi-avanti (trans-sinf trans intrans-sinf intrans-far-si))))
+
+; *** some labels are preferred over others depending on the order in which
+;     they appear in the actual pattern
+;     The important case is the one of subject-object. The subject occurs,
+;     usually, before the verb, and the object after it. This is important
+;     for verbs which are both transitive and intransitive. In fact, with
+;     a single unmarked case before the verb, the preferred reading is
+;     intransitive, whilst with an unmarked case after the verb, the
+;     interpretation transitive+pro-drop is better.
+; *** The third preference concerns mainly relpron+unmarked+verb; in this case,
+;     the relpron should be assigned the label object, and the other unmarked
+;     the label subject.
+; *** Note that the preferences are expressed as negative situations. A
+;     preference, in fact, includes two elements: an order 'disliked', and
+;     a constraint on the applicability of the preference.
+(setq *CASE-ORDER-PREFERENCES* 
+	'(((verb-obj head) 
+		(not-present verb-subj) 
+		(not-transf reflexivization)
+		(not-transf passivization))
+	  ((head verb-subj) 
+		(not-present verb-obj) 
+		(not-present pron-rmod-loc+metaph) 
+		(not-transf passivization))
+	  ((verb-subj verb-obj head) 
+		(not-transf impersonalization)
+		(not-transf cliticization)
+		(not-transf reflexivization))
+          ((verb-obj+q head) ())
+          ((verb-obj+yn head) ())))
+

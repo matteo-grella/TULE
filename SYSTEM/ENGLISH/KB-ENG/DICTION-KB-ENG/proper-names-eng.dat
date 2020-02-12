@@ -1,0 +1,62 @@
+; ***********************************************************************
+; *** This file includes English names.
+;     In particular "person names" and translated place names
+;     Note that English names of places (as "London", "Scotland") are in the
+;     file "proper-names-all.dat", since it includes all "local" names
+;     for geographic places, i.e. their names in the language spoken there
+
+; *** PERSON NAMES ******************************************************
+(Albert ((Albert cat noun proper yes gender m number sing semtype ££name)))
+(Alexandre ((Alexandre cat noun proper yes gender m number sing semtype ££name)))
+(Ann ((Ann cat noun proper yes gender f number sing semtype ££name)))
+(Anthony ((Anthony cat noun proper yes gender m number sing semtype ££name)))
+(August ((August cat noun proper yes gender m number sing semtype ££name)))
+(Barbara ((Barbara cat noun proper yes gender f number sing semtype ££name)))
+(David ((David cat noun proper yes gender m number sing semtype ££name)))
+(George ((George cat noun proper yes gender m number sing semtype ££name)))
+(Henry ((Henry cat noun proper yes gender m number sing semtype ££name)))
+(Joan ((Joan cat noun proper yes gender m number sing semtype ££name)))
+(Joe ((Joe cat noun proper yes gender m number sing semtype ££name)))
+(John ((John cat noun proper yes gender m number sing semtype ££name)))
+(Lucy ((Lucy cat noun proper yes gender f number sing semtype ££name)))
+(Mark ((Mark cat noun proper yes gender m number sing semtype ££name)))
+(Mary ((Mary cat noun proper yes gender f number sing semtype ££name)))
+(Mike ((Mike cat noun proper yes gender m number sing semtype ££name)))
+(Paul ((Paul cat noun proper yes gender m number sing semtype ££name)))
+(Peter ((Peter cat noun proper yes gender m number sing semtype ££name)))
+(Samuel ((Samuel cat noun proper yes gender m number sing semtype ££name)))
+(Simon ((Simon cat noun proper yes gender m number sing semtype ££name)))
+(Susan ((Susan cat noun proper yes gender f number sing semtype ££name)))
+
+; *** TRANSLATED PLACE NAMES ********************************************
+(Anvers ((Anvers cat noun proper yes gender n number sing semtype ££city)))
+(Athens ((Athens cat noun proper yes gender n number sing semtype ££city)))
+(Belgium ((Belgium cat noun proper yes gender m number sing semtype ££state)))
+(China ((China cat noun proper yes gender n number sing semtype ££state)))
+(Denmark ((Denmark cat noun proper yes gender n number sing semtype ££state)))
+(Egypt ((Egypt cat noun proper yes gender n number sing semtype ££state)))
+(Europe ((Europe cat noun proper yes gender n number sing semtype ££continent)))
+(Florence ((Florence cat noun proper yes gender n number sing semtype ££city)))
+(France ((France cat noun proper yes gender n number sing semtype ££state)))
+(Germany ((Germany cat noun proper yes gender n number sing semtype ££state)))
+(Iceland ((Iceland cat noun proper yes gender n number sing semtype ££state)))
+(Israel ((Israel cat noun proper yes gender m number sing semtype ££state)))
+(Italy ((Italy cat noun proper yes gender n number sing semtype ££state)))
+(Japan ((Japan cat noun proper yes gender n number sing semtype ££state)))
+(Jerusalem ((Jerusalem cat noun proper yes gender n number sing semtype ££city)))
+(Jordan ((Jordan cat noun proper yes gender n number sing semtype ££state)))
+(Luxemburg ((Luxemburg cat noun proper yes gender m number sing semtype ££state)))
+(Milan ((Milan cat noun proper yes gender n number sing semtype ££city)))
+(Naples ((Naples cat noun proper yes gender n number sing semtype ££city)))
+(Norway ((Norway cat noun proper yes gender n number sing semtype ££state)))
+(Palestine ((Palestine cat noun proper yes gender n number sing semtype ££state)))
+(Peking ((Peking cat noun proper yes gender n number sing semtype ££city)))
+(Poland ((Poland cat noun proper yes gender n number sing semtype ££state)))
+(Praha ((Praha cat noun proper yes gender n number sing semtype ££city)))
+(Rome ((Rome cat noun proper yes gender n number sing semtype ££city)))
+(Spain ((Spain cat noun proper yes gender n number sing semtype ££state)))
+(Turin ((Turin cat noun proper yes gender n number sing semtype ££city)))
+(Venice ((Venice cat noun proper yes gender n number sing semtype ££city)))
+
+; *** TRANSLATED FAMOUS PERSON NAMES ********************************************
+(Plato ((Plato cat noun proper yes gender m number sing semtype ££philosopher-name)))

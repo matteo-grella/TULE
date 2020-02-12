@@ -1,0 +1,8 @@
+(setq *SUBJ-CONTROL-VERBS*
+  '(croire penser |préférer| promettre retenir))
+    
+(setq *OBJ-CONTROL-VERBS*
+  '(autoriser voir))
+    
+(setq *INDOBJ-CONTROL-VERBS*
+  '(permettre))
